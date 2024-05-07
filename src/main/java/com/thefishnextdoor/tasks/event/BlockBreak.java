@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TriggerType;
+import com.thefishnextdoor.tasks.toolkit.InventoryTools;
 
 public class BlockBreak implements Listener {
 
@@ -17,7 +18,7 @@ public class BlockBreak implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
         Block block = event.getBlock();
-        ItemStack item = player.getInventory().getItemInMainHand();
+        ItemStack item = InventoryTools.getItemInHand(player);
         playerProfile.triggerTasks(TriggerType.BREAK_BLOCK, null, item, block, 1);
     }
 }
