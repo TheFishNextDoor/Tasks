@@ -58,7 +58,7 @@ public class PlayerProfile {
             }
         }
 
-        refresh();
+        refreshTasks();
         
         playerProfiles.putIfAbsent(uuid, this);
     }
@@ -119,7 +119,7 @@ public class PlayerProfile {
         tasks.forEach(task -> task.trigger(triggerType, entity, item, block, amount));
     }
 
-    public void refresh() {
+    public void refreshTasks() {
         checkExpiredTasks();
         populateTasks();
     }
@@ -188,8 +188,8 @@ public class PlayerProfile {
         return playerProfile;
     }
 
-    public static void refreshAll() {
-        playerProfiles.values().forEach(PlayerProfile::refresh);
+    public static void refreshAllTasks() {
+        playerProfiles.values().forEach(PlayerProfile::refreshTasks);
     }
 
     public static void saveAll() {

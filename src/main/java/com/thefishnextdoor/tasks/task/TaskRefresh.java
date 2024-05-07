@@ -14,7 +14,7 @@ public class TaskRefresh {
             return;
         }
         id = Bukkit.getScheduler().scheduleSyncRepeatingTask(TasksPlugin.getInstance(), () -> {
-            PlayerProfile.refreshAll();
+            PlayerProfile.refreshAllTasks();
         }, 20 * 60, 20 * 60);
     }
 
