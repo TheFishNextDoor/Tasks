@@ -1,0 +1,6 @@
+task1:
+  triggers:
+  - block_break
+  block-materials:
+  - DIAMOND_ORE
+  amount: 1

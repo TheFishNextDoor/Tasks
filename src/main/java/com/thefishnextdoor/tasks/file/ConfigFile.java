@@ -12,7 +12,7 @@ public class ConfigFile {
         File configFile = new File(getFolder(), name + ".yml");
         if (!configFile.exists()) {
             try {
-                TasksPlugin.getInstance().saveResource(name, false);
+                TasksPlugin.getInstance().saveResource(name + ".yml", false);
             } catch (Exception e) {
                 e.printStackTrace();
             }

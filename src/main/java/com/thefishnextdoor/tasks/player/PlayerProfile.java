@@ -1,10 +1,10 @@
 package com.thefishnextdoor.tasks.player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -22,7 +22,7 @@ import com.thefishnextdoor.tasks.task.TriggerType;
 
 public class PlayerProfile {
 
-    private static HashMap<UUID, PlayerProfile> playerProfiles = new HashMap<>();
+    private static ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
 
     private final UUID uuid;
 
@@ -60,7 +60,7 @@ public class PlayerProfile {
 
         refresh();
         
-        playerProfiles.put(uuid, this);
+        playerProfiles.putIfAbsent(uuid, this);
     }
 
     public void save() {
@@ -78,6 +78,10 @@ public class PlayerProfile {
         }
 
         DataFile.save(id, playerData);
+
+        if (!isOnline()) {
+            playerProfiles.remove(uuid);
+        }
     }
 
     public Optional<Player> getPlayer() {
@@ -149,6 +153,22 @@ public class PlayerProfile {
         }
     }
 
+    public static void load(Player player) {
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null");
+        }
+        load(player.getUniqueId());
+    }
+
+    public static void load(UUID uuid) {
+        if (uuid == null) {
+            throw new IllegalArgumentException("UUID cannot be null");
+        }
+        Bukkit.getScheduler().runTaskAsynchronously(TasksPlugin.getInstance(), () -> {
+            get(uuid);
+        });
+    }
+
     public static PlayerProfile get(Player player) {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null");
@@ -170,5 +190,9 @@ public class PlayerProfile {
 
     public static void refreshAll() {
         playerProfiles.values().forEach(PlayerProfile::refresh);
+    }
+
+    public static void saveAll() {
+        playerProfiles.values().forEach(PlayerProfile::save);
     }
 }

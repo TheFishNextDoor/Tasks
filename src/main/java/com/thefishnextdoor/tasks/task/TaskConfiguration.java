@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World.Environment;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -28,12 +29,20 @@ public class TaskConfiguration {
     private static HashMap<String, TaskConfiguration> taskConfigurations = new HashMap<>();
 
     private static List<String> settings = List.of(
+        "amount",
+        "min-level",
+        "max-level",
+        "reward-money",
+        "reward-xp",
+        "triggers",
         "min-x",
         "max-x",
         "min-y",
         "max-y",
         "min-z",
         "max-z",
+        "worlds",
+        "environments",
         "biomes",
         "entity-names",
         "entity-types",
@@ -56,7 +65,7 @@ public class TaskConfiguration {
     private int rewardXp;
 
     // Conditions
-    private HashSet<TriggerType> triggers;
+    private HashSet<TriggerType> triggers = new HashSet<>();
 
     private Integer minX = null;
     private Integer maxX = null;
@@ -65,6 +74,8 @@ public class TaskConfiguration {
     private Integer minZ = null;
     private Integer maxZ = null;
 
+    private HashSet<String> worlds = new HashSet<>();
+    private HashSet<Environment> environments = new HashSet<>();
     private HashSet<Biome> biomes = new HashSet<>();
 
     private HashSet<String> entityNames = new HashSet<>();
@@ -94,6 +105,28 @@ public class TaskConfiguration {
             }
         }
 
+        amount = Math.max(config.getInt(id + ".amount"), 1);
+
+        if (config.contains(id + ".min-level")) {
+            minLevel = config.getInt(id + ".min-level");
+        }
+        if (config.contains(id + ".max-level")) {
+            maxLevel = config.getInt(id + ".max-level");
+        }
+        
+        rewardMoney = config.getDouble(id + ".reward-money");
+        rewardXp = config.getInt(id + ".reward-xp");
+
+        for (String triggerName : config.getStringList(id + ".triggers")) {
+            TriggerType trigger = EnumTools.fromString(TriggerType.class, triggerName);
+            if (trigger == null) {
+                logger.warning("Invalid trigger for task " + id + ": " + triggerName);
+                logger.warning("Valid triggers are: " + EnumTools.allStrings(TriggerType.class));
+                continue;
+            }
+            triggers.add(trigger);
+        }
+
         if (config.contains(id + ".min-x")) {
             minX = config.getInt(id + ".min-x");
         }
@@ -111,6 +144,20 @@ public class TaskConfiguration {
         }
         if (config.contains(id + ".max-z")) {
             maxZ = config.getInt(id + ".max-z");
+        }
+
+        for (String worldName : config.getStringList(id + ".worlds")) {
+            worlds.add(worldName);
+        }
+
+        for (String environmentName : config.getStringList(id + ".environments")) {
+            Environment environment = EnumTools.fromString(Environment.class, environmentName);
+            if (environment == null) {
+                logger.warning("Invalid environment for task " + id + ": " + environmentName);
+                logger.warning("Valid environments are: " + EnumTools.allStrings(Environment.class));
+                continue;
+            }
+            environments.add(environment);
         }
 
         for (String biomeName : config.getStringList(id + ".biomes")) {
@@ -245,6 +292,14 @@ public class TaskConfiguration {
             return false;
         }
         if (maxZ != null && location.getBlockZ() > maxZ) {
+            return false;
+        }
+
+        if (!worlds.isEmpty() && !worlds.contains(location.getWorld().getName())) {
+            return false;
+        }
+
+        if (!environments.isEmpty() && !environments.contains(location.getWorld().getEnvironment())) {
             return false;
         }
 

@@ -9,6 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.thefishnextdoor.tasks.command.Tasks;
 import com.thefishnextdoor.tasks.event.BlockBreak;
 import com.thefishnextdoor.tasks.event.BlockPlace;
+import com.thefishnextdoor.tasks.player.AutoSave;
+import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TaskRefresh;
 
@@ -27,13 +29,16 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new BlockBreak(), this);
         pluginManager.registerEvents(new BlockPlace(), this);
 
+        AutoSave.start();
         TaskRefresh.start();
 
         getLogger().info("Plugin enabled");
     }
 
     public void onDisable() {
+        AutoSave.stop();
         TaskRefresh.stop();
+        PlayerProfile.saveAll();
         getLogger().info("Plugin disabled");
     }
 
