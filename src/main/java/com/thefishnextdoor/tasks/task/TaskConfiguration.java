@@ -32,6 +32,7 @@ public class TaskConfiguration {
         "amount",
         "min-level",
         "max-level",
+        "permission",
         "reward-money",
         "reward-xp",
         "triggers",
@@ -59,6 +60,8 @@ public class TaskConfiguration {
     // Requirements
     private Integer minLevel = null;
     private Integer maxLevel = null;
+
+    private String permission = null;
 
     // Rewards
     private double rewardMoney;
@@ -105,17 +108,19 @@ public class TaskConfiguration {
             }
         }
 
-        amount = Math.max(config.getInt(id + ".amount"), 1);
+        this.amount = Math.max(config.getInt(id + ".amount"), 1);
 
         if (config.contains(id + ".min-level")) {
-            minLevel = config.getInt(id + ".min-level");
+            this.minLevel = config.getInt(id + ".min-level");
         }
         if (config.contains(id + ".max-level")) {
-            maxLevel = config.getInt(id + ".max-level");
+            this.maxLevel = config.getInt(id + ".max-level");
         }
+
+        this.permission = config.getString(id + ".permission");
         
-        rewardMoney = config.getDouble(id + ".reward-money");
-        rewardXp = config.getInt(id + ".reward-xp");
+        this.rewardMoney = config.getDouble(id + ".reward-money");
+        this.rewardXp = config.getInt(id + ".reward-xp");
 
         for (String triggerName : config.getStringList(id + ".triggers")) {
             TriggerType trigger = EnumTools.fromString(TriggerType.class, triggerName);
@@ -124,14 +129,14 @@ public class TaskConfiguration {
                 logger.warning("Valid triggers are: " + EnumTools.allStrings(TriggerType.class));
                 continue;
             }
-            triggers.add(trigger);
+            this.triggers.add(trigger);
         }
-        if (triggers.isEmpty()) {
+        if (this.triggers.isEmpty()) {
             logger.warning("No triggers for task " + id);
         }
 
         for (String worldName : config.getStringList(id + ".worlds")) {
-            worlds.add(worldName);
+            this.worlds.add(worldName);
         }
 
         for (String environmentName : config.getStringList(id + ".environments")) {
@@ -141,7 +146,7 @@ public class TaskConfiguration {
                 logger.warning("Valid environments are: " + EnumTools.allStrings(Environment.class));
                 continue;
             }
-            environments.add(environment);
+            this.environments.add(environment);
         }
 
         for (String biomeName : config.getStringList(id + ".biomes")) {
@@ -151,30 +156,30 @@ public class TaskConfiguration {
                 logger.warning("Valid biomes are: " + EnumTools.allStrings(Biome.class));
                 continue;
             }
-            biomes.add(biome);
+            this.biomes.add(biome);
         }
 
         if (config.contains(id + ".min-x")) {
-            minX = config.getInt(id + ".min-x");
+            this.minX = config.getInt(id + ".min-x");
         }
         if (config.contains(id + ".max-x")) {
-            maxX = config.getInt(id + ".max-x");
+            this.maxX = config.getInt(id + ".max-x");
         }
         if (config.contains(id + ".min-y")) {
-            minY = config.getInt(id + ".min-y");
+            this.minY = config.getInt(id + ".min-y");
         }
         if (config.contains(id + ".max-y")) {
-            maxY = config.getInt(id + ".max-y");
+            this.maxY = config.getInt(id + ".max-y");
         }
         if (config.contains(id + ".min-z")) {
-            minZ = config.getInt(id + ".min-z");
+            this.minZ = config.getInt(id + ".min-z");
         }
         if (config.contains(id + ".max-z")) {
-            maxZ = config.getInt(id + ".max-z");
+            this.maxZ = config.getInt(id + ".max-z");
         }
 
         for (String entityName : config.getStringList(id + ".entity-names")) {
-            entityNames.add(entityName);
+            this.entityNames.add(entityName);
         }
 
         for (String entityTypeName : config.getStringList(id + ".entity-types")) {
@@ -184,7 +189,7 @@ public class TaskConfiguration {
                 logger.warning("Valid entity types are: " + EnumTools.allStrings(EntityType.class));
                 continue;
             }
-            entityTypes.add(entityType);
+            this.entityTypes.add(entityType);
         }
 
         for (String spawnCategoryName : config.getStringList(id + ".spawn-categories")) {
@@ -194,11 +199,11 @@ public class TaskConfiguration {
                 logger.warning("Valid spawn categories are: " + EnumTools.allStrings(SpawnCategory.class));
                 continue;
             }
-            spawnCategories.add(spawnCategory);
+            this.spawnCategories.add(spawnCategory);
         }
 
         for (String itemName : config.getStringList(id + ".item-names")) {
-            itemNames.add(itemName);
+            this.itemNames.add(itemName);
         }
 
         for (String itemMaterialName : config.getStringList(id + ".item-materials")) {
@@ -208,7 +213,7 @@ public class TaskConfiguration {
                 logger.warning("Valid item materials are: " + EnumTools.allStrings(Material.class));
                 continue;
             }
-            itemMaterials.add(itemMaterial);
+            this.itemMaterials.add(itemMaterial);
         }
 
         for (String blockMaterialName : config.getStringList(id + ".block-materials")) {
@@ -218,7 +223,7 @@ public class TaskConfiguration {
                 logger.warning("Valid block materials are: " + EnumTools.allStrings(Material.class));
                 continue;
             }
-            blockMaterials.add(blockMaterial);
+            this.blockMaterials.add(blockMaterial);
         }
 
         taskConfigurations.put(id, this);
@@ -243,6 +248,13 @@ public class TaskConfiguration {
     public boolean meetsRequirements(PlayerProfile playerProfile) {
         if (playerProfile == null) {
             throw new IllegalArgumentException("Player profile cannot be null");
+        }
+        Optional<Player> player = playerProfile.getPlayer();
+        if (!player.isPresent()) {
+            return false;
+        }
+        if (permission != null && !player.get().hasPermission(permission)) {
+            return false;
         }
         if (playerProfile.hasTask(id)) {
             return false;
