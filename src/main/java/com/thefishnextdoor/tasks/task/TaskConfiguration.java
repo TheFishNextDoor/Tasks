@@ -126,6 +126,9 @@ public class TaskConfiguration {
             }
             triggers.add(trigger);
         }
+        if (triggers.isEmpty()) {
+            logger.warning("No triggers for task " + id);
+        }
 
         for (String worldName : config.getStringList(id + ".worlds")) {
             worlds.add(worldName);
@@ -261,7 +264,7 @@ public class TaskConfiguration {
             throw new IllegalArgumentException("Player cannot be null");
         }
 
-        if (!triggers.isEmpty() && !triggers.contains(trigger)) {
+        if (!triggers.contains(trigger)) {
             return false;
         }
 
