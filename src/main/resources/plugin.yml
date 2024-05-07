@@ -1,4 +1,10 @@
 name: Tasks
-main: com.thefishnextdoor.tasks.Tasks
+main: com.thefishnextdoor.tasks.TasksPlugin
 version: 0.0.1
 api-version: 1.15
+author: TheFishNextDoor
+description: A simple task plugin
+commands:
+  tasks:
+    description: List your current tasks
+    usage: /tasks
