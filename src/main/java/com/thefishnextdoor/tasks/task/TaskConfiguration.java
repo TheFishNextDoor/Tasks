@@ -67,16 +67,16 @@ public class TaskConfiguration {
     // Conditions
     private HashSet<TriggerType> triggers = new HashSet<>();
 
+    private HashSet<String> worlds = new HashSet<>();
+    private HashSet<Environment> environments = new HashSet<>();
+    private HashSet<Biome> biomes = new HashSet<>();
+
     private Integer minX = null;
     private Integer maxX = null;
     private Integer minY = null;
     private Integer maxY = null;
     private Integer minZ = null;
     private Integer maxZ = null;
-
-    private HashSet<String> worlds = new HashSet<>();
-    private HashSet<Environment> environments = new HashSet<>();
-    private HashSet<Biome> biomes = new HashSet<>();
 
     private HashSet<String> entityNames = new HashSet<>();
     private HashSet<EntityType> entityTypes = new HashSet<>();
@@ -127,25 +127,6 @@ public class TaskConfiguration {
             triggers.add(trigger);
         }
 
-        if (config.contains(id + ".min-x")) {
-            minX = config.getInt(id + ".min-x");
-        }
-        if (config.contains(id + ".max-x")) {
-            maxX = config.getInt(id + ".max-x");
-        }
-        if (config.contains(id + ".min-y")) {
-            minY = config.getInt(id + ".min-y");
-        }
-        if (config.contains(id + ".max-y")) {
-            maxY = config.getInt(id + ".max-y");
-        }
-        if (config.contains(id + ".min-z")) {
-            minZ = config.getInt(id + ".min-z");
-        }
-        if (config.contains(id + ".max-z")) {
-            maxZ = config.getInt(id + ".max-z");
-        }
-
         for (String worldName : config.getStringList(id + ".worlds")) {
             worlds.add(worldName);
         }
@@ -168,6 +149,25 @@ public class TaskConfiguration {
                 continue;
             }
             biomes.add(biome);
+        }
+
+        if (config.contains(id + ".min-x")) {
+            minX = config.getInt(id + ".min-x");
+        }
+        if (config.contains(id + ".max-x")) {
+            maxX = config.getInt(id + ".max-x");
+        }
+        if (config.contains(id + ".min-y")) {
+            minY = config.getInt(id + ".min-y");
+        }
+        if (config.contains(id + ".max-y")) {
+            maxY = config.getInt(id + ".max-y");
+        }
+        if (config.contains(id + ".min-z")) {
+            minZ = config.getInt(id + ".min-z");
+        }
+        if (config.contains(id + ".max-z")) {
+            maxZ = config.getInt(id + ".max-z");
         }
 
         for (String entityName : config.getStringList(id + ".entity-names")) {
@@ -276,6 +276,18 @@ public class TaskConfiguration {
             location = player.getLocation();
         }
 
+        if (!worlds.isEmpty() && !worlds.contains(location.getWorld().getName())) {
+            return false;
+        }
+
+        if (!environments.isEmpty() && !environments.contains(location.getWorld().getEnvironment())) {
+            return false;
+        }
+
+        if (!biomes.isEmpty() && !biomes.contains(location.getBlock().getBiome())) {
+            return false;
+        }
+
         if (minX != null && location.getBlockX() < minX) {
             return false;
         }
@@ -292,18 +304,6 @@ public class TaskConfiguration {
             return false;
         }
         if (maxZ != null && location.getBlockZ() > maxZ) {
-            return false;
-        }
-
-        if (!worlds.isEmpty() && !worlds.contains(location.getWorld().getName())) {
-            return false;
-        }
-
-        if (!environments.isEmpty() && !environments.contains(location.getWorld().getEnvironment())) {
-            return false;
-        }
-
-        if (!biomes.isEmpty() && !biomes.contains(location.getBlock().getBiome())) {
             return false;
         }
 
