@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.thefishnextdoor.tasks.command.Tasks;
 import com.thefishnextdoor.tasks.event.BlockBreak;
 import com.thefishnextdoor.tasks.event.BlockPlace;
+import com.thefishnextdoor.tasks.event.PlayerJoin;
 import com.thefishnextdoor.tasks.player.AutoSave;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
@@ -26,6 +27,7 @@ public class TasksPlugin extends JavaPlugin {
         registerCommand("tasks", new Tasks());
 
         PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new PlayerJoin(), this);
         pluginManager.registerEvents(new BlockBreak(), this);
         pluginManager.registerEvents(new BlockPlace(), this);
 
