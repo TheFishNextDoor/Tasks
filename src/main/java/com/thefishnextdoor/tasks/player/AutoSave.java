@@ -15,8 +15,6 @@ public class AutoSave {
         Bukkit.getScheduler().runTaskTimerAsynchronously(TasksPlugin.getInstance(), () -> {
             PlayerProfile.saveAll();
         }, 20 * 60 * 5, 20 * 60 * 5);
-
-        
     }
 
     public static void stop() {
