@@ -171,7 +171,9 @@ public class PlayerProfile {
         while (tasks.size() < maxTasks && i++ < maxTasks * 2) {
             TaskConfiguration task = possibleTasks.get((int) (Math.random() * possibleTasks.size()));
             if (!hasTask(task.getId())) {
-                tasks.add(new PlayerTask(task, this, 0, System.currentTimeMillis() + 1000 * 60 * 60 * 24));
+                long timeLimitMS = task.getTimeLimitMS();
+                long expireTime = timeLimitMS == 0 ? 0 : System.currentTimeMillis() + timeLimitMS;
+                tasks.add(new PlayerTask(task, this, 0, expireTime));
                 getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "New Task: " + ChatColor.WHITE + task.toString()));
             }
         }

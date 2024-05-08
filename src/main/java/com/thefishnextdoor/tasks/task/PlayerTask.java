@@ -38,7 +38,37 @@ public class PlayerTask {
 
     @Override
     public String toString() {
-        return taskConfiguration.toString() + " (" + progress + "/" + taskConfiguration.getAmount() + ")";
+        String progressSection;
+        if (completed) {
+            progressSection = ChatColor.WHITE + " (" + ChatColor.GREEN + "Completed" + ChatColor.WHITE + ")";
+        } else {
+            progressSection = ChatColor.WHITE + " (" + ChatColor.BLUE + progress + "/" + taskConfiguration.getAmount() + ChatColor.WHITE + ")";
+        }
+
+        String expireSection;
+        if (canExpire()) {
+            long timeLeft = expires - System.currentTimeMillis();
+            if (timeLeft <= 0) {
+                expireSection = ChatColor.WHITE + " (" + ChatColor.RED + "0s left" + ChatColor.WHITE + ")";
+            } 
+            else if (timeLeft < 60000) {
+                expireSection = ChatColor.WHITE + " (" + ChatColor.GOLD + timeLeft / 1000 + "s left" + ChatColor.WHITE + ")";
+            } 
+            else if (timeLeft < 3600000) {
+                expireSection = ChatColor.WHITE + " (" + ChatColor.YELLOW + timeLeft / 60000 + "m left" + ChatColor.WHITE + ")";
+            } 
+            else if (timeLeft < 86400000) {
+                expireSection = ChatColor.WHITE + " (" + ChatColor.GREEN + timeLeft / 3600000 + "h left" + ChatColor.WHITE + ")";
+            } 
+            else {
+                expireSection = ChatColor.WHITE + " (" + ChatColor.AQUA + timeLeft / 86400000 + "d left" + ChatColor.WHITE + ")";
+            }
+        }
+        else {
+            expireSection = "";
+        }
+
+        return taskConfiguration.toString() + progressSection + expireSection;
     }
 
     public TaskConfiguration getTaskConfiguration() {
@@ -58,7 +88,11 @@ public class PlayerTask {
     }
 
     public boolean isExpired() {
-        return System.currentTimeMillis() > expires;
+        return canExpire() && System.currentTimeMillis() > expires;
+    }
+
+    public boolean canExpire() {
+        return expires != 0;
     }
 
     public void trigger(TriggerType triggerType, Entity entity, ItemStack item, Block block, int amount) {

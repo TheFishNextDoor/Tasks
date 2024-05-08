@@ -31,6 +31,7 @@ public class TaskConfiguration {
     private static List<String> settings = List.of(
         "amount",
         "message",
+        "time-limit-minutes",
         "repeatable",
         "min-level",
         "max-level",
@@ -61,6 +62,8 @@ public class TaskConfiguration {
     private int amount;
 
     private String message = null;
+
+    private long timeLimitMS = 0;
 
     // Requirements
     private boolean repeatable = true;
@@ -118,6 +121,8 @@ public class TaskConfiguration {
         }
 
         this.amount = Math.max(config.getInt(id + ".amount"), 1);
+
+        this.timeLimitMS = Math.max(config.getInt(id + ".time-limit-minutes") * 60000, 0);
 
         this.message = config.getString(id + ".message");
 
@@ -264,6 +269,10 @@ public class TaskConfiguration {
 
     public int getAmount() {
         return amount;
+    }
+
+    public long getTimeLimitMS() {
+        return timeLimitMS;
     }
 
     public double getRewardMoney() {
