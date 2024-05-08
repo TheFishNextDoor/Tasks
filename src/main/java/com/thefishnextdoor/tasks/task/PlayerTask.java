@@ -77,6 +77,7 @@ public class PlayerTask {
             return;
         }
         finished = true;
+        playerProfile.getCompletedTasks().add(taskConfiguration.getId());
         playerProfile.addXp(taskConfiguration.getRewardXp());
         // TODO: reward money
     }

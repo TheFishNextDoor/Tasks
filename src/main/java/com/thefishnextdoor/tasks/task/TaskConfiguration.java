@@ -30,8 +30,10 @@ public class TaskConfiguration {
 
     private static List<String> settings = List.of(
         "amount",
+        "repeatable",
         "min-level",
         "max-level",
+        "prerequisite-tasks",
         "permission",
         "reward-money",
         "reward-xp",
@@ -58,8 +60,12 @@ public class TaskConfiguration {
     private int amount;
 
     // Requirements
+    private boolean repeatable = true;
+
     private Integer minLevel = null;
     private Integer maxLevel = null;
+
+    private ArrayList<String> prerequisiteTasks = new ArrayList<>();
 
     private String permission = null;
 
@@ -110,12 +116,18 @@ public class TaskConfiguration {
 
         this.amount = Math.max(config.getInt(id + ".amount"), 1);
 
+        if (config.contains(id + ".repeatable")) {
+            this.repeatable = config.getBoolean(id + ".repeatable");
+        }
+
         if (config.contains(id + ".min-level")) {
             this.minLevel = config.getInt(id + ".min-level");
         }
         if (config.contains(id + ".max-level")) {
             this.maxLevel = config.getInt(id + ".max-level");
         }
+
+        this.prerequisiteTasks.addAll(config.getStringList(id + ".prerequisite-tasks"));
 
         this.permission = config.getString(id + ".permission");
         
@@ -249,6 +261,12 @@ public class TaskConfiguration {
         if (playerProfile == null) {
             throw new IllegalArgumentException("Player profile cannot be null");
         }
+        if (playerProfile.hasTask(id)) {
+            return false;
+        }
+        if (!repeatable && playerProfile.hasCompletedTask(id)) {
+            return false;
+        }
         Optional<Player> player = playerProfile.getPlayer();
         if (!player.isPresent()) {
             return false;
@@ -256,14 +274,16 @@ public class TaskConfiguration {
         if (permission != null && !player.get().hasPermission(permission)) {
             return false;
         }
-        if (playerProfile.hasTask(id)) {
-            return false;
-        }
         if (minLevel != null && playerProfile.getLevel() < minLevel) {
             return false;
         }
         if (maxLevel != null && playerProfile.getLevel() > maxLevel) {
             return false;
+        }
+        for (String prerequisiteTask : prerequisiteTasks) {
+            if (!playerProfile.hasCompletedTask(prerequisiteTask)) {
+                return false;
+            }
         }
         return true;
     }

@@ -1,6 +1,7 @@
 package com.thefishnextdoor.tasks.player;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,6 +33,8 @@ public class PlayerProfile {
 
     private ArrayList<PlayerTask> tasks = new ArrayList<>();
 
+    private HashSet<String> completedTasks = new HashSet<>();
+
     private PlayerProfile(UUID uuid) {
         if (uuid == null) {
             throw new IllegalArgumentException("UUID cannot be null");
@@ -58,6 +61,10 @@ public class PlayerProfile {
             }
         }
 
+        for (String taskId : playerData.getStringList(id + ".completed-tasks")) {
+            completedTasks.add(taskId);
+        }
+
         refreshTasks();
         
         playerProfiles.putIfAbsent(uuid, this);
@@ -76,6 +83,8 @@ public class PlayerProfile {
             playerData.set("tasks." + taskId + ".progress", task.getProgress());
             playerData.set("tasks." + taskId + ".expires", task.getExpires());
         }
+
+        playerData.set(id + ".completed-tasks", new ArrayList<>(completedTasks));
 
         DataFile.save(id, playerData);
 
@@ -111,8 +120,16 @@ public class PlayerProfile {
         return tasks;
     }
 
+    public HashSet<String> getCompletedTasks() {
+        return completedTasks;
+    }
+
     public boolean hasTask(String id) {
         return tasks.stream().anyMatch(task -> task.getTaskConfiguration().getId().equals(id));
+    }
+
+    public boolean hasCompletedTask(String id) {
+        return completedTasks.contains(id);
     }
 
     public void triggerTasks(TriggerType triggerType, Entity entity, ItemStack item, Block block, int amount) {
