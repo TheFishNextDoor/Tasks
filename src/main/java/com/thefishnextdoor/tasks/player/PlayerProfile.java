@@ -61,7 +61,7 @@ public class PlayerProfile {
             }
         }
 
-        for (String taskId : playerData.getStringList(id + ".completed-tasks")) {
+        for (String taskId : playerData.getStringList(".completed-tasks")) {
             completedTasks.add(taskId);
         }
 
@@ -84,7 +84,7 @@ public class PlayerProfile {
             playerData.set("tasks." + taskId + ".expires", task.getExpires());
         }
 
-        playerData.set(id + ".completed-tasks", new ArrayList<>(completedTasks));
+        playerData.set(".completed-tasks", new ArrayList<>(completedTasks));
 
         DataFile.save(id, playerData);
 
