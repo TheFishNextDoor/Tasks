@@ -30,6 +30,7 @@ public class TaskConfiguration {
 
     private static List<String> settings = List.of(
         "amount",
+        "message",
         "repeatable",
         "min-level",
         "max-level",
@@ -58,6 +59,8 @@ public class TaskConfiguration {
     private final String id;
 
     private int amount;
+
+    private String message = null;
 
     // Requirements
     private boolean repeatable = true;
@@ -115,6 +118,8 @@ public class TaskConfiguration {
         }
 
         this.amount = Math.max(config.getInt(id + ".amount"), 1);
+
+        this.message = config.getString(id + ".message");
 
         if (config.contains(id + ".repeatable")) {
             this.repeatable = config.getBoolean(id + ".repeatable");
@@ -239,6 +244,18 @@ public class TaskConfiguration {
         }
 
         taskConfigurations.put(id, this);
+    }
+
+    @Override
+    public String toString() {
+        if (message != null) {
+            String formattedMessage = message;
+            formattedMessage = message.replace("{total}", String.valueOf(amount));
+            return formattedMessage;
+        }
+        else {
+            return id;
+        }
     }
 
     public String getId() {

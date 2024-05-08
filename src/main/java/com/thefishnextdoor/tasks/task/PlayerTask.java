@@ -36,7 +36,7 @@ public class PlayerTask {
 
     @Override
     public String toString() {
-        return taskConfiguration.getId() + " (" + progress + "/" + taskConfiguration.getAmount() + ")";
+        return taskConfiguration.toString() + " (" + progress + "/" + taskConfiguration.getAmount() + ")";
     }
 
     public TaskConfiguration getTaskConfiguration() {
