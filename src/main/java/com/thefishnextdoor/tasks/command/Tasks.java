@@ -30,7 +30,7 @@ public class Tasks implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
         PlayerProfile profile = PlayerProfile.get(player);
 
-        player.sendMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Tasks");
+        player.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "Tasks");
         Integer i = 1;
         for (PlayerTask task : profile.getTasks()) {
             player.sendMessage(i.toString() + ". " + task.toString());

@@ -21,6 +21,8 @@ import com.thefishnextdoor.tasks.task.PlayerTask;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TriggerType;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class PlayerProfile {
 
     private static ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
@@ -145,8 +147,12 @@ public class PlayerProfile {
         Iterator<PlayerTask> taskIter = tasks.iterator();
         while (taskIter.hasNext()) {
             PlayerTask task = taskIter.next();
-            if (task.isExpired()) {
+            if (task.isCompleted()) {
                 taskIter.remove();
+            } 
+            else if (task.isExpired()) {
+                taskIter.remove();
+                getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "Task expired: " + ChatColor.WHITE + task.getTaskConfiguration().toString()));
             }
         }
     }
@@ -166,6 +172,7 @@ public class PlayerProfile {
             TaskConfiguration task = possibleTasks.get((int) (Math.random() * possibleTasks.size()));
             if (!hasTask(task.getId())) {
                 tasks.add(new PlayerTask(task, this, 0, System.currentTimeMillis() + 1000 * 60 * 60 * 24));
+                getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "New task: " + ChatColor.WHITE + task.toString()));
             }
         }
     }

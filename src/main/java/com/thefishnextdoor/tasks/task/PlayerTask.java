@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class PlayerTask {
 
     private TaskConfiguration taskConfiguration;
@@ -19,7 +21,7 @@ public class PlayerTask {
 
     private long expires;
 
-    private boolean finished;
+    private boolean completed;
 
     public PlayerTask(TaskConfiguration taskConfiguration, PlayerProfile playerProfile, int progress, long expires) {
         if (taskConfiguration == null) {
@@ -47,12 +49,16 @@ public class PlayerTask {
         return progress;
     }
 
+    public boolean isCompleted() {
+        return completed;
+    }
+
     public long getExpires() {
         return expires;
     }
 
     public boolean isExpired() {
-        return finished || System.currentTimeMillis() > expires;
+        return System.currentTimeMillis() > expires;
     }
 
     public void trigger(TriggerType triggerType, Entity entity, ItemStack item, Block block, int amount) {
@@ -66,19 +72,23 @@ public class PlayerTask {
     }
 
     public void addProgress(int progress) {
+        if (progress < 0) {
+            throw new IllegalArgumentException("Progress cannot be negative");
+        }
         this.progress += progress;
         if (this.progress >= taskConfiguration.getAmount()) {
-            finish();
+            complete();
         }
     }
 
-    public void finish() {
-        if (finished) {
+    public void complete() {
+        if (completed) {
             return;
         }
-        finished = true;
+        completed = true;
         playerProfile.getCompletedTasks().add(taskConfiguration.getId());
         playerProfile.addXp(taskConfiguration.getRewardXp());
         // TODO: reward money
+        playerProfile.getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "Task completed: " + ChatColor.WHITE + taskConfiguration.toString()));
     }
 }
