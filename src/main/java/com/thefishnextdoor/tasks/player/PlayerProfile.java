@@ -152,7 +152,7 @@ public class PlayerProfile {
             } 
             else if (task.isExpired()) {
                 taskIter.remove();
-                getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "Task expired: " + ChatColor.WHITE + task.getTaskConfiguration().toString()));
+                getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Task Expired: " + ChatColor.WHITE + task.getTaskConfiguration().toString()));
             }
         }
     }
@@ -172,7 +172,7 @@ public class PlayerProfile {
             TaskConfiguration task = possibleTasks.get((int) (Math.random() * possibleTasks.size()));
             if (!hasTask(task.getId())) {
                 tasks.add(new PlayerTask(task, this, 0, System.currentTimeMillis() + 1000 * 60 * 60 * 24));
-                getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "New task: " + ChatColor.WHITE + task.toString()));
+                getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "New Task: " + ChatColor.WHITE + task.toString()));
             }
         }
     }
