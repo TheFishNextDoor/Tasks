@@ -7,5 +7,6 @@ public enum TriggerType {
     ENCHANT_ITEM,
     CONSUME_ITEM,
     BREAK_BLOCK,
-    PLACE_BLOCK;
+    PLACE_BLOCK,
+    TIMER;
 }

@@ -20,6 +20,7 @@ import com.thefishnextdoor.tasks.player.AutoSave;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TaskRefresh;
+import com.thefishnextdoor.tasks.task.TimerTrigger;
 
 public class TasksPlugin extends JavaPlugin {
 
@@ -45,6 +46,7 @@ public class TasksPlugin extends JavaPlugin {
 
         AutoSave.start();
         TaskRefresh.start();
+        TimerTrigger.start();
 
         getLogger().info("Plugin enabled");
     }
