@@ -45,14 +45,20 @@ public class PlayerTask {
             progressSection = ChatColor.WHITE + " (" + ChatColor.BLUE + progress + "/" + taskConfiguration.getAmount() + ChatColor.WHITE + ")";
         }
 
-        String expireSection;
+        String rewardMoneySection = "";
+        double rewardMoney = taskConfiguration.getRewardMoney();
+        if (!completed && rewardMoney > 0) {
+            rewardMoneySection = ChatColor.WHITE + " (" + ChatColor.GOLD + "$" + rewardMoney + ChatColor.WHITE + ")";
+        }
+
+        String expireSection = "";
         if (!completed && canExpire()) {
             long timeLeft = expires - System.currentTimeMillis();
             if (timeLeft <= 0) {
                 expireSection = ChatColor.WHITE + " (" + ChatColor.RED + "0s left" + ChatColor.WHITE + ")";
             } 
             else if (timeLeft < 60000) {
-                expireSection = ChatColor.WHITE + " (" + ChatColor.GOLD + timeLeft / 1000 + "s left" + ChatColor.WHITE + ")";
+                expireSection = ChatColor.WHITE + " (" + ChatColor.RED + timeLeft / 1000 + "s left" + ChatColor.WHITE + ")";
             } 
             else if (timeLeft < 3600000) {
                 expireSection = ChatColor.WHITE + " (" + ChatColor.YELLOW + timeLeft / 60000 + "m left" + ChatColor.WHITE + ")";
@@ -68,7 +74,7 @@ public class PlayerTask {
             expireSection = "";
         }
 
-        return taskConfiguration.toString() + progressSection + expireSection;
+        return taskConfiguration.toString() + progressSection + rewardMoneySection + expireSection;
     }
 
     public TaskConfiguration getTaskConfiguration() {
