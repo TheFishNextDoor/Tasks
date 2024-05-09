@@ -46,7 +46,7 @@ public class PlayerTask {
         }
 
         String expireSection;
-        if (canExpire()) {
+        if (!completed && canExpire()) {
             long timeLeft = expires - System.currentTimeMillis();
             if (timeLeft <= 0) {
                 expireSection = ChatColor.WHITE + " (" + ChatColor.RED + "0s left" + ChatColor.WHITE + ")";
