@@ -10,6 +10,7 @@ import com.thefishnextdoor.tasks.command.Level;
 import com.thefishnextdoor.tasks.command.Tasks;
 import com.thefishnextdoor.tasks.event.BlockBreak;
 import com.thefishnextdoor.tasks.event.BlockPlace;
+import com.thefishnextdoor.tasks.event.EnchantItem;
 import com.thefishnextdoor.tasks.event.EntityDamageByEntity;
 import com.thefishnextdoor.tasks.event.EntityDeath;
 import com.thefishnextdoor.tasks.event.InteractEntity;
@@ -38,6 +39,7 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new InteractEntity(), this);
         pluginManager.registerEvents(new EntityDamageByEntity(), this);
         pluginManager.registerEvents(new EntityDeath(), this);
+        pluginManager.registerEvents(new EnchantItem(), this);
 
         AutoSave.start();
         TaskRefresh.start();
