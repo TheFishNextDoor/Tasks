@@ -79,8 +79,10 @@ public class PlayerProfile {
         playerData.set("xp", xp);
 
         playerData.set("tasks", null);
-        for (int i = 0; i < tasks.size(); i++) {
-            PlayerTask task = tasks.get(i);
+        for (PlayerTask task : tasks) {
+            if (task.isCompleted()) {
+                continue;
+            }
             String taskId = task.getTaskConfiguration().getId();
             playerData.set("tasks." + taskId + ".progress", task.getProgress());
             playerData.set("tasks." + taskId + ".expires", task.getExpires());
