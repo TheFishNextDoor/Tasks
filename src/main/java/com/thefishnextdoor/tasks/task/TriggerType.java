@@ -5,6 +5,7 @@ public enum TriggerType {
     DAMAGE_ENTITY,
     KILL_ENTITY,
     ENCHANT_ITEM,
-    PLACE_BLOCK,
-    BREAK_BLOCK;
+    CONSUME_ITEM,
+    BREAK_BLOCK,
+    PLACE_BLOCK;
 }

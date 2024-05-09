@@ -14,6 +14,7 @@ import com.thefishnextdoor.tasks.event.EnchantItem;
 import com.thefishnextdoor.tasks.event.EntityDamageByEntity;
 import com.thefishnextdoor.tasks.event.EntityDeath;
 import com.thefishnextdoor.tasks.event.InteractEntity;
+import com.thefishnextdoor.tasks.event.ItemConsume;
 import com.thefishnextdoor.tasks.event.PlayerJoin;
 import com.thefishnextdoor.tasks.player.AutoSave;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
@@ -34,12 +35,13 @@ public class TasksPlugin extends JavaPlugin {
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerJoin(), this);
-        pluginManager.registerEvents(new BlockBreak(), this);
-        pluginManager.registerEvents(new BlockPlace(), this);
         pluginManager.registerEvents(new InteractEntity(), this);
         pluginManager.registerEvents(new EntityDamageByEntity(), this);
         pluginManager.registerEvents(new EntityDeath(), this);
         pluginManager.registerEvents(new EnchantItem(), this);
+        pluginManager.registerEvents(new ItemConsume(), this);
+        pluginManager.registerEvents(new BlockBreak(), this);
+        pluginManager.registerEvents(new BlockPlace(), this);
 
         AutoSave.start();
         TaskRefresh.start();
