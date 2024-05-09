@@ -130,6 +130,5 @@ public class PlayerTask {
         playerProfile.addXp(taskConfiguration.getRewardXp());
         // TODO: reward money
         playerProfile.getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Task Completed: " + ChatColor.WHITE + taskConfiguration.toString()));
-        playerProfile.refreshTasks();
     }
 }
