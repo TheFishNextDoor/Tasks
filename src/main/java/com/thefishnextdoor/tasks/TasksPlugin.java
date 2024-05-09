@@ -6,6 +6,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.thefishnextdoor.tasks.command.Level;
 import com.thefishnextdoor.tasks.command.Tasks;
 import com.thefishnextdoor.tasks.event.BlockBreak;
 import com.thefishnextdoor.tasks.event.BlockPlace;
@@ -25,6 +26,7 @@ public class TasksPlugin extends JavaPlugin {
         loadConfigs();
 
         registerCommand("tasks", new Tasks());
+        registerCommand("level", new Level());
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerJoin(), this);

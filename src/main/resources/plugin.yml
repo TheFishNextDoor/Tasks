@@ -8,3 +8,6 @@ commands:
   tasks:
     description: List your current tasks
     usage: /tasks
+  level:
+    description: Check your level
+    usage: /level

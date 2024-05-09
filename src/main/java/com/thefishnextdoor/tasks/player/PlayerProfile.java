@@ -101,8 +101,16 @@ public class PlayerProfile {
         return Optional.ofNullable(Bukkit.getPlayer(uuid));
     }
 
-    public int getXp() {
+    public int getTotalXp() {
         return xp;
+    }
+
+    public int getXp() {
+        return xp % 100;
+    }
+
+    public int getXpToNextLevel() {
+        return getLevel() * 100 - xp;
     }
 
     public void addXp(int xp) {
