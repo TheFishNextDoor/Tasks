@@ -24,6 +24,7 @@ import com.thefishnextdoor.tasks.event.ManipulateArmorstand;
 import com.thefishnextdoor.tasks.event.PlayerJoin;
 import com.thefishnextdoor.tasks.event.ShearEntity;
 import com.thefishnextdoor.tasks.event.TakeLecternBook;
+import com.thefishnextdoor.tasks.event.ThrowEgg;
 import com.thefishnextdoor.tasks.player.AutoSave;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
@@ -50,6 +51,7 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new BucketEntity(), this);
         pluginManager.registerEvents(new ShearEntity(), this);
         pluginManager.registerEvents(new ManipulateArmorstand(), this);
+        pluginManager.registerEvents(new ThrowEgg(), this);
         pluginManager.registerEvents(new EnchantItem(), this);
         pluginManager.registerEvents(new ItemConsume(), this);
         pluginManager.registerEvents(new ItemBreak(), this);
