@@ -30,6 +30,7 @@ import com.thefishnextdoor.tasks.event.PlayerJoin;
 import com.thefishnextdoor.tasks.event.Riptide;
 import com.thefishnextdoor.tasks.event.ShearEntity;
 import com.thefishnextdoor.tasks.event.TakeLecternBook;
+import com.thefishnextdoor.tasks.event.Teleport;
 import com.thefishnextdoor.tasks.event.ThrowEgg;
 import com.thefishnextdoor.tasks.player.AutoSave;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
@@ -73,6 +74,7 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new BedEnter(), this);
         pluginManager.registerEvents(new BedLeave(), this);
         pluginManager.registerEvents(new Riptide(), this);
+        pluginManager.registerEvents(new Teleport(), this);
 
         AutoSave.start();
         TaskRefresh.start();

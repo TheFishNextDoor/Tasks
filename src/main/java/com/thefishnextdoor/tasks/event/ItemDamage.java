@@ -16,7 +16,6 @@ public class ItemDamage implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
         ItemStack item = event.getItem();
-        int damage = event.getDamage();
-        playerProfile.triggerTasks(TriggerType.DAMAGE_ITEM, null, item, null, damage);
+        playerProfile.triggerTasks(TriggerType.DAMAGE_ITEM, null, item, null, event.getDamage());
     }
 }
