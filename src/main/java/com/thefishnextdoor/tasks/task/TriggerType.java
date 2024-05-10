@@ -6,6 +6,7 @@ public enum TriggerType {
     KILL_ENTITY,
     BUCKET_ENTITY,
     SHEAR_ENTITY,
+    MANIPULATE_ARMORSTAND,
     ENCHANT_ITEM,
     CONSUME_ITEM,
     HARVEST_ITEM,
