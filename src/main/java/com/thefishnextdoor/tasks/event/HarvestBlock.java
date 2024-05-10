@@ -14,15 +14,14 @@ import com.thefishnextdoor.tasks.toolkit.InventoryTools;
 public class HarvestBlock implements Listener {
 
     @EventHandler
-    public void onBlockBreak(PlayerHarvestBlockEvent event) {
+    public void onPlayerHarvest(PlayerHarvestBlockEvent event) {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
         Block block = event.getHarvestedBlock();
-        ItemStack item = InventoryTools.getItemInHand(player);
-        int count = 0;
-        for (ItemStack harvestedItem : event.getItemsHarvested()) {
-            count += harvestedItem.getAmount();
+        ItemStack hand = InventoryTools.getItemInHand(player);
+        playerProfile.triggerTasks(TriggerType.HARVEST_BLOCK, null, hand, block, 1);
+        for (ItemStack item : event.getItemsHarvested()) {
+            playerProfile.triggerTasks(TriggerType.HARVEST_ITEM, null, item, block, item.getAmount());
         }
-        playerProfile.triggerTasks(TriggerType.HARVEST_BLOCK, null, item, block, count);
     }
 }

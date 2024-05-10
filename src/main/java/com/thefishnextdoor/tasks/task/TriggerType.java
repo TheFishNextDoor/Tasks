@@ -7,6 +7,7 @@ public enum TriggerType {
     BUCKET_ENTITY,
     ENCHANT_ITEM,
     CONSUME_ITEM,
+    HARVEST_ITEM,
     BREAK_ITEM,
     BREAK_BLOCK,
     PLACE_BLOCK,
