@@ -12,6 +12,7 @@ import com.thefishnextdoor.tasks.event.BlockBreak;
 import com.thefishnextdoor.tasks.event.BlockPlace;
 import com.thefishnextdoor.tasks.event.BucketEntity;
 import com.thefishnextdoor.tasks.event.BucketFill;
+import com.thefishnextdoor.tasks.event.DropItem;
 import com.thefishnextdoor.tasks.event.EnchantItem;
 import com.thefishnextdoor.tasks.event.EntityDamageByEntity;
 import com.thefishnextdoor.tasks.event.EntityDeath;
@@ -52,6 +53,7 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new EnchantItem(), this);
         pluginManager.registerEvents(new ItemConsume(), this);
         pluginManager.registerEvents(new ItemBreak(), this);
+        pluginManager.registerEvents(new DropItem(), this);
         pluginManager.registerEvents(new BlockBreak(), this);
         pluginManager.registerEvents(new BlockPlace(), this);
         pluginManager.registerEvents(new HarvestBlock(), this);

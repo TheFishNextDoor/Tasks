@@ -12,6 +12,7 @@ public enum TriggerType {
     HARVEST_ITEM,
     BREAK_ITEM,
     SHEAR_ITEM,
+    DROP_ITEM,
     BREAK_BLOCK,
     PLACE_BLOCK,
     HARVEST_BLOCK,
