@@ -27,6 +27,7 @@ import com.thefishnextdoor.tasks.event.ItemDamage;
 import com.thefishnextdoor.tasks.event.ItemMend;
 import com.thefishnextdoor.tasks.event.ManipulateArmorstand;
 import com.thefishnextdoor.tasks.event.PlayerJoin;
+import com.thefishnextdoor.tasks.event.Portal;
 import com.thefishnextdoor.tasks.event.Respawn;
 import com.thefishnextdoor.tasks.event.Riptide;
 import com.thefishnextdoor.tasks.event.ShearEntity;
@@ -76,6 +77,7 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new BedLeave(), this);
         pluginManager.registerEvents(new Riptide(), this);
         pluginManager.registerEvents(new Teleport(), this);
+        pluginManager.registerEvents(new Portal(), this);
         pluginManager.registerEvents(new Respawn(), this);
 
         AutoSave.start();
