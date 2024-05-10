@@ -54,6 +54,7 @@ public class TasksPlugin extends JavaPlugin {
     public void onDisable() {
         AutoSave.stop();
         TaskRefresh.stop();
+        TimerTrigger.stop();
         PlayerProfile.saveAll();
         getLogger().info("Plugin disabled");
     }
