@@ -8,6 +8,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.thefishnextdoor.tasks.command.Level;
 import com.thefishnextdoor.tasks.command.Tasks;
+import com.thefishnextdoor.tasks.event.BedEnter;
+import com.thefishnextdoor.tasks.event.BedLeave;
 import com.thefishnextdoor.tasks.event.BlockBreak;
 import com.thefishnextdoor.tasks.event.BlockPlace;
 import com.thefishnextdoor.tasks.event.BucketEntity;
@@ -66,6 +68,8 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new HarvestBlock(), this);
         pluginManager.registerEvents(new TakeLecternBook(), this);
         pluginManager.registerEvents(new BucketFill(), this);
+        pluginManager.registerEvents(new BedEnter(), this);
+        pluginManager.registerEvents(new BedLeave(), this);
         pluginManager.registerEvents(new Riptide(), this);
 
         AutoSave.start();
