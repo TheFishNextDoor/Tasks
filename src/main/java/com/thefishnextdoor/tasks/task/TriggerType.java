@@ -27,5 +27,6 @@ public enum TriggerType {
     RIPTIDE,
     TELEPORT,
     DEATH,
+    RESPAWN,
     TIMER;
 }
