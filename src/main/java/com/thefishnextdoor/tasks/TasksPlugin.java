@@ -12,6 +12,7 @@ import com.thefishnextdoor.tasks.event.BedEnter;
 import com.thefishnextdoor.tasks.event.BedLeave;
 import com.thefishnextdoor.tasks.event.BlockBreak;
 import com.thefishnextdoor.tasks.event.BlockPlace;
+import com.thefishnextdoor.tasks.event.BucketEmpty;
 import com.thefishnextdoor.tasks.event.BucketEntity;
 import com.thefishnextdoor.tasks.event.BucketFill;
 import com.thefishnextdoor.tasks.event.DropItem;
@@ -68,6 +69,7 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new HarvestBlock(), this);
         pluginManager.registerEvents(new TakeLecternBook(), this);
         pluginManager.registerEvents(new BucketFill(), this);
+        pluginManager.registerEvents(new BucketEmpty(), this);
         pluginManager.registerEvents(new BedEnter(), this);
         pluginManager.registerEvents(new BedLeave(), this);
         pluginManager.registerEvents(new Riptide(), this);
