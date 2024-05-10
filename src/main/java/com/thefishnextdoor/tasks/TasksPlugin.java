@@ -19,6 +19,7 @@ import com.thefishnextdoor.tasks.event.InteractEntity;
 import com.thefishnextdoor.tasks.event.ItemBreak;
 import com.thefishnextdoor.tasks.event.ItemConsume;
 import com.thefishnextdoor.tasks.event.PlayerJoin;
+import com.thefishnextdoor.tasks.event.TakeLecternBook;
 import com.thefishnextdoor.tasks.player.AutoSave;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
@@ -49,6 +50,7 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new BlockBreak(), this);
         pluginManager.registerEvents(new BlockPlace(), this);
         pluginManager.registerEvents(new HarvestBlock(), this);
+        pluginManager.registerEvents(new TakeLecternBook(), this);
 
         AutoSave.start();
         TaskRefresh.start();

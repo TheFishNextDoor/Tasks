@@ -12,6 +12,7 @@ public enum TriggerType {
     BREAK_BLOCK,
     PLACE_BLOCK,
     HARVEST_BLOCK,
+    TAKE_LECTERN_BOOK,
     DEATH,
     TIMER;
 }
