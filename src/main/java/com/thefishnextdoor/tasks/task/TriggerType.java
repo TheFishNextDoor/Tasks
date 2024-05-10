@@ -21,6 +21,7 @@ public enum TriggerType {
     HARVEST_BLOCK,
     TAKE_LECTERN_BOOK,
     BUCKET_FILL,
+    RIPTIDE,
     DEATH,
     TIMER;
 }

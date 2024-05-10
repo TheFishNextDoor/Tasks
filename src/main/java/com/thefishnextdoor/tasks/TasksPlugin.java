@@ -24,6 +24,7 @@ import com.thefishnextdoor.tasks.event.ItemDamage;
 import com.thefishnextdoor.tasks.event.ItemMend;
 import com.thefishnextdoor.tasks.event.ManipulateArmorstand;
 import com.thefishnextdoor.tasks.event.PlayerJoin;
+import com.thefishnextdoor.tasks.event.Riptide;
 import com.thefishnextdoor.tasks.event.ShearEntity;
 import com.thefishnextdoor.tasks.event.TakeLecternBook;
 import com.thefishnextdoor.tasks.event.ThrowEgg;
@@ -65,6 +66,7 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new HarvestBlock(), this);
         pluginManager.registerEvents(new TakeLecternBook(), this);
         pluginManager.registerEvents(new BucketFill(), this);
+        pluginManager.registerEvents(new Riptide(), this);
 
         AutoSave.start();
         TaskRefresh.start();
