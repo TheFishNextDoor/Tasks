@@ -8,5 +8,6 @@ public enum TriggerType {
     CONSUME_ITEM,
     BREAK_BLOCK,
     PLACE_BLOCK,
+    DEATH,
     TIMER;
 }

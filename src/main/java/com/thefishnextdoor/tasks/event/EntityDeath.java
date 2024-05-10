@@ -17,10 +17,21 @@ public class EntityDeath implements Listener {
     public void onEntityDeath(EntityDeathEvent event) {
         LivingEntity entity = event.getEntity();
         Player killer = entity.getKiller();
+        ItemStack item = null;
+
         if (killer != null) {
+            item = InventoryTools.getItemInHand(killer);
             PlayerProfile playerProfile = PlayerProfile.get(killer);
-            ItemStack item = InventoryTools.getItemInHand(killer);
             playerProfile.triggerTasks(TriggerType.KILL_ENTITY, entity, item, null, 1);
+        }
+
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+            PlayerProfile playerProfile = PlayerProfile.get(player);
+            if (killer != null) {
+                item = InventoryTools.getItemInHand(killer);
+            }
+            playerProfile.triggerTasks(TriggerType.DEATH, killer, item, null, 1);
         }
     }
 }
