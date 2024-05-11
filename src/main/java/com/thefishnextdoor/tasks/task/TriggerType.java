@@ -9,6 +9,7 @@ public enum TriggerType {
     MANIPULATE_ARMORSTAND,
     THROW_EGG,
     PICKUP_ARROW,
+    CRAFT_ITEM,
     ENCHANT_ITEM,
     CONSUME_ITEM,
     HARVEST_ITEM,
