@@ -1,5 +1,6 @@
 package com.thefishnextdoor.tasks.event;
 
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,9 +17,13 @@ public class CraftItem implements Listener {
     public void onCraftItem(CraftItemEvent event) {
         Player player = (Player) event.getWhoClicked();
         PlayerProfile playerProfile = PlayerProfile.get(player);
-        Block block = event.getInventory().getLocation().getBlock();
+        Location location = event.getInventory().getLocation();
+        Block block = null;
+        if (location != null) {
+            block = location.getBlock();
+        }
         ItemStack item = event.getCurrentItem();
         int amount = item.getAmount();
-        playerProfile.triggerTasks(TriggerType.CRAFT_ITEM, null, item, block, amount);
+        playerProfile.triggerTasks(TriggerType.CRAFT_ITEM, player.getLocation(), player, item, block, amount);
     }
 }

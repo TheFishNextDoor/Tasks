@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
@@ -144,8 +145,8 @@ public class PlayerProfile {
         return completedTasks.contains(id);
     }
 
-    public void triggerTasks(TriggerType triggerType, Entity entity, ItemStack item, Block block, int amount) {
-        tasks.forEach(task -> task.trigger(triggerType, entity, item, block, amount));
+    public void triggerTasks(TriggerType triggerType, Location location, Entity entity, ItemStack item, Block block, int amount) {
+        tasks.forEach(task -> task.trigger(triggerType, location, entity, item, block, amount));
     }
 
     public void refreshTasks() {

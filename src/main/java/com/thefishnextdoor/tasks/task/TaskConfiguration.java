@@ -314,27 +314,19 @@ public class TaskConfiguration {
         return true;
     }
 
-    public boolean isValidFor(TriggerType trigger, Player player, Entity entity, ItemStack item, Block block) {
+    public boolean isValidFor(TriggerType trigger, Player player, Location location, Entity entity, ItemStack item, Block block) {
         if (trigger == null) {
             throw new IllegalArgumentException("Trigger cannot be null");
         }
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null");
         }
+        if (location == null) {
+            throw new IllegalArgumentException("Location cannot be null");
+        }
 
         if (!triggers.contains(trigger)) {
             return false;
-        }
-
-        Location location;
-        if (block != null) {
-            location = block.getLocation();
-        } 
-        else if (entity != null) {
-            location = entity.getLocation();
-        }
-        else {
-            location = player.getLocation();
         }
 
         if (!worlds.isEmpty() && !worlds.contains(location.getWorld().getName())) {

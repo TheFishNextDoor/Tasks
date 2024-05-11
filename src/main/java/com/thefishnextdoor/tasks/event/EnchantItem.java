@@ -1,5 +1,6 @@
 package com.thefishnextdoor.tasks.event;
 
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,8 +15,9 @@ public class EnchantItem implements Listener {
     @EventHandler
     public void onEnchantItem(EnchantItemEvent event) {
         Player player = event.getEnchanter();
-        ItemStack item = event.getItem();
         PlayerProfile playerProfile = PlayerProfile.get(player);
-        playerProfile.triggerTasks(TriggerType.ENCHANT_ITEM, null, item, null, 1);
+        ItemStack item = event.getItem();
+        Block block = event.getEnchantBlock();
+        playerProfile.triggerTasks(TriggerType.ENCHANT_ITEM, block.getLocation(), player, item, block, 1);
     }
 }

@@ -1,5 +1,6 @@
 package com.thefishnextdoor.tasks.event;
 
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +17,7 @@ public class BucketFill implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
         ItemStack item = event.getItemStack();
-        playerProfile.triggerTasks(TriggerType.FILL_BUCKET, null, item, null, 1);
+        Block block = event.getBlockClicked();
+        playerProfile.triggerTasks(TriggerType.FILL_BUCKET, block.getLocation(), player, item, block, 1);
     }
 }

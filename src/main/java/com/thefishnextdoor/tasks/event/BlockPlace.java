@@ -19,6 +19,6 @@ public class BlockPlace implements Listener {
         PlayerProfile playerProfile = PlayerProfile.get(player);
         Block block = event.getBlock();
         ItemStack item = InventoryTools.getItemInHand(player);
-        playerProfile.triggerTasks(TriggerType.PLACE_BLOCK, null, item, block, 1);
+        playerProfile.triggerTasks(TriggerType.PLACE_BLOCK, block.getLocation(), player, item, block, 1);
     }
 }

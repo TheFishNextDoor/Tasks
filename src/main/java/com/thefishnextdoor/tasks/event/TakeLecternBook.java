@@ -16,8 +16,8 @@ public class TakeLecternBook implements Listener {
     public void onTakeLecternBook(PlayerTakeLecternBookEvent event) {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
-        ItemStack item = event.getBook();
-        Block block = event.getLectern().getBlock();
-        playerProfile.triggerTasks(TriggerType.TAKE_LECTERN_BOOK, null, item, block, item.getAmount());
+        ItemStack book = event.getBook();
+        Block lectern = event.getLectern().getBlock();
+        playerProfile.triggerTasks(TriggerType.TAKE_LECTERN_BOOK, lectern.getLocation(), player, book, lectern, book.getAmount());
     }
 }

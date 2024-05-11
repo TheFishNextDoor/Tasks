@@ -19,6 +19,6 @@ public class BlockBreak implements Listener {
         PlayerProfile playerProfile = PlayerProfile.get(player);
         Block block = event.getBlock();
         ItemStack item = InventoryTools.getItemInHand(player);
-        playerProfile.triggerTasks(TriggerType.BREAK_BLOCK, null, item, block, 1);
+        playerProfile.triggerTasks(TriggerType.BREAK_BLOCK, block.getLocation(), player, item, block, 1);
     }
 }

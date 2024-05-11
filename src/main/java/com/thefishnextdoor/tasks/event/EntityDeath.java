@@ -22,7 +22,7 @@ public class EntityDeath implements Listener {
         if (killer != null) {
             item = InventoryTools.getItemInHand(killer);
             PlayerProfile playerProfile = PlayerProfile.get(killer);
-            playerProfile.triggerTasks(TriggerType.KILL_ENTITY, entity, item, null, 1);
+            playerProfile.triggerTasks(TriggerType.KILL_ENTITY, entity.getLocation(), entity, item, null, 1);
         }
 
         if (entity instanceof Player) {
@@ -31,7 +31,7 @@ public class EntityDeath implements Listener {
             if (killer != null) {
                 item = InventoryTools.getItemInHand(killer);
             }
-            playerProfile.triggerTasks(TriggerType.DEATH, killer, item, null, 1);
+            playerProfile.triggerTasks(TriggerType.DEATH, player.getLocation(), killer, item, null, 1);
         }
     }
 }

@@ -18,6 +18,6 @@ public class BucketEntity implements Listener {
         PlayerProfile playerProfile = PlayerProfile.get(player);
         Entity entity = event.getEntity();
         ItemStack item = event.getEntityBucket();
-        playerProfile.triggerTasks(TriggerType.BUCKET_ENTITY, entity, item, null, 1);
+        playerProfile.triggerTasks(TriggerType.BUCKET_ENTITY, entity.getLocation(), entity, item, null, 1);
     }
 }

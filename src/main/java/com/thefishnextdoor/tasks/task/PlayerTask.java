@@ -2,6 +2,7 @@ package com.thefishnextdoor.tasks.task;
 
 import java.util.Optional;
 
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -101,12 +102,12 @@ public class PlayerTask {
         return expires != 0;
     }
 
-    public void trigger(TriggerType triggerType, Entity entity, ItemStack item, Block block, int amount) {
+    public void trigger(TriggerType triggerType, Location location, Entity entity, ItemStack item, Block block, int amount) {
         Optional<Player> player = playerProfile.getPlayer();
         if (!player.isPresent()) {
             return;
         }
-        if (taskConfiguration.isValidFor(triggerType, player.get(), entity, item, block)) {
+        if (taskConfiguration.isValidFor(triggerType, player.get(), location, entity, item, block)) {
             addProgress(amount);
         }
     }

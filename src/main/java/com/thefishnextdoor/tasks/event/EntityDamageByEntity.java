@@ -22,7 +22,7 @@ public class EntityDamageByEntity implements Listener {
             PlayerProfile playerProfile = PlayerProfile.get(player);
             ItemStack item = InventoryTools.getItemInHand(player);
             int damage = (int) event.getDamage();
-            playerProfile.triggerTasks(TriggerType.DAMAGE_ENTITY, damaged, item, null, damage);
+            playerProfile.triggerTasks(TriggerType.DAMAGE_ENTITY, damaged.getLocation(), damaged, item, null, damage);
         }
     }
 }

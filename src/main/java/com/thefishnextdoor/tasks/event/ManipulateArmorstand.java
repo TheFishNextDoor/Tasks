@@ -20,6 +20,6 @@ public class ManipulateArmorstand implements Listener {
             ItemStack armorStandItem = event.getArmorStandItem();
             ItemStack playerItem = event.getPlayerItem();
             ItemStack item = armorStandItem != null ? armorStandItem : playerItem;
-            playerProfile.triggerTasks(TriggerType.MANIPULATE_ARMORSTAND, armorstand, item, null, 1);
+            playerProfile.triggerTasks(TriggerType.MANIPULATE_ARMORSTAND, armorstand.getLocation(), armorstand, item, null, 1);
         }
 }

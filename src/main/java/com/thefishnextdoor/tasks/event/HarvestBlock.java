@@ -1,5 +1,6 @@
 package com.thefishnextdoor.tasks.event;
 
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,9 +20,10 @@ public class HarvestBlock implements Listener {
         PlayerProfile playerProfile = PlayerProfile.get(player);
         Block block = event.getHarvestedBlock();
         ItemStack hand = InventoryTools.getItemInHand(player);
-        playerProfile.triggerTasks(TriggerType.HARVEST_BLOCK, null, hand, block, 1);
+        Location location = block.getLocation();
+        playerProfile.triggerTasks(TriggerType.HARVEST_BLOCK, location, player, hand, block, 1);
         for (ItemStack item : event.getItemsHarvested()) {
-            playerProfile.triggerTasks(TriggerType.HARVEST_ITEM, null, item, block, item.getAmount());
+            playerProfile.triggerTasks(TriggerType.HARVEST_ITEM, location, player, item, block, item.getAmount());
         }
     }
 }

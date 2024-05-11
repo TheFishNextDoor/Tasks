@@ -17,9 +17,9 @@ public class TimerTrigger {
         }
         id = Bukkit.getScheduler().scheduleSyncRepeatingTask(TasksPlugin.getInstance(), () -> {
             Bukkit.getOnlinePlayers().forEach(player -> {
-                PlayerProfile profile = PlayerProfile.get(player);
-                ItemStack item = InventoryTools.getItemInHand(player);
-                profile.triggerTasks(TriggerType.TIMER, null, item, null, 1);
+                PlayerProfile playerProfile = PlayerProfile.get(player);
+                ItemStack hand = InventoryTools.getItemInHand(player);
+                playerProfile.triggerTasks(TriggerType.TIMER, player.getLocation(), player, hand, null, 1);
             });
         }, 20 * 1, 20 * 1);
     }

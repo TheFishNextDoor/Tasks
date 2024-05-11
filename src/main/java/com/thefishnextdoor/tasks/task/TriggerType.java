@@ -27,8 +27,10 @@ public enum TriggerType {
     ENTER_BED,
     LEAVE_BED,
     RIPTIDE,
-    TELEPORT,
-    PORTAL,
+    TELEPORT_TO,
+    TELEPORT_FROM,
+    PORTAL_TO,
+    PORTAL_FROM,
     DEATH,
     RESPAWN,
     TIMER;

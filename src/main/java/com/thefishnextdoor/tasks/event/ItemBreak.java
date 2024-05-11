@@ -16,6 +16,6 @@ public class ItemBreak implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
         ItemStack item = event.getBrokenItem();
-        playerProfile.triggerTasks(TriggerType.BREAK_ITEM, player, item, null, item.getAmount());
+        playerProfile.triggerTasks(TriggerType.BREAK_ITEM, player.getLocation(), player, item, null, item.getAmount());
     }
 }

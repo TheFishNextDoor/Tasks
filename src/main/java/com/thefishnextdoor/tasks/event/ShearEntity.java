@@ -18,7 +18,7 @@ public class ShearEntity implements Listener {
             PlayerProfile playerProfile = PlayerProfile.get(player);
             Entity entity = event.getEntity();
             ItemStack item = event.getItem();
-            playerProfile.triggerTasks(TriggerType.SHEAR_ENTITY, entity, item, null, 1);
-            playerProfile.triggerTasks(TriggerType.SHEAR_ITEM, entity, item, null, item.getAmount());
+            playerProfile.triggerTasks(TriggerType.SHEAR_ENTITY, entity.getLocation(), entity, item, null, 1);
+            playerProfile.triggerTasks(TriggerType.SHEAR_ITEM, entity.getLocation(), entity, item, null, item.getAmount());
         }
 }

@@ -19,6 +19,6 @@ public class InteractEntity implements Listener {
         PlayerProfile playerProfile = PlayerProfile.get(player);
         Entity entity = event.getRightClicked();
         ItemStack item = InventoryTools.getItemInHand(player);
-        playerProfile.triggerTasks(TriggerType.INTERACT_ENTITY, entity, item, null, 1);
+        playerProfile.triggerTasks(TriggerType.INTERACT_ENTITY, entity.getLocation(), entity, item, null, 1);
     }
 }
