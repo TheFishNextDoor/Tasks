@@ -40,15 +40,17 @@ public class TaskConfiguration {
         "reward-money",
         "reward-xp",
         "triggers",
+        "worlds",
+        "environments",
+        "biomes",
         "min-x",
         "max-x",
         "min-y",
         "max-y",
         "min-z",
         "max-z",
-        "worlds",
-        "environments",
-        "biomes",
+        "entity-is-in-water",
+        "entity-is-on-ground",
         "entity-names",
         "entity-types",
         "spawn-categories",
@@ -92,6 +94,9 @@ public class TaskConfiguration {
     private Integer maxY = null;
     private Integer minZ = null;
     private Integer maxZ = null;
+
+    private Boolean entityIsInWater = null;
+    private Boolean entityIsOnGround = null;
 
     private HashSet<String> entityNames = new HashSet<>();
     private HashSet<EntityType> entityTypes = new HashSet<>();
@@ -197,6 +202,14 @@ public class TaskConfiguration {
         }
         if (config.contains(id + ".max-z")) {
             this.maxZ = config.getInt(id + ".max-z");
+        }
+
+        if (config.contains(id + ".entity-is-in-water")) {
+            this.entityIsInWater = config.getBoolean(id + ".entity-is-in-water");
+        }
+
+        if (config.contains(id + ".entity-is-on-ground")) {
+            this.entityIsOnGround = config.getBoolean(id + ".entity-is-on-ground");
         }
 
         for (String entityName : config.getStringList(id + ".entity-names")) {
@@ -357,6 +370,24 @@ public class TaskConfiguration {
         }
         if (maxZ != null && location.getBlockZ() > maxZ) {
             return false;
+        }
+
+        if (entityIsInWater != null) {
+            if (entity == null) {
+                return false;
+            }
+            if (entityIsInWater != entity.isInWater()) {
+                return false;
+            }
+        }
+
+        if (entityIsOnGround != null) {
+            if (entity == null) {
+                return false;
+            }
+            if (entityIsOnGround != entity.isOnGround()) {
+                return false;
+            }
         }
 
         if (!entityNames.isEmpty()) {
