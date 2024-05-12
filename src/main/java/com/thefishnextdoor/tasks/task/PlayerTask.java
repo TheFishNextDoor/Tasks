@@ -3,6 +3,7 @@ package com.thefishnextdoor.tasks.task;
 import java.util.Optional;
 
 import org.bukkit.Location;
+import org.bukkit.Server;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -142,5 +143,13 @@ public class PlayerTask {
     
         playerProfile.addXp(taskConfiguration.getRewardXp());
         TasksPlugin.getEconomy().ifPresent(economy -> economy.depositPlayer(player, taskConfiguration.getRewardMoney()));
+
+        Server server = player.getServer();
+        for (String consoleCommand : taskConfiguration.getRewardConsoleCommands()) {
+            server.dispatchCommand(server.getConsoleSender(), consoleCommand.replace("{player}", player.getName()));
+        }
+        for (String playerCommand : taskConfiguration.getRewardPlayerCommands()) {
+            server.dispatchCommand(player, playerCommand);
+        }
     }
 }

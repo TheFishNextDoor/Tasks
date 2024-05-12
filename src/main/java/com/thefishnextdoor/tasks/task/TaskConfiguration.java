@@ -40,6 +40,8 @@ public class TaskConfiguration {
         "permission",
         "reward-money",
         "reward-xp",
+        "reward-console-commands",
+        "reward-player-commands",
         "triggers",
         "worlds",
         "environments",
@@ -62,6 +64,8 @@ public class TaskConfiguration {
 
     private final String id;
 
+    // Behavior
+
     private int amount;
 
     private String message = null;
@@ -83,6 +87,9 @@ public class TaskConfiguration {
     // Rewards
     private double rewardMoney;
     private int rewardXp;
+
+    private ArrayList<String> rewardConsoleCommands = new ArrayList<>();
+    private ArrayList<String> rewardPlayerCommands = new ArrayList<>();
 
     // Conditions
     private HashSet<TriggerType> triggers = new HashSet<>();
@@ -302,6 +309,14 @@ public class TaskConfiguration {
 
     public int getRewardXp() {
         return rewardXp;
+    }
+
+    public ArrayList<String> getRewardConsoleCommands() {
+        return rewardConsoleCommands;
+    }
+
+    public ArrayList<String> getRewardPlayerCommands() {
+        return rewardPlayerCommands;
     }
 
     public boolean meetsRequirements(PlayerProfile playerProfile) {
