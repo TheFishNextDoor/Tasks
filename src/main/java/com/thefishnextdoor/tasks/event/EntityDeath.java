@@ -31,7 +31,7 @@ public class EntityDeath implements Listener {
             if (killer != null) {
                 item = InventoryTools.getItemInHand(killer);
             }
-            playerProfile.triggerTasks(TriggerType.DEATH, player.getLocation(), killer, item, null, 1);
+            playerProfile.triggerTasks(TriggerType.DEATH, player.getLocation(), null, item, null, 1);
         }
     }
 }

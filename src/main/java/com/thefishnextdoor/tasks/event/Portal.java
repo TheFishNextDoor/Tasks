@@ -16,7 +16,7 @@ public class Portal implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
         ItemStack item = player.getInventory().getItemInMainHand();
-        playerProfile.triggerTasks(TriggerType.PORTAL_TO, event.getTo(), player, item, null, 1);
-        playerProfile.triggerTasks(TriggerType.PORTAL_FROM, event.getFrom(), player, item, null, 1);
+        playerProfile.triggerTasks(TriggerType.PORTAL_TO, event.getTo(), null, item, null, 1);
+        playerProfile.triggerTasks(TriggerType.PORTAL_FROM, event.getFrom(), null, item, null, 1);
     }
 }

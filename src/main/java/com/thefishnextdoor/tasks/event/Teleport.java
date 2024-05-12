@@ -17,7 +17,7 @@ public class Teleport implements Listener {
             Player player = event.getPlayer();
             PlayerProfile playerProfile = PlayerProfile.get(player);
             ItemStack hand = InventoryTools.getItemInHand(player);
-            playerProfile.triggerTasks(TriggerType.TELEPORT_TO, event.getTo(), player, hand, null, 1);
-            playerProfile.triggerTasks(TriggerType.TELEPORT_FROM, event.getFrom(), player, hand, null, 1);
+            playerProfile.triggerTasks(TriggerType.TELEPORT_TO, event.getTo(), null, hand, null, 1);
+            playerProfile.triggerTasks(TriggerType.TELEPORT_FROM, event.getFrom(), null, hand, null, 1);
         }
 }

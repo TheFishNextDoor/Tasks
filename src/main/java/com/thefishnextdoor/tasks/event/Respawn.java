@@ -17,6 +17,6 @@ public class Respawn implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
         ItemStack item = InventoryTools.getItemInHand(player);
-        playerProfile.triggerTasks(TriggerType.RESPAWN, event.getRespawnLocation(), player, item, null, 1);
+        playerProfile.triggerTasks(TriggerType.RESPAWN, event.getRespawnLocation(), null, item, null, 1);
     }
 }

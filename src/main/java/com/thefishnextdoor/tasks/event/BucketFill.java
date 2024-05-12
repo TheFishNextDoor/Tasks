@@ -18,6 +18,6 @@ public class BucketFill implements Listener {
         PlayerProfile playerProfile = PlayerProfile.get(player);
         ItemStack item = event.getItemStack();
         Block block = event.getBlockClicked();
-        playerProfile.triggerTasks(TriggerType.FILL_BUCKET, block.getLocation(), player, item, block, 1);
+        playerProfile.triggerTasks(TriggerType.FILL_BUCKET, block.getLocation(), null, item, block, 1);
     }
 }

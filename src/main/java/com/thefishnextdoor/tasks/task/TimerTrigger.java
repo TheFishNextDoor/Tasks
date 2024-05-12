@@ -19,7 +19,7 @@ public class TimerTrigger {
             Bukkit.getOnlinePlayers().forEach(player -> {
                 PlayerProfile playerProfile = PlayerProfile.get(player);
                 ItemStack hand = InventoryTools.getItemInHand(player);
-                playerProfile.triggerTasks(TriggerType.TIMER, player.getLocation(), player, hand, null, 1);
+                playerProfile.triggerTasks(TriggerType.TIMER, player.getLocation(), null, hand, null, 1);
             });
         }, 20 * 1, 20 * 1);
     }

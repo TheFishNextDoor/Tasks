@@ -21,9 +21,9 @@ public class HarvestBlock implements Listener {
         Block block = event.getHarvestedBlock();
         ItemStack hand = InventoryTools.getItemInHand(player);
         Location location = block.getLocation();
-        playerProfile.triggerTasks(TriggerType.HARVEST_BLOCK, location, player, hand, block, 1);
+        playerProfile.triggerTasks(TriggerType.HARVEST_BLOCK, location, null, hand, block, 1);
         for (ItemStack item : event.getItemsHarvested()) {
-            playerProfile.triggerTasks(TriggerType.HARVEST_ITEM, location, player, item, block, item.getAmount());
+            playerProfile.triggerTasks(TriggerType.HARVEST_ITEM, location, null, item, block, item.getAmount());
         }
     }
 }

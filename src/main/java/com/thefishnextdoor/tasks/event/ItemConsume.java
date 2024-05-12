@@ -16,6 +16,6 @@ public class ItemConsume implements Listener {
         Player player = event.getPlayer();
         PlayerProfile profile = PlayerProfile.get(player);
         ItemStack item = event.getItem();
-        profile.triggerTasks(TriggerType.CONSUME_ITEM, player.getLocation(), player, item, null, item.getAmount());
+        profile.triggerTasks(TriggerType.CONSUME_ITEM, player.getLocation(), null, item, null, item.getAmount());
     }
 }

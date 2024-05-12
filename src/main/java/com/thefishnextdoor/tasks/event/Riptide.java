@@ -16,6 +16,6 @@ public class Riptide implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
         ItemStack item = event.getItem();
-        playerProfile.triggerTasks(TriggerType.RIPTIDE, player.getLocation(), player, item, null, 1);
+        playerProfile.triggerTasks(TriggerType.RIPTIDE, player.getLocation(), null, item, null, 1);
     }
 }

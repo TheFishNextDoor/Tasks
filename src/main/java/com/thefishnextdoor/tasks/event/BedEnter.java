@@ -19,6 +19,6 @@ public class BedEnter implements Listener {
             PlayerProfile playerProfile = PlayerProfile.get(player);
             Block block = event.getBed();
             ItemStack item = InventoryTools.getItemInHand(player);
-            playerProfile.triggerTasks(TriggerType.ENTER_BED, block.getLocation(), player, item, block, 1);
+            playerProfile.triggerTasks(TriggerType.ENTER_BED, block.getLocation(), null, item, block, 1);
         }
 }
