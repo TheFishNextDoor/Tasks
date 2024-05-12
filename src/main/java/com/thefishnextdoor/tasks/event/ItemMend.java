@@ -16,6 +16,6 @@ public class ItemMend implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
         ItemStack item = event.getItem();
-        playerProfile.triggerTasks(TriggerType.MEND_ITEM, player.getLocation(), null, item, null, event.getRepairAmount());
+        playerProfile.triggerTasks(TriggerType.MEND_ITEM, player.getLocation(), player, item, null, event.getRepairAmount());
     }
 }

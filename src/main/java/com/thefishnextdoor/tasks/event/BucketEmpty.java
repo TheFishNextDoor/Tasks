@@ -18,6 +18,6 @@ public class BucketEmpty implements Listener {
         PlayerProfile playerProfile = PlayerProfile.get(player);
         ItemStack item = event.getItemStack();
         Block block = event.getBlock();
-        playerProfile.triggerTasks(TriggerType.EMPTY_BUCKET, block.getLocation(), null, item, block, 1);
+        playerProfile.triggerTasks(TriggerType.EMPTY_BUCKET, block.getLocation(), player, item, block, 1);
     }
 }

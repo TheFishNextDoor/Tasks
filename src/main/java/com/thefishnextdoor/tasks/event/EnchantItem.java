@@ -18,6 +18,6 @@ public class EnchantItem implements Listener {
         PlayerProfile playerProfile = PlayerProfile.get(player);
         ItemStack item = event.getItem();
         Block block = event.getEnchantBlock();
-        playerProfile.triggerTasks(TriggerType.ENCHANT_ITEM, block.getLocation(), null, item, block, 1);
+        playerProfile.triggerTasks(TriggerType.ENCHANT_ITEM, block.getLocation(), player, item, block, 1);
     }
 }
