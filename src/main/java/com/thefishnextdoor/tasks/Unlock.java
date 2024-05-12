@@ -24,7 +24,8 @@ public class Unlock implements Comparable<Unlock> {
         "level",
         "message",
         "permissions",
-        "commands"
+        "console-commands",
+        "player-commands"
     );
 
     private final String id;
