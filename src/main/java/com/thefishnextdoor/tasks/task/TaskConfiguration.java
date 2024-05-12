@@ -24,6 +24,8 @@ import com.thefishnextdoor.tasks.file.ConfigFile;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.toolkit.EnumTools;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class TaskConfiguration {
 
     private static HashMap<String, TaskConfiguration> taskConfigurations = new HashMap<>();
@@ -42,6 +44,7 @@ public class TaskConfiguration {
         "reward-xp",
         "reward-console-commands",
         "reward-player-commands",
+        "reward-messages",
         "triggers",
         "worlds",
         "environments",
@@ -159,6 +162,18 @@ public class TaskConfiguration {
         
         this.rewardMoney = config.getDouble(id + ".reward-money");
         this.rewardXp = config.getInt(id + ".reward-xp");
+
+        for (String consoleCommand : config.getStringList(id + ".reward-console-commands")) {
+            this.rewardConsoleCommands.add(consoleCommand);
+        }
+
+        for (String playerCommand : config.getStringList(id + ".reward-player-commands")) {
+            this.rewardPlayerCommands.add(playerCommand);
+        }
+
+        for (String rewardMessage : config.getStringList(id + ".reward-messages")) {
+            this.rewardPlayerCommands.add(ChatColor.translateAlternateColorCodes('&', rewardMessage));
+        }
 
         for (String triggerName : config.getStringList(id + ".triggers")) {
             TriggerType trigger = EnumTools.fromString(TriggerType.class, triggerName);
@@ -316,6 +331,10 @@ public class TaskConfiguration {
     }
 
     public ArrayList<String> getRewardPlayerCommands() {
+        return rewardPlayerCommands;
+    }
+
+    public ArrayList<String> getRewardMessages() {
         return rewardPlayerCommands;
     }
 

@@ -141,7 +141,10 @@ public class PlayerTask {
         playerProfile.addCompletedTask(taskConfiguration.getId());
         player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Task Completed: " + ChatColor.WHITE + taskConfiguration.toString());
     
-        playerProfile.addXp(taskConfiguration.getRewardXp());
+        for (String message : taskConfiguration.getRewardMessages()) {
+            player.sendMessage(message);
+        }
+        
         TasksPlugin.getEconomy().ifPresent(economy -> economy.depositPlayer(player, taskConfiguration.getRewardMoney()));
 
         Server server = player.getServer();
@@ -151,5 +154,7 @@ public class PlayerTask {
         for (String playerCommand : taskConfiguration.getRewardPlayerCommands()) {
             server.dispatchCommand(player, playerCommand);
         }
+
+        playerProfile.addXp(taskConfiguration.getRewardXp());
     }
 }
