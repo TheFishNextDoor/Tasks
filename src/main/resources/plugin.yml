@@ -15,3 +15,6 @@ commands:
   unlocks:
     description: List all unlocks
     usage: /unlocks
+permissions:
+  tasks.reload:
+    description: Allows the player to reload the plugin
