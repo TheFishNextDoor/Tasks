@@ -10,8 +10,6 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
-import com.thefishnextdoor.tasks.unlock.Unlock;
-
 import net.md_5.bungee.api.ChatColor;
 
 public class PlayerTask {
@@ -141,7 +139,5 @@ public class PlayerTask {
     
         playerProfile.addXp(taskConfiguration.getRewardXp());
         TasksPlugin.getEconomy().ifPresent(economy -> economy.depositPlayer(player, taskConfiguration.getRewardMoney()));
-        
-        Unlock.checkUnlocks(playerProfile);
     }
 }

@@ -21,6 +21,7 @@ import com.thefishnextdoor.tasks.file.DataFile;
 import com.thefishnextdoor.tasks.task.PlayerTask;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TriggerType;
+import com.thefishnextdoor.tasks.unlock.Unlock;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -30,13 +31,19 @@ public class PlayerProfile {
 
     private final UUID uuid;
 
+    // Save data
+
     private int xp;
 
     private HashSet<String> completedUnlocks = new HashSet<>();
 
+    private HashSet<String> completedTasks = new HashSet<>();
+
     private ArrayList<PlayerTask> tasks = new ArrayList<>();
 
-    private HashSet<String> completedTasks = new HashSet<>();
+    // Cache data
+
+    private int cachedLevel;
 
     private PlayerProfile(UUID uuid) {
         if (uuid == null) {
@@ -55,6 +62,10 @@ public class PlayerProfile {
             completedUnlocks.add(unlockId);
         }
 
+        for (String taskId : playerData.getStringList(".completed-tasks")) {
+            completedTasks.add(taskId);
+        }
+
         if (playerData.contains("tasks")) {
             for (String taskKey : playerData.getConfigurationSection("tasks").getKeys(false)) {
                 Optional<TaskConfiguration> taskConfiguration = TaskConfiguration.get(taskKey);
@@ -68,9 +79,7 @@ public class PlayerProfile {
             }
         }
 
-        for (String taskId : playerData.getStringList(".completed-tasks")) {
-            completedTasks.add(taskId);
-        }
+        cachedLevel = getLevel();
 
         refreshTasks();
         
@@ -125,6 +134,7 @@ public class PlayerProfile {
             throw new IllegalArgumentException("Xp must be positive");
         }
         this.xp += xp;
+        checkLevelUp();
     }
 
     public int getLevel() {
@@ -143,20 +153,20 @@ public class PlayerProfile {
         return completedUnlocks.contains(id);
     }
 
-    public ArrayList<PlayerTask> getTasks() {
-        return tasks;
-    }
-
-    public boolean hasTask(String id) {
-        return tasks.stream().anyMatch(task -> task.getTaskConfiguration().getId().equals(id));
-    }
-
     public void addCompletedTask(String id) {
         completedTasks.add(id);
     }
 
     public boolean hasCompletedTask(String id) {
         return completedTasks.contains(id);
+    }
+
+    public boolean hasTask(String id) {
+        return tasks.stream().anyMatch(task -> task.getTaskConfiguration().getId().equals(id));
+    }
+
+    public ArrayList<PlayerTask> getTasks() {
+        return tasks;
     }
 
     public void triggerTasks(TriggerType triggerType, Location location, Entity entity, ItemStack item, Block block, int amount) {
@@ -166,6 +176,22 @@ public class PlayerProfile {
     public void refreshTasks() {
         checkExpiredTasks();
         populateTasks();
+    }
+
+    private void checkLevelUp() {
+        Optional<Player> player = getPlayer();
+        if (!player.isPresent()) {
+            return;
+        }
+
+        int level = getLevel();
+        if (level > cachedLevel) {
+            for (int i = cachedLevel + 1; i <= level; i++) {
+                player.get().sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Level Up: " + ChatColor.WHITE + i);
+            }
+            cachedLevel = level;
+            Unlock.checkUnlocks(this);
+        }
     }
 
     private void checkExpiredTasks() {
