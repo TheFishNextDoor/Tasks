@@ -39,6 +39,7 @@ public class TaskConfiguration {
         "min-level",
         "max-level",
         "prerequisite-tasks",
+        "incompatible-tasks",
         "permission",
         "reward-money",
         "reward-xp",
@@ -83,9 +84,10 @@ public class TaskConfiguration {
     private Integer minLevel = null;
     private Integer maxLevel = null;
 
-    private ArrayList<String> prerequisiteTasks = new ArrayList<>();
-
     private String permission = null;
+
+    private ArrayList<String> prerequisiteTasks = new ArrayList<>();
+    private ArrayList<String> incompatibleTasks = new ArrayList<>();
 
     // Rewards
     private double rewardMoney;
@@ -156,9 +158,10 @@ public class TaskConfiguration {
             this.maxLevel = config.getInt(id + ".max-level");
         }
 
-        this.prerequisiteTasks.addAll(config.getStringList(id + ".prerequisite-tasks"));
-
         this.permission = config.getString(id + ".permission");
+
+        this.prerequisiteTasks.addAll(config.getStringList(id + ".prerequisite-tasks"));
+        this.incompatibleTasks.addAll(config.getStringList(id + ".incompatible-tasks"));
         
         this.rewardMoney = config.getDouble(id + ".reward-money");
         this.rewardXp = config.getInt(id + ".reward-xp");
@@ -352,17 +355,22 @@ public class TaskConfiguration {
         if (!player.isPresent()) {
             return false;
         }
-        if (permission != null && !player.get().hasPermission(permission)) {
-            return false;
-        }
         if (minLevel != null && playerProfile.getLevel() < minLevel) {
             return false;
         }
         if (maxLevel != null && playerProfile.getLevel() > maxLevel) {
             return false;
         }
+        if (permission != null && !player.get().hasPermission(permission)) {
+            return false;
+        }
         for (String prerequisiteTask : prerequisiteTasks) {
             if (!playerProfile.hasCompletedTask(prerequisiteTask)) {
+                return false;
+            }
+        }
+        for (String incompatibleTask : incompatibleTasks) {
+            if (playerProfile.hasTask(incompatibleTask)) {
                 return false;
             }
         }
@@ -497,7 +505,7 @@ public class TaskConfiguration {
         return Optional.ofNullable(taskConfigurations.get(id));
     }
 
-    public static ArrayList<TaskConfiguration> getPossibleTasks(PlayerProfile playerProfile) {
+    public static Optional<TaskConfiguration> getNewTask(PlayerProfile playerProfile) {
         if (playerProfile == null) {
             throw new IllegalArgumentException("Player profile cannot be null");
         }
@@ -507,7 +515,12 @@ public class TaskConfiguration {
                 possibleTasks.add(taskConfiguration);
             }
         }
-        return possibleTasks;
+        
+        if (possibleTasks.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(possibleTasks.get((int) (Math.random() * possibleTasks.size())));
     }
 
     public static void loadConfig() {
