@@ -79,7 +79,7 @@ public class PlayerProfile {
             }
         }
 
-        cachedLevel = getLevel();
+        cachedLevel = calcLevel();
 
         refreshTasks();
         
@@ -138,7 +138,7 @@ public class PlayerProfile {
     }
 
     public int getLevel() {
-        return (xp + 100) / 100;
+        return cachedLevel;
     }
 
     public boolean isOnline() {
@@ -184,7 +184,7 @@ public class PlayerProfile {
             return;
         }
 
-        int level = getLevel();
+        int level = calcLevel();
         if (level > cachedLevel) {
             for (int i = cachedLevel + 1; i <= level; i++) {
                 player.get().sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Level Up: " + ChatColor.WHITE + i);
@@ -192,6 +192,10 @@ public class PlayerProfile {
             cachedLevel = level;
             Unlock.checkUnlocks(this);
         }
+    }
+
+    private int calcLevel() {
+        return (xp + 100) / 100;
     }
 
     private void checkExpiredTasks() {
