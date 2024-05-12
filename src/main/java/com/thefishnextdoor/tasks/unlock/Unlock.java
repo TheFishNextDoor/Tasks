@@ -1,4 +1,4 @@
-package com.thefishnextdoor.tasks;
+package com.thefishnextdoor.tasks.unlock;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +11,7 @@ import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.file.ConfigFile;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import net.md_5.bungee.api.ChatColor;

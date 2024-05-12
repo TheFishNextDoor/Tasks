@@ -9,8 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import com.thefishnextdoor.tasks.Unlock;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
+import com.thefishnextdoor.tasks.unlock.Unlock;
 
 public class Unlocks implements CommandExecutor, TabCompleter {
 

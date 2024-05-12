@@ -45,6 +45,7 @@ import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TaskRefresh;
 import com.thefishnextdoor.tasks.task.TimerTrigger;
+import com.thefishnextdoor.tasks.unlock.Unlock;
 
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;

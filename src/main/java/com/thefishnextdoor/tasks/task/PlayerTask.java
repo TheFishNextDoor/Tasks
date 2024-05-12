@@ -9,8 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
-import com.thefishnextdoor.tasks.Unlock;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
+import com.thefishnextdoor.tasks.unlock.Unlock;
 
 import net.md_5.bungee.api.ChatColor;
 
