@@ -8,6 +8,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.thefishnextdoor.tasks.TasksPlugin;
+import com.thefishnextdoor.tasks.Unlock;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 
 import net.md_5.bungee.api.ChatColor;
@@ -126,10 +128,20 @@ public class PlayerTask {
         if (completed) {
             return;
         }
+
+        Optional<Player> optionalPlayer = playerProfile.getPlayer();
+        if (!optionalPlayer.isPresent()) {
+            return;
+        }
+        Player player = optionalPlayer.get();
+
         completed = true;
-        playerProfile.getCompletedTasks().add(taskConfiguration.getId());
+        playerProfile.addCompletedTask(taskConfiguration.getId());
+        player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Task Completed: " + ChatColor.WHITE + taskConfiguration.toString());
+    
         playerProfile.addXp(taskConfiguration.getRewardXp());
-        // TODO: reward money
-        playerProfile.getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Task Completed: " + ChatColor.WHITE + taskConfiguration.toString()));
+        TasksPlugin.getEconomy().ifPresent(economy -> economy.depositPlayer(player, taskConfiguration.getRewardMoney()));
+        
+        Unlock.checkUnlocks(playerProfile);
     }
 }

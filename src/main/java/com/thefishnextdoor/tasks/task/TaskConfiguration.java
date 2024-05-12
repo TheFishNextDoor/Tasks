@@ -102,7 +102,7 @@ public class TaskConfiguration {
 
     private HashSet<Material> blockMaterials = new HashSet<>();
 
-    public TaskConfiguration(String id) {
+    public TaskConfiguration(YamlConfiguration config, String id) {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
@@ -110,7 +110,6 @@ public class TaskConfiguration {
         this.id = id;
 
         Logger logger = TasksPlugin.getInstance().getLogger();
-        YamlConfiguration config = ConfigFile.get("tasks");
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
             if (!settings.contains(setting)) {
@@ -441,7 +440,8 @@ public class TaskConfiguration {
         taskConfigurations.clear();
         YamlConfiguration config = ConfigFile.get("tasks");
         for (String id : config.getKeys(false)) {
-            new TaskConfiguration(id);
+            new TaskConfiguration(config, id);
         }
+        TasksPlugin.getInstance().getLogger().info("Loaded " + taskConfigurations.size() + " tasks");
     }
 }

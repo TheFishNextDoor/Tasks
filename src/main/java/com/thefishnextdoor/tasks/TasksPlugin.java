@@ -1,13 +1,17 @@
 package com.thefishnextdoor.tasks;
 
+import java.util.Optional;
+
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.thefishnextdoor.tasks.command.Level;
 import com.thefishnextdoor.tasks.command.Tasks;
+import com.thefishnextdoor.tasks.command.Unlocks;
 import com.thefishnextdoor.tasks.event.BedEnter;
 import com.thefishnextdoor.tasks.event.BedLeave;
 import com.thefishnextdoor.tasks.event.BlockBreak;
@@ -42,17 +46,32 @@ import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TaskRefresh;
 import com.thefishnextdoor.tasks.task.TimerTrigger;
 
+import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
+
 public class TasksPlugin extends JavaPlugin {
 
     private static TasksPlugin instance;
 
+    private static Economy economy = null;
+    private static Permission permissions = null;
+    private static Chat chat = null;
+
     public void onEnable() {
         instance = this;
+
+        if (setupVault()) {
+            getLogger().info("Vault hooked");
+        } else {
+            getLogger().warning("Vault not found");
+        }
 
         loadConfigs();
 
         registerCommand("tasks", new Tasks());
         registerCommand("level", new Level());
+        registerCommand("unlocks", new Unlocks());
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerJoin(), this);
@@ -103,8 +122,21 @@ public class TasksPlugin extends JavaPlugin {
         return instance;
     }
 
+    public static Optional<Economy> getEconomy() {
+        return Optional.ofNullable(economy);
+    }
+
+    public static Optional<Permission> getPermissions() {
+        return Optional.ofNullable(permissions);
+    }
+
+    public static Optional<Chat> getChat() {
+        return Optional.ofNullable(chat);
+    }
+
     public static void loadConfigs() {
         TaskConfiguration.loadConfig();
+        Unlock.loadConfig();
     }
 
     private void registerCommand(String commandName, CommandExecutor commandHandler) {
@@ -117,5 +149,31 @@ public class TasksPlugin extends JavaPlugin {
         if (commandHandler instanceof TabCompleter) {
             command.setTabCompleter((TabCompleter) commandHandler);
         }
+    }
+
+    private boolean setupVault() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+
+        RegisteredServiceProvider<Economy> economyService = getServer().getServicesManager().getRegistration(Economy.class);
+        if (economyService == null) {
+            return false;
+        }
+        economy = economyService.getProvider();
+
+        RegisteredServiceProvider<Permission> permissionService = getServer().getServicesManager().getRegistration(Permission.class);
+        if (permissionService == null) {
+            return false;
+        }
+        permissions = permissionService.getProvider();
+
+        RegisteredServiceProvider<Chat> chatService = getServer().getServicesManager().getRegistration(Chat.class);
+        if (chatService == null) {
+            return false;
+        }
+        chat = chatService.getProvider();
+
+        return true;
     }
 }

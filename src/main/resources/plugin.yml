@@ -4,6 +4,7 @@ version: 0.0.1
 api-version: 1.15
 author: TheFishNextDoor
 description: A simple task plugin
+softdepend: [Vault]
 commands:
   tasks:
     description: List your current tasks
@@ -11,3 +12,6 @@ commands:
   level:
     description: Check your level
     usage: /level
+  unlocks:
+    description: List all unlocks
+    usage: /unlocks

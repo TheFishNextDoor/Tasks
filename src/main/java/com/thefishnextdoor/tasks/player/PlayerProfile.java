@@ -32,7 +32,7 @@ public class PlayerProfile {
 
     private int xp;
 
-    private int maxTasks = 8;
+    private HashSet<String> completedUnlocks = new HashSet<>();
 
     private ArrayList<PlayerTask> tasks = new ArrayList<>();
 
@@ -50,6 +50,10 @@ public class PlayerProfile {
         YamlConfiguration playerData = DataFile.get(id);
 
         xp = playerData.getInt("xp", 0);
+
+        for (String unlockId : playerData.getStringList(".completed-unlocks")) {
+            completedUnlocks.add(unlockId);
+        }
 
         if (playerData.contains("tasks")) {
             for (String taskKey : playerData.getConfigurationSection("tasks").getKeys(false)) {
@@ -78,6 +82,8 @@ public class PlayerProfile {
         YamlConfiguration playerData = DataFile.get(id);
 
         playerData.set("xp", xp);
+
+        playerData.set(".completed-unlocks", new ArrayList<>(completedUnlocks));
 
         playerData.set("tasks", null);
         for (PlayerTask task : tasks) {
@@ -129,16 +135,24 @@ public class PlayerProfile {
         return getPlayer().isPresent();
     }
 
+    public void addCompletedUnlock(String id) {
+        completedUnlocks.add(id);
+    }
+
+    public boolean hasCompletedUnlock(String id) {
+        return completedUnlocks.contains(id);
+    }
+
     public ArrayList<PlayerTask> getTasks() {
         return tasks;
     }
 
-    public HashSet<String> getCompletedTasks() {
-        return completedTasks;
-    }
-
     public boolean hasTask(String id) {
         return tasks.stream().anyMatch(task -> task.getTaskConfiguration().getId().equals(id));
+    }
+
+    public void addCompletedTask(String id) {
+        completedTasks.add(id);
     }
 
     public boolean hasCompletedTask(String id) {
@@ -169,6 +183,7 @@ public class PlayerProfile {
     }
 
     private void populateTasks() {
+        int maxTasks = 8;
         if (tasks.size() >= maxTasks) {
             return;
         }
