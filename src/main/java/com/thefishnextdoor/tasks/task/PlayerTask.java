@@ -110,6 +110,9 @@ public class PlayerTask {
         if (taskConfiguration.isValidFor(triggerType, player.get(), location, entity, item, block)) {
             addProgress(amount);
         }
+        if (triggerType == TriggerType.DEATH && taskConfiguration.resetOnDeath()) {
+            progress = 0;
+        }
     }
 
     public void addProgress(int progress) {

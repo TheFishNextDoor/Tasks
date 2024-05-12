@@ -32,6 +32,7 @@ public class TaskConfiguration {
         "amount",
         "message",
         "time-limit-minutes",
+        "reset-on-death",
         "repeatable",
         "min-level",
         "max-level",
@@ -66,6 +67,8 @@ public class TaskConfiguration {
     private String message = null;
 
     private long timeLimitMS = 0;
+
+    private boolean resetOnDeath = false;
 
     // Requirements
     private boolean repeatable = true;
@@ -126,9 +129,11 @@ public class TaskConfiguration {
 
         this.amount = Math.max(config.getInt(id + ".amount"), 1);
 
+        this.message = config.getString(id + ".message");
+
         this.timeLimitMS = Math.max(config.getInt(id + ".time-limit-minutes") * 60000, 0);
 
-        this.message = config.getString(id + ".message");
+        this.resetOnDeath = config.getBoolean(id + ".reset-on-death");
 
         if (config.contains(id + ".repeatable")) {
             this.repeatable = config.getBoolean(id + ".repeatable");
@@ -285,6 +290,10 @@ public class TaskConfiguration {
 
     public long getTimeLimitMS() {
         return timeLimitMS;
+    }
+
+    public boolean resetOnDeath() {
+        return resetOnDeath;
     }
 
     public double getRewardMoney() {
