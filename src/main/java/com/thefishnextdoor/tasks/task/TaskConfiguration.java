@@ -52,8 +52,8 @@ public class TaskConfiguration {
         "max-y",
         "min-z",
         "max-z",
-        "entity-is-in-water",
-        "entity-is-on-ground",
+        "entity-in-water",
+        "entity-on-ground",
         "entity-names",
         "entity-types",
         "spawn-categories",
@@ -216,12 +216,12 @@ public class TaskConfiguration {
             this.maxZ = config.getInt(id + ".max-z");
         }
 
-        if (config.contains(id + ".entity-is-in-water")) {
-            this.entityIsInWater = config.getBoolean(id + ".entity-is-in-water");
+        if (config.contains(id + ".entity-in-water")) {
+            this.entityIsInWater = config.getBoolean(id + ".entity-in-water");
         }
 
-        if (config.contains(id + ".entity-is-on-ground")) {
-            this.entityIsOnGround = config.getBoolean(id + ".entity-is-on-ground");
+        if (config.contains(id + ".entity-on-ground")) {
+            this.entityIsOnGround = config.getBoolean(id + ".entity-on-ground");
         }
 
         for (String entityName : config.getStringList(id + ".entity-names")) {
