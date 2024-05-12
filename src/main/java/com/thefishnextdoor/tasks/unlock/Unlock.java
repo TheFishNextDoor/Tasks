@@ -23,21 +23,23 @@ public class Unlock implements Comparable<Unlock> {
 
     private static List<String> settings = List.of(
         "level",
-        "message",
+        "name",
         "permissions",
         "console-commands",
-        "player-commands"
+        "player-commands",
+        "messages"
     );
 
     private final String id;
 
     private int level;
 
-    private String message;
+    private String name;
 
     private ArrayList<String> permissions = new ArrayList<String>();
     private ArrayList<String> console_commands = new ArrayList<String>();
     private ArrayList<String> player_commands = new ArrayList<String>();
+    private ArrayList<String> messages = new ArrayList<String>();
 
     public Unlock(YamlConfiguration config, String id) {
         this.id = id;
@@ -53,7 +55,7 @@ public class Unlock implements Comparable<Unlock> {
 
         level = config.getInt(id + ".level");
 
-        message = config.getString(id + ".message");
+        name = config.getString(id + ".name");
         
         for (String permission : config.getStringList(id + ".permissions")) {
             permissions.add(permission);
@@ -67,12 +69,20 @@ public class Unlock implements Comparable<Unlock> {
             player_commands.add(command);
         }
 
+        for (String message : config.getStringList(id + ".messages")) {
+            messages.add(ChatColor.translateAlternateColorCodes('&', message));
+        }
+
         unlocks.add(this);
     }
 
     @Override
     public String toString() {
-        return ChatColor.BLUE + "" + getLevel() + "" + ChatColor.WHITE + ": " + message;
+        String string = name != null ? name : id;
+        if (level > 0) {
+            string = string + " (Level " + level + ")";
+        }
+        return string;
     }
 
     @Override
@@ -95,7 +105,7 @@ public class Unlock implements Comparable<Unlock> {
         }
 
         Player player = optionalPlayer.get();
-        player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Unlocked: " + ChatColor.WHITE + message);
+        player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Unlocked: " + ChatColor.WHITE + name);
 
         Optional<Permission> permissionsProvider = TasksPlugin.getPermissions();
         if (permissionsProvider.isPresent()) {
@@ -117,6 +127,10 @@ public class Unlock implements Comparable<Unlock> {
             player.performCommand(command);
         }
         
+        for (String message : messages) {
+            player.sendMessage(message);
+        }
+        
         playerProfile.addCompletedUnlock(id);
         return;
     }
@@ -127,7 +141,8 @@ public class Unlock implements Comparable<Unlock> {
 
     public static void checkUnlocks(PlayerProfile playerProfile) {
         for (Unlock unlock : unlocks) {
-            if (unlock.getLevel() > playerProfile.getLevel() ) {
+            int level = unlock.getLevel();
+            if (level > 0 && level > playerProfile.getLevel()) {
                 continue;
             }
             if (playerProfile.hasCompletedUnlock(unlock.getId())) {
