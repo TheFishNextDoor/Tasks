@@ -139,6 +139,7 @@ public class TasksPlugin extends JavaPlugin {
     public static void loadConfigs() {
         TaskConfiguration.loadConfig();
         Unlock.loadConfig();
+        PlayerProfile.reload();
     }
 
     private void registerCommand(String commandName, CommandExecutor commandHandler) {

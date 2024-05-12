@@ -270,6 +270,14 @@ public class PlayerProfile {
         playerProfiles.values().forEach(PlayerProfile::refreshTasks);
     }
 
+    public static void reload() {
+        saveAll();
+        playerProfiles.clear();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            load(player);
+        }
+    }
+
     public static void saveAll() {
         playerProfiles.values().forEach(PlayerProfile::save);
     }
