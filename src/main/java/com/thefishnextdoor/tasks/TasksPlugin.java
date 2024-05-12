@@ -64,7 +64,8 @@ public class TasksPlugin extends JavaPlugin {
 
         if (setupVault()) {
             getLogger().info("Vault hooked");
-        } else {
+        } 
+        else {
             getLogger().warning("Vault not found");
         }
 
