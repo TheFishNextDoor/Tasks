@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.player.TasksMessage;
+import com.thefishnextdoor.tasks.toolkit.MoneyTools;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
@@ -54,7 +55,7 @@ public class PlayerTask {
         String rewardMoneySection = "";
         double rewardMoney = taskConfiguration.getRewardMoney();
         if (rewardMoney > 0) {
-            rewardMoneySection = ChatColor.WHITE + " (" + ChatColor.GOLD + "$" + rewardMoney + ChatColor.WHITE + ")";
+            rewardMoneySection = ChatColor.WHITE + " (" + ChatColor.GOLD + MoneyTools.format(rewardMoney) + ChatColor.WHITE + ")";
         }
 
         String expireSection = "";
