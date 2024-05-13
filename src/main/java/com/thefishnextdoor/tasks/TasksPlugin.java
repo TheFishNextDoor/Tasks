@@ -30,6 +30,7 @@ import com.thefishnextdoor.tasks.event.ItemDamage;
 import com.thefishnextdoor.tasks.event.ItemMend;
 import com.thefishnextdoor.tasks.event.ManipulateArmorstand;
 import com.thefishnextdoor.tasks.event.PickupArrow;
+import com.thefishnextdoor.tasks.event.PlayerChat;
 import com.thefishnextdoor.tasks.event.PlayerJoin;
 import com.thefishnextdoor.tasks.event.Portal;
 import com.thefishnextdoor.tasks.event.Respawn;
@@ -77,6 +78,7 @@ public class TasksPlugin extends JavaPlugin {
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerJoin(), this);
+        pluginManager.registerEvents(new PlayerChat(), this);
         pluginManager.registerEvents(new InteractEntity(), this);
         pluginManager.registerEvents(new EntityDamageByEntity(), this);
         pluginManager.registerEvents(new EntityDeath(), this);
