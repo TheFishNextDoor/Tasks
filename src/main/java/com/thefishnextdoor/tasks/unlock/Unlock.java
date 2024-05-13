@@ -107,7 +107,7 @@ public class Unlock implements Comparable<Unlock> {
         }
 
         Player player = optionalPlayer.get();
-        TasksMessage.send(player, "Unlocked", name);
+        TasksMessage.send(player, playerProfile, "Unlocked", name);
 
         if (TasksPlugin.isUsingVault()) {
             Permission permissionsProvider = TasksPlugin.getPermissions();

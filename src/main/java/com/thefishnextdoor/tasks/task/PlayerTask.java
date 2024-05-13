@@ -149,7 +149,7 @@ public class PlayerTask {
 
         completed = true;
         playerProfile.addCompletedTask(taskConfiguration.getId());
-        TasksMessage.send(player, "Task Completed", taskConfiguration.toString());
+        TasksMessage.send(player, playerProfile, "Task Completed", taskConfiguration.toString());
     
         for (String message : taskConfiguration.getRewardMessages()) {
             player.sendMessage(message);

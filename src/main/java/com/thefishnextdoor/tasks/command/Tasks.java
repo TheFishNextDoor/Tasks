@@ -67,7 +67,7 @@ public class Tasks implements CommandExecutor, TabCompleter {
                 sender.sendMessage(ChatColor.RED + "Invalid color");
                 return true;
             }
-            TasksMessage.send(player, "Color Changed", args[1]);
+            TasksMessage.send(player, playerProfile, "Color Changed", args[1]);
             return true;
         }
 

@@ -212,7 +212,7 @@ public class PlayerProfile {
         int level = calcLevel();
         if (level > cachedLevel) {
             for (int i = cachedLevel + 1; i <= level; i++) {
-                TasksMessage.send(player.get(), "Level Up", String.valueOf(i));
+                TasksMessage.send(player.get(), this, "Level Up", String.valueOf(i));
             }
             cachedLevel = level;
             Unlock.checkUnlocks(this);
@@ -232,7 +232,7 @@ public class PlayerProfile {
             } 
             else if (task.isExpired()) {
                 taskIter.remove();
-                getPlayer().ifPresent(player -> TasksMessage.send(player, "Task Expired", task.getTaskConfiguration().toString()));
+                getPlayer().ifPresent(player -> TasksMessage.send(player, this, "Task Expired", task.getTaskConfiguration().toString()));
             }
         }
     }
@@ -252,7 +252,7 @@ public class PlayerProfile {
             long timeLimitMS = task.getTimeLimitMS();
             long expireTime = timeLimitMS == 0 ? 0 : System.currentTimeMillis() + timeLimitMS;
             tasks.add(new PlayerTask(task, this, 0, expireTime));
-            getPlayer().ifPresent(player -> TasksMessage.send(player, "New Task", task.toString()));
+            getPlayer().ifPresent(player -> TasksMessage.send(player, this, "New Task", task.toString()));
         }
     }
 
