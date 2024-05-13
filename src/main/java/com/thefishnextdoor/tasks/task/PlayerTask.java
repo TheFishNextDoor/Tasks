@@ -12,6 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 
 public class PlayerTask {
 
@@ -108,9 +110,11 @@ public class PlayerTask {
         if (!player.isPresent()) {
             return;
         }
+
         if (taskConfiguration.isValidFor(triggerType, player.get(), location, entity, item, block)) {
             addProgress(amount);
         }
+
         if (triggerType == TriggerType.DEATH && taskConfiguration.resetOnDeath()) {
             progress = 0;
         }
@@ -120,10 +124,14 @@ public class PlayerTask {
         if (progress < 0) {
             throw new IllegalArgumentException("Progress cannot be negative");
         }
+        if (completed) {
+            return;
+        }
         this.progress += progress;
         if (this.progress >= taskConfiguration.getAmount()) {
             complete();
         }
+        playerProfile.getPlayer().ifPresent(player -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(this.toString())));
     }
 
     public void complete() {
