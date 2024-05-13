@@ -151,8 +151,9 @@ public class PlayerTask {
         playerProfile.addCompletedTask(taskConfiguration.getId());
         TasksMessage.send(player, playerProfile, "Task Completed", taskConfiguration.toString());
     
+        String name = player.getName();
         for (String message : taskConfiguration.getRewardMessages()) {
-            player.sendMessage(message);
+            player.sendMessage(message.replace("{player}", name));
         }
         
         if (TasksPlugin.isUsingVault()) {
@@ -161,10 +162,10 @@ public class PlayerTask {
 
         Server server = player.getServer();
         for (String consoleCommand : taskConfiguration.getRewardConsoleCommands()) {
-            server.dispatchCommand(server.getConsoleSender(), consoleCommand.replace("{player}", player.getName()));
+            server.dispatchCommand(server.getConsoleSender(), consoleCommand.replace("{player}", name));
         }
         for (String playerCommand : taskConfiguration.getRewardPlayerCommands()) {
-            server.dispatchCommand(player, playerCommand);
+            player.performCommand(playerCommand.replace("{player}", name));
         }
 
         playerProfile.addXp(taskConfiguration.getRewardXp());

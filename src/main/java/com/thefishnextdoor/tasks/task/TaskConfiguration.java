@@ -95,6 +95,7 @@ public class TaskConfiguration {
 
     private ArrayList<String> rewardConsoleCommands = new ArrayList<>();
     private ArrayList<String> rewardPlayerCommands = new ArrayList<>();
+    private ArrayList<String> rewardMessages = new ArrayList<>();
 
     // Conditions
     private HashSet<TriggerType> triggers = new HashSet<>();
@@ -175,7 +176,7 @@ public class TaskConfiguration {
         }
 
         for (String rewardMessage : config.getStringList(id + ".reward-messages")) {
-            this.rewardPlayerCommands.add(ChatColor.translateAlternateColorCodes('&', rewardMessage));
+            this.rewardMessages.add(ChatColor.translateAlternateColorCodes('&', rewardMessage));
         }
 
         for (String triggerName : config.getStringList(id + ".triggers")) {
@@ -342,7 +343,7 @@ public class TaskConfiguration {
     }
 
     public ArrayList<String> getRewardMessages() {
-        return rewardPlayerCommands;
+        return rewardMessages;
     }
 
     public boolean meetsRequirements(PlayerProfile playerProfile) {
