@@ -75,6 +75,7 @@ public class Tasks implements CommandExecutor, TabCompleter {
         Integer i = 1;
         for (PlayerTask task : playerProfile.getTasks()) {
             player.sendMessage(i.toString() + ". " + task.toString());
+            i++;
         }
         return true;
     }
