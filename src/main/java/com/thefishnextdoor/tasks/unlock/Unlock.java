@@ -107,11 +107,11 @@ public class Unlock implements Comparable<Unlock> {
         Player player = optionalPlayer.get();
         player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Unlocked: " + ChatColor.WHITE + name);
 
-        Optional<Permission> permissionsProvider = TasksPlugin.getPermissions();
-        if (permissionsProvider.isPresent()) {
+        if (TasksPlugin.isUsingVault()) {
+            Permission permissionsProvider = TasksPlugin.getPermissions();
             for (String permission : permissions) {
                 if (!player.hasPermission(permission)) {
-                    permissionsProvider.get().playerAdd(player, permission);
+                    permissionsProvider.playerAdd(player, permission);
                 }
             }
         }

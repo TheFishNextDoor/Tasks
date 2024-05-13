@@ -155,7 +155,9 @@ public class PlayerTask {
             player.sendMessage(message);
         }
         
-        TasksPlugin.getEconomy().ifPresent(economy -> economy.depositPlayer(player, taskConfiguration.getRewardMoney()));
+        if (TasksPlugin.isUsingVault()) {
+            TasksPlugin.getEconomy().depositPlayer(player, taskConfiguration.getRewardMoney());
+        }
 
         Server server = player.getServer();
         for (String consoleCommand : taskConfiguration.getRewardConsoleCommands()) {

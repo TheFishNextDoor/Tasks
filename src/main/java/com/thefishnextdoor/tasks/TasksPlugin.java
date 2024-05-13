@@ -1,7 +1,5 @@
 package com.thefishnextdoor.tasks;
 
-import java.util.Optional;
-
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
@@ -55,6 +53,7 @@ public class TasksPlugin extends JavaPlugin {
 
     private static TasksPlugin instance;
 
+    private static boolean usingVault = false;
     private static Economy economy = null;
     private static Permission permissions = null;
     private static Chat chat = null;
@@ -62,7 +61,8 @@ public class TasksPlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        if (setupVault()) {
+        usingVault = setupVault();
+        if (usingVault) {
             getLogger().info("Vault hooked");
         } 
         else {
@@ -124,16 +124,29 @@ public class TasksPlugin extends JavaPlugin {
         return instance;
     }
 
-    public static Optional<Economy> getEconomy() {
-        return Optional.ofNullable(economy);
+    public static boolean isUsingVault() {
+        return usingVault;
     }
 
-    public static Optional<Permission> getPermissions() {
-        return Optional.ofNullable(permissions);
+    public static Economy getEconomy() {
+        if (!usingVault) {
+            throw new IllegalStateException("Vault not found");
+        }
+        return economy;
     }
 
-    public static Optional<Chat> getChat() {
-        return Optional.ofNullable(chat);
+    public static Permission getPermissions() {
+        if (!usingVault) {
+            throw new IllegalStateException("Vault not found");
+        }
+        return permissions;
+    }
+
+    public static Chat getChat() {
+        if (!usingVault) {
+            throw new IllegalStateException("Vault not found");
+        }
+        return chat;
     }
 
     public static void loadConfigs() {
