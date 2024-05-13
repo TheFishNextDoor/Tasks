@@ -14,6 +14,8 @@ import org.bukkit.entity.Player;
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.file.ConfigFile;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
+import com.thefishnextdoor.tasks.player.TasksMessage;
+
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.permission.Permission;
 
@@ -105,7 +107,7 @@ public class Unlock implements Comparable<Unlock> {
         }
 
         Player player = optionalPlayer.get();
-        player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Unlocked: " + ChatColor.WHITE + name);
+        TasksMessage.send(player, "Unlocked", name);
 
         if (TasksPlugin.isUsingVault()) {
             Permission permissionsProvider = TasksPlugin.getPermissions();

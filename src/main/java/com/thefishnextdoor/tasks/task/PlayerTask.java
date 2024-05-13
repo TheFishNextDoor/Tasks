@@ -48,7 +48,7 @@ public class PlayerTask {
         if (completed) {
             progressSection = ChatColor.WHITE + " (" + ChatColor.GREEN + "Completed" + ChatColor.WHITE + ")";
         } else {
-            progressSection = ChatColor.WHITE + " (" + ChatColor.BLUE + progress + "/" + taskConfiguration.getAmount() + ChatColor.WHITE + ")";
+            progressSection = ChatColor.WHITE + " (" + playerProfile.getColor() + progress + "/" + taskConfiguration.getAmount() + ChatColor.WHITE + ")";
         }
 
         String rewardMoneySection = "";

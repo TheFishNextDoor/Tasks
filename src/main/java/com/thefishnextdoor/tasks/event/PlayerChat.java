@@ -15,7 +15,7 @@ public class PlayerChat implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
-        String level = ChatColor.WHITE + "[" + ChatColor.BLUE + playerProfile.getLevel() + ChatColor.WHITE + "]";
+        String level = ChatColor.WHITE + "[" + playerProfile.getColor() + playerProfile.getLevel() + ChatColor.WHITE + "]";
         event.setFormat(level + " " + event.getFormat());
     }
 }

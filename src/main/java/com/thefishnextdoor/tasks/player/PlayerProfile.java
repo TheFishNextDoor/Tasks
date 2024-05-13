@@ -23,6 +23,8 @@ import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TriggerType;
 import com.thefishnextdoor.tasks.unlock.Unlock;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class PlayerProfile {
 
     private static ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
@@ -32,6 +34,8 @@ public class PlayerProfile {
     // Save data
 
     private int xp;
+
+    private ChatColor color;
 
     private HashSet<String> completedUnlocks = new HashSet<>();
 
@@ -56,11 +60,11 @@ public class PlayerProfile {
 
         xp = playerData.getInt("xp", 0);
 
-        for (String unlockId : playerData.getStringList(".completed-unlocks")) {
+        for (String unlockId : playerData.getStringList("completed-unlocks")) {
             completedUnlocks.add(unlockId);
         }
 
-        for (String taskId : playerData.getStringList(".completed-tasks")) {
+        for (String taskId : playerData.getStringList("completed-tasks")) {
             completedTasks.add(taskId);
         }
 
@@ -77,6 +81,13 @@ public class PlayerProfile {
             }
         }
 
+        try {
+            this.color = ChatColor.of(playerData.getString("color"));
+        }
+        catch (IllegalArgumentException e) {
+            this.color = ChatColor.BLUE;
+        }
+
         cachedLevel = calcLevel();
 
         refreshTasks();
@@ -90,7 +101,7 @@ public class PlayerProfile {
 
         playerData.set("xp", xp);
 
-        playerData.set(".completed-unlocks", new ArrayList<>(completedUnlocks));
+        playerData.set("completed-unlocks", new ArrayList<>(completedUnlocks));
 
         playerData.set("tasks", null);
         for (PlayerTask task : tasks) {
@@ -102,7 +113,9 @@ public class PlayerProfile {
             playerData.set("tasks." + taskId + ".expires", task.getExpires());
         }
 
-        playerData.set(".completed-tasks", new ArrayList<>(completedTasks));
+        playerData.set("completed-tasks", new ArrayList<>(completedTasks));
+
+        playerData.set("color", color.getName());
 
         DataFile.save(id, playerData);
 
@@ -137,6 +150,20 @@ public class PlayerProfile {
 
     public int getLevel() {
         return cachedLevel;
+    }
+
+    public String getColor() {
+        return color + "";
+    }
+
+    public void setColor(ChatColor color) {
+        if (color == null) {
+            throw new IllegalArgumentException("Color cannot be null");
+        }
+        if (color == ChatColor.STRIKETHROUGH || color == ChatColor.MAGIC || color == ChatColor.BOLD || color == ChatColor.ITALIC || color == ChatColor.UNDERLINE || color == ChatColor.RESET) {
+            throw new IllegalArgumentException("Invalid color");
+        }
+        this.color = color;
     }
 
     public boolean isOnline() {
