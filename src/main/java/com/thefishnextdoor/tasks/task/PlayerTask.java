@@ -53,7 +53,7 @@ public class PlayerTask {
 
         String rewardMoneySection = "";
         double rewardMoney = taskConfiguration.getRewardMoney();
-        if (!completed && rewardMoney > 0) {
+        if (rewardMoney > 0) {
             rewardMoneySection = ChatColor.WHITE + " (" + ChatColor.GOLD + "$" + rewardMoney + ChatColor.WHITE + ")";
         }
 
