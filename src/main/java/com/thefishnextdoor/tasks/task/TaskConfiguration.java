@@ -275,7 +275,6 @@ public class TaskConfiguration {
             Material itemMaterial = EnumTools.fromString(Material.class, itemMaterialName);
             if (itemMaterial == null) {
                 logger.warning("Invalid item material for task " + id + ": " + itemMaterialName);
-                logger.warning("Valid item materials are: " + EnumTools.allStrings(Material.class));
                 continue;
             }
             this.itemMaterials.add(itemMaterial);
@@ -285,7 +284,6 @@ public class TaskConfiguration {
             Material blockMaterial = EnumTools.fromString(Material.class, blockMaterialName);
             if (blockMaterial == null) {
                 logger.warning("Invalid block material for task " + id + ": " + blockMaterialName);
-                logger.warning("Valid block materials are: " + EnumTools.allStrings(Material.class));
                 continue;
             }
             this.blockMaterials.add(blockMaterial);
