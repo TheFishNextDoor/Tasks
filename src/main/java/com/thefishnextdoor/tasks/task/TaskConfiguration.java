@@ -87,7 +87,7 @@ public class TaskConfiguration {
     private String permission = null;
 
     private ArrayList<String> prerequisiteTasks = new ArrayList<>();
-    private ArrayList<String> incompatibleTasks = new ArrayList<>();
+    private HashSet<String> incompatibleTasks = new HashSet<>();
 
     // Rewards
     private double rewardMoney;
@@ -321,6 +321,10 @@ public class TaskConfiguration {
         return resetOnDeath;
     }
 
+    public boolean conflictsWith(String otherTaskId) {
+        return incompatibleTasks.contains(otherTaskId);
+    }
+
     public double getRewardMoney() {
         return rewardMoney;
     }
@@ -369,8 +373,11 @@ public class TaskConfiguration {
                 return false;
             }
         }
-        for (String incompatibleTask : incompatibleTasks) {
-            if (playerProfile.hasTask(incompatibleTask)) {
+        for (PlayerTask task : playerProfile.getTasks()) {
+            if (conflictsWith(task.getTaskConfiguration().getId())) {
+                return false;
+            }
+            if (task.getTaskConfiguration().conflictsWith(id)) {
                 return false;
             }
         }
