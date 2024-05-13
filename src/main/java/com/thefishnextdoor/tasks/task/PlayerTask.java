@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
+import com.thefishnextdoor.tasks.player.TasksMessage;
+
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -147,7 +149,7 @@ public class PlayerTask {
 
         completed = true;
         playerProfile.addCompletedTask(taskConfiguration.getId());
-        player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Task Completed: " + ChatColor.WHITE + taskConfiguration.toString());
+        TasksMessage.send(player, "Task Completed", taskConfiguration.toString());
     
         for (String message : taskConfiguration.getRewardMessages()) {
             player.sendMessage(message);

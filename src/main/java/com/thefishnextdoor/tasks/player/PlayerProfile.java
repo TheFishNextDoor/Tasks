@@ -23,8 +23,6 @@ import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TriggerType;
 import com.thefishnextdoor.tasks.unlock.Unlock;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class PlayerProfile {
 
     private static ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
@@ -187,7 +185,7 @@ public class PlayerProfile {
         int level = calcLevel();
         if (level > cachedLevel) {
             for (int i = cachedLevel + 1; i <= level; i++) {
-                player.get().sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Level Up: " + ChatColor.WHITE + i);
+                TasksMessage.send(player.get(), "Level Up", String.valueOf(i));
             }
             cachedLevel = level;
             Unlock.checkUnlocks(this);
@@ -207,7 +205,7 @@ public class PlayerProfile {
             } 
             else if (task.isExpired()) {
                 taskIter.remove();
-                getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "Task Expired: " + ChatColor.WHITE + task.getTaskConfiguration().toString()));
+                getPlayer().ifPresent(player -> TasksMessage.send(player, "Task Expired", task.getTaskConfiguration().toString()));
             }
         }
     }
@@ -227,7 +225,7 @@ public class PlayerProfile {
             long timeLimitMS = task.getTimeLimitMS();
             long expireTime = timeLimitMS == 0 ? 0 : System.currentTimeMillis() + timeLimitMS;
             tasks.add(new PlayerTask(task, this, 0, expireTime));
-            getPlayer().ifPresent(player -> player.sendMessage(ChatColor.BLUE + "" +  ChatColor.BOLD + "New Task: " + ChatColor.WHITE + task.toString()));
+            getPlayer().ifPresent(player -> TasksMessage.send(player, "New Task", task.toString()));
         }
     }
 
