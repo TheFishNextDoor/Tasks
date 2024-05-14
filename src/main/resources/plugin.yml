@@ -6,17 +6,23 @@ author: TheFishNextDoor
 description: A simple task plugin
 softdepend: [Vault]
 commands:
+  tasksadmin:
+    description: Admin commands for tasks plugin
+    usage: /tasksadmin
+    permission: tasks.admin
   tasks:
     description: List your current tasks
     usage: /tasks
   level:
-    description: Check your level
+    description: Check your level and experience
     usage: /level
   unlocks:
-    description: List all unlocks
+    description: List your unlocks
     usage: /unlocks
 permissions:
-  tasks.reload:
+  tasks.admin:
+    description: Allows the player to use admin commands
+  tasks.admin.reload:
     description: Allows the player to reload the plugin
   tasks.color:
     description: Allows the player to change the color of their tasks

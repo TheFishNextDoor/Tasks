@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.thefishnextdoor.tasks.command.Level;
 import com.thefishnextdoor.tasks.command.Tasks;
+import com.thefishnextdoor.tasks.command.TasksAdmin;
 import com.thefishnextdoor.tasks.command.Unlocks;
 import com.thefishnextdoor.tasks.event.BedEnter;
 import com.thefishnextdoor.tasks.event.BedLeave;
@@ -73,6 +74,7 @@ public class TasksPlugin extends JavaPlugin {
 
         loadConfigs();
 
+        registerCommand("tasksadmin", new TasksAdmin());
         registerCommand("tasks", new Tasks());
         registerCommand("level", new Level());
         registerCommand("unlocks", new Unlocks());
@@ -160,6 +162,12 @@ public class TasksPlugin extends JavaPlugin {
     }
 
     private void registerCommand(String commandName, CommandExecutor commandHandler) {
+        if (commandName == null) {
+            throw new IllegalArgumentException("commandName cannot be null");
+        }
+        if (commandHandler == null) {
+            throw new IllegalArgumentException("commandHandler cannot be null");
+        }
         PluginCommand command = getCommand(commandName);
         if (command == null) {
             getLogger().warning("Failed to register command: " + commandName);
