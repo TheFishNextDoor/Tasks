@@ -60,7 +60,7 @@ public class TaskConfiguration {
         "entity-on-ground",
         "entity-names",
         "entity-types",
-        "spawn-categories",
+        "entity-spawn-categories",
         "item-names",
         "item-materials",
         "block-materials"
@@ -116,7 +116,7 @@ public class TaskConfiguration {
 
     private HashSet<String> entityNames = new HashSet<>();
     private HashSet<EntityType> entityTypes = new HashSet<>();
-    private HashSet<SpawnCategory> spawnCategories = new HashSet<>();
+    private HashSet<SpawnCategory> entitySpawnCategories = new HashSet<>();
 
     private HashSet<String> itemNames = new HashSet<>();
     private HashSet<Material> itemMaterials = new HashSet<>();
@@ -257,14 +257,14 @@ public class TaskConfiguration {
             this.entityTypes.add(entityType);
         }
 
-        for (String spawnCategoryName : config.getStringList(id + ".spawn-categories")) {
+        for (String spawnCategoryName : config.getStringList(id + ".entity-spawn-categories")) {
             SpawnCategory spawnCategory = EnumTools.fromString(SpawnCategory.class, spawnCategoryName);
             if (spawnCategory == null) {
                 logger.warning("Invalid spawn category for task " + id + ": " + spawnCategoryName);
                 logger.warning("Valid spawn categories are: " + EnumTools.allStrings(SpawnCategory.class));
                 continue;
             }
-            this.spawnCategories.add(spawnCategory);
+            this.entitySpawnCategories.add(spawnCategory);
         }
 
         for (String itemName : config.getStringList(id + ".item-names")) {
@@ -465,11 +465,11 @@ public class TaskConfiguration {
             }
         }
 
-        if (!spawnCategories.isEmpty()) {
+        if (!entitySpawnCategories.isEmpty()) {
             if (entity == null) {
                 return false;
             }
-            if (!spawnCategories.contains(entity.getSpawnCategory())) {
+            if (!entitySpawnCategories.contains(entity.getSpawnCategory())) {
                 return false;
             }
         }
