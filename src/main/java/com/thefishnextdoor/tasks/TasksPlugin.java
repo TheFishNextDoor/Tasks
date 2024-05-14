@@ -156,8 +156,8 @@ public class TasksPlugin extends JavaPlugin {
     }
 
     public static void loadConfigs() {
-        TaskConfiguration.loadConfig();
         Unlock.loadConfig();
+        TaskConfiguration.loadConfig();
         PlayerProfile.reload();
     }
 

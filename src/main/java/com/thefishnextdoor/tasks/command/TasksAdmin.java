@@ -320,7 +320,7 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
             if (subSubCommand.equalsIgnoreCase("list")) {
                 sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "Unlocks for " + player.getName());
                 boolean hasUnlocks = false;
-                for (Unlock unlock : Unlock.getAll()) {
+                for (Unlock unlock : Unlock.getSorted()) {
                     if (playerProfile.hasCompletedUnlock(unlock.getId())) {
                         hasUnlocks = true;
                         sender.sendMessage(ChatColor.BLUE + unlock.getId() + ":" + ChatColor.WHITE + " " + unlock.toString());

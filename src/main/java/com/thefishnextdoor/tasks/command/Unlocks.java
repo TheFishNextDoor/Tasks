@@ -29,7 +29,7 @@ public class Unlocks implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
         PlayerProfile playerProfile = PlayerProfile.get(player);
 
-        List<Unlock> unlocks = Unlock.getAll();
+        List<Unlock> unlocks = Unlock.getSorted();
         boolean hasUnlocks = false;
         player.sendMessage(playerProfile.getColor() + ChatColor.BOLD + "Unlocks");
         for (Unlock unlock : unlocks) {

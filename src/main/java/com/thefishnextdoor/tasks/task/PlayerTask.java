@@ -13,6 +13,7 @@ import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.player.TasksMessage;
 import com.thefishnextdoor.tasks.toolkit.MoneyTools;
+import com.thefishnextdoor.tasks.unlock.Unlock;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
@@ -160,6 +161,12 @@ public class PlayerTask {
         
         if (TasksPlugin.isUsingVault()) {
             TasksPlugin.getEconomy().depositPlayer(player, taskConfiguration.getRewardMoney());
+        }
+
+        for (Unlock unlock : taskConfiguration.getRewardUnlocks()) {
+            if (!playerProfile.hasCompletedUnlock(unlock.getId())) {
+                unlock.giveTo(playerProfile);
+            }
         }
 
         Server server = player.getServer();

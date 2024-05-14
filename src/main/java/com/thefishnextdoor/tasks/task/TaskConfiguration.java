@@ -23,6 +23,7 @@ import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.file.ConfigFile;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.toolkit.EnumTools;
+import com.thefishnextdoor.tasks.unlock.Unlock;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -43,6 +44,7 @@ public class TaskConfiguration {
         "permission",
         "reward-money",
         "reward-xp",
+        "reward-unlocks",
         "reward-console-commands",
         "reward-player-commands",
         "reward-messages",
@@ -92,6 +94,8 @@ public class TaskConfiguration {
     // Rewards
     private double rewardMoney;
     private int rewardXp;
+
+    private ArrayList<Unlock> rewardUnlocks = new ArrayList<>();
 
     private ArrayList<String> rewardConsoleCommands = new ArrayList<>();
     private ArrayList<String> rewardPlayerCommands = new ArrayList<>();
@@ -169,6 +173,15 @@ public class TaskConfiguration {
         
         this.rewardMoney = config.getDouble(id + ".reward-money");
         this.rewardXp = config.getInt(id + ".reward-xp");
+
+        for (String unlockName : config.getStringList(id + ".reward-unlocks")) {
+            Optional<Unlock> unlock = Unlock.get(unlockName);
+            if (!unlock.isPresent()) {
+                logger.warning("Invalid reward unlock for task " + id + ": " + unlockName);
+                continue;
+            }
+            this.rewardUnlocks.add(unlock.get());
+        }
 
         for (String consoleCommand : config.getStringList(id + ".reward-console-commands")) {
             this.rewardConsoleCommands.add(consoleCommand);
@@ -336,6 +349,10 @@ public class TaskConfiguration {
 
     public int getRewardXp() {
         return rewardXp;
+    }
+
+    public ArrayList<Unlock> getRewardUnlocks() {
+        return rewardUnlocks;
     }
 
     public ArrayList<String> getRewardConsoleCommands() {

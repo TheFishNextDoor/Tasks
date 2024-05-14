@@ -2,6 +2,7 @@ package com.thefishnextdoor.tasks.unlock;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -21,7 +22,9 @@ import net.milkbowl.vault.permission.Permission;
 
 public class Unlock implements Comparable<Unlock> {
 
-    private static ArrayList<Unlock> unlocks = new ArrayList<>();
+    private static ArrayList<Unlock> unlocksSorted = new ArrayList<>();
+    private static HashMap<String, Unlock> unlocksLookup = new HashMap<>();
+
 
     private static List<String> settings = List.of(
         "level",
@@ -82,7 +85,8 @@ public class Unlock implements Comparable<Unlock> {
             messages.add(ChatColor.translateAlternateColorCodes('&', message));
         }
 
-        unlocks.add(this);
+        unlocksSorted.add(this);
+        unlocksLookup.put(id, this);
     }
 
     @Override
@@ -108,6 +112,19 @@ public class Unlock implements Comparable<Unlock> {
 
     public int getLevel() {
         return level;
+    }
+
+    public boolean isValidFor(PlayerProfile playerProfile) {
+        if (playerProfile == null) {
+            throw new IllegalArgumentException("Player profile cannot be null");
+        }
+        if (level < 1 || level > playerProfile.getLevel()) {
+            return false;
+        }
+        if (playerProfile.hasCompletedUnlock(id)) {
+            return false;
+        }
+        return true;
     }
 
     public void giveTo(PlayerProfile playerProfile) {
@@ -152,52 +169,29 @@ public class Unlock implements Comparable<Unlock> {
     }
 
     public static Optional<Unlock> get(String id) {
-        Unlock unlock = null;
-        for (Unlock potentiaUnlock : unlocks) {
-            if (potentiaUnlock.getId().equals(id)) {
-                unlock = potentiaUnlock;
-                break;
-            }
-        }
-        return Optional.ofNullable(unlock);
+        return Optional.ofNullable(unlocksLookup.get(id));
     }
 
-    public static List<Unlock> getAll() {
-        return Collections.unmodifiableList(unlocks);
+    public static List<Unlock> getSorted() {
+        return Collections.unmodifiableList(unlocksSorted);
     }
 
     public static ArrayList<String> getIds() {
         ArrayList<String> ids = new ArrayList<>();
-        for (Unlock unlock : unlocks) {
+        for (Unlock unlock : unlocksSorted) {
             ids.add(unlock.getId());
         }
         return ids;
     }
 
-    public static void checkUnlocks(PlayerProfile playerProfile) {
-        if (playerProfile == null) {
-            throw new IllegalArgumentException("Player profile cannot be null");
-        }
-        
-        for (Unlock unlock : unlocks) {
-            int level = unlock.getLevel();
-            if (level > 0 && level > playerProfile.getLevel()) {
-                continue;
-            }
-            if (playerProfile.hasCompletedUnlock(unlock.getId())) {
-                continue;
-            }
-            unlock.giveTo(playerProfile);
-        }
-    }
-
     public static void loadConfig() {
-        unlocks.clear();
+        unlocksSorted.clear();
+        unlocksLookup.clear();
         YamlConfiguration config = ConfigFile.get("unlocks");
         for (String id : config.getKeys(false)) {
             new Unlock(config, id);
         }
-        Collections.sort(unlocks);
-        TasksPlugin.getInstance().getLogger().info("Loaded " + unlocks.size() + " unlocks");
+        Collections.sort(unlocksSorted);
+        TasksPlugin.getInstance().getLogger().info("Loaded " + unlocksSorted.size() + " unlocks");
     }
 }

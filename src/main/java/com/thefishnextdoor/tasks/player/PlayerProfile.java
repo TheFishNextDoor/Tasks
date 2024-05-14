@@ -280,6 +280,10 @@ public class PlayerProfile {
         populateTasks();
     }
 
+    private int calcLevel() {
+        return (xp + 100) / 100;
+    }
+
     private void checkLevelUp() {
         Optional<Player> player = getPlayer();
         if (!player.isPresent()) {
@@ -292,12 +296,16 @@ public class PlayerProfile {
                 TasksMessage.send(player.get(), this, "Level Up", String.valueOf(i));
             }
             cachedLevel = level;
-            Unlock.checkUnlocks(this);
+            checkUnlocks();
         }
     }
 
-    private int calcLevel() {
-        return (xp + 100) / 100;
+    public void checkUnlocks() {
+        for (Unlock unlock : Unlock.getSorted()) {
+            if (unlock.isValidFor(this)) {
+                unlock.giveTo(this);
+            }
+        }
     }
 
     private void checkExpiredTasks() {
@@ -309,7 +317,7 @@ public class PlayerProfile {
             } 
             else if (task.isExpired()) {
                 taskIter.remove();
-                getPlayer().ifPresent(player -> TasksMessage.send(player, this, "Task Expired", task.getTaskConfiguration().toString()));
+                getPlayer().ifPresent(player -> TasksMessage.send(player, this, "Task Expired", task.toString()));
             }
         }
     }
