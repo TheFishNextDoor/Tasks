@@ -295,9 +295,9 @@ public class PlayerProfile {
             for (int i = cachedLevel + 1; i <= level; i++) {
                 TasksMessage.send(player.get(), this, "Level Up", String.valueOf(i));
             }
-            cachedLevel = level;
             checkUnlocks();
         }
+        this.cachedLevel = level;
     }
 
     private void checkUnlocks() {
