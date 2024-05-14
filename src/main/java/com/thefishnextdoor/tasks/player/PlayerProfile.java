@@ -1,8 +1,10 @@
 package com.thefishnextdoor.tasks.player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -148,6 +150,25 @@ public class PlayerProfile {
         checkLevelUp();
     }
 
+    public void removeXp(int xp) {
+        if (xp < 0) {
+            throw new IllegalArgumentException("Xp must be positive");
+        }
+        this.xp -= xp;
+        if (this.xp < 0) {
+            this.xp = 0;
+        }
+        checkLevelUp();
+    }
+
+    public void setXp(int xp) {
+        if (xp < 0) {
+            throw new IllegalArgumentException("Xp must be positive");
+        }
+        this.xp = xp;
+        checkLevelUp();
+    }
+
     public int getLevel() {
         return cachedLevel;
     }
@@ -198,6 +219,34 @@ public class PlayerProfile {
         return completedTasks.contains(id);
     }
 
+    public boolean addTask(PlayerTask task) {
+        if (task == null) {
+            throw new IllegalArgumentException("Task cannot be null");
+        }
+        if (hasTask(task.getTaskConfiguration().getId())) {
+            return false;
+        }
+        tasks.add(task);
+        getPlayer().ifPresent(player -> TasksMessage.send(player, this, "New Task", task.toString()));
+        return true;
+    }
+
+    public boolean removeTask(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
+        Iterator<PlayerTask> taskIter = tasks.iterator();
+        while (taskIter.hasNext()) {
+            PlayerTask task = taskIter.next();
+            if (task.getTaskConfiguration().getId().equals(id)) {
+                taskIter.remove();
+                getPlayer().ifPresent(player -> TasksMessage.send(player, this, "Task Removed", task.toString()));
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean hasTask(String id) {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
@@ -205,8 +254,21 @@ public class PlayerProfile {
         return tasks.stream().anyMatch(task -> task.getTaskConfiguration().getId().equals(id));
     }
 
-    public ArrayList<PlayerTask> getTasks() {
-        return tasks;
+    public Optional<PlayerTask> getTask(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
+        return tasks.stream().filter(task -> task.getTaskConfiguration().getId().equals(id)).findFirst();
+    }
+
+    public List<PlayerTask> getTasks() {
+        return Collections.unmodifiableList(tasks);
+    }
+
+    public ArrayList<String> getTaskIds() {
+        ArrayList<String> taskIds = new ArrayList<>();
+        tasks.forEach(task -> taskIds.add(task.getTaskConfiguration().getId()));
+        return taskIds;
     }
 
     public void triggerTasks(TriggerType triggerType, Location location, Entity entity, ItemStack item, Block block, int amount) {
@@ -264,10 +326,7 @@ public class PlayerProfile {
                 break;
             }
             TaskConfiguration task = optionalTask.get();
-            long timeLimitMS = task.getTimeLimitMS();
-            long expireTime = timeLimitMS == 0 ? 0 : System.currentTimeMillis() + timeLimitMS;
-            tasks.add(new PlayerTask(task, this, 0, expireTime));
-            getPlayer().ifPresent(player -> TasksMessage.send(player, this, "New Task", task.toString()));
+            addTask(new PlayerTask(task, this));
         }
     }
 

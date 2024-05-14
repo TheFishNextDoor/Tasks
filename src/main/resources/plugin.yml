@@ -10,6 +10,7 @@ commands:
     description: Admin commands for tasks plugin
     usage: /tasksadmin
     permission: tasks.admin
+    aliases: [ta]
   tasks:
     description: List your current tasks
     usage: /tasks

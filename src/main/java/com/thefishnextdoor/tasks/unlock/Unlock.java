@@ -151,8 +151,27 @@ public class Unlock implements Comparable<Unlock> {
         return;
     }
 
+    public static Optional<Unlock> get(String id) {
+        Unlock unlock = null;
+        for (Unlock potentiaUnlock : unlocks) {
+            if (potentiaUnlock.getId().equals(id)) {
+                unlock = potentiaUnlock;
+                break;
+            }
+        }
+        return Optional.ofNullable(unlock);
+    }
+
     public static List<Unlock> getAll() {
         return Collections.unmodifiableList(unlocks);
+    }
+
+    public static ArrayList<String> getIds() {
+        ArrayList<String> ids = new ArrayList<>();
+        for (Unlock unlock : unlocks) {
+            ids.add(unlock.getId());
+        }
+        return ids;
     }
 
     public static void checkUnlocks(PlayerProfile playerProfile) {

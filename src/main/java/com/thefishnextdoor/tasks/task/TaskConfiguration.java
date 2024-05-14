@@ -538,6 +538,10 @@ public class TaskConfiguration {
         return Optional.of(possibleTasks.get((int) (Math.random() * possibleTasks.size())));
     }
 
+    public static List<String> getIds() {
+        return new ArrayList<>(taskConfigurations.keySet());
+    }
+
     public static void loadConfig() {
         taskConfigurations.clear();
         YamlConfiguration config = ConfigFile.get("tasks");

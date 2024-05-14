@@ -43,6 +43,10 @@ public class PlayerTask {
         this.expires = expires;
     }
 
+    public PlayerTask(TaskConfiguration taskConfiguration, PlayerProfile playerProfile) {
+        this(taskConfiguration, playerProfile, 0, taskConfiguration.getTimeLimitMS() == 0 ? 0 : System.currentTimeMillis() + taskConfiguration.getTimeLimitMS());
+    }
+
     @Override
     public String toString() {
         String progressSection;
