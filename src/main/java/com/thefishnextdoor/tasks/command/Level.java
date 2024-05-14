@@ -29,7 +29,7 @@ public class Level implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
         PlayerProfile playerProfile = PlayerProfile.get(player);
         int level = playerProfile.getLevel();
-        int xp = playerProfile.getXp();
+        int xp = playerProfile.getXpSinceLastLevel();
         int nextLevel = xp + playerProfile.getXpToNextLevel();
         player.sendMessage(playerProfile.getColor() + ChatColor.BOLD + "Level " + level + ChatColor.WHITE + " (" + xp + "/" + nextLevel + ")");
         return true;

@@ -134,7 +134,7 @@ public class PlayerProfile {
         return xp;
     }
 
-    public int getXp() {
+    public int getXpSinceLastLevel() {
         return xp % 100;
     }
 

@@ -89,7 +89,7 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
             }
             else if (subcommand.equalsIgnoreCase("xp")) {
                 if (subsubcommand.equalsIgnoreCase("set")) {
-                    return List.of(playerProfile.getXp() + "");
+                    return List.of(playerProfile.getTotalXp() + "");
                 }
                 else {
                     return null;
