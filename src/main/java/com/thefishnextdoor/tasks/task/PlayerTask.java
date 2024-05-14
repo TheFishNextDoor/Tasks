@@ -55,7 +55,7 @@ public class PlayerTask {
         String rewardMoneySection = "";
         double rewardMoney = taskConfiguration.getRewardMoney();
         if (rewardMoney > 0) {
-            rewardMoneySection = ChatColor.WHITE + " (" + ChatColor.GOLD + MoneyTools.format(rewardMoney) + ChatColor.WHITE + ")";
+            rewardMoneySection = ChatColor.WHITE + " (" + MoneyTools.format(rewardMoney) + ChatColor.WHITE + ")";
         }
 
         String expireSection = "";
@@ -76,9 +76,6 @@ public class PlayerTask {
             else {
                 expireSection = ChatColor.WHITE + " (" + ChatColor.AQUA + timeLeft / 86400000 + "d left" + ChatColor.WHITE + ")";
             }
-        }
-        else {
-            expireSection = "";
         }
 
         return taskConfiguration.toString() + progressSection + rewardMoneySection + expireSection;
