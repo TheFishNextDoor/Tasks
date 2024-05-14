@@ -300,7 +300,7 @@ public class PlayerProfile {
         }
     }
 
-    public void checkUnlocks() {
+    private void checkUnlocks() {
         for (Unlock unlock : Unlock.getSorted()) {
             if (unlock.isValidFor(this)) {
                 unlock.giveTo(this);
