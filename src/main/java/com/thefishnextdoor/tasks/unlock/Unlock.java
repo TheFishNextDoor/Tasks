@@ -32,7 +32,8 @@ public class Unlock implements Comparable<Unlock> {
         "permissions",
         "console-commands",
         "player-commands",
-        "messages"
+        "messages",
+        "run-once"
     );
 
     private final String id;
@@ -45,6 +46,8 @@ public class Unlock implements Comparable<Unlock> {
     private ArrayList<String> console_commands = new ArrayList<String>();
     private ArrayList<String> player_commands = new ArrayList<String>();
     private ArrayList<String> messages = new ArrayList<String>();
+
+    private boolean runOnce = true;
 
     public Unlock(YamlConfiguration config, String id) {
         if (config == null) {
@@ -85,6 +88,10 @@ public class Unlock implements Comparable<Unlock> {
             messages.add(ChatColor.translateAlternateColorCodes('&', message));
         }
 
+        if (config.contains(id + ".run-once")) {
+            runOnce = config.getBoolean(id + ".run-once");
+        }
+
         unlocksSorted.add(this);
         unlocksLookup.put(id, this);
     }
@@ -121,7 +128,7 @@ public class Unlock implements Comparable<Unlock> {
         if (level < 1 || level > playerProfile.getLevel()) {
             return false;
         }
-        if (playerProfile.hasCompletedUnlock(id)) {
+        if (runOnce && playerProfile.hasCompletedUnlock(id)) {
             return false;
         }
         return true;
@@ -138,7 +145,14 @@ public class Unlock implements Comparable<Unlock> {
         }
 
         Player player = optionalPlayer.get();
-        TasksMessage.send(player, playerProfile, "Unlocked", name);
+        boolean unlocked = playerProfile.hasCompletedUnlock(id);
+        if (!unlocked) {
+            TasksMessage.send(player, playerProfile, "Unlocked", name);
+        }
+
+        if (runOnce && unlocked) {
+            return;
+        }
 
         if (TasksPlugin.isUsingVault()) {
             Permission permissionsProvider = TasksPlugin.getPermissions();

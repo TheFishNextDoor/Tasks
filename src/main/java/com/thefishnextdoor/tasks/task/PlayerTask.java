@@ -164,9 +164,7 @@ public class PlayerTask {
         }
 
         for (Unlock unlock : taskConfiguration.getRewardUnlocks()) {
-            if (!playerProfile.hasCompletedUnlock(unlock.getId())) {
-                unlock.giveTo(playerProfile);
-            }
+            unlock.giveTo(playerProfile);
         }
 
         Server server = player.getServer();
