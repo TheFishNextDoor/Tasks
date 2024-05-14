@@ -60,7 +60,7 @@ public class TaskConfiguration {
         "entity-on-ground",
         "entity-names",
         "entity-types",
-        "entity-spawn-categories",
+        "entity-categories",
         "item-names",
         "item-materials",
         "block-materials"
@@ -116,7 +116,7 @@ public class TaskConfiguration {
 
     private HashSet<String> entityNames = new HashSet<>();
     private HashSet<EntityType> entityTypes = new HashSet<>();
-    private HashSet<SpawnCategory> entitySpawnCategories = new HashSet<>();
+    private HashSet<SpawnCategory> entityCategories = new HashSet<>();
 
     private HashSet<String> itemNames = new HashSet<>();
     private HashSet<Material> itemMaterials = new HashSet<>();
@@ -257,14 +257,14 @@ public class TaskConfiguration {
             this.entityTypes.add(entityType);
         }
 
-        for (String spawnCategoryName : config.getStringList(id + ".entity-spawn-categories")) {
-            SpawnCategory spawnCategory = EnumTools.fromString(SpawnCategory.class, spawnCategoryName);
-            if (spawnCategory == null) {
-                logger.warning("Invalid spawn category for task " + id + ": " + spawnCategoryName);
-                logger.warning("Valid spawn categories are: " + EnumTools.allStrings(SpawnCategory.class));
+        for (String categoryName : config.getStringList(id + ".entity-categories")) {
+            SpawnCategory category = EnumTools.fromString(SpawnCategory.class, categoryName);
+            if (category == null) {
+                logger.warning("Invalid entity category for task " + id + ": " + categoryName);
+                logger.warning("Valid entity categories are: " + EnumTools.allStrings(SpawnCategory.class));
                 continue;
             }
-            this.entitySpawnCategories.add(spawnCategory);
+            this.entityCategories.add(category);
         }
 
         for (String itemName : config.getStringList(id + ".item-names")) {
@@ -465,11 +465,11 @@ public class TaskConfiguration {
             }
         }
 
-        if (!entitySpawnCategories.isEmpty()) {
+        if (!entityCategories.isEmpty()) {
             if (entity == null) {
                 return false;
             }
-            if (!entitySpawnCategories.contains(entity.getSpawnCategory())) {
+            if (!entityCategories.contains(entity.getSpawnCategory())) {
                 return false;
             }
         }
