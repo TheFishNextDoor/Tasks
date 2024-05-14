@@ -7,6 +7,10 @@ import org.bukkit.inventory.PlayerInventory;
 public class InventoryTools {
 
     public static ItemStack getItemInHand(Player player) {
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null");
+        }
+        
         PlayerInventory inventory = player.getInventory();
         ItemStack mainHand = inventory.getItemInMainHand();
         if (mainHand != null) {

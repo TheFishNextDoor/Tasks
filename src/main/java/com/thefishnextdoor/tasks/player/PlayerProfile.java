@@ -170,23 +170,38 @@ public class PlayerProfile {
         return getPlayer().isPresent();
     }
 
-    public void addCompletedUnlock(String id) {
-        completedUnlocks.add(id);
+    public boolean addCompletedUnlock(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
+        return completedUnlocks.add(id);
     }
 
     public boolean hasCompletedUnlock(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
         return completedUnlocks.contains(id);
     }
 
-    public void addCompletedTask(String id) {
-        completedTasks.add(id);
+    public boolean addCompletedTask(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
+        return completedTasks.add(id);
     }
 
     public boolean hasCompletedTask(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
         return completedTasks.contains(id);
     }
 
     public boolean hasTask(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
         return tasks.stream().anyMatch(task -> task.getTaskConfiguration().getId().equals(id));
     }
 

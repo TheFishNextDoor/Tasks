@@ -13,12 +13,12 @@ import com.thefishnextdoor.tasks.toolkit.InventoryTools;
 
 public class BedEnter implements Listener {
     
-        @EventHandler
-        public void onBedEnter(PlayerBedEnterEvent event) {
-            Player player = event.getPlayer();
-            PlayerProfile playerProfile = PlayerProfile.get(player);
-            Block block = event.getBed();
-            ItemStack item = InventoryTools.getItemInHand(player);
-            playerProfile.triggerTasks(TriggerType.ENTER_BED, block.getLocation(), player, item, block, 1);
-        }
+    @EventHandler
+    public void onBedEnter(PlayerBedEnterEvent event) {
+        Player player = event.getPlayer();
+        PlayerProfile playerProfile = PlayerProfile.get(player);
+        Block block = event.getBed();
+        ItemStack item = InventoryTools.getItemInHand(player);
+        playerProfile.triggerTasks(TriggerType.ENTER_BED, block.getLocation(), player, item, block, 1);
+    }
 }

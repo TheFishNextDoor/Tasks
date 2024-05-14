@@ -25,6 +25,7 @@ public class Level implements CommandExecutor, TabCompleter {
             sender.sendMessage(ChatColor.RED + "You must be a player to use this command.");
             return true;
         }
+        
         Player player = (Player) sender;
         PlayerProfile playerProfile = PlayerProfile.get(player);
         int level = playerProfile.getLevel();

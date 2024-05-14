@@ -3,6 +3,10 @@ package com.thefishnextdoor.tasks.toolkit;
 public class EnumTools {
 
     public static <E extends Enum<E>> E fromString(Class<E> enumClass, String name) {
+        if (enumClass == null) {
+            throw new IllegalArgumentException("Enum class cannot be null");
+        }
+        
         if (name == null) {
             return null;
         }
@@ -19,6 +23,10 @@ public class EnumTools {
     }
 
     public static String allStrings(Class<? extends Enum<?>> enumClass) {
+        if (enumClass == null) {
+            throw new IllegalArgumentException("Enum class cannot be null");
+        }
+
         StringBuilder builder = new StringBuilder();
         for (Enum<?> constant : enumClass.getEnumConstants()) {
             if (builder.length() > 0) {

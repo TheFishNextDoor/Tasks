@@ -44,6 +44,13 @@ public class Unlock implements Comparable<Unlock> {
     private ArrayList<String> messages = new ArrayList<String>();
 
     public Unlock(YamlConfiguration config, String id) {
+        if (config == null) {
+            throw new IllegalArgumentException("Config cannot be null");
+        }
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
+
         this.id = id;
 
         Logger logger = TasksPlugin.getInstance().getLogger();
@@ -89,6 +96,9 @@ public class Unlock implements Comparable<Unlock> {
 
     @Override
     public int compareTo(Unlock other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Other unlock cannot be null");
+        }
         return Integer.compare(this.getLevel(), other.getLevel());
     }
 
@@ -101,6 +111,10 @@ public class Unlock implements Comparable<Unlock> {
     }
 
     public void giveTo(PlayerProfile playerProfile) {
+        if (playerProfile == null) {
+            throw new IllegalArgumentException("Player profile cannot be null");
+        }
+
         Optional<Player> optionalPlayer = playerProfile.getPlayer();
         if (!optionalPlayer.isPresent()) {
             return;
@@ -142,6 +156,10 @@ public class Unlock implements Comparable<Unlock> {
     }
 
     public static void checkUnlocks(PlayerProfile playerProfile) {
+        if (playerProfile == null) {
+            throw new IllegalArgumentException("Player profile cannot be null");
+        }
+        
         for (Unlock unlock : unlocks) {
             int level = unlock.getLevel();
             if (level > 0 && level > playerProfile.getLevel()) {

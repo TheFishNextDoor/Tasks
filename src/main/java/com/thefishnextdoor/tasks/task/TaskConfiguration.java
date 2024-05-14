@@ -124,6 +124,9 @@ public class TaskConfiguration {
     private HashSet<Material> blockMaterials = new HashSet<>();
 
     public TaskConfiguration(YamlConfiguration config, String id) {
+        if (config == null) {
+            throw new IllegalArgumentException("Config cannot be null");
+        }
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
@@ -321,6 +324,9 @@ public class TaskConfiguration {
     }
 
     public boolean conflictsWith(String otherTaskId) {
+        if (otherTaskId == null) {
+            throw new IllegalArgumentException("Other task id cannot be null");
+        }
         return incompatibleTasks.contains(otherTaskId);
     }
 
@@ -508,6 +514,9 @@ public class TaskConfiguration {
     }
 
     public static Optional<TaskConfiguration> get(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
         return Optional.ofNullable(taskConfigurations.get(id));
     }
 

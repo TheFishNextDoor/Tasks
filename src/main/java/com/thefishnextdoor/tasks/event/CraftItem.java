@@ -18,10 +18,7 @@ public class CraftItem implements Listener {
         Player player = (Player) event.getWhoClicked();
         PlayerProfile playerProfile = PlayerProfile.get(player);
         Location location = event.getInventory().getLocation();
-        Block block = null;
-        if (location != null) {
-            block = location.getBlock();
-        }
+        Block block = location != null ? location.getBlock() : null;
         ItemStack item = event.getCurrentItem();
         int amount = item.getAmount();
         playerProfile.triggerTasks(TriggerType.CRAFT_ITEM, player.getLocation(), player, item, block, amount);

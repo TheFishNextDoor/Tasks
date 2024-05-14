@@ -9,6 +9,10 @@ import com.thefishnextdoor.tasks.TasksPlugin;
 public class ConfigFile {
 
     public static YamlConfiguration get(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null");
+        }
+        
         File configFile = new File(getFolder(), name + ".yml");
         if (!configFile.exists()) {
             try {
