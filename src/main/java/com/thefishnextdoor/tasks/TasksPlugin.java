@@ -4,7 +4,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.thefishnextdoor.tasks.command.Level;
@@ -41,6 +40,7 @@ import com.thefishnextdoor.tasks.event.ShearEntity;
 import com.thefishnextdoor.tasks.event.TakeLecternBook;
 import com.thefishnextdoor.tasks.event.Teleport;
 import com.thefishnextdoor.tasks.event.ThrowEgg;
+import com.thefishnextdoor.tasks.hook.VaultHook;
 import com.thefishnextdoor.tasks.player.AutoSave;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
@@ -48,26 +48,16 @@ import com.thefishnextdoor.tasks.task.TaskRefresh;
 import com.thefishnextdoor.tasks.task.TimerTrigger;
 import com.thefishnextdoor.tasks.unlock.Unlock;
 
-import net.milkbowl.vault.chat.Chat;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.permission.Permission;
-
 public class TasksPlugin extends JavaPlugin {
 
     private static TasksPlugin instance;
 
     private static Settings settings;
 
-    private static boolean usingVault = false;
-    private static Economy economy = null;
-    private static Permission permissions = null;
-    private static Chat chat = null;
-
     public void onEnable() {
         instance = this;
 
-        usingVault = setupVault();
-        if (usingVault) {
+        if (VaultHook.hook(this)) {
             getLogger().info("Vault hooked");
         } 
         else {
@@ -136,31 +126,6 @@ public class TasksPlugin extends JavaPlugin {
         return settings;
     }
 
-    public static boolean isUsingVault() {
-        return usingVault;
-    }
-
-    public static Economy getEconomy() {
-        if (!usingVault) {
-            throw new IllegalStateException("Vault not found");
-        }
-        return economy;
-    }
-
-    public static Permission getPermissions() {
-        if (!usingVault) {
-            throw new IllegalStateException("Vault not found");
-        }
-        return permissions;
-    }
-
-    public static Chat getChat() {
-        if (!usingVault) {
-            throw new IllegalStateException("Vault not found");
-        }
-        return chat;
-    }
-
     public static void loadConfigs() {
         settings = new Settings();
         Unlock.loadConfig();
@@ -184,31 +149,5 @@ public class TasksPlugin extends JavaPlugin {
         if (commandHandler instanceof TabCompleter) {
             command.setTabCompleter((TabCompleter) commandHandler);
         }
-    }
-
-    private boolean setupVault() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
-
-        RegisteredServiceProvider<Economy> economyService = getServer().getServicesManager().getRegistration(Economy.class);
-        if (economyService == null) {
-            return false;
-        }
-        economy = economyService.getProvider();
-
-        RegisteredServiceProvider<Permission> permissionService = getServer().getServicesManager().getRegistration(Permission.class);
-        if (permissionService == null) {
-            return false;
-        }
-        permissions = permissionService.getProvider();
-
-        RegisteredServiceProvider<Chat> chatService = getServer().getServicesManager().getRegistration(Chat.class);
-        if (chatService == null) {
-            return false;
-        }
-        chat = chatService.getProvider();
-
-        return true;
     }
 }

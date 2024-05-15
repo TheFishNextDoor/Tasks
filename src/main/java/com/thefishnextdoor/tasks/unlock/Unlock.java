@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.file.ConfigFile;
+import com.thefishnextdoor.tasks.hook.VaultHook;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.player.TasksMessage;
 
@@ -154,8 +155,8 @@ public class Unlock implements Comparable<Unlock> {
             return;
         }
 
-        if (TasksPlugin.isUsingVault()) {
-            Permission permissionsProvider = TasksPlugin.getPermissions();
+        if (VaultHook.isUsingVault()) {
+            Permission permissionsProvider = VaultHook.getPermissions();
             for (String permission : permissions) {
                 if (!player.hasPermission(permission)) {
                     permissionsProvider.playerAdd(player, permission);
