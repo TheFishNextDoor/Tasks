@@ -344,11 +344,11 @@ public class TaskConfiguration {
     }
 
     public double getRewardMoney() {
-        return rewardMoney;
+        return rewardMoney * TasksPlugin.getSettings().TASK_MONEY_MULTIPLIER;
     }
 
     public int getRewardXp() {
-        return rewardXp;
+        return (int) (rewardXp * TasksPlugin.getSettings().TASK_XP_MULTIPLIER);
     }
 
     public ArrayList<Unlock> getRewardUnlocks() {

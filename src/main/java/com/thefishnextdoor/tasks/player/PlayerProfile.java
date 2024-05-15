@@ -323,7 +323,7 @@ public class PlayerProfile {
     }
 
     private void populateTasks() {
-        int maxTasks = 8;
+        int maxTasks = TasksPlugin.getSettings().MAX_TASKS;
         if (tasks.size() >= maxTasks) {
             return;
         }

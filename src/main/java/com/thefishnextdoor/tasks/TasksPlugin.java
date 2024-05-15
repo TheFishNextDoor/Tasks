@@ -56,6 +56,8 @@ public class TasksPlugin extends JavaPlugin {
 
     private static TasksPlugin instance;
 
+    private static Settings settings;
+
     private static boolean usingVault = false;
     private static Economy economy = null;
     private static Permission permissions = null;
@@ -130,6 +132,10 @@ public class TasksPlugin extends JavaPlugin {
         return instance;
     }
 
+    public static Settings getSettings() {
+        return settings;
+    }
+
     public static boolean isUsingVault() {
         return usingVault;
     }
@@ -156,6 +162,7 @@ public class TasksPlugin extends JavaPlugin {
     }
 
     public static void loadConfigs() {
+        settings = new Settings();
         Unlock.loadConfig();
         TaskConfiguration.loadConfig();
         PlayerProfile.reload();
