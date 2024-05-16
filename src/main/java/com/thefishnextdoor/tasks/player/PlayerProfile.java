@@ -235,16 +235,7 @@ public class PlayerProfile {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
-        Iterator<PlayerTask> taskIter = tasks.iterator();
-        while (taskIter.hasNext()) {
-            PlayerTask task = taskIter.next();
-            if (task.getTaskConfiguration().getId().equals(id)) {
-                taskIter.remove();
-                getPlayer().ifPresent(player -> TasksMessage.send(player, this, "Task Removed", task.toString()));
-                return true;
-            }
-        }
-        return false;
+        return tasks.removeIf(task -> task.getTaskConfiguration().getId().equals(id));
     }
 
     public boolean hasTask(String id) {
