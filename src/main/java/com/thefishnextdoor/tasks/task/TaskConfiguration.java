@@ -127,7 +127,7 @@ public class TaskConfiguration {
 
     private HashSet<Material> blockMaterials = new HashSet<>();
 
-    public TaskConfiguration(YamlConfiguration config, String id) {
+    private TaskConfiguration(YamlConfiguration config, String id) {
         if (config == null) {
             throw new IllegalArgumentException("Config cannot be null");
         }
