@@ -47,7 +47,7 @@ public class PlayerProfile {
 
     // Cache data
 
-    private int cachedLevel;
+    private int level;
 
     private PlayerProfile(UUID uuid) {
         if (uuid == null) {
@@ -90,7 +90,7 @@ public class PlayerProfile {
             this.color = ChatColor.BLUE;
         }
 
-        cachedLevel = calcLevel();
+        this.level = getLevel(xp);
 
         refreshTasks();
         
@@ -126,6 +126,10 @@ public class PlayerProfile {
         }
     }
 
+    public boolean isOnline() {
+        return getPlayer().isPresent();
+    }
+
     public Optional<Player> getPlayer() {
         return Optional.ofNullable(Bukkit.getPlayer(uuid));
     }
@@ -135,11 +139,11 @@ public class PlayerProfile {
     }
 
     public int getXpSinceLastLevel() {
-        return xp % 100;
+        return xp - getXpFor(level);
     }
 
     public int getXpToNextLevel() {
-        return getLevel() * 100 - xp;
+        return getXpFor(level + 1) - xp;
     }
 
     public void addXp(int xp) {
@@ -170,7 +174,7 @@ public class PlayerProfile {
     }
 
     public int getLevel() {
-        return cachedLevel;
+        return level;
     }
 
     public String getColor() {
@@ -185,10 +189,6 @@ public class PlayerProfile {
             throw new IllegalArgumentException("Invalid color");
         }
         this.color = color;
-    }
-
-    public boolean isOnline() {
-        return getPlayer().isPresent();
     }
 
     public boolean addCompletedUnlock(String id) {
@@ -280,24 +280,20 @@ public class PlayerProfile {
         populateTasks();
     }
 
-    private int calcLevel() {
-        return (xp + 100) / 100;
-    }
-
     private void checkLevelUp() {
         Optional<Player> player = getPlayer();
         if (!player.isPresent()) {
             return;
         }
 
-        int level = calcLevel();
-        if (level > cachedLevel) {
-            for (int i = cachedLevel + 1; i <= level; i++) {
+        int newLevel = getLevel(xp);
+        if (newLevel > level) {
+            for (int i = level + 1; i <= newLevel; i++) {
                 TasksMessage.send(player.get(), this, "Level Up", String.valueOf(i));
             }
             checkUnlocks();
         }
-        this.cachedLevel = level;
+        this.level = newLevel;
     }
 
     private void checkUnlocks() {
@@ -371,6 +367,34 @@ public class PlayerProfile {
             playerProfile = new PlayerProfile(uuid);
         }
         return playerProfile;
+    }
+
+    public static int getXpFor(int level) {
+        double b = 10.0;
+        double m = 1.02;
+        int total = 0;
+        for (int i = 1; i <= level; i++) {
+            total += (int) (b);
+            b = b * m;
+        }
+        return total;
+    }
+
+    public static int getLevel(int totalXp) {
+        double b = 10.0;
+        double m = 1.02;
+        int currentXp = 0;
+        int level = 0;
+        while (currentXp <= totalXp) {
+            level++;
+            currentXp += (int) b;
+            b *= m;
+            if (currentXp > totalXp) {
+                level--;
+                break;
+            }
+        }
+        return level;
     }
 
     public static void refreshAllTasks() {
