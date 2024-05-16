@@ -90,7 +90,7 @@ public class PlayerProfile {
             this.color = ChatColor.BLUE;
         }
 
-        this.level = getLevel(xp);
+        this.level = PlayerLevel.getLevel(xp);
 
         refreshTasks();
         
@@ -139,11 +139,11 @@ public class PlayerProfile {
     }
 
     public int getXpSinceLastLevel() {
-        return xp - getXpFor(level);
+        return xp - PlayerLevel.getXpFor(level);
     }
 
     public int getXpToNextLevel() {
-        return getXpFor(level + 1) - xp;
+        return PlayerLevel.getXpFor(level + 1) - xp;
     }
 
     public void addXp(int xp) {
@@ -286,7 +286,7 @@ public class PlayerProfile {
             return;
         }
 
-        int newLevel = getLevel(xp);
+        int newLevel = PlayerLevel.getLevel(xp);
         if (newLevel > level) {
             for (int i = level + 1; i <= newLevel; i++) {
                 TasksMessage.send(player.get(), this, "Level Up", String.valueOf(i));
@@ -367,34 +367,6 @@ public class PlayerProfile {
             playerProfile = new PlayerProfile(uuid);
         }
         return playerProfile;
-    }
-
-    public static int getXpFor(int level) {
-        double b = 10.0;
-        double m = 1.02;
-        int total = 0;
-        for (int i = 1; i <= level; i++) {
-            total += (int) (b);
-            b = b * m;
-        }
-        return total;
-    }
-
-    public static int getLevel(int totalXp) {
-        double b = 10.0;
-        double m = 1.02;
-        int currentXp = 0;
-        int level = 0;
-        while (currentXp <= totalXp) {
-            level++;
-            currentXp += (int) b;
-            b *= m;
-            if (currentXp > totalXp) {
-                level--;
-                break;
-            }
-        }
-        return level;
     }
 
     public static void refreshAllTasks() {

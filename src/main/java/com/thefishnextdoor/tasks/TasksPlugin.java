@@ -42,6 +42,7 @@ import com.thefishnextdoor.tasks.event.Teleport;
 import com.thefishnextdoor.tasks.event.ThrowEgg;
 import com.thefishnextdoor.tasks.hook.VaultHook;
 import com.thefishnextdoor.tasks.player.AutoSave;
+import com.thefishnextdoor.tasks.player.PlayerLevel;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TaskRefresh;
@@ -131,6 +132,9 @@ public class TasksPlugin extends JavaPlugin {
         Unlock.loadConfig();
         TaskConfiguration.loadConfig();
         PlayerProfile.reload();
+        if (!PlayerLevel.verify()) {
+            instance.getLogger().severe("PlayerLevel verification failed");
+        }
     }
 
     private void registerCommand(String commandName, CommandExecutor commandHandler) {
