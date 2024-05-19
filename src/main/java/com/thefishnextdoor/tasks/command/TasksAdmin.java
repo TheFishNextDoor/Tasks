@@ -452,7 +452,7 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
                 sender.sendMessage(ChatColor.BLUE + "/tasksadmin task list <player> " + ChatColor.WHITE + "List a player's tasks");
                 sender.sendMessage(ChatColor.BLUE + "/tasksadmin task give <player> <task> " + ChatColor.WHITE + "Give a player a task");
                 sender.sendMessage(ChatColor.BLUE + "/tasksadmin task remove <player> <task> " + ChatColor.WHITE + "Remove a task from a player");
-                sender.sendMessage(ChatColor.BLUE + "/tasksadmin task progress <player> <task> <amount> " + ChatColor.WHITE + "Add progress to a task");
+                sender.sendMessage(ChatColor.BLUE + "/tasksadmin task addprogress <player> <task> <amount> " + ChatColor.WHITE + "Add progress to a task");
             }
             if (sender.hasPermission(XP_PERMISSION)) {
                 sender.sendMessage(ChatColor.BLUE + "/tasksadmin xp give <player> <amount> " + ChatColor.WHITE + "Give a player XP");
@@ -462,6 +462,11 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
             if (sender.hasPermission(UNLOCK_PERMISSION)) {
                 sender.sendMessage(ChatColor.BLUE + "/tasksadmin unlock list <player> " + ChatColor.WHITE + "List a player's unlocks");
                 sender.sendMessage(ChatColor.BLUE + "/tasksadmin unlock give <player> <unlock> " + ChatColor.WHITE + "Give a player an unlock");
+            }
+            if (sender.hasPermission(SKIPS_PERMISSION)) {
+                sender.sendMessage(ChatColor.BLUE + "/tasksadmin skips give <player> <amount> " + ChatColor.WHITE + "Give a player skips");
+                sender.sendMessage(ChatColor.BLUE + "/tasksadmin skips take <player> <amount> " + ChatColor.WHITE + "Take skips from a player");
+                sender.sendMessage(ChatColor.BLUE + "/tasksadmin skips set <player> <amount> " + ChatColor.WHITE + "Set a player's skips");
             }
             return true;
         }
