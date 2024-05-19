@@ -155,6 +155,7 @@ public class PlayerProfile {
             throw new IllegalArgumentException("Xp must be positive");
         }
         this.xp += xp;
+        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GRAY + "+" + xp + " Xp"));
         checkLevelUp();
     }
 
@@ -166,6 +167,7 @@ public class PlayerProfile {
         if (this.xp < 0) {
             this.xp = 0;
         }
+        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.RED + "-" + xp + " Xp"));
         checkLevelUp();
     }
 
@@ -174,6 +176,7 @@ public class PlayerProfile {
             throw new IllegalArgumentException("Xp must be positive");
         }
         this.xp = xp;
+        getPlayer().ifPresent(player -> player.sendMessage(getColor() + "Your xp has been set to " + xp));
         checkLevelUp();
     }
 
@@ -190,6 +193,7 @@ public class PlayerProfile {
             throw new IllegalArgumentException("Skips must be positive");
         }
         this.skips += skips;
+        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.LIGHT_PURPLE + "+" + skips + " Skip(s)"));
     }
 
     public void removeSkips(int skips) {
@@ -200,6 +204,7 @@ public class PlayerProfile {
         if (this.skips < 0) {
             this.skips = 0;
         }
+        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.RED + "-" + skips + " Skip(s)"));
     }
 
     public void setSkips(int skips) {
@@ -207,6 +212,7 @@ public class PlayerProfile {
             throw new IllegalArgumentException("Skips must be positive");
         }
         this.skips = skips;
+        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.LIGHT_PURPLE + "Your skips have been set to " + skips));
     }
 
     public boolean skip(PlayerTask playerTask) {
