@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 
 import net.md_5.bungee.api.ChatColor;
@@ -32,6 +33,9 @@ public class Level implements CommandExecutor, TabCompleter {
         int xp = playerProfile.getXpSinceLastLevel();
         int nextLevel = xp + playerProfile.getXpToNextLevel();
         player.sendMessage(playerProfile.getColor() + ChatColor.BOLD + "Level " + level + ChatColor.WHITE + " (" + xp + "/" + nextLevel + ")");
+        if (TasksPlugin.getSettings().ALLOW_TASK_SKIPPING) {
+            player.sendMessage(ChatColor.WHITE + "You have " + playerProfile.getSkips() + " skip(s) remaining");
+        }
         return true;
     }
 }

@@ -36,6 +36,7 @@ public class TaskConfiguration {
         "message",
         "time-limit-minutes",
         "reset-on-death",
+        "skippable",
         "repeatable",
         "min-level",
         "max-level",
@@ -44,6 +45,7 @@ public class TaskConfiguration {
         "permission",
         "reward-money",
         "reward-xp",
+        "reward-skips",
         "reward-unlocks",
         "reward-console-commands",
         "reward-player-commands",
@@ -80,6 +82,8 @@ public class TaskConfiguration {
 
     private boolean resetOnDeath = false;
 
+    private boolean skippable = true;
+
     // Requirements
     private boolean repeatable = true;
 
@@ -94,6 +98,7 @@ public class TaskConfiguration {
     // Rewards
     private double rewardMoney;
     private int rewardXp;
+    private int rewardSkips;
 
     private ArrayList<Unlock> rewardUnlocks = new ArrayList<>();
 
@@ -153,7 +158,13 @@ public class TaskConfiguration {
 
         this.timeLimitMS = Math.max(config.getInt(id + ".time-limit-minutes") * 60000, 0);
 
-        this.resetOnDeath = config.getBoolean(id + ".reset-on-death");
+        if (config.contains(id + ".reset-on-death")) {
+            this.resetOnDeath = config.getBoolean(id + ".reset-on-death");
+        }
+
+        if (config.contains(id + ".skippable")) {
+            this.skippable = config.getBoolean(id + ".skippable");
+        }
 
         if (config.contains(id + ".repeatable")) {
             this.repeatable = config.getBoolean(id + ".repeatable");
@@ -173,6 +184,7 @@ public class TaskConfiguration {
         
         this.rewardMoney = config.getDouble(id + ".reward-money");
         this.rewardXp = config.getInt(id + ".reward-xp");
+        this.rewardSkips = config.getInt(id + ".reward-skips");
 
         for (String unlockName : config.getStringList(id + ".reward-unlocks")) {
             Optional<Unlock> unlock = Unlock.get(unlockName);
@@ -336,6 +348,10 @@ public class TaskConfiguration {
         return resetOnDeath;
     }
 
+    public boolean isSkippable() {
+        return skippable;
+    }
+
     public boolean conflictsWith(String otherTaskId) {
         if (otherTaskId == null) {
             throw new IllegalArgumentException("Other task id cannot be null");
@@ -349,6 +365,10 @@ public class TaskConfiguration {
 
     public int getRewardXp() {
         return (int) (rewardXp * TasksPlugin.getSettings().TASK_XP_MULTIPLIER);
+    }
+
+    public int getRewardSkips() {
+        return rewardSkips;
     }
 
     public ArrayList<Unlock> getRewardUnlocks() {

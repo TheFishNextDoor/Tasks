@@ -63,6 +63,12 @@ public class PlayerTask {
             rewardMoneySection = ChatColor.WHITE + " (" + MoneyTools.format(rewardMoney) + ChatColor.WHITE + ")";
         }
 
+        String rewardSkipsSection = "";
+        int rewardSkips = taskConfiguration.getRewardSkips();
+        if (rewardSkips > 0) {
+            rewardSkipsSection = ChatColor.WHITE + " (" + ChatColor.LIGHT_PURPLE + "+" + rewardSkips + " skips" + ChatColor.WHITE + ")";
+        }
+
         String expireSection = "";
         if (!completed && canExpire()) {
             long timeLeft = expires - System.currentTimeMillis();
@@ -83,7 +89,7 @@ public class PlayerTask {
             }
         }
 
-        return taskConfiguration.toString() + progressSection + rewardMoneySection + expireSection;
+        return taskConfiguration.toString() + progressSection + rewardMoneySection + rewardSkipsSection + expireSection;
     }
 
     public TaskConfiguration getTaskConfiguration() {
@@ -176,5 +182,6 @@ public class PlayerTask {
         }
 
         playerProfile.addXp(taskConfiguration.getRewardXp());
+        playerProfile.addSkips(taskConfiguration.getRewardSkips());
     }
 }

@@ -37,6 +37,8 @@ public class PlayerProfile {
 
     private int xp;
 
+    private int skips;
+
     private ChatColor color;
 
     private HashSet<String> completedUnlocks = new HashSet<>();
@@ -61,6 +63,7 @@ public class PlayerProfile {
         YamlConfiguration playerData = DataFile.get(id);
 
         xp = playerData.getInt("xp", 0);
+        skips = playerData.getInt("skips", 0);
 
         for (String unlockId : playerData.getStringList("completed-unlocks")) {
             completedUnlocks.add(unlockId);
@@ -102,6 +105,7 @@ public class PlayerProfile {
         YamlConfiguration playerData = DataFile.get(id);
 
         playerData.set("xp", xp);
+        playerData.set("skips", skips);
 
         playerData.set("completed-unlocks", new ArrayList<>(completedUnlocks));
 
@@ -177,6 +181,52 @@ public class PlayerProfile {
         return level;
     }
 
+    public int getSkips() {
+        return skips;
+    }
+
+    public void addSkips(int skips) {
+        if (skips < 0) {
+            throw new IllegalArgumentException("Skips must be positive");
+        }
+        this.skips += skips;
+    }
+
+    public void removeSkips(int skips) {
+        if (skips < 0) {
+            throw new IllegalArgumentException("Skips must be positive");
+        }
+        this.skips -= skips;
+        if (this.skips < 0) {
+            this.skips = 0;
+        }
+    }
+
+    public void setSkips(int skips) {
+        if (skips < 0) {
+            throw new IllegalArgumentException("Skips must be positive");
+        }
+        this.skips = skips;
+    }
+
+    public boolean skip(PlayerTask playerTask) {
+        if (playerTask == null) {
+            throw new IllegalArgumentException("PlayerTask cannot be null");
+        }
+        if (skips <= 0) {
+            return false;
+        }
+        TaskConfiguration taskConfiguration = playerTask.getTaskConfiguration();
+        if (!taskConfiguration.isSkippable()) {
+            return false;
+        }
+        if (!removeTask(taskConfiguration.getId())) {
+            return false;
+        }
+        skips--;
+        return true;
+    }
+
     public String getColor() {
         return color + "";
     }
@@ -235,7 +285,15 @@ public class PlayerProfile {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
-        return tasks.removeIf(task -> task.getTaskConfiguration().getId().equals(id));
+        Optional<PlayerTask> task = getTask(id);
+        if (!task.isPresent()) {
+            return false;
+        }
+        if (tasks.remove(task.get())) {
+            getPlayer().ifPresent(player -> TasksMessage.send(player, this, "Task Removed", task.get().toString()));
+            return true;
+        }
+        return false;
     }
 
     public boolean hasTask(String id) {

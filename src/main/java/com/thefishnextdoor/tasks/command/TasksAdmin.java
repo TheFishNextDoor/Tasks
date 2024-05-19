@@ -26,6 +26,7 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
     private final String TASK_PERMISSION = "tasks.admin.task";
     private final String XP_PERMISSION = "tasks.admin.xp";
     private final String UNLOCK_PERMISSION = "tasks.admin.unlock";
+    private final String SKIPS_PERMISSION = "tasks.admin.skips";
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
@@ -44,6 +45,9 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
             if (sender.hasPermission(UNLOCK_PERMISSION)) {
                 subcommands.add("unlock");
             }
+            if (sender.hasPermission(SKIPS_PERMISSION)) {
+                subcommands.add("skips");
+            }
             return subcommands;
         }
         if (args.length == 2) {
@@ -56,6 +60,9 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
             }
             else if (subcommand.equalsIgnoreCase("unlock") && sender.hasPermission(UNLOCK_PERMISSION)) {
                 return List.of("list", "give");
+            }
+            else if (subcommand.equalsIgnoreCase("skips") && sender.hasPermission(SKIPS_PERMISSION)) {
+                return List.of("give", "take", "set");
             }
             else {
                 return null;
@@ -98,6 +105,14 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
             else if (subcommand.equalsIgnoreCase("unlock")) {
                 if (subsubcommand.equalsIgnoreCase("give")) {
                     return Unlock.getIds();
+                }
+                else {
+                    return null;
+                }
+            }
+            else if (subcommand.equalsIgnoreCase("skips")) {
+                if (subsubcommand.equalsIgnoreCase("set")) {
+                    return List.of(playerProfile.getSkips() + "");
                 }
                 else {
                     return null;
@@ -347,6 +362,80 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
                 return true;
             }
             // Unlock Invalid Subcommand //
+            else {
+                sender.sendMessage(ChatColor.RED + "Invalid subcommand");
+                return true;
+            }
+        }
+        else if (subCommand.equalsIgnoreCase("skips") && sender.hasPermission(SKIPS_PERMISSION)) {
+            if (args.length < 2) {
+                sender.sendMessage(ChatColor.RED + "You must specify a subcommand");
+                return true;
+            }
+            String subSubCommand = args[1];
+            if (args.length < 3) {
+                sender.sendMessage(ChatColor.RED + "You must specify a player");
+                return true;
+            }
+            Player player = Bukkit.getPlayer(args[2]);
+            if (player == null) {
+                sender.sendMessage(ChatColor.RED + "Player not found");
+                return true;
+            }
+            PlayerProfile playerProfile = PlayerProfile.get(player);
+
+            // Skips Give //
+            if (subSubCommand.equalsIgnoreCase("give")) {
+                if (args.length < 4) {
+                    sender.sendMessage(ChatColor.RED + "You must specify an amount");
+                    return true;
+                }
+                try {
+                    int amount = Integer.parseInt(args[3]);
+                    playerProfile.addSkips(amount);
+                    sender.sendMessage(ChatColor.BLUE + "Skips given");
+                    return true;
+                }
+                catch (Exception e) {
+                    sender.sendMessage(ChatColor.RED + "Invalid amount");
+                    return true;
+                }
+            }
+            // Skips Take //
+            else if (subSubCommand.equalsIgnoreCase("take")) {
+                if (args.length < 4) {
+                    sender.sendMessage(ChatColor.RED + "You must specify an amount");
+                    return true;
+                }
+                try {
+                    int amount = Integer.parseInt(args[3]);
+                    playerProfile.removeSkips(amount);
+                    sender.sendMessage(ChatColor.BLUE + "Skips taken");
+                    return true;
+                }
+                catch (Exception e) {
+                    sender.sendMessage(ChatColor.RED + "Invalid amount");
+                    return true;
+                }
+            }
+            // Skips Set //
+            else if (subSubCommand.equalsIgnoreCase("set")) {
+                if (args.length < 4) {
+                    sender.sendMessage(ChatColor.RED + "You must specify an amount");
+                    return true;
+                }
+                try {
+                    int amount = Integer.parseInt(args[3]);
+                    playerProfile.setSkips(amount);
+                    sender.sendMessage(ChatColor.BLUE + "Skips set");
+                    return true;
+                }
+                catch (Exception e) {
+                    sender.sendMessage(ChatColor.RED + "Invalid amount");
+                    return true;
+                }
+            }
+            // Skip Invalid Subcommand //
             else {
                 sender.sendMessage(ChatColor.RED + "Invalid subcommand");
                 return true;
