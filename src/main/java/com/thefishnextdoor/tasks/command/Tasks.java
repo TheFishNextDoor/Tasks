@@ -32,17 +32,23 @@ public class Tasks implements CommandExecutor, TabCompleter {
             }
             return subcommands;
         }
-        else if (args.length == 2 && args[0].equalsIgnoreCase("skip") && sender instanceof Player) {
-            PlayerProfile playerProfile = PlayerProfile.get((Player) sender);
-            int i = 1;
-            ArrayList<String> taskNumbers = new ArrayList<String>();
-            for (PlayerTask task : playerProfile.getTasks()) {
-                if (task.getTaskConfiguration().isSkippable()) {
-                    taskNumbers.add(Integer.toString(i));
-                }
-                i++;
+        else if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("color") && sender.hasPermission(COLOR_PERMISSION)) {
+                return List.of("#RRGGBB", "black", "dark_blue", "dark_green", "dark_aqua", "dark_red", "dark_purple", "gold", "gray", "dark_gray", "blue", "green", "aqua", "red", "light_purple", "yellow", "white");
             }
-            return taskNumbers;
+            else
+            if (args[0].equalsIgnoreCase("skip") && TasksPlugin.getSettings().ALLOW_TASK_SKIPPING && sender instanceof Player) {
+                PlayerProfile playerProfile = PlayerProfile.get((Player) sender);
+                int i = 1;
+                ArrayList<String> taskNumbers = new ArrayList<String>();
+                for (PlayerTask task : playerProfile.getTasks()) {
+                    if (task.getTaskConfiguration().isSkippable()) {
+                        taskNumbers.add(Integer.toString(i));
+                    }
+                    i++;
+                }
+                return taskNumbers;
+            }
         }
         return null;
     }
