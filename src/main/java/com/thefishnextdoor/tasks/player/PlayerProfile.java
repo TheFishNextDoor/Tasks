@@ -154,6 +154,9 @@ public class PlayerProfile {
         if (xp < 0) {
             throw new IllegalArgumentException("Xp must be positive");
         }
+        if (xp == 0) {
+            return;
+        }
         this.xp += xp;
         getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GRAY + "+" + xp + " Xp"));
         checkLevelUp();
@@ -162,6 +165,9 @@ public class PlayerProfile {
     public void removeXp(int xp) {
         if (xp < 0) {
             throw new IllegalArgumentException("Xp must be positive");
+        }
+        if (xp == 0) {
+            return;
         }
         this.xp -= xp;
         if (this.xp < 0) {
@@ -174,6 +180,9 @@ public class PlayerProfile {
     public void setXp(int xp) {
         if (xp < 0) {
             throw new IllegalArgumentException("Xp must be positive");
+        }
+        if (this.xp == xp) {
+            return;
         }
         this.xp = xp;
         getPlayer().ifPresent(player -> player.sendMessage(getColor() + "Your xp has been set to " + xp));
@@ -192,6 +201,9 @@ public class PlayerProfile {
         if (skips < 0) {
             throw new IllegalArgumentException("Skips must be positive");
         }
+        if (skips == 0) {
+            return;
+        }
         this.skips += skips;
         getPlayer().ifPresent(player -> player.sendMessage(ChatColor.LIGHT_PURPLE + "+" + skips + " Skip(s)"));
     }
@@ -199,6 +211,9 @@ public class PlayerProfile {
     public void removeSkips(int skips) {
         if (skips < 0) {
             throw new IllegalArgumentException("Skips must be positive");
+        }
+        if (skips == 0) {
+            return;
         }
         this.skips -= skips;
         if (this.skips < 0) {
@@ -210,6 +225,9 @@ public class PlayerProfile {
     public void setSkips(int skips) {
         if (skips < 0) {
             throw new IllegalArgumentException("Skips must be positive");
+        }
+        if (this.skips == skips) {
+            return;
         }
         this.skips = skips;
         getPlayer().ifPresent(player -> player.sendMessage(ChatColor.LIGHT_PURPLE + "Your skips have been set to " + skips));
