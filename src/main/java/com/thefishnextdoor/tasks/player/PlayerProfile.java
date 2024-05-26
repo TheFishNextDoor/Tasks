@@ -82,7 +82,10 @@ public class PlayerProfile {
                 }
                 int progress = playerData.getInt("tasks." + taskKey + ".progress");
                 long expires = playerData.getLong("tasks." + taskKey + ".expires");
-                tasks.add(new PlayerTask(taskConfiguration.get(), this, progress, expires));
+                PlayerTask task = new PlayerTask(taskConfiguration.get(), this, progress, expires);
+                if (!task.isExpired()) {
+                    tasks.add(task);
+                }
             }
         }
 
