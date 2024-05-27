@@ -24,6 +24,7 @@ import com.thefishnextdoor.tasks.hook.VaultHook;
 import com.thefishnextdoor.tasks.task.PlayerTask;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TriggerType;
+import com.thefishnextdoor.tasks.toolkit.MoneyTools;
 import com.thefishnextdoor.tasks.unlock.Unlock;
 
 import net.md_5.bungee.api.ChatColor;
@@ -153,7 +154,7 @@ public class PlayerProfile {
             return;
         }
         VaultHook.getEconomy().depositPlayer(getPlayer().get(), amount);
-        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GOLD + "$" + amount));
+        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GOLD + "+" + MoneyTools.format(amount)));
     }
 
     public int getTotalXp() {
