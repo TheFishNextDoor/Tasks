@@ -164,14 +164,14 @@ public class Unlock implements Comparable<Unlock> {
             }
         }
 
+        String name = player.getName();
         for (String command : console_commands) {
             Server server = Bukkit.getServer();
-            command = command.replace("{player}", player.getName());
+            command = command.replace("{player}", name);
             server.dispatchCommand(server.getConsoleSender(), command);
         }
-
         for (String command : player_commands) {
-            command = command.replace("{player}", player.getName());
+            command = command.replace("{player}", name);
             player.performCommand(command);
         }
         
