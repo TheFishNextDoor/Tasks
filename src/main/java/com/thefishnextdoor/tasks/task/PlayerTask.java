@@ -9,7 +9,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.thefishnextdoor.tasks.hook.VaultHook;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.player.TasksMessage;
 import com.thefishnextdoor.tasks.toolkit.MoneyTools;
@@ -165,9 +164,7 @@ public class PlayerTask {
             player.sendMessage(message.replace("{player}", name));
         }
         
-        if (VaultHook.isUsingVault()) {
-            VaultHook.getEconomy().depositPlayer(player, taskConfiguration.getRewardMoney());
-        }
+        playerProfile.addMoney(taskConfiguration.getRewardMoney());
 
         for (Unlock unlock : taskConfiguration.getRewardUnlocks()) {
             unlock.giveTo(playerProfile);

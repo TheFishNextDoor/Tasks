@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.file.DataFile;
+import com.thefishnextdoor.tasks.hook.VaultHook;
 import com.thefishnextdoor.tasks.task.PlayerTask;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TriggerType;
@@ -139,6 +140,20 @@ public class PlayerProfile {
 
     public Optional<Player> getPlayer() {
         return Optional.ofNullable(Bukkit.getPlayer(uuid));
+    }
+
+    public void addMoney(double amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("Amount must be positive");
+        }
+        if (amount == 0) {
+            return;
+        }
+        if (!VaultHook.isUsingVault()) {
+            return;
+        }
+        VaultHook.getEconomy().depositPlayer(getPlayer().get(), amount);
+        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GOLD + "$" + amount));
     }
 
     public int getTotalXp() {
