@@ -43,6 +43,8 @@ public class VaultHook {
     }
 
     public static boolean hook(TasksPlugin plugin) {
+        usingVault = false;
+        
         Server server = plugin.getServer();
         if (server.getPluginManager().getPlugin("Vault") == null) {
             return false;
@@ -66,6 +68,7 @@ public class VaultHook {
         }
         chat = chatService.getProvider();
 
+        usingVault = true;
         return true;
     }
 }
