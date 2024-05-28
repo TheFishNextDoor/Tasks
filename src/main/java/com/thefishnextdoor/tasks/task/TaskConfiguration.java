@@ -38,6 +38,7 @@ public class TaskConfiguration {
         "reset-on-death",
         "skippable",
         "actionbar",
+        "progress-display",
         "repeatable",
         "min-level",
         "max-level",
@@ -86,6 +87,8 @@ public class TaskConfiguration {
     private boolean skippable = true;
 
     private boolean actionbar = true;
+
+    private ProgressDisplayType progressDisplayType = ProgressDisplayType.STANDARD;
 
     // Requirements
     private boolean repeatable = true;
@@ -171,6 +174,18 @@ public class TaskConfiguration {
 
         if (config.contains(id + ".actionbar")) {
             this.actionbar = config.getBoolean(id + ".actionbar");
+        }
+
+        if (config.contains(id + ".progress-display")) {
+            String progressDisplayName = config.getString(id + ".progress-display");
+            ProgressDisplayType potentialProgressDisplayType = EnumTools.fromString(ProgressDisplayType.class, progressDisplayName);
+            if (potentialProgressDisplayType == null) {
+                logger.warning("Invalid progress display for task " + id + ": " + progressDisplayName);
+                logger.warning("Valid progress displays are: " + EnumTools.allStrings(ProgressDisplayType.class));
+            }
+            else {
+                this.progressDisplayType = potentialProgressDisplayType;
+            }
         }
 
         if (config.contains(id + ".repeatable")) {
@@ -361,6 +376,10 @@ public class TaskConfiguration {
 
     public boolean showActionbar() {
         return actionbar;
+    }
+
+    public ProgressDisplayType getProgressDisplayType() {
+        return progressDisplayType;
     }
 
     public boolean conflictsWith(String otherTaskId) {
