@@ -12,14 +12,14 @@ import com.thefishnextdoor.tasks.task.TriggerType;
 
 public class ManipulateArmorstand implements Listener {
         
-        @EventHandler
-        public void onManipulateArmorstand(PlayerArmorStandManipulateEvent event) {
-            Player player = event.getPlayer();
-            PlayerProfile playerProfile = PlayerProfile.get(player);
-            Entity armorstand = event.getRightClicked();
-            ItemStack armorStandItem = event.getArmorStandItem();
-            ItemStack playerItem = event.getPlayerItem();
-            ItemStack item = armorStandItem != null ? armorStandItem : playerItem;
-            playerProfile.triggerTasks(TriggerType.MANIPULATE_ARMORSTAND, armorstand.getLocation(), armorstand, item, null, 1);
-        }
+    @EventHandler
+    public void onManipulateArmorstand(PlayerArmorStandManipulateEvent event) {
+        Player player = event.getPlayer();
+        PlayerProfile playerProfile = PlayerProfile.get(player);
+        Entity armorstand = event.getRightClicked();
+        ItemStack armorStandItem = event.getArmorStandItem();
+        ItemStack playerItem = event.getPlayerItem();
+        ItemStack item = armorStandItem != null ? armorStandItem : playerItem;
+        playerProfile.triggerTasks(TriggerType.MANIPULATE_ARMORSTAND, armorstand.getLocation(), armorstand, item, null, 1);
+    }
 }
