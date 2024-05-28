@@ -59,6 +59,23 @@ public class PlayerTask {
                 case PERCENT:
                     progressString = String.valueOf((int) (((double) this.progress / taskConfiguration.getAmount()) * 100)) + "%";
                     break;
+                case TIME:
+                    if (progress <= 0) {
+                        progressString = "0s";
+                    }
+                    else if (progress < 60) {
+                        progressString = progress + "s";
+                    }
+                    else if (progress < 3600) {
+                        progressString = progress / 60 + "m";
+                    }
+                    else if (progress < 86400) {
+                        progressString = progress / 3600 + "h";
+                    }
+                    else {
+                        progressString = progress / 86400 + "d";
+                    }
+                    break;
                 default:
                     progressString = progress + "/" + taskConfiguration.getAmount();
             }
