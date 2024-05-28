@@ -37,6 +37,7 @@ public class TaskConfiguration {
         "time-limit-minutes",
         "reset-on-death",
         "skippable",
+        "actionbar",
         "repeatable",
         "min-level",
         "max-level",
@@ -83,6 +84,8 @@ public class TaskConfiguration {
     private boolean resetOnDeath = false;
 
     private boolean skippable = true;
+
+    private boolean actionbar = true;
 
     // Requirements
     private boolean repeatable = true;
@@ -164,6 +167,10 @@ public class TaskConfiguration {
 
         if (config.contains(id + ".skippable")) {
             this.skippable = config.getBoolean(id + ".skippable");
+        }
+
+        if (config.contains(id + ".actionbar")) {
+            this.actionbar = config.getBoolean(id + ".actionbar");
         }
 
         if (config.contains(id + ".repeatable")) {
@@ -350,6 +357,10 @@ public class TaskConfiguration {
 
     public boolean isSkippable() {
         return skippable;
+    }
+
+    public boolean showActionbar() {
+        return actionbar;
     }
 
     public boolean conflictsWith(String otherTaskId) {

@@ -141,7 +141,9 @@ public class PlayerTask {
         if (this.progress >= taskConfiguration.getAmount()) {
             complete();
         }
-        playerProfile.getPlayer().ifPresent(player -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(this.toString())));
+        if (taskConfiguration.showActionbar()) {
+            playerProfile.getPlayer().ifPresent(player -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(this.toString())));
+        }
     }
 
     public void complete() {
