@@ -17,6 +17,7 @@ commands:
   level:
     description: Check your level and experience
     usage: /level
+    aliases: [skips]
   unlocks:
     description: List your unlocks
     usage: /unlocks
