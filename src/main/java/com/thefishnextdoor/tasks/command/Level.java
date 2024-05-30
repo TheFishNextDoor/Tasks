@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
+import com.thefishnextdoor.tasks.unlock.Unlock;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -35,6 +36,20 @@ public class Level implements CommandExecutor, TabCompleter {
         player.sendMessage(playerProfile.getColor() + ChatColor.BOLD + "Level " + level + ChatColor.WHITE + " (" + xp + "/" + nextLevel + ")");
         if (TasksPlugin.getSettings().ALLOW_TASK_SKIPPING) {
             player.sendMessage(ChatColor.WHITE + "You have " + playerProfile.getSkips() + " skip(s) remaining");
+        }
+        player.sendMessage(playerProfile.getColor() + ChatColor.BOLD + "Upcoming Unlocks");
+        int shownUnlocks = 0;
+        for (Unlock unlock : Unlock.getSorted()) {
+            if (shownUnlocks >= 5) {
+                break;
+            }
+            if (unlock.getLevel() > level) {
+                player.sendMessage(unlock.toString());
+                shownUnlocks++;
+            }
+        }
+        if (shownUnlocks == 0) {
+            player.sendMessage(ChatColor.WHITE + "No upcoming unlocks");
         }
         return true;
     }
