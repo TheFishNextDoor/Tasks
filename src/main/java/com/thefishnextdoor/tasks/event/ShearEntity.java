@@ -12,13 +12,12 @@ import com.thefishnextdoor.tasks.task.TriggerType;
 
 public class ShearEntity implements Listener {
     
-        @EventHandler
-        public void onShearEntity(PlayerShearEntityEvent event) {
-            Player player = event.getPlayer();
-            PlayerProfile playerProfile = PlayerProfile.get(player);
-            Entity entity = event.getEntity();
-            ItemStack item = event.getItem();
-            playerProfile.triggerTasks(TriggerType.SHEAR_ENTITY, entity.getLocation(), entity, item, null, 1);
-            playerProfile.triggerTasks(TriggerType.SHEAR_ENTITY_DROP_ITEM, entity.getLocation(), entity, item, null, item.getAmount());
-        }
+    @EventHandler
+    public void onShearEntity(PlayerShearEntityEvent event) {
+        Player player = event.getPlayer();
+        PlayerProfile playerProfile = PlayerProfile.get(player);
+        Entity entity = event.getEntity();
+        ItemStack item = event.getItem();
+        playerProfile.triggerTasks(TriggerType.SHEAR_ENTITY, entity.getLocation(), entity, item, null, 1);
+    }
 }
