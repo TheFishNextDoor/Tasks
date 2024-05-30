@@ -379,13 +379,17 @@ public class PlayerProfile {
         }
 
         int newLevel = PlayerLevel.getLevel(xp);
-        if (newLevel > level) {
+        boolean levelUp = newLevel > level;
+        if (levelUp) {
             for (int i = level + 1; i <= newLevel; i++) {
                 TasksMessage.send(player.get(), this, "Level Up", String.valueOf(i));
             }
             checkUnlocks();
         }
         this.level = newLevel;
+        if (levelUp) {
+            checkUnlocks();
+        }
     }
 
     private void checkUnlocks() {
