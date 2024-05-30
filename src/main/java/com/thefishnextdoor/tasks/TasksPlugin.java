@@ -24,6 +24,7 @@ import com.thefishnextdoor.tasks.event.EnchantItem;
 import com.thefishnextdoor.tasks.event.EntityDamageByEntity;
 import com.thefishnextdoor.tasks.event.EntityDeath;
 import com.thefishnextdoor.tasks.event.EntityTame;
+import com.thefishnextdoor.tasks.event.FurnaceExtract;
 import com.thefishnextdoor.tasks.event.HarvestBlock;
 import com.thefishnextdoor.tasks.event.InteractEntity;
 import com.thefishnextdoor.tasks.event.ItemBreak;
@@ -87,6 +88,7 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new CraftItem(), this);
         pluginManager.registerEvents(new EnchantItem(), this);
         pluginManager.registerEvents(new ItemConsume(), this);
+        pluginManager.registerEvents(new FurnaceExtract(), this);
         pluginManager.registerEvents(new ItemBreak(), this);
         pluginManager.registerEvents(new DropItem(), this);
         pluginManager.registerEvents(new ItemDamage(), this);

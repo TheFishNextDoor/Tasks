@@ -14,6 +14,7 @@ public enum TriggerType {
     ENCHANT_ITEM,
     CONSUME_ITEM,
     HARVEST_ITEM,
+    SMELT_ITEM,
     BREAK_ITEM,
     SHEAR_ENTITY_DROP_ITEM,
     DROP_ITEM,
@@ -35,5 +36,5 @@ public enum TriggerType {
     PORTAL_FROM,
     DEATH,
     RESPAWN,
-    TIMER;
+    TIMER,
 }
