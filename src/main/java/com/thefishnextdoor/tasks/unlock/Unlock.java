@@ -33,8 +33,7 @@ public class Unlock implements Comparable<Unlock> {
         "permissions",
         "console-commands",
         "player-commands",
-        "messages",
-        "run-once"
+        "messages"
     );
 
     private final String id;
@@ -47,8 +46,6 @@ public class Unlock implements Comparable<Unlock> {
     private ArrayList<String> console_commands = new ArrayList<String>();
     private ArrayList<String> player_commands = new ArrayList<String>();
     private ArrayList<String> messages = new ArrayList<String>();
-
-    private boolean runOnce = true;
 
     public Unlock(YamlConfiguration config, String id) {
         if (config == null) {
@@ -89,10 +86,6 @@ public class Unlock implements Comparable<Unlock> {
             messages.add(ChatColor.translateAlternateColorCodes('&', message));
         }
 
-        if (config.contains(id + ".run-once")) {
-            runOnce = config.getBoolean(id + ".run-once");
-        }
-
         unlocksSorted.add(this);
         unlocksLookup.put(id, this);
     }
@@ -129,9 +122,6 @@ public class Unlock implements Comparable<Unlock> {
         if (level < 1 || level > playerProfile.getLevel()) {
             return false;
         }
-        if (runOnce && playerProfile.hasCompletedUnlock(id)) {
-            return false;
-        }
         return true;
     }
 
@@ -144,25 +134,15 @@ public class Unlock implements Comparable<Unlock> {
         if (!optionalPlayer.isPresent()) {
             return;
         }
-
         Player player = optionalPlayer.get();
-        boolean unlocked = playerProfile.hasCompletedUnlock(id);
-        if (!unlocked) {
-            TasksMessage.send(player, playerProfile, "Unlocked", name);
-        }
 
-        if (runOnce && unlocked) {
+        givePermissions(player);
+
+        if (playerProfile.hasCompletedUnlock(id)) {
             return;
         }
 
-        if (VaultHook.isUsingVault()) {
-            Permission permissionsProvider = VaultHook.getPermissions();
-            for (String permission : permissions) {
-                if (!player.hasPermission(permission)) {
-                    permissionsProvider.playerAdd(player, permission);
-                }
-            }
-        }
+        TasksMessage.send(player, playerProfile, "Unlocked", name);
 
         String name = player.getName();
         for (String command : console_commands) {
@@ -174,13 +154,27 @@ public class Unlock implements Comparable<Unlock> {
             command = command.replace("{player}", name);
             player.performCommand(command);
         }
-        
         for (String message : messages) {
+            message = message.replace("{player}", name);
             player.sendMessage(message);
         }
         
         playerProfile.addCompletedUnlock(id);
         return;
+    }
+
+    public void givePermissions(Player player) {
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null");
+        }
+        if (VaultHook.isUsingVault()) {
+            Permission permissionsProvider = VaultHook.getPermissions();
+            for (String permission : permissions) {
+                if (!player.hasPermission(permission)) {
+                    permissionsProvider.playerAdd(player, permission);
+                }
+            }
+        }
     }
 
     public static Optional<Unlock> get(String id) {
