@@ -99,8 +99,6 @@ public class PlayerProfile {
         }
 
         this.level = PlayerLevel.getLevel(xp);
-
-        refreshTasks();
         
         playerProfiles.putIfAbsent(uuid, this);
     }
