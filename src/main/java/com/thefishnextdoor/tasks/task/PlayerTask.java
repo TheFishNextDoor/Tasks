@@ -156,6 +156,7 @@ public class PlayerTask {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public void addProgress(int progress) {
         if (progress < 0) {
             throw new IllegalArgumentException("Progress cannot be negative");
