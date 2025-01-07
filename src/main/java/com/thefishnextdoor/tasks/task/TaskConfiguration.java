@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World.Environment;
-import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
@@ -117,7 +116,7 @@ public class TaskConfiguration {
 
     private HashSet<String> worlds = new HashSet<>();
     private HashSet<Environment> environments = new HashSet<>();
-    private HashSet<Biome> biomes = new HashSet<>();
+    private HashSet<String> biomes = new HashSet<>();
 
     private Integer minX = null;
     private Integer maxX = null;
@@ -257,13 +256,7 @@ public class TaskConfiguration {
         }
 
         for (String biomeName : config.getStringList(id + ".biomes")) {
-            Biome biome = EnumTools.fromString(Biome.class, biomeName);
-            if (biome == null) {
-                logger.warning("Invalid biome for task " + id + ": " + biomeName);
-                logger.warning("Valid biomes are: " + EnumTools.allStrings(Biome.class));
-                continue;
-            }
-            this.biomes.add(biome);
+            this.biomes.add(normalizeString(biomeName));
         }
 
         if (config.contains(id + ".min-x")) {
@@ -479,7 +472,7 @@ public class TaskConfiguration {
             return false;
         }
 
-        if (!biomes.isEmpty() && !biomes.contains(location.getBlock().getBiome())) {
+        if (!biomes.isEmpty() && !biomes.contains(normalizeString(location.getBlock().getBiome().name()))) {
             return false;
         }
 
@@ -578,6 +571,13 @@ public class TaskConfiguration {
         }
 
         return true;
+    }
+
+    private static String normalizeString(String string) {
+        if (string == null) {
+            return null;
+        }
+        return string.trim().toLowerCase().replace(" ", "_").replace("-", "_");
     }
 
     public static Optional<TaskConfiguration> get(String id) {
