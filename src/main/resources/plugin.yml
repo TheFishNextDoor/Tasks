@@ -1,7 +1,7 @@
 name: Tasks
 main: com.thefishnextdoor.tasks.TasksPlugin
 version: 0.0.1
-api-version: 1.21
+api-version: 1.18
 author: TheFishNextDoor
 description: A simple task plugin
 softdepend: [Vault]
