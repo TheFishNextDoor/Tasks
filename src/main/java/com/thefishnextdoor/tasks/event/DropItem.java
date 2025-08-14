@@ -20,5 +20,4 @@ public class DropItem implements Listener {
         ItemStack item = entity.getItemStack();
         playerProfile.triggerTasks(TriggerType.DROP_ITEM, entity.getLocation(), entity, item, null, item.getAmount());
     }
-    
 }
