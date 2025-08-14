@@ -134,7 +134,8 @@
 - **Description:** Triggered when a player's item takes damage.
 - **Associated Data:**
     - Player: The player whose item is damaged
-    - Location: The location of the damage
+    - Location: The location of the player
+    - Entity: The player whose item is damaged
     - Item: The damaged item
     - Amount: The damage amount
 
@@ -142,7 +143,8 @@
 - **Description:** Triggered when a player's item is mended.
 - **Associated Data:**
     - Player: The player whose item is mended
-    - Location: The location of mending
+    - Location: The location of the player
+    - Entity: The player whose item is mended
     - Item: The mended item
     - Amount: The amount mended
 
@@ -150,7 +152,8 @@
 - **Description:** Triggered when a player drops an item.
 - **Associated Data:**
     - Player: The player dropping the item
-    - Location: The location of the drop
+    - Location: The location of the item entity
+    - Entity: The dropped item entity
     - Item: The dropped item
     - Amount: The amount dropped
 
