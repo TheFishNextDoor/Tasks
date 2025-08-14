@@ -78,16 +78,19 @@
 - **Description:** Triggered when a player crafts an item.
 - **Associated Data:**
     - Player: The player crafting the item
-    - Location: The location of crafting
+    - Location: The location of the block
     - Item: The crafted item
+    - Block: The block used to craft the item
     - Amount: The amount crafted
 
 ### ENCHANT_ITEM
 - **Description:** Triggered when a player enchants an item.
 - **Associated Data:**
     - Player: The player enchanting the item
-    - Location: The location of enchanting
+    - Entity: The player enchanting the item
+    - Location: The location of the enchanting table
     - Item: The enchanted item
+    - Block: The enchanting table
 
 ### CONSUME_ITEM
 - **Description:** Triggered when a player consumes an item.
