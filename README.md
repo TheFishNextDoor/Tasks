@@ -1,11 +1,66 @@
-# Tasks Bukkit Plugin
+## Task Parameters
+
+### Behavior
+- **amount**: The number of times the task action must be completed.
+- **time-limit-minutes**: The time the player has to complete the task.
+- **reset-on-death**: If true, progress resets when the player dies.
+- **skippable**: If true, the player can skip the task.
+
+### Display
+- **message**: The message shown to the player when the task is active.
+- **actionbar**: If true, task progress is displayed in the action bar.
+- **progress-display**: Controls how progress is formatted (STANDARD, PERCENT, TIME)
+
+### Start Requirements
+- **repeatable**: If true, the task can be completed multiple times.
+- **min-level**: The minimum player level required to start the task.
+- **max-level**: The maximum player level allowed to start the task.
+- **prerequisite-tasks**: List of tasks that must be completed before this one.
+- **incompatible-tasks**: List of tasks that cannot be active at the same time.
+- **permission**: The permission node required to access the task.
+
+### Rewards
+- **reward-money**: Amount of in-game currency awarded on completion.
+- **reward-xp**: Amount of experience points awarded on completion.
+- **reward-skips**: Number of task skips awarded on completion.
+- **reward-unlocks**: List of tasks unlocked upon completion.
+- **reward-console-commands**: Console commands executed as a reward.
+- **reward-player-commands**: Commands executed by the player as a reward.
+- **reward-messages**: Messages sent to the player as a reward.
+
+### Triggers
+- **triggers**: List of trigger types that start or progress the task. See "Trigger Types" below.
+
+### Location Filters
+- **worlds**: Worlds where the task can be completed.
+- **environments**: Allowed environments (e.g., NETHER, OVERWORLD).
+- **biomes**: Allowed biomes for task progress.
+- **min-x**: Minimum X coordinate where the task can be completed.
+- **max-x**: Maximum X coordinate where the task can be completed.
+- **min-y**: Minimum Y coordinate where the task can be completed.
+- **max-y**: Maximum Y coordinate where the task can be completed.
+- **min-z**: Minimum Z coordinate where the task can be completed.
+- **max-z**: Maximum Z coordinate where the task can be completed.
+
+### Entity Filters
+- **entity-in-water**: If true, only counts entities in water.
+- **entity-on-ground**: If true, only counts entities on the ground.
+- **entity-names**: List of entity names to match for the task.
+- **entity-types**: List of entity types to match for the task.
+- **entity-categories**: List of entity categories to match for the task.
+
+### Item Filters
+- **item-names**: List of item names to match for the task.
+- **item-materials**: List of item materials to match for the task.
+
+### Block Filters
+- **block-materials**: List of block materials to match for the task.
 
 ## Trigger Types
 
 ### INTERACT_ENTITY
 - **Description:** Triggered when a player right clicks an entity.
 - **Associated Data:**
-    - Player: The player who interacted with the entity
     - Location: The location of the entity
     - Entity: The entity interacted with
     - Item: The item in the players hand
@@ -14,7 +69,6 @@
 ### DAMAGE_ENTITY
 - **Description:** Triggered when a player damages an entity.
 - **Associated Data:**
-    - Player: The player who caused the damage
     - Location: The location of the entity
     - Entity: The entity damaged
     - Item: The item in the players hand
@@ -23,7 +77,6 @@
 ### KILL_ENTITY
 - **Description:** Triggered when an entity is killed by a player.
 - **Associated Data:**
-    - Player: The player who killed the entity
     - Location: The location of the entity
     - Entity: The entity killed
     - Item: The item in the players hand
@@ -32,7 +85,6 @@
 ### BUCKET_ENTITY
 - **Description:** Triggered when a player buckets an entity.
 - **Associated Data:**
-    - Player: The player using the bucket
     - Location: The location of the entity
     - Entity: The entity targeted
     - Item: The bucket
@@ -41,7 +93,6 @@
 ### SHEAR_ENTITY
 - **Description:** Triggered when a player shears an entity.
 - **Associated Data:**
-    - Player: The player using the shears
     - Location: The location of the entity
     - Entity: The entity sheared
     - Item: The item used
@@ -50,7 +101,6 @@
 ### TAME_ENTITY
 - **Description:** Triggered when a player tames an entity.
 - **Associated Data:**
-    - Player: The player taming the entity
     - Location: The location of the entity
     - Entity: The entity tamed
     - Item: The item in the players hand
@@ -59,7 +109,6 @@
 ### MANIPULATE_ARMORSTAND
 - **Description:** Triggered when a player interacts with an armor stand.
 - **Associated Data:**
-    - Player: The player manipulating the armor stand
     - Location: The location of the armorstand
     - Entity: The armor stand
     - Item: The item held by the player
@@ -68,7 +117,6 @@
 ### THROW_EGG
 - **Description:** Triggered when a player throws an egg.
 - **Associated Data:**
-    - Player: The player throwing the egg
     - Location: The location of the egg entity
     - Entity: The egg entity
     - Item: The egg item
@@ -77,7 +125,6 @@
 ### PICKUP_ARROW
 - **Description:** Triggered when a player picks up an arrow.
 - **Associated Data:**
-    - Player: The player picking up the arrow
     - Location: The location of the arrow entity
     - Entity: The arrow entity
     - Amount: 1
@@ -85,7 +132,6 @@
 ### CRAFT_ITEM
 - **Description:** Triggered when a player crafts an item.
 - **Associated Data:**
-    - Player: The player crafting the item
     - Location: The location of the block
     - Entity: The player crafting the item
     - Item: The crafted item
@@ -95,7 +141,6 @@
 ### ENCHANT_ITEM
 - **Description:** Triggered when a player enchants an item.
 - **Associated Data:**
-    - Player: The player enchanting the item
     - Location: The location of the enchanting table
     - Entity: The player enchanting the item
     - Item: The enchanted item
@@ -105,7 +150,6 @@
 ### CONSUME_ITEM
 - **Description:** Triggered when a player consumes an item.
 - **Associated Data:**
-    - Player: The player consuming the item
     - Location: The location of the player
     - Entity: The player
     - Item: The consumed item
@@ -114,7 +158,6 @@
 ### HARVEST_ITEM
 - **Description:** Triggered when a player harvests an item from a block.
 - **Associated Data:**
-    - Player: The player harvesting
     - Location: The location of the block
     - Entity: The player
     - Item: The harvested item
@@ -124,7 +167,6 @@
 ### SMELT_ITEM
 - **Description:** Triggered when a player smelts an item.
 - **Associated Data:**
-    - Player: The player smelting the item
     - Location: The location of the block
     - Item: The smelted item
     - Block: The block used to smelt
@@ -133,7 +175,6 @@
 ### BREAK_ITEM
 - **Description:** Triggered when a player breaks an item.
 - **Associated Data:**
-    - Player: The player breaking the item
     - Location: The location of the player
     - Entity: The player breaking the item
     - Item: The broken item
@@ -142,7 +183,6 @@
 ### DAMAGE_ITEM
 - **Description:** Triggered when a player's item takes damage.
 - **Associated Data:**
-    - Player: The player whose item is damaged
     - Location: The location of the player
     - Entity: The player whose item is damaged
     - Item: The damaged item
@@ -151,7 +191,6 @@
 ### MEND_ITEM
 - **Description:** Triggered when a player's item is mended.
 - **Associated Data:**
-    - Player: The player whose item is mended
     - Location: The location of the player
     - Entity: The player whose item is mended
     - Item: The mended item
@@ -160,7 +199,6 @@
 ### DROP_ITEM
 - **Description:** Triggered when a player drops an item.
 - **Associated Data:**
-    - Player: The player dropping the item
     - Location: The location of the item entity
     - Entity: The dropped item entity
     - Item: The dropped item
@@ -169,7 +207,6 @@
 ### BREAK_BLOCK_DROP_ITEM
 - **Description:** Triggered when a player breaks a block and it drops an item.
 - **Associated Data:**
-    - Player: The player breaking the block
     - Location: The location of the block
     - Entity: The player breaking the block
     - Item: The dropped item
@@ -179,7 +216,6 @@
 ### KILL_ENTITY_DROP_ITEM
 - **Description:** Triggered when a player kills an entity and it drops an item.
 - **Associated Data:**
-    - Player: The player killing the entity
     - Location: The location of the killed entity
     - Entity: The killed entity
     - Item: The dropped item
@@ -188,7 +224,6 @@
 ### BREAK_BLOCK
 - **Description:** Triggered when a player breaks a block.
 - **Associated Data:**
-    - Player: The player breaking the block
     - Location: The location of the block
     - Entity: The player breaking the block
     - Item: The item held by the player
@@ -198,7 +233,6 @@
 ### PLACE_BLOCK
 - **Description:** Triggered when a player places a block.
 - **Associated Data:**
-    - Player: The player placing the block
     - Location: The location of the block
     - Entity: The player placing the block
     - Item: The item in the players hand
@@ -208,7 +242,6 @@
 ### HARVEST_BLOCK
 - **Description:** Triggered when a player harvests a block (e.g. berries).
 - **Associated Data:**
-    - Player: The player harvesting the block
     - Location: The location of the block
     - Entity: The player harvesting the block
     - Item: The item in the players hand
@@ -218,7 +251,6 @@
 ### TAKE_LECTERN_BOOK
 - **Description:** Triggered when a player takes a book from a lectern.
 - **Associated Data:**
-    - Player: The player taking the book
     - Location: The location of the lectern
     - Entity: The player taking the book
     - Item: The book
@@ -228,7 +260,6 @@
 ### FILL_BUCKET
 - **Description:** Triggered when a player fills a bucket.
 - **Associated Data:**
-    - Player: The player filling the bucket
     - Location: The location of the source block
     - Entity: The player filling the bucket
     - Item: The filled bucket
@@ -238,7 +269,6 @@
 ### EMPTY_BUCKET
 - **Description:** Triggered when a player empties a bucket.
 - **Associated Data:**
-    - Player: The player emptying the bucket
     - Location: The location of the target block
     - Entity: The player emptying the bucket
     - Item: The bucket
@@ -248,7 +278,6 @@
 ### ENTER_BED
 - **Description:** Triggered when a player enters a bed.
 - **Associated Data:**
-    - Player: The player entering the bed
     - Location: The location of the bed
     - Entity: The player entering the bed
     - Block: The bed
@@ -257,7 +286,6 @@
 ### LEAVE_BED
 - **Description:** Triggered when a player leaves a bed.
 - **Associated Data:**
-    - Player: The player leaving the bed
     - Location: The location of the bed
     - Entity: The player leaving the bed
     - Block: The bed
@@ -266,7 +294,6 @@
 ### RIPTIDE
 - **Description:** Triggered when a player laucnhes themself with riptide.
 - **Associated Data:**
-    - Player: The player using the trident
     - Location: The location of the player
     - Entity: The player using the trident
     - Item: The trident
@@ -275,7 +302,6 @@
 ### TELEPORT_TO
 - **Description:** Triggered when a player teleports to a location.
 - **Associated Data:**
-    - Player: The player teleporting
     - Location: The destination
     - Entity: The player teleporting
     - Item: The item in the players hand
@@ -284,7 +310,6 @@
 ### TELEPORT_FROM
 - **Description:** Triggered when a player teleports from a location.
 - **Associated Data:**
-    - Player: The player teleporting
     - Location: The origin
     - Entity: The player teleporting
     - Item: The item in the players hand
@@ -293,7 +318,6 @@
 ### PORTAL_TO
 - **Description:** Triggered when a player enters a portal to a location.
 - **Associated Data:**
-    - Player: The player entering the portal
     - Location: The destination
     - Entity: The player entering the portal
     - Item: The item in the players hand
@@ -302,7 +326,6 @@
 ### PORTAL_FROM
 - **Description:** Triggered when a player leaves a portal from a location.
 - **Associated Data:**
-    - Player: The player leaving the portal
     - Location: The origin
     - Entity: The player entering the portal
     - Item: The item in the players hand
@@ -311,7 +334,6 @@
 ### DEATH
 - **Description:** Triggered when a player dies.
 - **Associated Data:**
-    - Player: The player who died
     - Location: The location of the player who died
     - Entity: The player who died
     - Item: The item in hand
@@ -320,7 +342,6 @@
 ### RESPAWN
 - **Description:** Triggered when a player respawns.
 - **Associated Data:**
-    - Player: The player respawning
     - Location: The respawn location
     - Entity: The player respawning
     - Item: The item in the players hand
@@ -329,7 +350,6 @@
 ### TIMER
 - **Description:** Executes once per second.
 - **Associated Data:**
-    - Player: The player with the task
     - Location: The location of the player
     - Entity: The player with the task
     - Item: The item in the players hand
