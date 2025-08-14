@@ -162,6 +162,7 @@
 - **Associated Data:**
     - Player: The player breaking the block
     - Location: The location of the block
+    - Entity: The player breaking the block
     - Item: The dropped item
     - Block: The broken block
     - Amount: The amount dropped
@@ -170,8 +171,8 @@
 - **Description:** Triggered when a player kills an entity and it drops an item.
 - **Associated Data:**
     - Player: The player killing the entity
+    - Location: The location of the killed entity
     - Entity: The killed entity
-    - Location: The location of the kill
     - Item: The dropped item
     - Amount: The amount dropped
 
