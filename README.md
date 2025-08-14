@@ -22,18 +22,18 @@
 ### KILL_ENTITY
 - **Description:** Triggered when an entity is killed.
 - **Associated Data:**
-    - Player: The player who killed the entity (if applicable)
+    - Player: The player who killed the entity
     - Entity: The entity killed
-    - Location: The location of the kill
-    - Item: The weapon used
+    - Location: The location of the entity
+    - Item: The item in the players hand
 
 ### BUCKET_ENTITY
 - **Description:** Triggered when a player uses a bucket on an entity.
 - **Associated Data:**
     - Player: The player using the bucket
     - Entity: The entity targeted
-    - Location: The location of the interaction
-    - Item: The bucket used
+    - Location: The location of the entity
+    - Item: The bucket
 
 ### SHEAR_ENTITY
 - **Description:** Triggered when a player shears an entity.
