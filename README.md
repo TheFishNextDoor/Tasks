@@ -3,7 +3,7 @@
 ## Trigger Types
 
 ### INTERACT_ENTITY
-- **Description:** Triggered when a player interacts with an entity.
+- **Description:** Triggered when a player right clicks an entity.
 - **Associated Data:**
     - Player: The player who interacted with the entity
     - Location: The location of the entity
@@ -12,7 +12,7 @@
     - Amount: 1
 
 ### DAMAGE_ENTITY
-- **Description:** Triggered when an entity is damaged.
+- **Description:** Triggered when a player damages an entity.
 - **Associated Data:**
     - Player: The player who caused the damage
     - Location: The location of the entity
@@ -21,7 +21,7 @@
     - Amount: The damage amount
 
 ### KILL_ENTITY
-- **Description:** Triggered when an entity is killed.
+- **Description:** Triggered when an entity is killed by a player.
 - **Associated Data:**
     - Player: The player who killed the entity
     - Location: The location of the entity
@@ -30,7 +30,7 @@
     - Amount: 1
 
 ### BUCKET_ENTITY
-- **Description:** Triggered when a player uses a bucket on an entity.
+- **Description:** Triggered when a player buckets an entity.
 - **Associated Data:**
     - Player: The player using the bucket
     - Location: The location of the entity
@@ -57,7 +57,7 @@
     - Amount: 1
 
 ### MANIPULATE_ARMORSTAND
-- **Description:** Triggered when a player manipulates an armor stand.
+- **Description:** Triggered when a player interacts with an armor stand.
 - **Associated Data:**
     - Player: The player manipulating the armor stand
     - Location: The location of the armorstand
@@ -131,7 +131,7 @@
     - Amount: The amount smelted
 
 ### BREAK_ITEM
-- **Description:** Triggered when a player breaks an item (item durability reaches zero).
+- **Description:** Triggered when a player breaks an item.
 - **Associated Data:**
     - Player: The player breaking the item
     - Location: The location of the player
@@ -206,7 +206,7 @@
     - Amount: 1
 
 ### HARVEST_BLOCK
-- **Description:** Triggered when a player harvests a block (e.g., crops).
+- **Description:** Triggered when a player harvests a block (e.g. berries).
 - **Associated Data:**
     - Player: The player harvesting the block
     - Location: The location of the block
@@ -264,7 +264,7 @@
     - Amount: 1
 
 ### RIPTIDE
-- **Description:** Triggered when a player uses a trident with Riptide.
+- **Description:** Triggered when a player laucnhes themself with riptide.
 - **Associated Data:**
     - Player: The player using the trident
     - Location: The location of the player
