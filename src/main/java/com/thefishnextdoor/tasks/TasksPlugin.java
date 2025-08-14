@@ -49,8 +49,8 @@ import com.thefishnextdoor.tasks.player.PlayerLevel;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.scheduler.AutoSave;
 import com.thefishnextdoor.tasks.scheduler.TaskRefresh;
+import com.thefishnextdoor.tasks.scheduler.TimerTrigger;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
-import com.thefishnextdoor.tasks.task.TimerTrigger;
 import com.thefishnextdoor.tasks.unlock.Unlock;
 
 public class TasksPlugin extends JavaPlugin {

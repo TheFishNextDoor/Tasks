@@ -1,10 +1,11 @@
-package com.thefishnextdoor.tasks.task;
+package com.thefishnextdoor.tasks.scheduler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
+import com.thefishnextdoor.tasks.task.TriggerType;
 import com.thefishnextdoor.tasks.utils.InventoryUtils;
 
 public class TimerTrigger {
