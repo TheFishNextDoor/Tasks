@@ -6,16 +6,16 @@
 - **Description:** Triggered when a player interacts with an entity.
 - **Associated Data:**
     - Player: The player who interacted with the entity
-    - Entity: The entity interacted with
     - Location: The location of the entity
+    - Entity: The entity interacted with
     - Item: The item in the players hand
 
 ### DAMAGE_ENTITY
 - **Description:** Triggered when an entity is damaged.
 - **Associated Data:**
     - Player: The player who caused the damage
-    - Entity: The entity damaged
     - Location: The location of the entity
+    - Entity: The entity damaged
     - Item: The item in the players hand
     - Amount: The damage amount
 
@@ -23,56 +23,56 @@
 - **Description:** Triggered when an entity is killed.
 - **Associated Data:**
     - Player: The player who killed the entity
-    - Entity: The entity killed
     - Location: The location of the entity
+    - Entity: The entity killed
     - Item: The item in the players hand
 
 ### BUCKET_ENTITY
 - **Description:** Triggered when a player uses a bucket on an entity.
 - **Associated Data:**
     - Player: The player using the bucket
-    - Entity: The entity targeted
     - Location: The location of the entity
+    - Entity: The entity targeted
     - Item: The bucket
 
 ### SHEAR_ENTITY
 - **Description:** Triggered when a player shears an entity.
 - **Associated Data:**
     - Player: The player using the shears
-    - Entity: The entity sheared
     - Location: The location of the entity
+    - Entity: The entity sheared
     - Item: The item used
 
 ### TAME_ENTITY
 - **Description:** Triggered when a player tames an entity.
 - **Associated Data:**
     - Player: The player taming the entity
-    - Entity: The entity tamed
     - Location: The location of the entity
+    - Entity: The entity tamed
     - Item: The item in the players hand
 
 ### MANIPULATE_ARMORSTAND
 - **Description:** Triggered when a player manipulates an armor stand.
 - **Associated Data:**
     - Player: The player manipulating the armor stand
-    - Entity: The armor stand
     - Location: The location of the armorstand
+    - Entity: The armor stand
     - Item: The item held by the player
 
 ### THROW_EGG
 - **Description:** Triggered when a player throws an egg.
 - **Associated Data:**
     - Player: The player throwing the egg
-    - Entity: The egg entity
     - Location: The location of the egg entity
+    - Entity: The egg entity
     - Item: The egg item
 
 ### PICKUP_ARROW
 - **Description:** Triggered when a player picks up an arrow.
 - **Associated Data:**
     - Player: The player picking up the arrow
-    - Entity: The arrow entity
     - Location: The location of the arrow entity
+    - Entity: The arrow entity
 
 ### CRAFT_ITEM
 - **Description:** Triggered when a player crafts an item.
@@ -87,8 +87,8 @@
 - **Description:** Triggered when a player enchants an item.
 - **Associated Data:**
     - Player: The player enchanting the item
-    - Entity: The player enchanting the item
     - Location: The location of the enchanting table
+    - Entity: The player enchanting the item
     - Item: The enchanted item
     - Block: The enchanting table
 
@@ -96,8 +96,9 @@
 - **Description:** Triggered when a player consumes an item.
 - **Associated Data:**
     - Player: The player consuming the item
-    - Location: The location of consumption
+    - Location: The location of the player
     - Item: The consumed item
+    - Amount: The quantity of the item consumed
 
 ### HARVEST_ITEM
 - **Description:** Triggered when a player harvests an item from a block or entity.
