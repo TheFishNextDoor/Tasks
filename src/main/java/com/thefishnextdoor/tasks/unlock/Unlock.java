@@ -5,18 +5,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.hook.Vault;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.player.TasksMessage;
 import com.thefishnextdoor.tasks.utils.ConfigUtils;
+import com.thefishnextdoor.tasks.utils.Debug;
 
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.permission.Permission;
@@ -57,12 +55,11 @@ public class Unlock implements Comparable<Unlock> {
 
         this.id = id;
 
-        Logger logger = TasksPlugin.getInstance().getLogger();
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
             if (!settings.contains(setting)) {
-                logger.warning("Invalid setting for unlock " + id + ": " + setting);
+                Debug.logWarning("Invalid setting for unlock " + id + ": " + setting);
                 String possibleSettings = String.join(", ", settings);
-                logger.warning("Valid settings are: " + possibleSettings);
+                Debug.logWarning("Valid settings are: " + possibleSettings);
             }
         }
 
@@ -201,6 +198,6 @@ public class Unlock implements Comparable<Unlock> {
             new Unlock(config, id);
         }
         Collections.sort(unlocksSorted);
-        TasksPlugin.getInstance().getLogger().info("Loaded " + unlocksSorted.size() + " unlocks");
+        Debug.logInfo("Loaded " + unlocksSorted.size() + " unlocks");
     }
 }

@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -24,7 +22,8 @@ import com.thefishnextdoor.tasks.task.PlayerTask;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TriggerType;
 import com.thefishnextdoor.tasks.unlock.Unlock;
-import com.thefishnextdoor.tasks.utils.DataUtils;
+import com.thefishnextdoor.tasks.utils.DataFile;
+import com.thefishnextdoor.tasks.utils.Debug;
 import com.thefishnextdoor.tasks.utils.MoneyUtils;
 
 import net.md_5.bungee.api.ChatColor;
@@ -61,8 +60,7 @@ public class PlayerProfile {
         this.uuid = uuid;
 
         String id = uuid.toString();
-        Logger logger = TasksPlugin.getInstance().getLogger();
-        YamlConfiguration playerData = DataUtils.get(id);
+        YamlConfiguration playerData = DataFile.get(id);
 
         xp = playerData.getInt("xp", 0);
         skips = playerData.getInt("skips", 0);
@@ -79,7 +77,7 @@ public class PlayerProfile {
             for (String taskKey : playerData.getConfigurationSection("tasks").getKeys(false)) {
                 Optional<TaskConfiguration> taskConfiguration = TaskConfiguration.get(taskKey);
                 if (!taskConfiguration.isPresent()) {
-                    logger.warning("Removing invalid task " + taskKey + " for player " + id);
+                    Debug.logWarning("Removing invalid task " + taskKey + " for player " + id);
                     continue;
                 }
                 int progress = playerData.getInt("tasks." + taskKey + ".progress");
@@ -105,7 +103,7 @@ public class PlayerProfile {
 
     public void save() {
         String id = uuid.toString();
-        YamlConfiguration playerData = DataUtils.get(id);
+        YamlConfiguration playerData = DataFile.get(id);
 
         playerData.set("xp", xp);
         playerData.set("skips", skips);
@@ -126,7 +124,7 @@ public class PlayerProfile {
 
         playerData.set("color", color.getName());
 
-        DataUtils.save(id, playerData);
+        DataFile.save(id, playerData);
 
         if (!isOnline()) {
             playerProfiles.remove(uuid);
@@ -413,7 +411,7 @@ public class PlayerProfile {
     }
 
     private void populateTasks() {
-        int maxTasks = TasksPlugin.getSettings().MAX_TASKS;
+        int maxTasks = TasksPlugin.getMainConfig().MAX_TASKS;
         if (tasks.size() >= maxTasks) {
             return;
         }

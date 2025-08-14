@@ -27,7 +27,7 @@ public class Tasks implements CommandExecutor, TabCompleter {
             if (sender.hasPermission(COLOR_PERMISSION)) {
                 subcommands.add("color");
             }
-            if (TasksPlugin.getSettings().ALLOW_TASK_SKIPPING) {
+            if (TasksPlugin.getMainConfig().ALLOW_TASK_SKIPPING) {
                 subcommands.add("skip");
             }
             return subcommands;
@@ -37,7 +37,7 @@ public class Tasks implements CommandExecutor, TabCompleter {
                 return List.of("#RRGGBB", "black", "dark_blue", "dark_green", "dark_aqua", "dark_red", "dark_purple", "gold", "gray", "dark_gray", "blue", "green", "aqua", "red", "light_purple", "yellow", "white");
             }
             else
-            if (args[0].equalsIgnoreCase("skip") && TasksPlugin.getSettings().ALLOW_TASK_SKIPPING && sender instanceof Player) {
+            if (args[0].equalsIgnoreCase("skip") && TasksPlugin.getMainConfig().ALLOW_TASK_SKIPPING && sender instanceof Player) {
                 PlayerProfile playerProfile = PlayerProfile.get((Player) sender);
                 int i = 1;
                 ArrayList<String> taskNumbers = new ArrayList<String>();
@@ -83,7 +83,7 @@ public class Tasks implements CommandExecutor, TabCompleter {
             return true;
         }
         // Skip //
-        else if (subCommand.equalsIgnoreCase("skip") && TasksPlugin.getSettings().ALLOW_TASK_SKIPPING) {
+        else if (subCommand.equalsIgnoreCase("skip") && TasksPlugin.getMainConfig().ALLOW_TASK_SKIPPING) {
             if (args.length < 2) {
                 sender.sendMessage(ChatColor.RED + "Usage: /tasks skip <number>");
                 return true;

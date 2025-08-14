@@ -1,7 +1,9 @@
 package com.thefishnextdoor.tasks.utils;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -18,5 +20,13 @@ public class PlayerUtils {
             }
         }
         return Optional.ofNullable(nearestPlayer);
+    }
+
+    public static ArrayList<String> getPlayerNames() {
+        ArrayList<String> playerNames = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            playerNames.add(player.getName());
+        }
+        return playerNames;
     }
 }

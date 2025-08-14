@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 
-public class DataUtils {
+public class DataFile {
 
     public static YamlConfiguration get(String name) {
         if (name == null) {

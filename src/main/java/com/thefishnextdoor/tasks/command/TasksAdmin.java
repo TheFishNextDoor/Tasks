@@ -16,7 +16,7 @@ import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.PlayerTask;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.unlock.Unlock;
-import com.thefishnextdoor.tasks.utils.CommandUtils;
+import com.thefishnextdoor.tasks.utils.PlayerUtils;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -69,7 +69,7 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
             }
         }
         if (args.length == 3) {
-            return CommandUtils.getPlayerNames();
+            return PlayerUtils.getPlayerNames();
         }
         if (args.length == 4) {
             Player player = Bukkit.getPlayer(args[2]);

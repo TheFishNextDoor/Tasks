@@ -1,17 +1,29 @@
 package com.thefishnextdoor.tasks.utils;
 
-import java.util.ArrayList;
-
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class CommandUtils {
 
-    public static ArrayList<String> getPlayerNames() {
-        ArrayList<String> playerNames = new ArrayList<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            playerNames.add(player.getName());
+    public static boolean register(JavaPlugin plugin, String commandName, CommandExecutor commandExecutor) {
+        if (plugin == null || commandName == null || commandExecutor == null) {
+            return false;
         }
-        return playerNames;
+
+        PluginCommand command = plugin.getCommand(commandName);
+        if (command == null) {
+            Debug.logWarning("Command '" + commandName + "' not found in plugin.yml.");
+            return false;
+        }
+
+        command.setExecutor(commandExecutor);
+
+        if (commandExecutor instanceof TabCompleter) {
+            command.setTabCompleter((TabCompleter) commandExecutor);
+        }
+
+        return true;
     }
 }

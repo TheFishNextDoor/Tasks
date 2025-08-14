@@ -1,7 +1,5 @@
 package com.thefishnextdoor.tasks.utils;
 
-import com.thefishnextdoor.tasks.TasksPlugin;
-
 public class EnumUtils {
 
     public static <E extends Enum<E>> E fromString(Class<E> enumClass, String name) {
@@ -23,7 +21,7 @@ public class EnumUtils {
             }
         }
         catch (Exception e) {
-            TasksPlugin.getInstance().getLogger().severe("Failed to parse enum: " + enumClass.getSimpleName() + " - " + name);
+            Debug.logSevere("Failed to parse enum: " + enumClass.getSimpleName() + " - " + name);
         }
 
         return null;

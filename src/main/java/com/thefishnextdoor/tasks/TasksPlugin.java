@@ -1,8 +1,5 @@
 package com.thefishnextdoor.tasks;
 
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -52,29 +49,31 @@ import com.thefishnextdoor.tasks.scheduler.TaskRefresh;
 import com.thefishnextdoor.tasks.scheduler.TimerTrigger;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.unlock.Unlock;
+import com.thefishnextdoor.tasks.utils.CommandUtils;
+import com.thefishnextdoor.tasks.utils.Debug;
 
 public class TasksPlugin extends JavaPlugin {
 
     private static TasksPlugin instance;
 
-    private static MainConfig settings;
+    private static MainConfig mainConfig;
 
     public void onEnable() {
         instance = this;
 
         if (Vault.hook(this)) {
-            getLogger().info("Vault hooked");
+            Debug.logInfo("Vault hooked");
         } 
         else {
-            getLogger().warning("Vault not found");
+            Debug.logWarning("Vault not found");
         }
 
         loadConfigs();
 
-        registerCommand("tasksadmin", new TasksAdmin());
-        registerCommand("tasks", new Tasks());
-        registerCommand("level", new Level());
-        registerCommand("unlocks", new Unlocks());
+        CommandUtils.register(this, "tasksadmin", new TasksAdmin());
+        CommandUtils.register(this, "tasks", new Tasks());
+        CommandUtils.register(this, "level", new Level());
+        CommandUtils.register(this, "unlocks", new Unlocks());
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerJoin(), this);
@@ -115,7 +114,7 @@ public class TasksPlugin extends JavaPlugin {
         TaskRefresh.start();
         TimerTrigger.start();
 
-        getLogger().info("Plugin enabled");
+        Debug.logInfo("Plugin enabled");
     }
 
     public void onDisable() {
@@ -123,42 +122,24 @@ public class TasksPlugin extends JavaPlugin {
         TaskRefresh.stop();
         TimerTrigger.stop();
         PlayerProfile.saveAll();
-        getLogger().info("Plugin disabled");
+        Debug.logInfo("Plugin disabled");
     }
 
     public static TasksPlugin getInstance() {
         return instance;
     }
 
-    public static MainConfig getSettings() {
-        return settings;
+    public static MainConfig getMainConfig() {
+        return mainConfig;
     }
 
     public static void loadConfigs() {
-        settings = new MainConfig();
+        mainConfig = new MainConfig();
         Unlock.loadConfig();
         TaskConfiguration.loadConfig();
         PlayerProfile.reload();
         if (!PlayerLevel.verify()) {
-            instance.getLogger().severe("PlayerLevel verification failed");
-        }
-    }
-
-    private void registerCommand(String commandName, CommandExecutor commandHandler) {
-        if (commandName == null) {
-            throw new IllegalArgumentException("commandName cannot be null");
-        }
-        if (commandHandler == null) {
-            throw new IllegalArgumentException("commandHandler cannot be null");
-        }
-        PluginCommand command = getCommand(commandName);
-        if (command == null) {
-            getLogger().warning("Failed to register command: " + commandName);
-            return;
-        }
-        command.setExecutor(commandHandler);
-        if (commandHandler instanceof TabCompleter) {
-            command.setTabCompleter((TabCompleter) commandHandler);
+            Debug.logSevere("PlayerLevel verification failed");
         }
     }
 }
