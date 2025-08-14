@@ -23,7 +23,7 @@ import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TriggerType;
 import com.thefishnextdoor.tasks.unlock.Unlock;
 import com.thefishnextdoor.tasks.utils.DataFile;
-import com.thefishnextdoor.tasks.utils.Debug;
+import com.thefishnextdoor.tasks.utils.Log;
 import com.thefishnextdoor.tasks.utils.MoneyUtils;
 
 import net.md_5.bungee.api.ChatColor;
@@ -77,7 +77,7 @@ public class PlayerProfile {
             for (String taskKey : playerData.getConfigurationSection("tasks").getKeys(false)) {
                 Optional<TaskConfiguration> taskConfiguration = TaskConfiguration.get(taskKey);
                 if (!taskConfiguration.isPresent()) {
-                    Debug.logWarning("Removing invalid task " + taskKey + " for player " + id);
+                    Log.warning("Removing invalid task " + taskKey + " for player " + id);
                     continue;
                 }
                 int progress = playerData.getInt("tasks." + taskKey + ".progress");

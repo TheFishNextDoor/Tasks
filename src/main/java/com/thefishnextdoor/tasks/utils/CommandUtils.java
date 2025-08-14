@@ -14,7 +14,7 @@ public class CommandUtils {
 
         PluginCommand command = plugin.getCommand(commandName);
         if (command == null) {
-            Debug.logWarning("Command '" + commandName + "' not found in plugin.yml.");
+            Log.warning("Command '" + commandName + "' not found in plugin.yml.");
             return false;
         }
 

@@ -21,7 +21,7 @@ public class EnumUtils {
             }
         }
         catch (Exception e) {
-            Debug.logSevere("Failed to parse enum: " + enumClass.getSimpleName() + " - " + name);
+            Log.severe("Failed to parse enum: " + enumClass.getSimpleName() + " - " + name);
         }
 
         return null;

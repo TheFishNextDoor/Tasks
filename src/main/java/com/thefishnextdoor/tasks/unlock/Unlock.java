@@ -14,7 +14,7 @@ import com.thefishnextdoor.tasks.hook.Vault;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.player.TasksMessage;
 import com.thefishnextdoor.tasks.utils.ConfigUtils;
-import com.thefishnextdoor.tasks.utils.Debug;
+import com.thefishnextdoor.tasks.utils.Log;
 
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.permission.Permission;
@@ -57,9 +57,9 @@ public class Unlock implements Comparable<Unlock> {
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
             if (!settings.contains(setting)) {
-                Debug.logWarning("Invalid setting for unlock " + id + ": " + setting);
+                Log.warning("Invalid setting for unlock " + id + ": " + setting);
                 String possibleSettings = String.join(", ", settings);
-                Debug.logWarning("Valid settings are: " + possibleSettings);
+                Log.warning("Valid settings are: " + possibleSettings);
             }
         }
 
@@ -198,6 +198,6 @@ public class Unlock implements Comparable<Unlock> {
             new Unlock(config, id);
         }
         Collections.sort(unlocksSorted);
-        Debug.logInfo("Loaded " + unlocksSorted.size() + " unlocks");
+        Log.info("Loaded " + unlocksSorted.size() + " unlocks");
     }
 }

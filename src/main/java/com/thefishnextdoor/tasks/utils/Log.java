@@ -4,17 +4,17 @@ import java.util.logging.Logger;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 
-public class Debug {
+public class Log {
 
-    public static void logInfo(String message) {
+    public static void info(String message) {
         getLogger().info(message);
     }
 
-    public static void logWarning(String message) {
+    public static void warning(String message) {
         getLogger().warning(message);
     }
 
-    public static void logSevere(String message) {
+    public static void severe(String message) {
         getLogger().severe(message);
     }
 

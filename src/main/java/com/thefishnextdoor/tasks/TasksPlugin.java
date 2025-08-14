@@ -50,7 +50,7 @@ import com.thefishnextdoor.tasks.scheduler.TimerTrigger;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.unlock.Unlock;
 import com.thefishnextdoor.tasks.utils.CommandUtils;
-import com.thefishnextdoor.tasks.utils.Debug;
+import com.thefishnextdoor.tasks.utils.Log;
 
 public class TasksPlugin extends JavaPlugin {
 
@@ -62,10 +62,10 @@ public class TasksPlugin extends JavaPlugin {
         instance = this;
 
         if (Vault.hook(this)) {
-            Debug.logInfo("Vault hooked");
+            Log.info("Vault hooked");
         } 
         else {
-            Debug.logWarning("Vault not found");
+            Log.warning("Vault not found");
         }
 
         loadConfigs();
@@ -114,7 +114,7 @@ public class TasksPlugin extends JavaPlugin {
         TaskRefresh.start();
         TimerTrigger.start();
 
-        Debug.logInfo("Plugin enabled");
+        Log.info("Plugin enabled");
     }
 
     public void onDisable() {
@@ -122,7 +122,7 @@ public class TasksPlugin extends JavaPlugin {
         TaskRefresh.stop();
         TimerTrigger.stop();
         PlayerProfile.saveAll();
-        Debug.logInfo("Plugin disabled");
+        Log.info("Plugin disabled");
     }
 
     public static TasksPlugin getInstance() {
@@ -139,7 +139,7 @@ public class TasksPlugin extends JavaPlugin {
         TaskConfiguration.loadConfig();
         PlayerProfile.reload();
         if (!PlayerLevel.verify()) {
-            Debug.logSevere("PlayerLevel verification failed");
+            Log.severe("PlayerLevel verification failed");
         }
     }
 }
