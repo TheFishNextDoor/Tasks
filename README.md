@@ -7,16 +7,16 @@
 - **Associated Data:**
     - Player: The player who interacted with the entity
     - Entity: The entity interacted with
-    - Location: The location of the interaction
-    - Item: The item in hand
+    - Location: The location of the entity
+    - Item: The item in the players hand
 
 ### DAMAGE_ENTITY
 - **Description:** Triggered when an entity is damaged.
 - **Associated Data:**
-    - Player: The player who caused the damage (if applicable)
+    - Player: The player who caused the damage
     - Entity: The entity damaged
-    - Location: The location of the damage
-    - Item: The weapon used
+    - Location: The location of the entity
+    - Item: The item in the players hand
     - Amount: The damage amount
 
 ### KILL_ENTITY
