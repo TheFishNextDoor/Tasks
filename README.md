@@ -40,16 +40,16 @@
 - **Associated Data:**
     - Player: The player using the shears
     - Entity: The entity sheared
-    - Location: The location of the shearing
-    - Item: The shears used
+    - Location: The location of the entity
+    - Item: The item used
 
 ### TAME_ENTITY
 - **Description:** Triggered when a player tames an entity.
 - **Associated Data:**
     - Player: The player taming the entity
     - Entity: The entity tamed
-    - Location: The location of the taming
-    - Item: The item used to tame
+    - Location: The location of the entity
+    - Item: The item in the players hand
 
 ### MANIPULATE_ARMORSTAND
 - **Description:** Triggered when a player manipulates an armor stand.
