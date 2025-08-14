@@ -181,7 +181,8 @@
 - **Associated Data:**
     - Player: The player breaking the block
     - Location: The location of the block
-    - Item: The tool used
+    - Entity: The player breaking the block
+    - Item: The item held by the player
     - Block: The broken block
 
 ### PLACE_BLOCK
@@ -189,7 +190,8 @@
 - **Associated Data:**
     - Player: The player placing the block
     - Location: The location of the block
-    - Item: The block placed
+    - Entity: The player placing the block
+    - Item: The item in the players hand
     - Block: The placed block
 
 ### HARVEST_BLOCK
@@ -197,9 +199,9 @@
 - **Associated Data:**
     - Player: The player harvesting the block
     - Location: The location of the block
-    - Item: The harvested item
+    - Entity: The player harvesting the block
+    - Item: The item in the players hand
     - Block: The harvested block
-    - Amount: The amount harvested
 
 ### TAKE_LECTERN_BOOK
 - **Description:** Triggered when a player takes a book from a lectern.
