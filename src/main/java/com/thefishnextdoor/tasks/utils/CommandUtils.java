@@ -1,11 +1,11 @@
-package com.thefishnextdoor.tasks.toolkit;
+package com.thefishnextdoor.tasks.utils;
 
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class CommandTools {
+public class CommandUtils {
 
     public static ArrayList<String> getPlayerNames() {
         ArrayList<String> playerNames = new ArrayList<>();

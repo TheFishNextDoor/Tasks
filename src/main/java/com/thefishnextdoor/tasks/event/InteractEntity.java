@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TriggerType;
-import com.thefishnextdoor.tasks.toolkit.InventoryTools;
+import com.thefishnextdoor.tasks.utils.InventoryUtils;
 
 public class InteractEntity implements Listener {
 
@@ -18,7 +18,7 @@ public class InteractEntity implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
         Entity entity = event.getRightClicked();
-        ItemStack item = InventoryTools.getItemInHand(player);
+        ItemStack item = InventoryUtils.getItemInHand(player);
         playerProfile.triggerTasks(TriggerType.INTERACT_ENTITY, entity.getLocation(), entity, item, null, 1);
     }
 }

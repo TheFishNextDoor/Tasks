@@ -1,8 +1,8 @@
-package com.thefishnextdoor.tasks.toolkit;
+package com.thefishnextdoor.tasks.utils;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 
-public class EnumTools {
+public class EnumUtils {
 
     public static <E extends Enum<E>> E fromString(Class<E> enumClass, String name) {
         if (enumClass == null) {

@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TriggerType;
-import com.thefishnextdoor.tasks.toolkit.PlayerTools;
+import com.thefishnextdoor.tasks.utils.PlayerUtils;
 
 public class BlockCook implements Listener {
 
@@ -24,7 +24,7 @@ public class BlockCook implements Listener {
             return;
         }
         Location location = block.getLocation();
-        Optional<Player> player = PlayerTools.getNearestPlayer(location);
+        Optional<Player> player = PlayerUtils.getNearestPlayer(location);
         if (!player.isPresent()) {
             return;
         }

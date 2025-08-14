@@ -1,11 +1,11 @@
-package com.thefishnextdoor.tasks.toolkit;
+package com.thefishnextdoor.tasks.utils;
 
 import java.util.Optional;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class PlayerTools {
+public class PlayerUtils {
 
     public static Optional<Player> getNearestPlayer(Location location) {
         Player nearestPlayer = null;

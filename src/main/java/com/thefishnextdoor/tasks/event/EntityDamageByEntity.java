@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TriggerType;
-import com.thefishnextdoor.tasks.toolkit.InventoryTools;
+import com.thefishnextdoor.tasks.utils.InventoryUtils;
 
 public class EntityDamageByEntity implements Listener {
     
@@ -20,7 +20,7 @@ public class EntityDamageByEntity implements Listener {
         if (damager instanceof Player) {
             Player player = (Player) damager;
             PlayerProfile playerProfile = PlayerProfile.get(player);
-            ItemStack item = InventoryTools.getItemInHand(player);
+            ItemStack item = InventoryUtils.getItemInHand(player);
             int damage = (int) event.getDamage();
             playerProfile.triggerTasks(TriggerType.DAMAGE_ENTITY, damaged.getLocation(), damaged, item, null, damage);
         }

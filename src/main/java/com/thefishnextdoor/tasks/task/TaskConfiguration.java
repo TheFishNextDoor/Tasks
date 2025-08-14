@@ -21,8 +21,8 @@ import org.bukkit.inventory.ItemStack;
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.file.ConfigFile;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
-import com.thefishnextdoor.tasks.toolkit.EnumTools;
 import com.thefishnextdoor.tasks.unlock.Unlock;
+import com.thefishnextdoor.tasks.utils.EnumUtils;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -177,10 +177,10 @@ public class TaskConfiguration {
 
         if (config.contains(id + ".progress-display")) {
             String progressDisplayName = config.getString(id + ".progress-display");
-            ProgressDisplayType potentialProgressDisplayType = EnumTools.fromString(ProgressDisplayType.class, progressDisplayName);
+            ProgressDisplayType potentialProgressDisplayType = EnumUtils.fromString(ProgressDisplayType.class, progressDisplayName);
             if (potentialProgressDisplayType == null) {
                 logger.warning("Invalid progress display for task " + id + ": " + progressDisplayName);
-                logger.warning("Valid progress displays are: " + EnumTools.allStrings(ProgressDisplayType.class));
+                logger.warning("Valid progress displays are: " + EnumUtils.allStrings(ProgressDisplayType.class));
             }
             else {
                 this.progressDisplayType = potentialProgressDisplayType;
@@ -229,10 +229,10 @@ public class TaskConfiguration {
         }
 
         for (String triggerName : config.getStringList(id + ".triggers")) {
-            TriggerType trigger = EnumTools.fromString(TriggerType.class, triggerName);
+            TriggerType trigger = EnumUtils.fromString(TriggerType.class, triggerName);
             if (trigger == null) {
                 logger.warning("Invalid trigger for task " + id + ": " + triggerName);
-                logger.warning("Valid triggers are: " + EnumTools.allStrings(TriggerType.class));
+                logger.warning("Valid triggers are: " + EnumUtils.allStrings(TriggerType.class));
                 continue;
             }
             this.triggers.add(trigger);
@@ -246,10 +246,10 @@ public class TaskConfiguration {
         }
 
         for (String environmentName : config.getStringList(id + ".environments")) {
-            Environment environment = EnumTools.fromString(Environment.class, environmentName);
+            Environment environment = EnumUtils.fromString(Environment.class, environmentName);
             if (environment == null) {
                 logger.warning("Invalid environment for task " + id + ": " + environmentName);
-                logger.warning("Valid environments are: " + EnumTools.allStrings(Environment.class));
+                logger.warning("Valid environments are: " + EnumUtils.allStrings(Environment.class));
                 continue;
             }
             this.environments.add(environment);
@@ -291,20 +291,20 @@ public class TaskConfiguration {
         }
 
         for (String entityTypeName : config.getStringList(id + ".entity-types")) {
-            EntityType entityType = EnumTools.fromString(EntityType.class, entityTypeName);
+            EntityType entityType = EnumUtils.fromString(EntityType.class, entityTypeName);
             if (entityType == null) {
                 logger.warning("Invalid entity type for task " + id + ": " + entityTypeName);
-                logger.warning("Valid entity types are: " + EnumTools.allStrings(EntityType.class));
+                logger.warning("Valid entity types are: " + EnumUtils.allStrings(EntityType.class));
                 continue;
             }
             this.entityTypes.add(entityType);
         }
 
         for (String categoryName : config.getStringList(id + ".entity-categories")) {
-            SpawnCategory category = EnumTools.fromString(SpawnCategory.class, categoryName);
+            SpawnCategory category = EnumUtils.fromString(SpawnCategory.class, categoryName);
             if (category == null) {
                 logger.warning("Invalid entity category for task " + id + ": " + categoryName);
-                logger.warning("Valid entity categories are: " + EnumTools.allStrings(SpawnCategory.class));
+                logger.warning("Valid entity categories are: " + EnumUtils.allStrings(SpawnCategory.class));
                 continue;
             }
             this.entityCategories.add(category);
@@ -315,7 +315,7 @@ public class TaskConfiguration {
         }
 
         for (String itemMaterialName : config.getStringList(id + ".item-materials")) {
-            Material itemMaterial = EnumTools.fromString(Material.class, itemMaterialName);
+            Material itemMaterial = EnumUtils.fromString(Material.class, itemMaterialName);
             if (itemMaterial == null) {
                 logger.warning("Invalid item material for task " + id + ": " + itemMaterialName);
                 continue;
@@ -324,7 +324,7 @@ public class TaskConfiguration {
         }
 
         for (String blockMaterialName : config.getStringList(id + ".block-materials")) {
-            Material blockMaterial = EnumTools.fromString(Material.class, blockMaterialName);
+            Material blockMaterial = EnumUtils.fromString(Material.class, blockMaterialName);
             if (blockMaterial == null) {
                 logger.warning("Invalid block material for task " + id + ": " + blockMaterialName);
                 continue;

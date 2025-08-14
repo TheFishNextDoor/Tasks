@@ -11,8 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.player.TasksMessage;
-import com.thefishnextdoor.tasks.toolkit.MoneyTools;
 import com.thefishnextdoor.tasks.unlock.Unlock;
+import com.thefishnextdoor.tasks.utils.MoneyUtils;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
@@ -85,7 +85,7 @@ public class PlayerTask {
         String rewardMoneySection = "";
         double rewardMoney = taskConfiguration.getRewardMoney();
         if (rewardMoney > 0) {
-            rewardMoneySection = ChatColor.WHITE + " (" + MoneyTools.format(rewardMoney) + ChatColor.WHITE + ")";
+            rewardMoneySection = ChatColor.WHITE + " (" + MoneyUtils.format(rewardMoney) + ChatColor.WHITE + ")";
         }
 
         String rewardSkipsSection = "";

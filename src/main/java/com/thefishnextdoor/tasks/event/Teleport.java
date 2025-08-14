@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TriggerType;
-import com.thefishnextdoor.tasks.toolkit.InventoryTools;
+import com.thefishnextdoor.tasks.utils.InventoryUtils;
 
 public class Teleport implements Listener {
     
@@ -16,7 +16,7 @@ public class Teleport implements Listener {
         public void onTeleport(PlayerTeleportEvent event) {
             Player player = event.getPlayer();
             PlayerProfile playerProfile = PlayerProfile.get(player);
-            ItemStack hand = InventoryTools.getItemInHand(player);
+            ItemStack hand = InventoryUtils.getItemInHand(player);
             playerProfile.triggerTasks(TriggerType.TELEPORT_TO, event.getTo(), player, hand, null, 1);
             playerProfile.triggerTasks(TriggerType.TELEPORT_FROM, event.getFrom(), player, hand, null, 1);
         }

@@ -5,7 +5,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
-import com.thefishnextdoor.tasks.toolkit.InventoryTools;
+import com.thefishnextdoor.tasks.utils.InventoryUtils;
 
 public class TimerTrigger {
 
@@ -18,7 +18,7 @@ public class TimerTrigger {
         id = Bukkit.getScheduler().scheduleSyncRepeatingTask(TasksPlugin.getInstance(), () -> {
             Bukkit.getOnlinePlayers().forEach(player -> {
                 PlayerProfile playerProfile = PlayerProfile.get(player);
-                ItemStack hand = InventoryTools.getItemInHand(player);
+                ItemStack hand = InventoryUtils.getItemInHand(player);
                 playerProfile.triggerTasks(TriggerType.TIMER, player.getLocation(), player, hand, null, 1);
             });
         }, 20 * 1, 20 * 1);

@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TriggerType;
-import com.thefishnextdoor.tasks.toolkit.InventoryTools;
+import com.thefishnextdoor.tasks.utils.InventoryUtils;
 
 public class Respawn implements Listener {
 
@@ -16,7 +16,7 @@ public class Respawn implements Listener {
     public void onRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
-        ItemStack item = InventoryTools.getItemInHand(player);
+        ItemStack item = InventoryUtils.getItemInHand(player);
         playerProfile.triggerTasks(TriggerType.RESPAWN, event.getRespawnLocation(), player, item, null, 1);
     }
 }

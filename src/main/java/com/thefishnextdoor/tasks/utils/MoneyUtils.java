@@ -1,8 +1,8 @@
-package com.thefishnextdoor.tasks.toolkit;
+package com.thefishnextdoor.tasks.utils;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class MoneyTools {
+public class MoneyUtils {
 
     private static final String currencyPrefix = "$";
     private static final String currencySuffix = "";

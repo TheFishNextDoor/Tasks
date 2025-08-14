@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TriggerType;
-import com.thefishnextdoor.tasks.toolkit.InventoryTools;
+import com.thefishnextdoor.tasks.utils.InventoryUtils;
 
 public class EntityTame implements Listener {
     
@@ -24,7 +24,7 @@ public class EntityTame implements Listener {
         Player player = (Player) tamer;
         PlayerProfile playerProfile = PlayerProfile.get(player);
         LivingEntity entity = event.getEntity();
-        ItemStack item = InventoryTools.getItemInHand(player);
+        ItemStack item = InventoryUtils.getItemInHand(player);
         Location location = entity.getLocation();
         playerProfile.triggerTasks(TriggerType.TAME_ENTITY, location, entity, item, null, 1);
     }

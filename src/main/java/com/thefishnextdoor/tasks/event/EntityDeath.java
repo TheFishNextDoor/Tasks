@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.task.TriggerType;
-import com.thefishnextdoor.tasks.toolkit.InventoryTools;
+import com.thefishnextdoor.tasks.utils.InventoryUtils;
 
 public class EntityDeath implements Listener {
 
@@ -20,7 +20,7 @@ public class EntityDeath implements Listener {
         ItemStack hand = null;
 
         if (killer != null) {
-            hand = InventoryTools.getItemInHand(killer);
+            hand = InventoryUtils.getItemInHand(killer);
             PlayerProfile playerProfile = PlayerProfile.get(killer);
             playerProfile.triggerTasks(TriggerType.KILL_ENTITY, entity.getLocation(), entity, hand, null, 1);
             for (ItemStack item : event.getDrops()) {
@@ -32,7 +32,7 @@ public class EntityDeath implements Listener {
             Player player = (Player) entity;
             PlayerProfile playerProfile = PlayerProfile.get(player);
             if (killer != null) {
-                hand = InventoryTools.getItemInHand(killer);
+                hand = InventoryUtils.getItemInHand(killer);
             }
             playerProfile.triggerTasks(TriggerType.DEATH, player.getLocation(), player, hand, null, 1);
         }
