@@ -79,6 +79,7 @@
 - **Associated Data:**
     - Player: The player crafting the item
     - Location: The location of the block
+    - Entity: The player crafting the item
     - Item: The crafted item
     - Block: The block used to craft the item
     - Amount: The amount crafted
@@ -97,17 +98,18 @@
 - **Associated Data:**
     - Player: The player consuming the item
     - Location: The location of the player
+    - Entity: The player
     - Item: The consumed item
     - Amount: The quantity of the item consumed
 
 ### HARVEST_ITEM
-- **Description:** Triggered when a player harvests an item from a block or entity.
+- **Description:** Triggered when a player harvests an item from a block.
 - **Associated Data:**
     - Player: The player harvesting
-    - Entity: The entity harvested from (if any)
-    - Location: The location of harvesting
+    - Location: The location of the block
+    - Entity: The player
     - Item: The harvested item
-    - Block: The block harvested from (if any)
+    - Block: The block harvested from
     - Amount: The amount harvested
 
 ### SMELT_ITEM
