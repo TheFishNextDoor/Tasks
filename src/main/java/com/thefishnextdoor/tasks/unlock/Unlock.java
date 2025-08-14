@@ -13,10 +13,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
-import com.thefishnextdoor.tasks.file.ConfigFile;
-import com.thefishnextdoor.tasks.hook.VaultHook;
+import com.thefishnextdoor.tasks.hook.Vault;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.player.TasksMessage;
+import com.thefishnextdoor.tasks.utils.ConfigUtils;
 
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.permission.Permission;
@@ -167,8 +167,8 @@ public class Unlock implements Comparable<Unlock> {
         if (player == null) {
             throw new IllegalArgumentException("Player cannot be null");
         }
-        if (VaultHook.isUsingVault()) {
-            Permission permissionsProvider = VaultHook.getPermissions();
+        if (Vault.isUsingVault()) {
+            Permission permissionsProvider = Vault.getPermissions();
             for (String permission : permissions) {
                 if (!player.hasPermission(permission)) {
                     permissionsProvider.playerAdd(player, permission);
@@ -196,7 +196,7 @@ public class Unlock implements Comparable<Unlock> {
     public static void loadConfig() {
         unlocksSorted.clear();
         unlocksLookup.clear();
-        YamlConfiguration config = ConfigFile.get("unlocks");
+        YamlConfiguration config = ConfigUtils.get("unlocks");
         for (String id : config.getKeys(false)) {
             new Unlock(config, id);
         }

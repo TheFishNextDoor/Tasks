@@ -19,12 +19,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
-import com.thefishnextdoor.tasks.file.DataFile;
-import com.thefishnextdoor.tasks.hook.VaultHook;
+import com.thefishnextdoor.tasks.hook.Vault;
 import com.thefishnextdoor.tasks.task.PlayerTask;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
 import com.thefishnextdoor.tasks.task.TriggerType;
 import com.thefishnextdoor.tasks.unlock.Unlock;
+import com.thefishnextdoor.tasks.utils.DataUtils;
 import com.thefishnextdoor.tasks.utils.MoneyUtils;
 
 import net.md_5.bungee.api.ChatColor;
@@ -62,7 +62,7 @@ public class PlayerProfile {
 
         String id = uuid.toString();
         Logger logger = TasksPlugin.getInstance().getLogger();
-        YamlConfiguration playerData = DataFile.get(id);
+        YamlConfiguration playerData = DataUtils.get(id);
 
         xp = playerData.getInt("xp", 0);
         skips = playerData.getInt("skips", 0);
@@ -105,7 +105,7 @@ public class PlayerProfile {
 
     public void save() {
         String id = uuid.toString();
-        YamlConfiguration playerData = DataFile.get(id);
+        YamlConfiguration playerData = DataUtils.get(id);
 
         playerData.set("xp", xp);
         playerData.set("skips", skips);
@@ -126,7 +126,7 @@ public class PlayerProfile {
 
         playerData.set("color", color.getName());
 
-        DataFile.save(id, playerData);
+        DataUtils.save(id, playerData);
 
         if (!isOnline()) {
             playerProfiles.remove(uuid);
@@ -148,10 +148,10 @@ public class PlayerProfile {
         if (amount == 0) {
             return;
         }
-        if (!VaultHook.isUsingVault()) {
+        if (!Vault.isUsingVault()) {
             return;
         }
-        VaultHook.getEconomy().depositPlayer(getPlayer().get(), amount);
+        Vault.getEconomy().depositPlayer(getPlayer().get(), amount);
         getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GOLD + "+" + MoneyUtils.format(amount)));
     }
 

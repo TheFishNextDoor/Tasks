@@ -19,9 +19,9 @@ import org.bukkit.entity.SpawnCategory;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
-import com.thefishnextdoor.tasks.file.ConfigFile;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
 import com.thefishnextdoor.tasks.unlock.Unlock;
+import com.thefishnextdoor.tasks.utils.ConfigUtils;
 import com.thefishnextdoor.tasks.utils.EnumUtils;
 
 import net.md_5.bungee.api.ChatColor;
@@ -611,7 +611,7 @@ public class TaskConfiguration {
 
     public static void loadConfig() {
         taskConfigurations.clear();
-        YamlConfiguration config = ConfigFile.get("tasks");
+        YamlConfiguration config = ConfigUtils.get("tasks");
         for (String id : config.getKeys(false)) {
             new TaskConfiguration(config, id);
         }

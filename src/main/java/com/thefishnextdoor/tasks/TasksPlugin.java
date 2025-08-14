@@ -10,6 +10,7 @@ import com.thefishnextdoor.tasks.command.Level;
 import com.thefishnextdoor.tasks.command.Tasks;
 import com.thefishnextdoor.tasks.command.TasksAdmin;
 import com.thefishnextdoor.tasks.command.Unlocks;
+import com.thefishnextdoor.tasks.config.MainConfig;
 import com.thefishnextdoor.tasks.event.BedEnter;
 import com.thefishnextdoor.tasks.event.BedLeave;
 import com.thefishnextdoor.tasks.event.BlockBreak;
@@ -43,7 +44,7 @@ import com.thefishnextdoor.tasks.event.ShearEntity;
 import com.thefishnextdoor.tasks.event.TakeLecternBook;
 import com.thefishnextdoor.tasks.event.Teleport;
 import com.thefishnextdoor.tasks.event.ThrowEgg;
-import com.thefishnextdoor.tasks.hook.VaultHook;
+import com.thefishnextdoor.tasks.hook.Vault;
 import com.thefishnextdoor.tasks.player.AutoSave;
 import com.thefishnextdoor.tasks.player.PlayerLevel;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
@@ -56,12 +57,12 @@ public class TasksPlugin extends JavaPlugin {
 
     private static TasksPlugin instance;
 
-    private static Settings settings;
+    private static MainConfig settings;
 
     public void onEnable() {
         instance = this;
 
-        if (VaultHook.hook(this)) {
+        if (Vault.hook(this)) {
             getLogger().info("Vault hooked");
         } 
         else {
@@ -129,12 +130,12 @@ public class TasksPlugin extends JavaPlugin {
         return instance;
     }
 
-    public static Settings getSettings() {
+    public static MainConfig getSettings() {
         return settings;
     }
 
     public static void loadConfigs() {
-        settings = new Settings();
+        settings = new MainConfig();
         Unlock.loadConfig();
         TaskConfiguration.loadConfig();
         PlayerProfile.reload();

@@ -1,4 +1,4 @@
-package com.thefishnextdoor.tasks.file;
+package com.thefishnextdoor.tasks.utils;
 
 import java.io.File;
 
@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 
-public class DataFile {
+public class DataUtils {
 
     public static YamlConfiguration get(String name) {
         if (name == null) {

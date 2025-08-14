@@ -1,12 +1,12 @@
 package com.thefishnextdoor.tasks.player;
 
-import com.thefishnextdoor.tasks.Settings;
 import com.thefishnextdoor.tasks.TasksPlugin;
+import com.thefishnextdoor.tasks.config.MainConfig;
 
 public class PlayerLevel {
 
     public static int getXpFor(int level) {
-        Settings settings = TasksPlugin.getSettings();
+        MainConfig settings = TasksPlugin.getSettings();
         level -= 1;
         double b = settings.LEVEL_BASE;
         int total = 0;
@@ -18,7 +18,7 @@ public class PlayerLevel {
     }
 
     public static int getLevel(int totalXp) {
-        Settings settings = TasksPlugin.getSettings();
+        MainConfig settings = TasksPlugin.getSettings();
         double b = settings.LEVEL_BASE;
         int currentXp = 0;
         int level = 0;
