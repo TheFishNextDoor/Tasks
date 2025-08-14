@@ -116,17 +116,19 @@
 - **Description:** Triggered when a player smelts an item.
 - **Associated Data:**
     - Player: The player smelting the item
-    - Location: The location of smelting
+    - Location: The location of the block
     - Item: The smelted item
-    - Block: The furnace used
+    - Block: The block used to smelt
     - Amount: The amount smelted
 
 ### BREAK_ITEM
 - **Description:** Triggered when a player breaks an item (item durability reaches zero).
 - **Associated Data:**
     - Player: The player breaking the item
-    - Location: The location of the break
+    - Location: The location of the player
+    - Entity: The player breaking the item
     - Item: The broken item
+    - Amount: The stack size of the broken item
 
 ### DAMAGE_ITEM
 - **Description:** Triggered when a player's item takes damage.
