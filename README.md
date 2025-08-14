@@ -56,25 +56,23 @@
 - **Associated Data:**
     - Player: The player manipulating the armor stand
     - Entity: The armor stand
-    - Location: The location of the manipulation
-    - Item: The item used
+    - Location: The location of the armorstand
+    - Item: The item held by the player
 
 ### THROW_EGG
 - **Description:** Triggered when a player throws an egg.
 - **Associated Data:**
     - Player: The player throwing the egg
     - Entity: The egg entity
-    - Location: The location of the throw
-    - Item: The egg
+    - Location: The location of the egg entity
+    - Item: The egg item
 
 ### PICKUP_ARROW
 - **Description:** Triggered when a player picks up an arrow.
 - **Associated Data:**
     - Player: The player picking up the arrow
     - Entity: The arrow entity
-    - Location: The location of the pickup
-    - Item: The arrow
-    - Amount: The number of arrows picked up
+    - Location: The location of the arrow entity
 
 ### CRAFT_ITEM
 - **Description:** Triggered when a player crafts an item.
