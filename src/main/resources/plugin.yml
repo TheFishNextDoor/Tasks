@@ -1,6 +1,6 @@
 name: Tasks
 main: com.thefishnextdoor.tasks.TasksPlugin
-version: 0.0.1
+version: 1.0
 api-version: 1.18
 author: TheFishNextDoor
 description: A simple task plugin
