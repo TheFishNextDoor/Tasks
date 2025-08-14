@@ -1,4 +1,4 @@
-package com.thefishnextdoor.tasks.task;
+package com.thefishnextdoor.tasks.scheduler;
 
 import org.bukkit.Bukkit;
 

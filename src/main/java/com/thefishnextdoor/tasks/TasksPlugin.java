@@ -45,11 +45,11 @@ import com.thefishnextdoor.tasks.event.TakeLecternBook;
 import com.thefishnextdoor.tasks.event.Teleport;
 import com.thefishnextdoor.tasks.event.ThrowEgg;
 import com.thefishnextdoor.tasks.hook.Vault;
-import com.thefishnextdoor.tasks.player.AutoSave;
 import com.thefishnextdoor.tasks.player.PlayerLevel;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
+import com.thefishnextdoor.tasks.scheduler.AutoSave;
+import com.thefishnextdoor.tasks.scheduler.TaskRefresh;
 import com.thefishnextdoor.tasks.task.TaskConfiguration;
-import com.thefishnextdoor.tasks.task.TaskRefresh;
 import com.thefishnextdoor.tasks.task.TimerTrigger;
 import com.thefishnextdoor.tasks.unlock.Unlock;
 

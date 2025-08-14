@@ -1,8 +1,9 @@
-package com.thefishnextdoor.tasks.player;
+package com.thefishnextdoor.tasks.scheduler;
 
 import org.bukkit.Bukkit;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
+import com.thefishnextdoor.tasks.player.PlayerProfile;
 
 public class AutoSave {
 
