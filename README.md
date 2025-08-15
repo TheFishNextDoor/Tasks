@@ -51,10 +51,10 @@ This example task (task1) will require the player to break 10 diamond ore blocks
 - **reward-money**: Amount of in-game currency awarded on completion.
 - **reward-xp**: Amount of experience points awarded on completion.
 - **reward-skips**: Number of task skips awarded on completion.
-- **reward-unlocks**: List of tasks unlocked upon completion.
-- **reward-console-commands**: Console commands executed as a reward.
-- **reward-player-commands**: Commands executed by the player as a reward.
-- **reward-messages**: Messages sent to the player as a reward.
+- **reward-unlocks**: List of unlocks given upon completion. See the [Unlock Parameters](#unlock-parameters) section below.
+- **reward-console-commands**: Console commands executed when the task is completed. Use variable {player} to insert the players username.
+- **reward-player-commands**: Commands executed by the player when the task is completed. Use variable {player} to insert the players username.
+- **reward-messages**: Messages sent to the player as a reward. Use variable {player} to insert the players username.
 
 ### Triggers
 - **triggers**: List of trigger types that progress the task. For a full list of available triggers, see the [Trigger Types](#trigger-types) section below.
