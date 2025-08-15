@@ -384,6 +384,7 @@ This example task (task1) will require the player to break 10 diamond ore blocks
     - Amount: 1
 
 ## Unlock Parameters
+Unlocks are rewards that can be given to players at certain levels or as rewards for completing certain tasks. Unlock parameters are used to configure unlocks in unlocks.yml.
 
 ### Display
 - **name**: The display name of the unlock.
