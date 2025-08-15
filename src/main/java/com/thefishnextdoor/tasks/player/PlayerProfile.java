@@ -316,7 +316,7 @@ public class PlayerProfile {
             return false;
         }
         tasks.add(task);
-        getPlayer().ifPresent(player -> TasksMessage.send(player, this, "New Task", task.toString()));
+        sendNotification("New Task", task.toString());
         return true;
     }
 
@@ -329,7 +329,7 @@ public class PlayerProfile {
             return false;
         }
         if (tasks.remove(task.get())) {
-            getPlayer().ifPresent(player -> TasksMessage.send(player, this, "Task Removed", task.get().toString()));
+            sendNotification("Task Removed", task.get().toString());
             return true;
         }
         return false;
@@ -368,6 +368,31 @@ public class PlayerProfile {
         populateTasks();
     }
 
+    public void sendNotification(String title) {
+        sendNotification(title, null);
+    }
+
+    public void sendNotification(String title, String info) {
+        if (title == null) {
+            throw new IllegalArgumentException("Title cannot be null");
+        }
+
+        Optional<Player> optionalPlayer = getPlayer();
+        if (!optionalPlayer.isPresent()) {
+            return;
+        }
+        Player player = optionalPlayer.get();
+
+        if (info == null) {
+            player.sendMessage(getColor() + "" + ChatColor.BOLD + title);
+        }
+        else {
+            player.sendMessage(getColor() + "" + ChatColor.BOLD + title + ": " + ChatColor.WHITE + info);
+        }
+        
+        player.playSound(player.getLocation(), "block.sniffer_egg.plop", 1, 1);
+    }
+
     private void checkLevelUp() {
         Optional<Player> player = getPlayer();
         if (!player.isPresent()) {
@@ -378,7 +403,7 @@ public class PlayerProfile {
         boolean levelUp = newLevel > level;
         if (levelUp) {
             for (int i = level + 1; i <= newLevel; i++) {
-                TasksMessage.send(player.get(), this, "Level Up", String.valueOf(i));
+                sendNotification("Level Up", String.valueOf(i));
             }
             checkUnlocks();
         }
@@ -405,7 +430,7 @@ public class PlayerProfile {
             } 
             else if (task.isExpired()) {
                 taskIter.remove();
-                getPlayer().ifPresent(player -> TasksMessage.send(player, this, "Task Expired", task.toString()));
+                sendNotification("Task Expired", task.toString());
             }
         }
     }

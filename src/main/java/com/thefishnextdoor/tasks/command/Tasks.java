@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 
 import com.thefishnextdoor.tasks.TasksPlugin;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
-import com.thefishnextdoor.tasks.player.TasksMessage;
 import com.thefishnextdoor.tasks.task.PlayerTask;
 
 import net.md_5.bungee.api.ChatColor;
@@ -79,7 +78,7 @@ public class Tasks implements CommandExecutor, TabCompleter {
                 sender.sendMessage(ChatColor.RED + "Invalid color");
                 return true;
             }
-            TasksMessage.send(player, playerProfile, "Color Changed", null);
+            playerProfile.sendNotification("Color Changed");
             return true;
         }
         // Skip //

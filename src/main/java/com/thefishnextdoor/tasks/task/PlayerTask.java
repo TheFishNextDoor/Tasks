@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.thefishnextdoor.tasks.player.PlayerProfile;
-import com.thefishnextdoor.tasks.player.TasksMessage;
 import com.thefishnextdoor.tasks.unlock.Unlock;
 import com.thefishnextdoor.tasks.utils.MoneyUtils;
 
@@ -185,8 +184,8 @@ public class PlayerTask {
 
         completed = true;
         playerProfile.addCompletedTask(taskConfiguration.getId());
-        TasksMessage.send(player, playerProfile, "Task Completed", taskConfiguration.toString());
-    
+        playerProfile.sendNotification("Task Completed", taskConfiguration.toString());
+
         String name = player.getName();
         for (String message : taskConfiguration.getRewardMessages()) {
             player.sendMessage(message.replace("{player}", name));

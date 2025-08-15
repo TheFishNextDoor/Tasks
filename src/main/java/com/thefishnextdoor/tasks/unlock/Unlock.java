@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 
 import com.thefishnextdoor.tasks.hook.Vault;
 import com.thefishnextdoor.tasks.player.PlayerProfile;
-import com.thefishnextdoor.tasks.player.TasksMessage;
 import com.thefishnextdoor.tasks.utils.ConfigUtils;
 import com.thefishnextdoor.tasks.utils.Log;
 
@@ -139,7 +138,7 @@ public class Unlock implements Comparable<Unlock> {
             return;
         }
 
-        TasksMessage.send(player, playerProfile, "Unlocked", name);
+        playerProfile.sendNotification("Unlocked", name);
 
         String name = player.getName();
         for (String command : console_commands) {
