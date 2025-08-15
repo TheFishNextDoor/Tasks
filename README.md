@@ -1,5 +1,18 @@
 # Tasks Bukkit Plugin
 
+## Config
+```yaml
+xp-curve:
+  base: 10 # The base amount of XP required to level up
+  multiplier: 1.02 # The xp increase each level (exponential)
+
+tasks:
+  allow-skipping: true # Allow players to skip tasks
+  max-tasks: 8 # Maximum number of tasks to give a player at one time
+  reward-xp-multiplier: 1.0 # Multiplier for task XP rewards, use this to rebalance xp without changing every task
+  reward-money-multiplier: 500.0 # Multiplier for task money rewards, use this to rebalance money without changing every task. Set to 0 to disable money rewards
+```
+
 ## Task Parameters
 Task parameters are used to configure tasks in `tasks.yml`.
 
@@ -12,7 +25,7 @@ task1:
         - diamond_ore
     amount: 10
 ```
-This example task will require the player to break 10 diamond ore blocks.
+This example task (task1) will require the player to break 10 diamond ore blocks.
 
 ### Behavior
 - **amount**: The number of times the task action must be completed.
