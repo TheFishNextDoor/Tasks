@@ -381,3 +381,17 @@ This example task (task1) will require the player to break 10 diamond ore blocks
     - Entity: The player with the task
     - Item: The item in the players hand
     - Amount: 1
+
+## Unlock Parameters
+
+### Display
+- **name"**: The display name of the unlock.
+
+### Behavior
+- **level"**: The level the unlock is given at.
+
+### Rewards
+- **permissions"**: Permissions given to the player when unlocked.
+- **console-commands"**: Console commands to run when unlocked.
+- **player-commands"**: Commands for the player to run when unlocked.
+- **messages"**: Messages to send to the player when unlocked
