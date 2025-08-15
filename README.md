@@ -385,10 +385,10 @@ This example task (task1) will require the player to break 10 diamond ore blocks
 ## Unlock Parameters
 
 ### Display
-- **name"**: The display name of the unlock.
+- **name**: The display name of the unlock.
 
 ### Behavior
-- **level"**: The level the unlock is given at.
+- **level**: The level the unlock is given at.
 
 ### Rewards
 - **permissions**: Permissions given to the player when unlocked.
