@@ -1,4 +1,5 @@
 # Tasks Bukkit Plugin
+Reward players for doing actions. Highly configurable and allows for daily and weekly tasks or even a quest like progression system.
 
 ## Config
 ```yaml
