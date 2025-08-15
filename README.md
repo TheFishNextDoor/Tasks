@@ -56,7 +56,7 @@ This example task (task1) will require the player to break 10 diamond ore blocks
 - **reward-messages**: Messages sent to the player as a reward.
 
 ### Triggers
-- **triggers**: List of trigger types that start or progress the task. See "Trigger Types" below.
+- **triggers**: List of trigger types that progress the task. For a full list of available triggers, see the [Trigger Types](#trigger-types) section below.
 
 ### Location Filters
 - **worlds**: Worlds where the task can be completed.
