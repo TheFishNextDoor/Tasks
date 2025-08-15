@@ -391,7 +391,7 @@ This example task (task1) will require the player to break 10 diamond ore blocks
 - **level"**: The level the unlock is given at.
 
 ### Rewards
-- **permissions"**: Permissions given to the player when unlocked.
-- **console-commands"**: Console commands to run when unlocked.
-- **player-commands"**: Commands for the player to run when unlocked.
-- **messages"**: Messages to send to the player when unlocked
+- **permissions**: Permissions given to the player when unlocked.
+- **console-commands**: Console commands to run when unlocked.
+- **player-commands**: Commands for the player to run when unlocked.
+- **messages**: Messages to send to the player when unlocked
