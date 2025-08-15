@@ -1,6 +1,18 @@
 # Tasks Bukkit Plugin
 
 ## Task Parameters
+Task parameters are used to configure tasks in `tasks.yml`.
+
+**Example:**
+```yaml
+task1:
+    triggers:
+        - break_block
+    block-materials:
+        - diamond_ore
+    amount: 10
+```
+This example task will require the player to break 10 diamond ore blocks.
 
 ### Behavior
 - **amount**: The number of times the task action must be completed.
