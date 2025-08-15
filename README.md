@@ -394,6 +394,6 @@ Unlocks are rewards that can be given to players at certain levels or as rewards
 
 ### Rewards
 - **permissions**: Permissions given to the player when unlocked.
-- **console-commands**: Console commands to run when unlocked.
-- **player-commands**: Commands for the player to run when unlocked.
-- **messages**: Messages to send to the player when unlocked
+- **console-commands**: Console commands to run when unlocked. Use variable {player} to insert the players username.
+- **player-commands**: Commands for the player to run when unlocked. Use variable {player} to insert the players username.
+- **messages**: Messages to send to the player when unlocked. Use variable {player} to insert the players username.
