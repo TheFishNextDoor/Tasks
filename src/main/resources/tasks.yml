@@ -2076,17 +2076,6 @@ swimocean:
   reward-xp: 10
   reward-money: 10
   time-limit-minutes: 1440
-swimdesert:
-  triggers:
-  - timer
-  biomes:
-  - desert
-  entity-in-water: true
-  amount: 1
-  message: Swim in a desert well
-  reward-xp: 25
-  reward-money: 25
-  time-limit-minutes: 1440
 #########
 # Visit #
 #########
