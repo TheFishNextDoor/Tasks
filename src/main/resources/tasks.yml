@@ -1,6 +1,2404 @@
-task1:
+########################
+# Break Blocks General #
+########################
+pickaxeblocks1:
   triggers:
   - break_block
-  block-materials:
-  - diamond_ore
+  item-materials:
+  - wooden_pickaxe
+  - stone_pickaxe
+  - iron_pickaxe
+  - golden_pickaxe
+  - diamond_pickaxe
+  - netherite_pickaxe
+  amount: 500
+  message: Mine blocks with your pickaxe
+  time-limit-minutes: 1440
+  reward-xp: 15
+  reward-money: 15
+  incompatible-tasks:
+  - pickaxeblocks2
+  - pickaxeblocks3
+  - pickaxeblocks4
+pickaxeblocks2:
+  triggers:
+  - break_block
+  item-materials:
+  - wooden_pickaxe
+  - stone_pickaxe
+  - iron_pickaxe
+  - golden_pickaxe
+  - diamond_pickaxe
+  - netherite_pickaxe
+  amount: 1200
+  message: Mine blocks with your pickaxe
+  reward-xp: 25
+  reward-money: 25
+  min-level: 20
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - pickaxeblocks1
+  incompatible-tasks:
+  - pickaxeblocks1
+  - pickaxeblocks3
+  - pickaxeblocks4
+pickaxeblocks3:
+  triggers:
+  - break_block
+  item-materials:
+  - wooden_pickaxe
+  - stone_pickaxe
+  - iron_pickaxe
+  - golden_pickaxe
+  - diamond_pickaxe
+  - netherite_pickaxe
+  amount: 2500
+  message: Mine blocks with your pickaxe
+  reward-xp: 45
+  reward-money: 45
+  min-level: 80
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - pickaxeblocks2
+  incompatible-tasks:
+  - pickaxeblocks1
+  - pickaxeblocks2
+  - pickaxeblocks4
+pickaxeblocks4:
+  triggers:
+  - break_block
+  item-materials:
+  - wooden_pickaxe
+  - stone_pickaxe
+  - iron_pickaxe
+  - golden_pickaxe
+  - diamond_pickaxe
+  - netherite_pickaxe
+  amount: 10000
+  message: Mine blocks with your pickaxe
+  reward-xp: 80
+  reward-money: 80
+  reward-skips: 10
+  min-level: 140
+  time-limit-minutes: 4320
+  prerequisite-tasks:
+  - pickaxeblocks3
+  incompatible-tasks:
+  - pickaxeblocks1
+  - pickaxeblocks2
+  - pickaxeblocks3
+axeblocks1:
+  triggers:
+  - break_block
+  item-materials:
+  - wooden_axe
+  - stone_axe
+  - iron_axe
+  - golden_axe
+  - diamond_axe
+  - netherite_axe
+  amount: 500
+  message: Chop blocks with your axe
+  time-limit-minutes: 1440
+  reward-xp: 20
+  reward-money: 20
+  incompatible-tasks:
+  - axeblocks2
+  - axeblocks3
+  - axeblocks4
+axeblocks2:
+  triggers:
+  - break_block
+  item-materials:
+  - wooden_axe
+  - stone_axe
+  - iron_axe
+  - golden_axe
+  - diamond_axe
+  - netherite_axe
+  amount: 1200
+  message: Chop blocks with your axe
+  reward-xp: 30
+  reward-money: 30
+  min-level: 15
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - axeblocks1
+  incompatible-tasks:
+  - axeblocks1
+  - axeblocks3
+  - axeblocks4
+axeblocks3:
+  triggers:
+  - break_block
+  item-materials:
+  - wooden_axe
+  - stone_axe
+  - iron_axe
+  - golden_axe
+  - diamond_axe
+  - netherite_axe
+  amount: 2500
+  message: Chop blocks with your axe
+  reward-xp: 50
+  reward-money: 50
+  min-level: 60
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - axeblocks2
+  incompatible-tasks:
+  - axeblocks1
+  - axeblocks2
+  - axeblocks4
+axeblocks4:
+  triggers:
+  - break_block
+  item-materials:
+  - wooden_axe
+  - stone_axe
+  - iron_axe
+  - golden_axe
+  - diamond_axe
+  - netherite_axe
+  amount: 10000
+  message: Chop blocks with your axe
+  reward-xp: 90
+  reward-money: 90
+  reward-skips: 10
+  min-level: 120
+  time-limit-minutes: 4320
+  prerequisite-tasks:
+  - axeblocks3
+  incompatible-tasks:
+  - axeblocks1
+  - axeblocks2
+  - axeblocks3
+shovelblocks1:
+  triggers:
+  - break_block
+  item-materials:
+  - wooden_shovel
+  - stone_shovel
+  - iron_shovel
+  - golden_shovel
+  - diamond_shovel
+  - netherite_shovel
+  amount: 500
+  message: Dig blocks with your shovel
+  time-limit-minutes: 1440
+  reward-xp: 10
+  reward-money: 10
+  incompatible-tasks:
+  - shovelblocks2
+  - shovelblocks3
+  - shovelblocks4
+shovelblocks2:
+  triggers:
+  - break_block
+  item-materials:
+  - wooden_shovel
+  - stone_shovel
+  - iron_shovel
+  - golden_shovel
+  - diamond_shovel
+  - netherite_shovel
+  amount: 1200
+  message: Dig blocks with your shovel
+  reward-xp: 20
+  reward-money: 20
+  min-level: 10
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - shovelblocks1
+  incompatible-tasks:
+  - shovelblocks1
+  - shovelblocks3
+  - shovelblocks4
+shovelblocks3:
+  triggers:
+  - break_block
+  item-materials:
+  - wooden_shovel
+  - stone_shovel
+  - iron_shovel
+  - golden_shovel
+  - diamond_shovel
+  - netherite_shovel
+  amount: 2500
+  message: Dig blocks with your shovel
+  reward-xp: 35
+  reward-money: 35
+  min-level: 50
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - shovelblocks2
+  incompatible-tasks:
+  - shovelblocks1
+  - shovelblocks2
+  - shovelblocks4
+shovelblocks4:
+  triggers:
+  - break_block
+  item-materials:
+  - wooden_shovel
+  - stone_shovel
+  - iron_shovel
+  - golden_shovel
+  - diamond_shovel
+  - netherite_shovel
+  amount: 10000
+  message: Dig blocks with your shovel
+  reward-xp: 65
+  reward-money: 65
+  reward-skips: 10
+  min-level: 100
+  time-limit-minutes: 4320
+  prerequisite-tasks:
+  - shovelblocks3
+  incompatible-tasks:
+  - shovelblocks1
+  - shovelblocks2
+  - shovelblocks3
+#########################
+# Break Blocks Specific #
+#########################
+minecoal:
+  triggers:
+  - break_block_drop_item
+  item-materials:
+  - coal
+  amount: 24
+  message: Mine coal
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+minecopper:
+  triggers:
+  - break_block_drop_item
+  item-materials:
+  - raw_copper
+  amount: 22
+  message: Mine copper
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+mineiron:
+  triggers:
+  - break_block_drop_item
+  item-materials:
+  - raw_iron
+  amount: 18
+  message: Mine iron
+  reward-xp: 14
+  reward-money: 14
+  time-limit-minutes: 1440
+minegold:
+  triggers:
+  - break_block_drop_item
+  item-materials:
+  - raw_gold
+  amount: 15
+  message: Mine gold
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+minediamond:
+  triggers:
+  - break_block_drop_item
+  item-materials:
+  - diamond
+  amount: 11
+  message: Mine diamonds
+  reward-xp: 30
+  reward-money: 30
+  time-limit-minutes: 1440
+minequartz:
+  triggers:
+  - break_block_drop_item
+  item-materials:
+  - quartz
+  amount: 55
+  message: Mine quartz
+  reward-xp: 28
+  reward-money: 28
+  min-level: 40
+  time-limit-minutes: 1440
+########################
+# Place Blocks General #
+########################
+placeblocks1:
+  triggers:
+  - place_block
+  amount: 1000
+  message: Place blocks
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+  incompatible-tasks:
+  - placeblocks2
+  - placeblocks3
+  - placeblocks4
+placeblocks2:
+  triggers:
+  - place_block
+  amount: 2500
+  message: Place blocks
+  reward-xp: 25
+  reward-money: 25
+  min-level: 20
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - pickaxeblocks1
+  incompatible-tasks:
+  - placeblocks1
+  - placeblocks3
+  - placeblocks4
+placeblocks3:
+  triggers:
+  - place_block
+  amount: 5000
+  message: Place blocks
+  reward-xp: 45
+  reward-money: 45
+  min-level: 60
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - pickaxeblocks2
+  incompatible-tasks:
+  - placeblocks1
+  - placeblocks2
+  - placeblocks4
+placeblocks4:
+  triggers:
+  - place_block
+  amount: 20000
+  message: Place blocks
+  reward-xp: 85
+  reward-money: 85
+  reward-skips: 10
+  min-level: 100
+  time-limit-minutes: 4320
+  prerequisite-tasks:
+  - pickaxeblocks3
+  incompatible-tasks:
+  - placeblocks1
+  - placeblocks2
+  - placeblocks3
+#########
+# Craft #
+#########
+craftchest:
+  triggers:
+  - craft_item
+  item-materials:
+  - chest
+  amount: 4
+  message: Craft chests
+  reward-xp: 5
+  reward-money: 5
+  time-limit-minutes: 1440
+craftcarrotonastick:
+  triggers:
+  - craft_item
+  item-materials:
+  - carrot_on_a_stick
+  amount: 1
+  message: Craft a carrot on a stick
+  reward-xp: 17
+  reward-money: 17
+  time-limit-minutes: 1440
+craftmap:
+  triggers:
+  - craft_item
+  item-materials:
+  - map
+  amount: 1
+  message: Craft a map
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+craftarrows:
+  triggers:
+  - craft_item
+  item-materials:
+  - arrow
+  amount: 48
+  message: Craft arrows
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+craftspectralarrows:
+  triggers:
+  - craft_item
+  item-materials:
+  - spectral_arrow
+  amount: 24
+  message: Craft spectral arrows
+  reward-xp: 25
+  reward-money: 25
+  min-level: 45
+  time-limit-minutes: 1440
+craftbeacon:
+  triggers:
+  - craft_item
+  item-materials:
+  - beacon
+  amount: 1
+  message: Craft a beacon
+  reward-xp: 35
+  reward-money: 35
+  min-level: 60
+  time-limit-minutes: 1440
+craftbookshelves:
+  triggers:
+  - craft_item
+  item-materials:
+  - bookshelf
+  amount: 8
+  message: Craft bookshelves
+  reward-xp: 24
+  reward-money: 24
+  min-level: 15
+  time-limit-minutes: 1440
+craftsnowblocks:
+  triggers:
+  - craft_item
+  item-materials:
+  - snow_block
+  amount: 24
+  message: Craft snow blocks
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+craftbricks:
+  triggers:
+  - craft_item
+  item-materials:
+  - bricks
+  amount: 12
+  message: Craft bricks
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+craftcoarsedirt:
+  triggers:
+  - craft_item
+  item-materials:
+  - coarse_dirt
+  amount: 20
+  message: Craft coarse dirt
+  reward-xp: 12
+  reward-money: 12
+  time-limit-minutes: 1440
+craftrails:
+  triggers:
+  - craft_item
+  item-materials:
+  - rail
+  amount: 32
+  message: Craft rails
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+craftpoweredrails:
+  triggers:
+  - craft_item
+  item-materials:
+  - powered_rail
+  amount: 18
+  message: Craft powered rails
+  reward-xp: 25
+  reward-money: 25
+  time-limit-minutes: 1440
+craftdispenser:
+  triggers:
+  - craft_item
+  item-materials:
+  - dispenser
+  amount: 1
+  message: Craft a dispenser
+  reward-xp: 8
+  reward-money: 8
+  time-limit-minutes: 1440
+craftdropper:
+  triggers:
+  - craft_item
+  item-materials:
+  - dropper
+  amount: 1
+  message: Craft a dropper
+  reward-xp: 7
+  reward-money: 7
+  time-limit-minutes: 1440
+crafthopper:
+  triggers:
+  - craft_item
+  item-materials:
+  - hopper
+  amount: 1
+  message: Craft a hopper
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+craftjukebox:
+  triggers:
+  - craft_item
+  item-materials:
+  - jukebox
+  amount: 1
+  message: Craft a jukebox
+  reward-xp: 14
+  reward-money: 14
+  time-limit-minutes: 1440
+craftnoteblock:
+  triggers:
+  - craft_item
+  item-materials:
+  - note_block
+  amount: 2
+  message: Craft note blocks
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+craftrepeater:
+  triggers:
+  - craft_item
+  item-materials:
+  - repeater
+  amount: 4
+  message: Craft redstone repeaters
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+craftredstonetorch:
+  triggers:
+  - craft_item
+  item-materials:
+  - redstone_torch
+  amount: 5
+  message: Craft redstone torches
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+craftpiston:
+  triggers:
+  - craft_item
+  item-materials:
+  - piston
+  amount: 4
+  message: Craft pistons
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+craftstickypiston:
+  triggers:
+  - craft_item
+  item-materials:
+  - sticky_piston
+  amount: 3
+  message: Craft sticky pistons
+  reward-xp: 16
+  reward-money: 16
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - craftpiston
+crafttrappedchest:
+  triggers:
+  - craft_item
+  item-materials:
+  - trapped_chest
+  amount: 1
+  message: Craft a trapped chest
+  reward-xp: 7
+  reward-money: 7
+  time-limit-minutes: 1440
+craftbread:
+  triggers:
+  - craft_item
+  item-materials:
+  - bread
+  amount: 12
+  message: Bake bread
+  reward-xp: 25
+  reward-money: 25
+  time-limit-minutes: 1440
+craftcake:
+  triggers:
+  - craft_item
+  item-materials:
+  - cake
+  amount: 1
+  message: Bake a cake
+  reward-xp: 25
+  reward-money: 25
+  time-limit-minutes: 1440
+craftpumpkinpie:
+  triggers:
+  - craft_item
+  item-materials:
+  - pumpkin_pie
+  amount: 1
+  message: Bake a pumpkin pie
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+craftcookie:
+  triggers:
+  - craft_item
+  item-materials:
+  - cookie
+  amount: 48
+  message: Bake cookies
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+craftbeetrootsoup:
+  triggers:
+  - craft_item
+  item-materials:
+  - beetroot_soup
+  amount: 1
+  message: Make beetroot soup
+  reward-xp: 14
+  reward-money: 14
+  time-limit-minutes: 1440
+craftmushroomstew:
+  triggers:
+  - craft_item
+  item-materials:
+  - mushroom_stew
+  amount: 1
+  message: Make mushroom stew
+  reward-xp: 16
+  reward-money: 16
+  time-limit-minutes: 1440
+craftrabbitstew:
+  triggers:
+  - craft_item
+  item-materials:
+  - rabbit_stew
+  amount: 1
+  message: Make rabbit stew
+  reward-xp: 18
+  reward-money: 18
+  time-limit-minutes: 1440
+craftgoldenapple:
+  triggers:
+  - craft_item
+  item-materials:
+  - golden_apple
+  amount: 1
+  message: Make a golden apple
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+craftgoldencarrot:
+  triggers:
+  - craft_item
+  item-materials:
+  - golden_carrot
+  amount: 1
+  message: Make a golden carrot
+  reward-xp: 8
+  reward-money: 8
+  time-limit-minutes: 1440
+crafthaybale:
+  triggers:
+  - craft_item
+  item-materials:
+  - hay_block
+  amount: 5
+  message: Craft hay bales
+  reward-xp: 25
+  reward-money: 25
+  time-limit-minutes: 1440
+crafttnt:
+  triggers:
+  - craft_item
+  item-materials:
+  - tnt
   amount: 10
+  message: Craft tnt
+  reward-xp: 25
+  reward-money: 25
+  time-limit-minutes: 1440
+craftironbars:
+  triggers:
+  - craft_item
+  item-materials:
+  - iron_bars
+  amount: 16
+  message: Craft iron bars
+  reward-xp: 8
+  reward-money: 8
+  time-limit-minutes: 1440
+craftitemframe:
+  triggers:
+  - craft_item
+  item-materials:
+  - item_frame
+  amount: 3
+  message: Craft item frames
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+craftladder:
+  triggers:
+  - craft_item
+  item-materials:
+  - ladder
+  amount: 9
+  message: Craft ladders
+  reward-xp: 7
+  reward-money: 7
+  time-limit-minutes: 1440
+craftlead:
+  triggers:
+  - craft_item
+  item-materials:
+  - lead
+  amount: 1
+  message: Craft a lead
+  reward-xp: 8
+  reward-money: 8
+  time-limit-minutes: 1440
+craftpainting:
+  triggers:
+  - craft_item
+  item-materials:
+  - painting
+  amount: 1
+  message: Make a painting
+  reward-xp: 6
+  reward-money: 6
+  time-limit-minutes: 1440
+craftarmorstand:
+  triggers:
+  - craft_item
+  item-materials:
+  - armor_stand
+  amount: 1
+  message: Make an armor stand
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+craftbookandquill:
+  triggers:
+  - craft_item
+  item-materials:
+  - writable_book
+  amount: 1
+  message: Make a book and quill
+  reward-xp: 12
+  reward-money: 12
+  time-limit-minutes: 1440
+craftfirework:
+  triggers:
+  - craft_item
+  item-materials:
+  - firework_rocket
+  amount: 16
+  message: Craft fireworks
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+craftflowerpot:
+  triggers:
+  - craft_item
+  item-materials:
+  - flower_pot
+  amount: 3
+  message: Craft flower pots
+  reward-xp: 8
+  reward-money: 8
+  time-limit-minutes: 1440
+craftcandle:
+  triggers:
+  - craft_item
+  item-materials:
+  - candle
+  amount: 4
+  message: Craft candles
+  reward-xp: 12
+  reward-money: 12
+  time-limit-minutes: 1440
+craftfermentedspidereyes:
+  triggers:
+  - craft_item
+  item-materials:
+  - fermented_spider_eye
+  amount: 5
+  message: Craft fermented spider eyes
+  reward-xp: 18
+  reward-money: 18
+  time-limit-minutes: 1440
+craftglisteringmelonslice:
+  triggers:
+  - craft_item
+  item-materials:
+  - glistering_melon_slice
+  amount: 1
+  message: Craft a glistering melon slice
+  reward-xp: 5
+  reward-money: 5
+  time-limit-minutes: 1440
+craftcyandye:
+  triggers:
+  - craft_item
+  item-materials:
+  - cyan_dye
+  amount: 18
+  message: Craft cyan dye
+  reward-xp: 13
+  reward-money: 13
+  time-limit-minutes: 1440
+craftorangedye:
+  triggers:
+  - craft_item
+  item-materials:
+  - orange_dye
+  amount: 24
+  message: Craft orange dye
+  reward-xp: 12
+  reward-money: 12
+  time-limit-minutes: 1440
+craftmagentadye:
+  triggers:
+  - craft_item
+  item-materials:
+  - magenta_dye
+  amount: 16
+  message: Craft magenta dye
+  reward-xp: 12
+  reward-money: 12
+  time-limit-minutes: 1440
+craftprismarine:
+  triggers:
+  - craft_item
+  item-materials:
+  - prismarine
+  amount: 20
+  message: Craft prismarine
+  reward-xp: 25
+  reward-money: 25
+  min-level: 30
+  time-limit-minutes: 1440
+craftprismarinebricks:
+  triggers:
+  - craft_item
+  item-materials:
+  - prismarine_bricks
+  amount: 14
+  message: Craft prismarine bricks
+  reward-xp: 30
+  reward-money: 30
+  min-level: 33
+  time-limit-minutes: 1440
+craftsealantern:
+  triggers:
+  - craft_item
+  item-materials:
+  - sea_lantern
+  amount: 12
+  message: Craft sea lanterns
+  reward-xp: 35
+  reward-money: 35
+  min-level: 35
+  time-limit-minutes: 1440
+craftdarkprismarine:
+  triggers:
+  - craft_item
+  item-materials:
+  - dark_prismarine
+  amount: 32
+  message: Craft dark prismarine
+  reward-xp: 45
+  reward-money: 45
+  min-level: 38
+  time-limit-minutes: 1440
+craftnetherbricks:
+  triggers:
+  - craft_item
+  item-materials:
+  - nether_bricks
+  amount: 24
+  message: Craft nether bricks
+  reward-xp: 20
+  reward-money: 20
+  min-level: 45
+  time-limit-minutes: 1440
+craftrednetherbricks:
+  triggers:
+  - craft_item
+  item-materials:
+  - red_nether_bricks
+  amount: 24
+  message: Craft red nether bricks
+  reward-xp: 25
+  reward-money: 25
+  min-level: 45
+  time-limit-minutes: 1440
+craftbrewingstand:
+  triggers:
+  - craft_item
+  item-materials:
+  - brewing_stand
+  amount: 1
+  message: Craft a brewing stand
+  reward-xp: 8
+  reward-money: 8
+  min-level: 25
+  time-limit-minutes: 1440
+craftenchantmenttable:
+  triggers:
+  - craft_item
+  item-materials:
+  - enchanting_table
+  amount: 1
+  message: Craft an enchantment table
+  reward-xp: 16
+  reward-money: 16
+  min-level: 14
+  time-limit-minutes: 1440
+craftredstonelamp:
+  triggers:
+  - craft_item
+  item-materials:
+  - redstone_lamp
+  amount: 2
+  message: Craft redstone lamps
+  reward-xp: 12
+  reward-money: 12
+  min-level: 22
+  time-limit-minutes: 1440
+craftdaylightsensor:
+  triggers:
+  - craft_item
+  item-materials:
+  - daylight_detector
+  amount: 1
+  message: Craft a daylight detector
+  reward-xp: 12
+  reward-money: 12
+  min-level: 25
+  time-limit-minutes: 1440
+craftcomparator:
+  triggers:
+  - craft_item
+  item-materials:
+  - comparator
+  amount: 1
+  message: Craft a comparator
+  reward-xp: 15
+  reward-money: 15
+  min-level: 32
+  time-limit-minutes: 1440
+craftendcrystal:
+  triggers:
+  - craft_item
+  item-materials:
+  - end_crystal
+  amount: 4
+  message: Craft end crystals
+  reward-xp: 45
+  reward-money: 45
+  min-level: 60
+  time-limit-minutes: 1440
+craftendrod:
+  triggers:
+  - craft_item
+  item-materials:
+  - end_rod
+  amount: 12
+  message: Craft end rods
+  reward-xp: 25
+  reward-money: 25
+  min-level: 65
+  time-limit-minutes: 1440
+craftenderchest:
+  triggers:
+  - craft_item
+  item-materials:
+  - ender_chest
+  amount: 1
+  message: Craft an ender chest
+  reward-xp: 24
+  reward-money: 24
+  min-level: 32
+  time-limit-minutes: 1440
+craftendstonebricks:
+  triggers:
+  - craft_item
+  item-materials:
+  - end_stone_bricks
+  amount: 128
+  message: Craft end stone bricks
+  reward-xp: 30
+  reward-money: 30
+  min-level: 75
+  time-limit-minutes: 1440
+craftpurpurblock:
+  triggers:
+  - craft_item
+  item-materials:
+  - purpur_block
+  amount: 48
+  message: Craft purpur blocks
+  reward-xp: 50
+  reward-money: 50
+  min-level: 80
+  time-limit-minutes: 1440
+########
+# Cook #
+########
+cookporkchop:
+  triggers:
+  - smelt_item
+  - kill_entity_drop_item
+  item-materials:
+  - cooked_porkchop
+  amount: 24
+  message: Cook porkchops
+  reward-xp: 12
+  reward-money: 12
+  time-limit-minutes: 1440
+cookchicken:
+  triggers:
+  - smelt_item
+  - kill_entity_drop_item
+  item-materials:
+  - cooked_chicken
+  amount: 17
+  message: Cook chicken
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+cooksteak:
+  triggers:
+  - smelt_item
+  - kill_entity_drop_item
+  item-materials:
+  - cooked_beef
+  amount: 64
+  message: Cook steak
+  reward-xp: 22
+  reward-money: 22
+  time-limit-minutes: 1440
+cookmutton:
+  triggers:
+  - smelt_item
+  - kill_entity_drop_item
+  item-materials:
+  - cooked_mutton
+  amount: 12
+  message: Cook mutton
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+cookrabbit:
+  triggers:
+  - smelt_item
+  - kill_entity_drop_item
+  item-materials:
+  - cooked_rabbit
+  amount: 7
+  message: Cook rabbit
+  reward-xp: 25
+  reward-money: 25
+  time-limit-minutes: 1440
+cookcod:
+  triggers:
+  - smelt_item
+  - kill_entity_drop_item
+  item-materials:
+  - cooked_cod
+  amount: 22
+  message: Cook cod
+  reward-xp: 24
+  reward-money: 24
+  time-limit-minutes: 1440
+cooksalmon:
+  triggers:
+  - smelt_item
+  - kill_entity_drop_item
+  item-materials:
+  - cooked_salmon
+  amount: 12
+  message: Cook salmon
+  reward-xp: 17
+  reward-money: 17
+  time-limit-minutes: 1440
+cookpotato:
+  triggers:
+  - smelt_item
+  item-materials:
+  - baked_potato
+  amount: 34
+  message: Bake potatoes
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+#########
+# Smelt #
+#########
+smeltcopper:
+  triggers:
+  - smelt_item
+  item-materials:
+  - copper_ingot
+  amount: 40
+  message: Smelt copper
+  reward-xp: 14
+  reward-money: 14
+  time-limit-minutes: 1440
+smeltiron1:
+  triggers:
+  - smelt_item
+  item-materials:
+  - iron_ingot
+  amount: 28
+  message: Smelt iron
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+smeltiron2:
+  triggers:
+  - smelt_item
+  item-materials:
+  - iron_ingot
+  amount: 64
+  message: Smelt iron
+  reward-xp: 18
+  reward-money: 18
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - smeltiron1
+smeltiron3:
+  triggers:
+  - smelt_item
+  item-materials:
+  - iron_ingot
+  amount: 128
+  message: Smelt iron
+  reward-xp: 36
+  reward-money: 36
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - smeltiron2
+smeltgold1:
+  triggers:
+  - smelt_item
+  item-materials:
+  - gold_ingot
+  amount: 7
+  message: Smelt gold
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - smeltiron1
+smeltgold2:
+  triggers:
+  - smelt_item
+  item-materials:
+  - gold_ingot
+  amount: 25
+  message: Smelt gold
+  reward-xp: 25
+  reward-money: 25
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - smeltgold1
+smeltgold3:
+  triggers:
+  - smelt_item
+  item-materials:
+  - gold_ingot
+  amount: 55
+  message: Smelt gold
+  reward-xp: 45
+  reward-money: 45
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - smeltgold2
+smeltglass:
+  triggers:
+  - smelt_item
+  item-materials:
+  - glass
+  amount: 64
+  message: Smelt glass
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+smeltstone:
+  triggers:
+  - smelt_item
+  item-materials:
+  - stone
+  amount: 128
+  message: Smelt stone
+  reward-xp: 14
+  reward-money: 14
+  time-limit-minutes: 1440
+smeltcharcoal:
+  triggers:
+  - smelt_item
+  item-materials:
+  - charcoal
+  amount: 64
+  message: Smelt charcoal
+  reward-xp: 14
+  reward-money: 14
+  time-limit-minutes: 1440
+smeltcactus:
+  triggers:
+  - smelt_item
+  item-materials:
+  - green_dye
+  amount: 24
+  message: Smelt cactus
+  reward-xp: 13
+  reward-money: 13
+  time-limit-minutes: 1440
+###########
+# Enchant #
+###########
+enchantitem:
+  triggers:
+  - enchant_item
+  amount: 1
+  message: Enchant an item
+  reward-xp: 8
+  reward-money: 8
+  min-level: 14
+  time-limit-minutes: 1440
+enchantdiamonditem:
+  triggers:
+  - enchant_item
+  item-materials:
+  - diamond_sword
+  - diamond_pickaxe
+  - diamond_shovel
+  - diamond_axe
+  - diamond_hoe
+  - diamond_helmet
+  - diamond_chestplate
+  - diamond_leggings
+  - diamond_boots
+  amount: 1
+  message: Enchant a diamond item
+  reward-xp: 14
+  reward-money: 14
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - enchantitem
+enchantchainmailitem:
+  triggers:
+  - enchant_item
+  item-materials:
+  - chainmail_helmet
+  - chainmail_chestplate
+  - chainmail_leggings
+  - chainmail_boots
+  amount: 1
+  message: Enchant chainmail armor
+  reward-xp: 60
+  reward-money: 60
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - enchantdiamonditem
+enchantpickaxe:
+  triggers:
+  - enchant_item
+  item-materials:
+  - wooden_pickaxe
+  - stone_pickaxe
+  - iron_pickaxe
+  - golden_pickaxe
+  - diamond_pickaxe
+  - netherite_pickaxe
+  amount: 1
+  message: Enchant a pickaxe
+  reward-xp: 11
+  reward-money: 11
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - enchantitem
+enchantaxe:
+  triggers:
+  - enchant_item
+  item-materials:
+  - wooden_axe
+  - stone_axe
+  - iron_axe
+  - golden_axe
+  - diamond_axe
+  - netherite_axe
+  amount: 1
+  message: Enchant an axe
+  reward-xp: 12
+  reward-money: 12
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - enchantitem
+enchantshovel:
+  triggers:
+  - enchant_item
+  item-materials:
+  - wooden_shovel
+  - stone_shovel
+  - iron_shovel
+  - golden_shovel
+  - diamond_shovel
+  - netherite_shovel
+  amount: 1
+  message: Enchant a shovel
+  reward-xp: 9
+  reward-money: 9
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - enchantitem
+enchantsword:
+  triggers:
+  - enchant_item
+  item-materials:
+  - wooden_sword
+  - stone_sword
+  - iron_sword
+  - golden_sword
+  - diamond_sword
+  - netherite_sword
+  amount: 1
+  message: Enchant a sword
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - enchantitem
+enchantbow:
+  triggers:
+  - enchant_item
+  item-materials:
+  - bow
+  - crossbow
+  amount: 1
+  message: Enchant a bow
+  reward-xp: 12
+  reward-money: 12
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - enchantitem
+#########################
+# Kill Monsters General #
+#########################
+swordkills1:
+  triggers:
+  - kill_entity
+  item-materials:
+  - wooden_sword
+  - stone_sword
+  - iron_sword
+  - golden_sword
+  - diamond_sword
+  - netherite_sword
+  entity-categories:
+  - monster
+  amount: 50
+  message: Kill monsters with your sword
+  time-limit-minutes: 1440
+  reward-xp: 10
+  reward-money: 10
+  incompatible-tasks:
+  - swordkills2
+  - swordkills3
+  - swordkills4
+swordkills2:
+  triggers:
+  - kill_entity
+  item-materials:
+  - wooden_sword
+  - stone_sword
+  - iron_sword
+  - golden_sword
+  - diamond_sword
+  - netherite_sword
+  entity-categories:
+  - monster
+  amount: 120
+  message: Kill monsters with your sword
+  reward-xp: 20
+  reward-money: 20
+  min-level: 30
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - swordkills1
+  incompatible-tasks:
+  - swordkills1
+  - swordkills3
+  - swordkills4
+swordkills3:
+  triggers:
+  - kill_entity
+  item-materials:
+  - wooden_sword
+  - stone_sword
+  - iron_sword
+  - golden_sword
+  - diamond_sword
+  - netherite_sword
+  entity-categories:
+  - monster
+  amount: 250
+  message: Kill monsters with your sword
+  reward-xp: 35
+  reward-money: 35
+  min-level: 90
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - swordkills2
+  incompatible-tasks:
+  - swordkills1
+  - swordkills2
+  - swordkills4
+swordkills4:
+  triggers:
+  - kill_entity
+  item-materials:
+  - wooden_sword
+  - stone_sword
+  - iron_sword
+  - golden_sword
+  - diamond_sword
+  - netherite_sword
+  entity-categories:
+  - monster
+  amount: 1000
+  message: Kill monsters with your sword
+  reward-xp: 65
+  reward-money: 65
+  reward-skips: 10
+  min-level: 150
+  time-limit-minutes: 4320
+  prerequisite-tasks:
+  - swordkills3
+  incompatible-tasks:
+  - swordkills1
+  - swordkills2
+  - swordkills3
+axekills1:
+  triggers:
+  - kill_entity
+  item-materials:
+  - wooden_axe
+  - stone_axe
+  - iron_axe
+  - golden_axe
+  - diamond_axe
+  - netherite_axe
+  entity-categories:
+  - monster
+  amount: 50
+  message: Kill monsters with your axe
+  time-limit-minutes: 1440
+  reward-xp: 12
+  reward-money: 12
+  incompatible-tasks:
+  - axekills2
+  - axekills3
+  - axekills4
+axekills2:
+  triggers:
+  - kill_entity
+  item-materials:
+  - wooden_axe
+  - stone_axe
+  - iron_axe
+  - golden_axe
+  - diamond_axe
+  - netherite_axe
+  entity-categories:
+  - monster
+  amount: 120
+  message: Kill monsters with your axe
+  reward-xp: 24
+  reward-money: 24
+  min-level: 40
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - axekills1
+  incompatible-tasks:
+  - axekills1
+  - axekills3
+  - axekills4
+axekills3:
+  triggers:
+  - kill_entity
+  item-materials:
+  - wooden_axe
+  - stone_axe
+  - iron_axe
+  - golden_axe
+  - diamond_axe
+  - netherite_axe
+  entity-categories:
+  - monster
+  amount: 250
+  message: Kill monsters with your axe
+  reward-xp: 41
+  reward-money: 41
+  min-level: 100
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - axekills2
+  incompatible-tasks:
+  - axekills1
+  - axekills2
+  - axekills4
+axekills4:
+  triggers:
+  - kill_entity
+  item-materials:
+  - wooden_axe
+  - stone_axe
+  - iron_axe
+  - golden_axe
+  - diamond_axe
+  - netherite_axe
+  entity-categories:
+  - monster
+  amount: 1000
+  message: Kill monsters with your axe
+  reward-xp: 73
+  reward-money: 73
+  reward-skips: 10
+  min-level: 160
+  time-limit-minutes: 4320
+  prerequisite-tasks:
+  - axekills3
+  incompatible-tasks:
+  - axekills1
+  - axekills2
+  - axekills3
+bowkills1:
+  triggers:
+  - kill_entity
+  item-materials:
+  - bow
+  - crossbow
+  entity-categories:
+  - monster
+  amount: 40
+  message: Kill monsters with your bow
+  time-limit-minutes: 1440
+  reward-xp: 12
+  reward-money: 12
+  incompatible-tasks:
+  - bowkills2
+  - bowkills3
+  - bowkills4
+bowkills2:
+  triggers:
+  - kill_entity
+  item-materials:
+  - bow
+  - crossbow
+  entity-categories:
+  - monster
+  amount: 100
+  message: Kill monsters with your bow
+  reward-xp: 24
+  reward-money: 24
+  min-level: 40
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - bowkills1
+  incompatible-tasks:
+  - bowkills1
+  - bowkills3
+  - bowkills4
+bowkills3:
+  triggers:
+  - kill_entity
+  item-materials:
+  - bow
+  - crossbow
+  entity-categories:
+  - monster
+  amount: 220
+  message: Kill monsters with your bow
+  reward-xp: 41
+  reward-money: 41
+  min-level: 100
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - bowkills2
+  incompatible-tasks:
+  - bowkills1
+  - bowkills2
+  - bowkills4
+bowkills4:
+  triggers:
+  - kill_entity
+  item-materials:
+  - bow
+  - crossbow
+  entity-categories:
+  - monster
+  amount: 960
+  message: Kill monsters with your bow
+  reward-xp: 73
+  reward-money: 73
+  reward-skips: 10
+  min-level: 160
+  time-limit-minutes: 4320
+  prerequisite-tasks:
+  - bowkills3
+  incompatible-tasks:
+  - bowkills1
+  - bowkills2
+  - bowkills3
+##########################
+# Kill Monsters Specific #
+##########################
+killplayer:
+  triggers:
+  - kill_entity
+  entity-types:
+  - player
+  amount: 1
+  message: Kill a player
+  reward-xp: 25
+  reward-money: 25
+  reward-skips: 10
+  min-level: 55
+  time-limit-minutes: 1440
+killzombie:
+  triggers:
+  - kill_entity
+  entity-types:
+  - zombie
+  - zombie_villager
+  - husk
+  amount: 40
+  message: Kill zombies
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+killskeleton:
+  triggers:
+  - kill_entity
+  entity-types:
+  - skeleton
+  - stray
+  amount: 40
+  message: Kill skeletons
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+killspider:
+  triggers:
+  - kill_entity
+  entity-types:
+  - spider
+  - cave_spider
+  amount: 34
+  message: Kill spiders
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+killcavespider:
+  triggers:
+  - kill_entity
+  entity-types:
+  - cave_spider
+  amount: 24
+  message: Kill cave spiders
+  reward-xp: 24
+  reward-money: 24
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - killspider
+killcreeper:
+  triggers:
+  - kill_entity
+  entity-types:
+  - creeper
+  amount: 30
+  message: Kill creepers
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+killwitch:
+  triggers:
+  - kill_entity
+  entity-types:
+  - witch
+  amount: 8
+  message: Kill witches
+  reward-xp: 24
+  reward-money: 24
+  time-limit-minutes: 1440
+killslime:
+  triggers:
+  - kill_entity
+  entity-types:
+  - slime
+  amount: 24
+  message: Kill slimes
+  reward-xp: 32
+  reward-money: 32
+  min-level: 20
+  time-limit-minutes: 1440
+killpillager:
+  triggers:
+  - kill_entity
+  entity-types:
+  - pillager
+  amount: 45
+  message: Kill pillagers
+  reward-xp: 35
+  reward-money: 35
+  time-limit-minutes: 1440
+killwither:
+  triggers:
+  - kill_entity
+  entity-types:
+  - wither
+  amount: 1
+  message: Kill the wither
+  reward-xp: 200
+  reward-money: 200
+  repeatable: false
+  min-level: 80
+  time-limit-minutes: 1440
+killwitheragain:
+  triggers:
+  - kill_entity
+  entity-types:
+  - wither
+  amount: 3
+  message: Kill withers
+  reward-xp: 100
+  reward-money: 100
+  min-level: 80
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - killwither
+killwarden:
+  triggers:
+  - kill_entity
+  entity-types:
+  - warden
+  amount: 1
+  message: Kill the warden
+  reward-xp: 180
+  reward-money: 180
+  repeatable: false
+  min-level: 60
+  time-limit-minutes: 1440
+killwardenagain:
+  triggers:
+  - kill_entity
+  entity-types:
+  - warden
+  amount: 4
+  message: Kill 4 wardens
+  reward-xp: 110
+  reward-money: 110
+  min-level: 60
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - killwarden
+killguardian:
+  triggers:
+  - kill_entity
+  entity-types:
+  - guardian
+  amount: 14
+  message: Kill guardians
+  reward-xp: 40
+  reward-money: 40
+  min-level: 30
+  time-limit-minutes: 1440
+killelderguardian:
+  triggers:
+  - kill_entity
+  entity-types:
+  - elder_guardian
+  biomes:
+  - ocean
+  - deep_ocean
+  - cold_ocean
+  - deep_cold_ocean
+  - frozen_ocean
+  - deep_frozen_ocean
+  - warm_ocean
+  - lukewarm_ocean
+  - deep_lukewarm_ocean
+  amount: 1
+  message: Kill an elder guardian in the ocean
+  reward-xp: 75
+  reward-money: 75
+  min-level: 60
+  time-limit-minutes: 1440
+killblaze:
+  triggers:
+  - kill_entity
+  entity-types:
+  - blaze
+  amount: 12
+  message: Kill blazes
+  reward-xp: 25
+  reward-money: 25
+  min-level: 50
+  time-limit-minutes: 1440
+killwitherskeleton:
+  triggers:
+  - kill_entity
+  entity-types:
+  - wither_skeleton
+  amount: 10
+  message: Kill wither skeletons
+  reward-xp: 40
+  reward-money: 40
+  min-level: 60
+  time-limit-minutes: 1440
+killmagmacube:
+  triggers:
+  - kill_entity
+  entity-types:
+  - magma_cube
+  amount: 12
+  message: Kill magma cubes
+  reward-xp: 25
+  reward-money: 25
+  min-level: 50
+  time-limit-minutes: 1440
+killghast:
+  triggers:
+  - kill_entity
+  entity-types:
+  - ghast
+  amount: 4
+  message: Kill ghasts
+  reward-xp: 34
+  reward-money: 34
+  min-level: 45
+  time-limit-minutes: 1440
+killsilverfish:
+  triggers:
+  - kill_entity
+  entity-types:
+  - silverfish
+  amount: 6
+  message: Kill silverfish
+  reward-xp: 25
+  reward-money: 25
+  min-level: 60
+  time-limit-minutes: 1440
+killenderman:
+  triggers:
+  - kill_entity
+  entity-types:
+  - enderman
+  amount: 30
+  message: Kill endermen
+  reward-xp: 35
+  reward-money: 35
+  min-level: 80
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - killsilverfish
+killendermites:
+  triggers:
+  - kill_entity
+  entity-types:
+  - endermite
+  amount: 3
+  message: Kill endermites
+  reward-xp: 25
+  reward-money: 25
+  min-level: 100
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - killenderman
+killenderdragon:
+  triggers:
+  - kill_entity
+  entity-types:
+  - ender_dragon
+  amount: 1
+  message: Kill the ender dragon
+  reward-xp: 300
+  reward-money: 300
+  repeatable: false
+  min-level: 120
+  time-limit-minutes: 1440
+killenderdragonagain:
+  triggers:
+  - kill_entity
+  entity-types:
+  - ender_dragon
+  amount: 1
+  message: Kill the ender dragon
+  reward-xp: 60
+  reward-money: 60
+  min-level: 120
+  time-limit-minutes: 1440
+  prerequisite-tasks:
+  - killenderdragon
+########
+# Tame #
+########
+tamehorse:
+  triggers:
+  - tame_entity
+  entity-types:
+  - horse
+  - mule
+  amount: 1
+  message: Tame a horse
+  reward-xp: 14
+  reward-money: 14
+  time-limit-minutes: 1440
+tamedonkey:
+  triggers:
+  - tame_entity
+  entity-types:
+  - donkey
+  - mule
+  amount: 1
+  message: Tame a donkey
+  reward-xp: 11
+  reward-money: 11
+  time-limit-minutes: 1440
+tamellama:
+  triggers:
+  - tame_entity
+  entity-types:
+  - llama
+  - trader_llama
+  amount: 1
+  message: Tame a llama
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+tamewolf:
+  triggers:
+  - tame_entity
+  entity-types:
+  - wolf
+  amount: 1
+  message: Tame a wolf
+  reward-xp: 14
+  reward-money: 14
+  time-limit-minutes: 1440
+tamecat:
+  triggers:
+  - tame_entity
+  entity-types:
+  - cat
+  amount: 1
+  message: Tame a cat
+  reward-xp: 16
+  reward-money: 16
+  time-limit-minutes: 1440
+###########
+# Survive #
+###########
+survivehour:
+  triggers:
+  - timer
+  amount: 3600
+  message: Survive for an hour
+  reset-on-death: true
+  reward-xp: 25
+  reward-money: 25
+  actionbar: false
+  progress-display: time
+  time-limit-minutes: 1440
+survivecavehour:
+  triggers:
+  - timer
+  max-y: 0
+  amount: 3600
+  message: Survive at deepslate level for an hour
+  reset-on-death: true
+  reward-xp: 45
+  reward-money: 45
+  actionbar: false
+  progress-display: time
+  time-limit-minutes: 1440
+  incompatible-tasks:
+  - survivehour
+  prerequisite-tasks:
+  - survivehour
+survivenether20m:
+  triggers:
+  - timer
+  environments:
+  - nether
+  amount: 1200
+  message: Survive in the nether for 20 minutes
+  reset-on-death: true
+  reward-xp: 15
+  reward-money: 15
+  actionbar: false
+  progress-display: time
+  time-limit-minutes: 1440
+  incompatible-tasks:
+  - survivehour
+  prerequisite-tasks:
+  - survivecavehour
+surviveend30m:
+  triggers:
+  - timer
+  environments:
+  - the_end
+  amount: 1800
+  message: Survive in the end for 30 minutes
+  reset-on-death: true
+  reward-xp: 30
+  reward-money: 30
+  actionbar: false
+  progress-display: time
+  time-limit-minutes: 1440
+  incompatible-tasks:
+  - survivehour
+  prerequisite-tasks:
+  - survivenether20m
+########
+# Swim #
+########
+swimriver:
+  triggers:
+  - timer
+  biomes:
+  - river
+  entity-in-water: true
+  amount: 1
+  message: Swim in a river
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+swimocean:
+  triggers:
+  - timer
+  biomes:
+  - ocean
+  - deep_ocean
+  - cold_ocean
+  - deep_cold_ocean
+  - frozen_ocean
+  - deep_frozen_ocean
+  - warm_ocean
+  - lukewarm_ocean
+  - deep_lukewarm_ocean
+  entity-in-water: true
+  amount: 1
+  message: Swim in the ocean
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+swimdesert:
+  triggers:
+  - timer
+  biomes:
+  - desert
+  entity-in-water: true
+  amount: 1
+  message: Swim in a desert well
+  reward-xp: 25
+  reward-money: 25
+  time-limit-minutes: 1440
+#########
+# Visit #
+#########
+visitjungle:
+  triggers:
+  - timer
+  biomes:
+  - jungle
+  - sparse_jungle
+  - bamboo_jungle
+  amount: 1
+  message: Visit a jungle
+  reward-xp: 30
+  reward-money: 30
+  time-limit-minutes: 1440
+visitbamboojungle:
+  triggers:
+  - timer
+  biomes:
+  - bamboo_jungle
+  amount: 1
+  message: Visit a bamboo jungle
+  reward-xp: 45
+  reward-money: 45
+  time-limit-minutes: 1440
+  incompatible-tasks:
+  - visitjungle
+visitdesert:
+  triggers:
+  - timer
+  biomes:
+  - desert
+  amount: 1
+  message: Visit a desert
+  reward-xp: 15
+  reward-money: 15
+  time-limit-minutes: 1440
+visitplains:
+  triggers:
+  - timer
+  biomes:
+  - plains
+  - snowy_plains
+  - sunflower_plains
+  amount: 1
+  message: Visit the plains
+  reward-xp: 10
+  reward-money: 10
+  time-limit-minutes: 1440
+visitswamp:
+  triggers:
+  - timer
+  biomes:
+  - swamp
+  - mangrove_swamp
+  amount: 1
+  message: Visit a swamp
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+visitdarkforest:
+  triggers:
+  - timer
+  biomes:
+  - dark_forest
+  amount: 1
+  message: Visit a dark forest
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+visitmeadow:
+  triggers:
+  - timer
+  biomes:
+  - meadow
+  amount: 1
+  message: Visit a meadow
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+visitsavanna:
+  triggers:
+  - timer
+  biomes:
+  - savanna
+  - savanna_plateau
+  - windswept_savanna
+  amount: 1
+  message: Visit the savanna
+  reward-xp: 20
+  reward-money: 20
+  time-limit-minutes: 1440
+visitbadlands:
+  triggers:
+  - timer
+  biomes:
+  - badlands
+  - wooded_badlands
+  - eroded_badlands
+  amount: 1
+  message: Visit the badlands (mesa)
+  reward-xp: 25
+  reward-money: 25
+  time-limit-minutes: 1440
+visitdripstonecave:
+  triggers:
+  - timer
+  biomes:
+  - dripstone_caves
+  amount: 1
+  message: Visit a dripstone cave
+  reward-xp: 25
+  reward-money: 25
+  time-limit-minutes: 1440
+visitlushcave:
+  triggers:
+  - timer
+  biomes:
+  - lush_caves
+  amount: 1
+  message: Visit a lush cave
+  reward-xp: 30
+  reward-money: 30
+  time-limit-minutes: 1440
+visitcherrygrove:
+  triggers:
+  - timer
+  biomes:
+  - cherry_grove
+  amount: 1
+  message: Visit a cherry grove
+  reward-xp: 30
+  reward-money: 30
+  time-limit-minutes: 1440
+visitsnowyslopes:
+  triggers:
+  - timer
+  biomes:
+  - snowy_slopes
+  amount: 1
+  message: Visit a snowy slope
+  reward-xp: 35
+  reward-money: 35
+  time-limit-minutes: 1440
+visitfrozenpeaks:
+  triggers:
+  - timer
+  biomes:
+  - frozen_peaks
+  amount: 1
+  message: Visit a frozen peak
+  reward-xp: 45
+  reward-money: 45
+  time-limit-minutes: 1440
+visitfrozenocean:
+  triggers:
+  - timer
+  biomes:
+  - frozen_ocean
+  amount: 1
+  message: Visit a frozen ocean
+  reward-xp: 40
+  reward-money: 40
+  time-limit-minutes: 1440
+visitflowerforest:
+  triggers:
+  - timer
+  biomes:
+  - flower_forest
+  amount: 1
+  message: Visit a flower forest
+  reward-xp: 50
+  reward-money: 50
+  time-limit-minutes: 1440
+visiticespikes:
+  triggers:
+  - timer
+  biomes:
+  - ice_spikes
+  amount: 1
+  message: Find a natural ice spike
+  reward-xp: 60
+  reward-money: 60
+  time-limit-minutes: 1440
+visitsoulsandvalley:
+  triggers:
+  - timer
+  biomes:
+  - soul_sand_valley
+  amount: 1
+  message: Visit a soul sand valley
+  reward-xp: 25
+  reward-money: 25
+  min-level: 50
+  time-limit-minutes: 1440
+visitbasaltdeltas:
+  triggers:
+  - timer
+  biomes:
+  - basalt_deltas
+  amount: 1
+  message: Visit a basalt delta
+  reward-xp: 25
+  reward-money: 25
+  min-level: 50
+  time-limit-minutes: 1440
+visitwarpedforest:
+  triggers:
+  - timer
+  biomes:
+  - warped_forest
+  amount: 1
+  message: Visit a warped forest
+  reward-xp: 30
+  reward-money: 30
+  min-level: 50
+  time-limit-minutes: 1440
+visitcrimsonforest:
+  triggers:
+  - timer
+  biomes:
+  - crimson_forest
+  amount: 1
+  message: Visit a crimson forest
+  reward-xp: 30
+  reward-money: 30
+  min-level: 50
+  time-limit-minutes: 1440
+visitdeepdark:
+  triggers:
+  - timer
+  biomes:
+  - deep_dark
+  amount: 1
+  message: Visit the deep dark
+  reward-xp: 60
+  reward-money: 60
+  min-level: 80
+  time-limit-minutes: 1440
+#########
+# Shear #
+#########
+shearmooshroom:
+  triggers:
+  - shear_entity
+  entity-types:
+  - mooshroom
+  amount: 1
+  message: Shear a mooshroom
+  reward-xp: 24
+  reward-money: 24
+  time-limit-minutes: 1440
+shearsnowgolem:
+  triggers:
+  - shear_entity
+  entity-types:
+  - snow_golem
+  amount: 1
+  message: Shear a snow golem
+  reward-xp: 9
+  reward-money: 9
+  time-limit-minutes: 1440
+#########
+# Other #
+#########
+catchentity:
+  triggers:
+  - bucket_entity
+  amount: 1
+  message: Catch something with your bucket
+  reward-xp: 14
+  reward-money: 14
+  min-level: 10
+  time-limit-minutes: 1440
+throwegg:
+  triggers:
+  - throw_egg
+  amount: 6
+  message: Throw eggs
+  reward-xp: 11
+  reward-money: 11
+  time-limit-minutes: 1440
+mend:
+  triggers:
+  - mend_item
+  amount: 100
+  message: Mend items
+  reward-xp: 14
+  reward-money: 14
+  time-limit-minutes: 1440
