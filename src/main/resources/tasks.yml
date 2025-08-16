@@ -1785,31 +1785,6 @@ killwitheragain:
   time-limit-minutes: 1440
   prerequisite-tasks:
   - killwither
-killwarden:
-  triggers:
-  - kill_entity
-  entity-types:
-  - warden
-  amount: 1
-  message: Kill the warden
-  reward-xp: 180
-  reward-money: 180
-  repeatable: false
-  min-level: 60
-  time-limit-minutes: 1440
-killwardenagain:
-  triggers:
-  - kill_entity
-  entity-types:
-  - warden
-  amount: 4
-  message: Kill 4 wardens
-  reward-xp: 110
-  reward-money: 110
-  min-level: 60
-  time-limit-minutes: 1440
-  prerequisite-tasks:
-  - killwarden
 killguardian:
   triggers:
   - kill_entity
@@ -2350,29 +2325,6 @@ visitdeepdark:
   reward-xp: 60
   reward-money: 60
   min-level: 80
-  time-limit-minutes: 1440
-#########
-# Shear #
-#########
-shearmooshroom:
-  triggers:
-  - shear_entity
-  entity-types:
-  - mooshroom
-  amount: 1
-  message: Shear a mooshroom
-  reward-xp: 24
-  reward-money: 24
-  time-limit-minutes: 1440
-shearsnowgolem:
-  triggers:
-  - shear_entity
-  entity-types:
-  - snow_golem
-  amount: 1
-  message: Shear a snow golem
-  reward-xp: 9
-  reward-money: 9
   time-limit-minutes: 1440
 #########
 # Other #
