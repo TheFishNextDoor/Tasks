@@ -1,6 +1,30 @@
 # Tasks Bukkit Plugin
 Reward players for doing actions. Highly configurable and allows for daily and weekly tasks or even a quest like progression system.
 
+## Commands:
+
+### User Commands
+- **/tasks**: List your current tasks
+- **/level**: Check your level and experience
+- **/unlocks**: List your unlocks
+
+### Admin Commands
+Use the /tasksadmin (/ta) command for admin things.
+- **/ta help**: Show the help message
+- **/ta reload**: Reload the plugin
+- **/ta task list <player>**: List a player's tasks
+- **/ta task give <Player> <task>**: Give a player a task
+- **/ta task remove <player> <task>**: Remove a task from a player
+- **/ta task addprogress <player> <task> <amount>**: Add progress to a task
+- **/ta xp give <player> <amount>**: Give a player XP (Tasks plugin xp not minecraft xp)
+- **/ta xp take <player> <amount>**: Take XP from a player
+- **/ta xp set <player> <amount>**: Set a player's XP
+- **/ta unlock list <player>**: List a players unlocks
+- **/ta unlock give <player> <unlock>**: Give a player an unlock
+- **/ta skips give <player> <amount>**: Give a player skips
+- **/ta skips take <player> <amount>**: Take skips from a player
+- **/ta skips set <player> <amount>**: Set a player's skips
+
 ## Config
 ```yaml
 xp-curve:
