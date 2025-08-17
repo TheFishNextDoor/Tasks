@@ -5,6 +5,8 @@ Reward players for doing actions. Highly configurable and allows for daily and w
 
 ### User Commands
 - **/tasks**: List your current tasks
+- **/tasks skip &lt;number&gt;**: Skip a task
+- **/tasks color &lt;color&gt;**: Change the color of your personal task related messages
 - **/level**: Check your level and experience
 - **/unlocks**: List your unlocks
 
