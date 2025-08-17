@@ -412,6 +412,33 @@ This example task (task1) will require the player to break 10 diamond ore blocks
 ## Unlock Parameters
 Unlocks are rewards that can be given to players at certain levels or as rewards for completing certain tasks. Unlock parameters are used to configure unlocks in unlocks.yml.
 
+**Example:**
+```yaml
+exampleMessageUnlock:
+  name: Example Message Unlock # The display name of this unlock
+  messages: # The messages sent by this unlock
+  - You got the example message unlock!
+  - Line 2!
+  - Line 3!
+  level: 1 # The level the player gets this unlock
+
+examplePermissionsUnlock:
+  name: Example Permissions Unlock # The display name of this unlock
+  permissions: # The permissions granted by this unlock
+  - example.permission.node
+  - example.permission.node2
+  level: 500 # The level the player gets this unlock
+
+exampleCommandsUnlock:
+  name: Example Commands Unlock # The display name of this unlock
+  console-commands: # The commands executed by this unlock
+  - say {player} got the example commands unlock!
+  - eco give {player} 100
+  player-commands:
+  - say I got the example commands unlock!
+  level: 500 # The level the player gets this unlock
+```
+
 ### Display
 - **name**: The display name of the unlock.
 
