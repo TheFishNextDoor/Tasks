@@ -119,6 +119,48 @@ This example task (task1) will require the player to break 10 diamond ore blocks
 ### Block Filters
 - **block-materials**: List of block materials to match for the task.
 
+## Unlock Parameters
+Unlocks are rewards that can be given to players at certain levels or as rewards for completing certain tasks. Unlock parameters are used to configure unlocks in unlocks.yml.
+
+**Example:**
+```yaml
+exampleMessageUnlock:
+  name: Example Message Unlock # The display name of this unlock
+  messages: # The messages sent by this unlock
+  - You got the example message unlock!
+  - Line 2!
+  - Line 3!
+  level: 1 # The level the player gets this unlock
+
+examplePermissionsUnlock:
+  name: Example Permissions Unlock # The display name of this unlock
+  permissions: # The permissions granted by this unlock
+  - example.permission.node
+  - example.permission.node2
+  level: 500 # The level the player gets this unlock
+
+exampleCommandsUnlock:
+  name: Example Commands Unlock # The display name of this unlock
+  console-commands: # The commands executed by this unlock
+  - say {player} got the example commands unlock!
+  - eco give {player} 100
+  player-commands:
+  - say I got the example commands unlock!
+  level: 500 # The level the player gets this unlock
+```
+
+### Display
+- **name**: The display name of the unlock.
+
+### Behavior
+- **level**: The level the unlock is given at.
+
+### Rewards
+- **permissions**: Permissions given to the player when unlocked.
+- **console-commands**: Console commands to run when unlocked. Use variable {player} to insert the players username.
+- **player-commands**: Commands for the player to run when unlocked. Use variable {player} to insert the players username.
+- **messages**: Messages to send to the player when unlocked. Use variable {player} to insert the players username.
+
 ## Trigger Types
 
 ### INTERACT_ENTITY
@@ -417,45 +459,3 @@ This example task (task1) will require the player to break 10 diamond ore blocks
     - Entity: The player with the task
     - Item: The item in the players hand
     - Amount: 1
-
-## Unlock Parameters
-Unlocks are rewards that can be given to players at certain levels or as rewards for completing certain tasks. Unlock parameters are used to configure unlocks in unlocks.yml.
-
-**Example:**
-```yaml
-exampleMessageUnlock:
-  name: Example Message Unlock # The display name of this unlock
-  messages: # The messages sent by this unlock
-  - You got the example message unlock!
-  - Line 2!
-  - Line 3!
-  level: 1 # The level the player gets this unlock
-
-examplePermissionsUnlock:
-  name: Example Permissions Unlock # The display name of this unlock
-  permissions: # The permissions granted by this unlock
-  - example.permission.node
-  - example.permission.node2
-  level: 500 # The level the player gets this unlock
-
-exampleCommandsUnlock:
-  name: Example Commands Unlock # The display name of this unlock
-  console-commands: # The commands executed by this unlock
-  - say {player} got the example commands unlock!
-  - eco give {player} 100
-  player-commands:
-  - say I got the example commands unlock!
-  level: 500 # The level the player gets this unlock
-```
-
-### Display
-- **name**: The display name of the unlock.
-
-### Behavior
-- **level**: The level the unlock is given at.
-
-### Rewards
-- **permissions**: Permissions given to the player when unlocked.
-- **console-commands**: Console commands to run when unlocked. Use variable {player} to insert the players username.
-- **player-commands**: Commands for the player to run when unlocked. Use variable {player} to insert the players username.
-- **messages**: Messages to send to the player when unlocked. Use variable {player} to insert the players username.
