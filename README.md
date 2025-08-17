@@ -162,6 +162,7 @@ exampleCommandsUnlock:
 - **messages**: Messages to send to the player when unlocked. Use variable {player} to insert the players username.
 
 ## Trigger Types
+Triggers control when tasks get triggered. Each time a player triggers a task it will increment the task by the amount in "Associated Data".
 
 ### INTERACT_ENTITY
 - **Description:** Triggered when a player right clicks an entity.
