@@ -120,7 +120,7 @@ This example task (task1) will require the player to break 10 diamond ore blocks
 - **block-materials**: List of block materials to match for the task.
 
 ## Unlock Parameters
-Unlocks are rewards that can be given to players at certain levels or as rewards for completing certain tasks. Unlock parameters are used to configure unlocks in unlocks.yml.
+Unlocks are rewards that can be given to players at certain levels or as rewards for completing certain tasks. Unlock parameters are used to configure unlocks in `unlocks.yml`.
 
 **Example:**
 ```yaml
@@ -162,7 +162,7 @@ exampleCommandsUnlock:
 - **messages**: Messages to send to the player when unlocked. Use variable {player} to insert the players username.
 
 ## Trigger Types
-Triggers control when tasks get triggered. Each time a player triggers a task it will increment the task by the amount in "Associated Data".
+Triggers control when tasks get triggered. Each time a player triggers a task it will increment the task by the amount in `Associated Data`.
 
 ### INTERACT_ENTITY
 - **Description:** Triggered when a player right clicks an entity.
