@@ -1,5 +1,5 @@
 name: Tasks
-main: com.thefishnextdoor.tasks.TasksPlugin
+main: fun.sunrisemc.tasks.TasksPlugin
 version: 1.0.0
 api-version: 1.18
 author: TheFishNextDoor
