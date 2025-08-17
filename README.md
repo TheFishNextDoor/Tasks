@@ -27,6 +27,15 @@ Use the /tasksadmin (/ta) command for admin things.
 - **/ta skips take &lt;player&gt; &lt;amount&gt;**: Take skips from a player
 - **/ta skips set &lt;player&gt; &lt;amount&gt;**: Set a player's skips
 
+## Permissions
+- **tasks.admin**: Allows the player to use admin commands
+- **tasks.admin.reload**: Allows the player to reload the plugin
+- **tasks.admin.task**: Allows the player to alter players' tasks
+- **tasks.admin.xp**: Allows the player to alter players' XP
+- **tasks.admin.unlock**: Allows the player to alter players' unlocks
+- **tasks.admin.skips**: Allows the player to alter players' skips
+- **tasks.color** (default): Allows the player to change the color of their tasks
+
 ## Config
 ```yaml
 xp-curve:
