@@ -12,18 +12,18 @@ Reward players for doing actions. Highly configurable and allows for daily and w
 Use the /tasksadmin (/ta) command for admin things.
 - **/ta help**: Show the help message
 - **/ta reload**: Reload the plugin
-- **/ta task list <player>**: List a player's tasks
-- **/ta task give <Player> <task>**: Give a player a task
-- **/ta task remove <player> <task>**: Remove a task from a player
-- **/ta task addprogress <player> <task> <amount>**: Add progress to a task
-- **/ta xp give <player> <amount>**: Give a player XP (Tasks plugin xp not minecraft xp)
-- **/ta xp take <player> <amount>**: Take XP from a player
-- **/ta xp set <player> <amount>**: Set a player's XP
-- **/ta unlock list <player>**: List a players unlocks
-- **/ta unlock give <player> <unlock>**: Give a player an unlock
-- **/ta skips give <player> <amount>**: Give a player skips
-- **/ta skips take <player> <amount>**: Take skips from a player
-- **/ta skips set <player> <amount>**: Set a player's skips
+- **/ta task list &lt;player&gt;**: List a player's tasks
+- **/ta task give &lt;player&gt; &lt;task&gt;**: Give a player a task
+- **/ta task remove &lt;player&gt; &lt;task&gt;**: Remove a task from a player
+- **/ta task addprogress &lt;player&gt; &lt;task&gt; &lt;amount&gt;**: Add progress to a task
+- **/ta xp give &lt;player&gt; &lt;amount&gt;**: Give a player XP (Tasks plugin xp not minecraft xp)
+- **/ta xp take &lt;player&gt; &lt;amount&gt;**: Take XP from a player
+- **/ta xp set &lt;player&gt; &lt;amount&gt;**: Set a player's XP
+- **/ta unlock list &lt;player&gt;**: List a player's unlocks
+- **/ta unlock give &lt;player&gt; &lt;unlock&gt;**: Give a player an unlock
+- **/ta skips give &lt;player&gt; &lt;amount&gt;**: Give a player skips
+- **/ta skips take &lt;player&gt; &lt;amount&gt;**: Take skips from a player
+- **/ta skips set &lt;player&gt; &lt;amount&gt;**: Set a player's skips
 
 ## Config
 ```yaml
