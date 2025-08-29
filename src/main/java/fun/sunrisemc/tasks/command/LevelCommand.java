@@ -9,6 +9,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import fun.sunrisemc.tasks.TasksPlugin;
+import fun.sunrisemc.tasks.config.MainConfig;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.unlock.Unlock;
@@ -26,6 +27,12 @@ public class LevelCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "You must be a player to use this command.");
+            return true;
+        }
+
+        MainConfig config = TasksPlugin.getMainConfig();
+        if (!config.ENABLE_LEVELLING) {
+            sender.sendMessage(ChatColor.RED + "Leveling is disabled on this server.");
             return true;
         }
         

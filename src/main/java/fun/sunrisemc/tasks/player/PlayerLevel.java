@@ -7,6 +7,9 @@ public class PlayerLevel {
 
     public static int getXpFor(int level) {
         MainConfig settings = TasksPlugin.getMainConfig();
+        if (!settings.ENABLE_LEVELLING) {
+            return 0;
+        }
         level -= 1;
         double b = settings.LEVEL_BASE;
         int total = 0;
@@ -19,6 +22,9 @@ public class PlayerLevel {
 
     public static int getLevel(int totalXp) {
         MainConfig settings = TasksPlugin.getMainConfig();
+        if (!settings.ENABLE_LEVELLING) {
+            return 1;
+        }
         double b = settings.LEVEL_BASE;
         int currentXp = 0;
         int level = 0;
