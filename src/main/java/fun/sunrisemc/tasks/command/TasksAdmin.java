@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.PlayerTask;
 import fun.sunrisemc.tasks.task.TaskConfiguration;
 import fun.sunrisemc.tasks.unlock.Unlock;
@@ -76,7 +77,7 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
                 return null;
             }
 
-            PlayerProfile playerProfile = PlayerProfile.get(player);
+            PlayerProfile playerProfile = PlayerProfileManager.get(player);
             String subcommand = args[0];
             String subsubcommand = args[1];
             if (subcommand.equalsIgnoreCase("task")) {
@@ -153,7 +154,7 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
                 sender.sendMessage(ChatColor.RED + "Player not found");
                 return true;
             }
-            PlayerProfile playerProfile = PlayerProfile.get(player);
+            PlayerProfile playerProfile = PlayerProfileManager.get(player);
 
             // Task List //
             if (subSubCommand.equalsIgnoreCase("list")) {
@@ -253,7 +254,7 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
                 sender.sendMessage(ChatColor.RED + "Player not found");
                 return true;
             }
-            PlayerProfile playerProfile = PlayerProfile.get(player);
+            PlayerProfile playerProfile = PlayerProfileManager.get(player);
 
             // XP Give //
             if (subSubCommand.equalsIgnoreCase("give")) {
@@ -328,7 +329,7 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
                 sender.sendMessage(ChatColor.RED + "Player not found");
                 return true;
             }
-            PlayerProfile playerProfile = PlayerProfile.get(player);
+            PlayerProfile playerProfile = PlayerProfileManager.get(player);
 
             // Unlock List //
             if (subSubCommand.equalsIgnoreCase("list")) {
@@ -381,7 +382,7 @@ public class TasksAdmin implements CommandExecutor, TabCompleter {
                 sender.sendMessage(ChatColor.RED + "Player not found");
                 return true;
             }
-            PlayerProfile playerProfile = PlayerProfile.get(player);
+            PlayerProfile playerProfile = PlayerProfileManager.get(player);
 
             // Skips Give //
             if (subSubCommand.equalsIgnoreCase("give")) {

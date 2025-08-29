@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import net.md_5.bungee.api.ChatColor;
 
@@ -28,7 +29,7 @@ public class Level implements CommandExecutor, TabCompleter {
         }
         
         Player player = (Player) sender;
-        PlayerProfile playerProfile = PlayerProfile.get(player);
+        PlayerProfile playerProfile = PlayerProfileManager.get(player);
         int level = playerProfile.getLevel();
         int xp = playerProfile.getXpSinceLastLevel();
         int nextLevel = xp + playerProfile.getXpToNextLevel();

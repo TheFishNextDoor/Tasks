@@ -12,6 +12,7 @@ import org.bukkit.event.block.BlockCookEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.utils.PlayerUtils;
 
@@ -28,7 +29,7 @@ public class BlockCook implements Listener {
         if (!player.isPresent()) {
             return;
         }
-        PlayerProfile playerProfile = PlayerProfile.get(player.get());
+        PlayerProfile playerProfile = PlayerProfileManager.get(player.get());
         ItemStack result = event.getResult();
         playerProfile.triggerTasks(TriggerType.SMELT_ITEM, location, player.get(), result, block, result.getAmount());
     }

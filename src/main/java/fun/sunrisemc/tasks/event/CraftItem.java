@@ -12,6 +12,7 @@ import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 
 public class CraftItem implements Listener {
@@ -39,7 +40,7 @@ public class CraftItem implements Listener {
         Location location = inventory.getLocation();
         Block block = location != null ? location.getBlock() : null;
         ItemStack item = event.getCurrentItem();
-        PlayerProfile playerProfile = PlayerProfile.get(player);
+        PlayerProfile playerProfile = PlayerProfileManager.get(player);
         playerProfile.triggerTasks(TriggerType.CRAFT_ITEM, player.getLocation(), player, item, block, realAmount);
     }
 }

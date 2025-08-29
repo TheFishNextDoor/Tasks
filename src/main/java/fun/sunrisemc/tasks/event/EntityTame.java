@@ -10,6 +10,7 @@ import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.utils.InventoryUtils;
 
@@ -22,7 +23,7 @@ public class EntityTame implements Listener {
             return;
         }
         Player player = (Player) tamer;
-        PlayerProfile playerProfile = PlayerProfile.get(player);
+        PlayerProfile playerProfile = PlayerProfileManager.get(player);
         LivingEntity entity = event.getEntity();
         ItemStack item = InventoryUtils.getItemInHand(player);
         Location location = entity.getLocation();

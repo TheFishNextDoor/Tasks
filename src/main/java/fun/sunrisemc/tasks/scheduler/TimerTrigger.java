@@ -5,6 +5,7 @@ import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.utils.InventoryUtils;
 
@@ -18,7 +19,7 @@ public class TimerTrigger {
         }
         id = Bukkit.getScheduler().scheduleSyncRepeatingTask(TasksPlugin.getInstance(), () -> {
             Bukkit.getOnlinePlayers().forEach(player -> {
-                PlayerProfile playerProfile = PlayerProfile.get(player);
+                PlayerProfile playerProfile = PlayerProfileManager.get(player);
                 ItemStack hand = InventoryUtils.getItemInHand(player);
                 playerProfile.triggerTasks(TriggerType.TIMER, player.getLocation(), player, hand, null, 1);
             });

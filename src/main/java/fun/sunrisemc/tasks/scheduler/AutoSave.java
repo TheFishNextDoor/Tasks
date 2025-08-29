@@ -3,7 +3,7 @@ package fun.sunrisemc.tasks.scheduler;
 import org.bukkit.Bukkit;
 
 import fun.sunrisemc.tasks.TasksPlugin;
-import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 
 public class AutoSave {
 
@@ -14,7 +14,7 @@ public class AutoSave {
             return;
         }
         Bukkit.getScheduler().runTaskTimerAsynchronously(TasksPlugin.getInstance(), () -> {
-            PlayerProfile.saveAll();
+            PlayerProfileManager.saveAll();
         }, 20 * 60 * 5, 20 * 60 * 5);
     }
 

@@ -43,7 +43,7 @@ import fun.sunrisemc.tasks.event.Teleport;
 import fun.sunrisemc.tasks.event.ThrowEgg;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.player.PlayerLevel;
-import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.scheduler.AutoSave;
 import fun.sunrisemc.tasks.scheduler.TaskRefresh;
 import fun.sunrisemc.tasks.scheduler.TimerTrigger;
@@ -121,7 +121,7 @@ public class TasksPlugin extends JavaPlugin {
         AutoSave.stop();
         TaskRefresh.stop();
         TimerTrigger.stop();
-        PlayerProfile.saveAll();
+        PlayerProfileManager.saveAll();
         Log.info("Plugin disabled");
     }
 
@@ -137,7 +137,7 @@ public class TasksPlugin extends JavaPlugin {
         mainConfig = new MainConfig();
         Unlock.loadConfig();
         TaskConfiguration.loadConfig();
-        PlayerProfile.reload();
+        PlayerProfileManager.reload();
         if (!PlayerLevel.verify()) {
             Log.severe("PlayerLevel verification failed");
         }

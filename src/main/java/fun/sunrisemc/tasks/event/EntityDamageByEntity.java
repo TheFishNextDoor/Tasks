@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.utils.InventoryUtils;
 
@@ -19,7 +20,7 @@ public class EntityDamageByEntity implements Listener {
         Entity damaged = event.getEntity();
         if (damager instanceof Player) {
             Player player = (Player) damager;
-            PlayerProfile playerProfile = PlayerProfile.get(player);
+            PlayerProfile playerProfile = PlayerProfileManager.get(player);
             ItemStack item = InventoryUtils.getItemInHand(player);
             int damage = (int) event.getDamage();
             playerProfile.triggerTasks(TriggerType.DAMAGE_ENTITY, damaged.getLocation(), damaged, item, null, damage);

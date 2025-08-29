@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.PlayerTask;
 import net.md_5.bungee.api.ChatColor;
 
@@ -36,7 +37,7 @@ public class Tasks implements CommandExecutor, TabCompleter {
             }
             else
             if (args[0].equalsIgnoreCase("skip") && TasksPlugin.getMainConfig().ALLOW_TASK_SKIPPING && sender instanceof Player) {
-                PlayerProfile playerProfile = PlayerProfile.get((Player) sender);
+                PlayerProfile playerProfile = PlayerProfileManager.get((Player) sender);
                 int i = 1;
                 ArrayList<String> taskNumbers = new ArrayList<String>();
                 for (PlayerTask task : playerProfile.getTasks()) {
@@ -59,7 +60,7 @@ public class Tasks implements CommandExecutor, TabCompleter {
         }
 
         Player player = (Player) sender;
-        PlayerProfile playerProfile = PlayerProfile.get(player);
+        PlayerProfile playerProfile = PlayerProfileManager.get(player);
         String subCommand = args.length > 0 ? args[0] : "";
 
         // Color //

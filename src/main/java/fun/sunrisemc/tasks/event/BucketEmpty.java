@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 
 public class BucketEmpty implements Listener {
@@ -15,7 +16,7 @@ public class BucketEmpty implements Listener {
     @EventHandler
     public void onBucketEmpty(PlayerBucketEmptyEvent event) {
         Player player = event.getPlayer();
-        PlayerProfile playerProfile = PlayerProfile.get(player);
+        PlayerProfile playerProfile = PlayerProfileManager.get(player);
         ItemStack item = event.getItemStack();
         Block block = event.getBlock();
         playerProfile.triggerTasks(TriggerType.EMPTY_BUCKET, block.getLocation(), player, item, block, 1);

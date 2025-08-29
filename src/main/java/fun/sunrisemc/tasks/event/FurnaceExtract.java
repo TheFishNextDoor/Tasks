@@ -8,6 +8,7 @@ import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 
 public class FurnaceExtract implements Listener {
@@ -15,7 +16,7 @@ public class FurnaceExtract implements Listener {
     @EventHandler
     public void onFurnaceExtract(FurnaceExtractEvent event) {
         Player player = event.getPlayer();
-        PlayerProfile playerProfile = PlayerProfile.get(player);
+        PlayerProfile playerProfile = PlayerProfileManager.get(player);
         ItemStack item = new ItemStack(event.getItemType(), event.getItemAmount());
         Block block = event.getBlock();
         playerProfile.triggerTasks(TriggerType.SMELT_ITEM, block.getLocation(), player, item, block, item.getAmount());

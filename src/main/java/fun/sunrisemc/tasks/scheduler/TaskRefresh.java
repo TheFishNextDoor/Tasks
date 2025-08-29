@@ -3,7 +3,7 @@ package fun.sunrisemc.tasks.scheduler;
 import org.bukkit.Bukkit;
 
 import fun.sunrisemc.tasks.TasksPlugin;
-import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 
 public class TaskRefresh {
 
@@ -14,7 +14,7 @@ public class TaskRefresh {
             return;
         }
         id = Bukkit.getScheduler().scheduleSyncRepeatingTask(TasksPlugin.getInstance(), () -> {
-            PlayerProfile.refreshAllTasks();
+            PlayerProfileManager.refreshAllTasks();
         }, 20 * 5, 20 * 5);
     }
 

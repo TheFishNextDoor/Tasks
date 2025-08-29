@@ -8,13 +8,14 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.config.MainConfig;
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 
 public class PlayerChat implements Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        PlayerProfile playerProfile = PlayerProfile.get(player);
+        PlayerProfile playerProfile = PlayerProfileManager.get(player);
         MainConfig config = TasksPlugin.getMainConfig();
         if (config.SHOW_LEVEL) {
             String color = playerProfile.getColor();

@@ -8,6 +8,7 @@ import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 
 public class EnchantItem implements Listener {
@@ -15,7 +16,7 @@ public class EnchantItem implements Listener {
     @EventHandler
     public void onEnchantItem(EnchantItemEvent event) {
         Player player = event.getEnchanter();
-        PlayerProfile playerProfile = PlayerProfile.get(player);
+        PlayerProfile playerProfile = PlayerProfileManager.get(player);
         ItemStack item = event.getItem();
         Block block = event.getEnchantBlock();
         playerProfile.triggerTasks(TriggerType.ENCHANT_ITEM, block.getLocation(), player, item, block, 1);

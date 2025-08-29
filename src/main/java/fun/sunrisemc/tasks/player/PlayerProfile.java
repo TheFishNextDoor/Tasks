@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -29,8 +29,6 @@ import net.md_5.bungee.api.ChatColor;
 
 public class PlayerProfile {
 
-    private static ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
-
     private final UUID uuid;
 
     // Save data
@@ -51,7 +49,7 @@ public class PlayerProfile {
 
     private int level;
 
-    private PlayerProfile(UUID uuid) {
+    PlayerProfile(UUID uuid) {
         if (uuid == null) {
             throw new IllegalArgumentException("UUID cannot be null");
         }
@@ -97,7 +95,7 @@ public class PlayerProfile {
 
         this.level = PlayerLevel.getLevel(xp);
         
-        playerProfiles.putIfAbsent(uuid, this);
+        PlayerProfileManager.playerProfiles.putIfAbsent(uuid, this);
     }
 
     public void save() {
@@ -126,7 +124,7 @@ public class PlayerProfile {
         DataFile.save(id, playerData);
 
         if (!isOnline()) {
-            playerProfiles.remove(uuid);
+            PlayerProfileManager.playerProfiles.remove(uuid);
         }
     }
 
@@ -448,56 +446,5 @@ public class PlayerProfile {
             TaskConfiguration task = optionalTask.get();
             addTask(new PlayerTask(task, this));
         }
-    }
-
-    public static void load(Player player) {
-        if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null");
-        }
-        load(player.getUniqueId());
-    }
-
-    public static void load(UUID uuid) {
-        if (uuid == null) {
-            throw new IllegalArgumentException("UUID cannot be null");
-        }
-        Bukkit.getScheduler().runTaskAsynchronously(TasksPlugin.getInstance(), () -> {
-            get(uuid);
-        });
-    }
-
-    public static PlayerProfile get(Player player) {
-        if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null");
-        }
-        return get(player.getUniqueId());
-    }
-
-    public static PlayerProfile get(UUID uuid) {
-        if (uuid == null) {
-            throw new IllegalArgumentException("UUID cannot be null");
-        }
-
-        PlayerProfile playerProfile = playerProfiles.get(uuid);
-        if (playerProfile == null) {
-            playerProfile = new PlayerProfile(uuid);
-        }
-        return playerProfile;
-    }
-
-    public static void refreshAllTasks() {
-        playerProfiles.values().forEach(PlayerProfile::refreshTasks);
-    }
-
-    public static void reload() {
-        saveAll();
-        playerProfiles.clear();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            load(player);
-        }
-    }
-
-    public static void saveAll() {
-        playerProfiles.values().forEach(PlayerProfile::save);
     }
 }
