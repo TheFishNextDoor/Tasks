@@ -12,6 +12,7 @@ import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.unlock.Unlock;
+import fun.sunrisemc.tasks.unlock.UnlockManager;
 import net.md_5.bungee.api.ChatColor;
 
 public class LevelCommand implements CommandExecutor, TabCompleter {
@@ -39,7 +40,7 @@ public class LevelCommand implements CommandExecutor, TabCompleter {
         }
         player.sendMessage(playerProfile.getColor() + ChatColor.BOLD + "Upcoming Unlocks");
         int shownUnlocks = 0;
-        for (Unlock unlock : Unlock.getSorted()) {
+        for (Unlock unlock : UnlockManager.getSorted()) {
             if (shownUnlocks >= 5) {
                 break;
             }

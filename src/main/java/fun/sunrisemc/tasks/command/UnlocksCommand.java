@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.unlock.Unlock;
+import fun.sunrisemc.tasks.unlock.UnlockManager;
 
 public class UnlocksCommand implements CommandExecutor, TabCompleter {
 
@@ -30,7 +31,7 @@ public class UnlocksCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
         PlayerProfile playerProfile = PlayerProfileManager.get(player);
 
-        List<Unlock> unlocks = Unlock.getSorted();
+        List<Unlock> unlocks = UnlockManager.getSorted();
         boolean hasUnlocks = false;
         player.sendMessage(playerProfile.getColor() + ChatColor.BOLD + "Unlocks");
         for (Unlock unlock : unlocks) {

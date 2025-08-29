@@ -18,6 +18,7 @@ import fun.sunrisemc.tasks.task.PlayerTask;
 import fun.sunrisemc.tasks.task.TaskConfiguration;
 import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.unlock.Unlock;
+import fun.sunrisemc.tasks.unlock.UnlockManager;
 import fun.sunrisemc.tasks.utils.PlayerUtils;
 import net.md_5.bungee.api.ChatColor;
 
@@ -105,7 +106,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             }
             else if (subcommand.equalsIgnoreCase("unlock")) {
                 if (subsubcommand.equalsIgnoreCase("give")) {
-                    return Unlock.getIds();
+                    return UnlockManager.getIds();
                 }
                 else {
                     return null;
@@ -336,7 +337,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             if (subSubCommand.equalsIgnoreCase("list")) {
                 sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "Unlocks for " + player.getName());
                 boolean hasUnlocks = false;
-                for (Unlock unlock : Unlock.getSorted()) {
+                for (Unlock unlock : UnlockManager.getSorted()) {
                     if (playerProfile.hasCompletedUnlock(unlock.getId())) {
                         hasUnlocks = true;
                         sender.sendMessage(ChatColor.BLUE + unlock.getId() + ":" + ChatColor.WHITE + " " + unlock.toString());
@@ -353,7 +354,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
                     sender.sendMessage(ChatColor.RED + "You must specify an unlock");
                     return true;
                 }
-                Optional<Unlock> unlock = Unlock.get(args[3]);
+                Optional<Unlock> unlock = UnlockManager.get(args[3]);
                 if (unlock.isEmpty()) {
                     sender.sendMessage(ChatColor.RED + "Unlock not found");
                     return true;

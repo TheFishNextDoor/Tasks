@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.unlock.Unlock;
+import fun.sunrisemc.tasks.unlock.UnlockManager;
 import fun.sunrisemc.tasks.utils.EnumUtils;
 import fun.sunrisemc.tasks.utils.Log;
 import fun.sunrisemc.tasks.utils.StringUtils;
@@ -159,7 +160,7 @@ public class TaskConfiguration {
         this.rewardSkips = config.getInt(id + ".reward-skips");
 
         for (String unlockName : config.getStringList(id + ".reward-unlocks")) {
-            Optional<Unlock> unlock = Unlock.get(unlockName);
+            Optional<Unlock> unlock = UnlockManager.get(unlockName);
             if (!unlock.isPresent()) {
                 Log.warning("Invalid reward unlock for task " + id + ": " + unlockName);
                 continue;

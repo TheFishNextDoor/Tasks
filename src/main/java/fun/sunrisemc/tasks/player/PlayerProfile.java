@@ -23,6 +23,7 @@ import fun.sunrisemc.tasks.task.TaskConfiguration;
 import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.unlock.Unlock;
+import fun.sunrisemc.tasks.unlock.UnlockManager;
 import fun.sunrisemc.tasks.utils.DataFile;
 import fun.sunrisemc.tasks.utils.Log;
 import fun.sunrisemc.tasks.utils.MoneyUtils;
@@ -412,7 +413,7 @@ public class PlayerProfile {
     }
 
     private void checkUnlocks() {
-        for (Unlock unlock : Unlock.getSorted()) {
+        for (Unlock unlock : UnlockManager.getSorted()) {
             if (unlock.isValidFor(this)) {
                 unlock.giveTo(this);
             }

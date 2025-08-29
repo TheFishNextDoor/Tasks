@@ -48,7 +48,7 @@ import fun.sunrisemc.tasks.scheduler.AutoSave;
 import fun.sunrisemc.tasks.scheduler.TaskRefresh;
 import fun.sunrisemc.tasks.scheduler.TimerTrigger;
 import fun.sunrisemc.tasks.task.TaskConfigurationManager;
-import fun.sunrisemc.tasks.unlock.Unlock;
+import fun.sunrisemc.tasks.unlock.UnlockManager;
 import fun.sunrisemc.tasks.utils.CommandUtils;
 import fun.sunrisemc.tasks.utils.Log;
 
@@ -135,7 +135,7 @@ public class TasksPlugin extends JavaPlugin {
 
     public static void loadConfigs() {
         mainConfig = new MainConfig();
-        Unlock.loadConfig();
+        UnlockManager.loadConfig();
         TaskConfigurationManager.loadConfig();
         PlayerProfileManager.reload();
         if (!PlayerLevel.verify()) {

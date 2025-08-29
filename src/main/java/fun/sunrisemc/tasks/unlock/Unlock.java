@@ -1,9 +1,6 @@
 package fun.sunrisemc.tasks.unlock;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -12,25 +9,11 @@ import org.bukkit.entity.Player;
 
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.player.PlayerProfile;
-import fun.sunrisemc.tasks.utils.ConfigFile;
 import fun.sunrisemc.tasks.utils.Log;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.permission.Permission;
 
 public class Unlock implements Comparable<Unlock> {
-
-    private static ArrayList<Unlock> unlocksSorted = new ArrayList<>();
-    private static HashMap<String, Unlock> unlocksLookup = new HashMap<>();
-
-
-    private static List<String> settings = List.of(
-        "level",
-        "name",
-        "permissions",
-        "console-commands",
-        "player-commands",
-        "messages"
-    );
 
     private final String id;
 
@@ -43,7 +26,7 @@ public class Unlock implements Comparable<Unlock> {
     private ArrayList<String> player_commands = new ArrayList<String>();
     private ArrayList<String> messages = new ArrayList<String>();
 
-    public Unlock(YamlConfiguration config, String id) {
+    Unlock(YamlConfiguration config, String id) {
         if (config == null) {
             throw new IllegalArgumentException("Config cannot be null");
         }
@@ -54,9 +37,9 @@ public class Unlock implements Comparable<Unlock> {
         this.id = id;
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
-            if (!settings.contains(setting)) {
+            if (!UnlockManager.settings.contains(setting)) {
                 Log.warning("Invalid setting for unlock " + id + ": " + setting);
-                String possibleSettings = String.join(", ", settings);
+                String possibleSettings = String.join(", ", UnlockManager.settings);
                 Log.warning("Valid settings are: " + possibleSettings);
             }
         }
@@ -81,8 +64,8 @@ public class Unlock implements Comparable<Unlock> {
             messages.add(ChatColor.translateAlternateColorCodes('&', message));
         }
 
-        unlocksSorted.add(this);
-        unlocksLookup.put(id, this);
+        UnlockManager.unlocksSorted.add(this);
+        UnlockManager.unlocksLookup.put(id, this);
     }
 
     @Override
@@ -170,32 +153,5 @@ public class Unlock implements Comparable<Unlock> {
                 }
             }
         }
-    }
-
-    public static Optional<Unlock> get(String id) {
-        return Optional.ofNullable(unlocksLookup.get(id));
-    }
-
-    public static List<Unlock> getSorted() {
-        return Collections.unmodifiableList(unlocksSorted);
-    }
-
-    public static ArrayList<String> getIds() {
-        ArrayList<String> ids = new ArrayList<>();
-        for (Unlock unlock : unlocksSorted) {
-            ids.add(unlock.getId());
-        }
-        return ids;
-    }
-
-    public static void loadConfig() {
-        unlocksSorted.clear();
-        unlocksLookup.clear();
-        YamlConfiguration config = ConfigFile.get("unlocks");
-        for (String id : config.getKeys(false)) {
-            new Unlock(config, id);
-        }
-        Collections.sort(unlocksSorted);
-        Log.info("Loaded " + unlocksSorted.size() + " unlocks");
     }
 }
