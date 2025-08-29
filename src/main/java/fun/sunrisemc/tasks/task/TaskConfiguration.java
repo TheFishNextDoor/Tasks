@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.unlock.Unlock;
-import fun.sunrisemc.tasks.utils.ConfigUtils;
+import fun.sunrisemc.tasks.utils.ConfigFile;
 import fun.sunrisemc.tasks.utils.EnumUtils;
 import fun.sunrisemc.tasks.utils.Log;
 import net.md_5.bungee.api.ChatColor;
@@ -607,7 +607,7 @@ public class TaskConfiguration {
 
     public static void loadConfig() {
         taskConfigurations.clear();
-        YamlConfiguration config = ConfigUtils.get("tasks");
+        YamlConfiguration config = ConfigFile.get("tasks");
         for (String id : config.getKeys(false)) {
             new TaskConfiguration(config, id);
         }

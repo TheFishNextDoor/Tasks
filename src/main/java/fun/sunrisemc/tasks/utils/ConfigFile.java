@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 
-public class ConfigUtils {
+public class ConfigFile {
 
     public static YamlConfiguration get(String name) {
         if (name == null) {

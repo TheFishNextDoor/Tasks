@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.player.PlayerProfile;
-import fun.sunrisemc.tasks.utils.ConfigUtils;
+import fun.sunrisemc.tasks.utils.ConfigFile;
 import fun.sunrisemc.tasks.utils.Log;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.permission.Permission;
@@ -191,7 +191,7 @@ public class Unlock implements Comparable<Unlock> {
     public static void loadConfig() {
         unlocksSorted.clear();
         unlocksLookup.clear();
-        YamlConfiguration config = ConfigUtils.get("unlocks");
+        YamlConfiguration config = ConfigFile.get("unlocks");
         for (String id : config.getKeys(false)) {
             new Unlock(config, id);
         }
