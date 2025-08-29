@@ -20,6 +20,7 @@ import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.task.PlayerTask;
 import fun.sunrisemc.tasks.task.TaskConfiguration;
+import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.utils.DataFile;
@@ -72,7 +73,7 @@ public class PlayerProfile {
 
         if (playerData.contains("tasks")) {
             for (String taskKey : playerData.getConfigurationSection("tasks").getKeys(false)) {
-                Optional<TaskConfiguration> taskConfiguration = TaskConfiguration.get(taskKey);
+                Optional<TaskConfiguration> taskConfiguration = TaskConfigurationManager.get(taskKey);
                 if (!taskConfiguration.isPresent()) {
                     Log.warning("Removing invalid task " + taskKey + " for player " + id);
                     continue;
@@ -439,7 +440,7 @@ public class PlayerProfile {
         }
 
         while (tasks.size() < maxTasks) {
-            Optional<TaskConfiguration> optionalTask = TaskConfiguration.getNewTask(this);
+            Optional<TaskConfiguration> optionalTask = TaskConfigurationManager.getNewTask(this);
             if (!optionalTask.isPresent()) {
                 break;
             }

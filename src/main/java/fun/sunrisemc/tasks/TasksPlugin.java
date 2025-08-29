@@ -47,7 +47,7 @@ import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.scheduler.AutoSave;
 import fun.sunrisemc.tasks.scheduler.TaskRefresh;
 import fun.sunrisemc.tasks.scheduler.TimerTrigger;
-import fun.sunrisemc.tasks.task.TaskConfiguration;
+import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.utils.CommandUtils;
 import fun.sunrisemc.tasks.utils.Log;
@@ -136,7 +136,7 @@ public class TasksPlugin extends JavaPlugin {
     public static void loadConfigs() {
         mainConfig = new MainConfig();
         Unlock.loadConfig();
-        TaskConfiguration.loadConfig();
+        TaskConfigurationManager.loadConfig();
         PlayerProfileManager.reload();
         if (!PlayerLevel.verify()) {
             Log.severe("PlayerLevel verification failed");

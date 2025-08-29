@@ -16,6 +16,7 @@ import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.PlayerTask;
 import fun.sunrisemc.tasks.task.TaskConfiguration;
+import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.utils.PlayerUtils;
 import net.md_5.bungee.api.ChatColor;
@@ -82,7 +83,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             String subsubcommand = args[1];
             if (subcommand.equalsIgnoreCase("task")) {
                 if (subsubcommand.equalsIgnoreCase("give")) {
-                    return TaskConfiguration.getIds();
+                    return TaskConfigurationManager.getIds();
                 }
                 else if (subsubcommand.equalsIgnoreCase("remove")) {
                     return playerProfile.getTaskIds();
@@ -175,7 +176,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
                     sender.sendMessage(ChatColor.RED + "You must specify a task");
                     return true;
                 }
-                Optional<TaskConfiguration> taskConfiguration = TaskConfiguration.get(args[3]);
+                Optional<TaskConfiguration> taskConfiguration = TaskConfigurationManager.get(args[3]);
                 if (taskConfiguration.isEmpty()) {
                     sender.sendMessage(ChatColor.RED + "Task not found");
                     return true;

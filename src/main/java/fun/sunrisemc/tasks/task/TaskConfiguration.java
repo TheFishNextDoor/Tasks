@@ -1,9 +1,7 @@
 package fun.sunrisemc.tasks.task;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,55 +17,12 @@ import org.bukkit.inventory.ItemStack;
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.unlock.Unlock;
-import fun.sunrisemc.tasks.utils.ConfigFile;
 import fun.sunrisemc.tasks.utils.EnumUtils;
 import fun.sunrisemc.tasks.utils.Log;
+import fun.sunrisemc.tasks.utils.StringUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class TaskConfiguration {
-
-    private static HashMap<String, TaskConfiguration> taskConfigurations = new HashMap<>();
-
-    private static List<String> settings = List.of(
-        "amount",
-        "message",
-        "time-limit-minutes",
-        "reset-on-death",
-        "skippable",
-        "actionbar",
-        "progress-display",
-        "repeatable",
-        "min-level",
-        "max-level",
-        "prerequisite-tasks",
-        "incompatible-tasks",
-        "permission",
-        "reward-money",
-        "reward-xp",
-        "reward-skips",
-        "reward-unlocks",
-        "reward-console-commands",
-        "reward-player-commands",
-        "reward-messages",
-        "triggers",
-        "worlds",
-        "environments",
-        "biomes",
-        "min-x",
-        "max-x",
-        "min-y",
-        "max-y",
-        "min-z",
-        "max-z",
-        "entity-in-water",
-        "entity-on-ground",
-        "entity-names",
-        "entity-types",
-        "entity-categories",
-        "item-names",
-        "item-materials",
-        "block-materials"
-    );
 
     private final String id;
 
@@ -135,7 +90,7 @@ public class TaskConfiguration {
 
     private HashSet<Material> blockMaterials = new HashSet<>();
 
-    private TaskConfiguration(YamlConfiguration config, String id) {
+    TaskConfiguration(YamlConfiguration config, String id) {
         if (config == null) {
             throw new IllegalArgumentException("Config cannot be null");
         }
@@ -146,9 +101,9 @@ public class TaskConfiguration {
         this.id = id;
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
-            if (!settings.contains(setting)) {
+            if (!TaskConfigurationManager.settings.contains(setting)) {
                 Log.warning("Invalid setting for task " + id + ": " + setting);
-                String possibleSettings = String.join(", ", settings);
+                String possibleSettings = String.join(", ", TaskConfigurationManager.settings);
                 Log.warning("Valid settings are: " + possibleSettings);
             }
         }
@@ -252,7 +207,7 @@ public class TaskConfiguration {
         }
 
         for (String biomeName : config.getStringList(id + ".biomes")) {
-            this.biomes.add(normalizeString(biomeName));
+            this.biomes.add(StringUtils.normalizeString(biomeName));
         }
 
         if (config.contains(id + ".min-x")) {
@@ -328,7 +283,7 @@ public class TaskConfiguration {
             this.blockMaterials.add(blockMaterial);
         }
 
-        taskConfigurations.put(id, this);
+        TaskConfigurationManager.taskConfigurations.put(id, this);
     }
 
     @Override
@@ -410,30 +365,39 @@ public class TaskConfiguration {
         if (playerProfile == null) {
             throw new IllegalArgumentException("Player profile cannot be null");
         }
+
+        Optional<Player> optionalPlayer = playerProfile.getPlayer();
+        if (!optionalPlayer.isPresent()) {
+            return false;
+        }
+        Player player = optionalPlayer.get();
+
         if (playerProfile.hasTask(id)) {
             return false;
         }
+
         if (!repeatable && playerProfile.hasCompletedTask(id)) {
             return false;
         }
-        Optional<Player> player = playerProfile.getPlayer();
-        if (!player.isPresent()) {
-            return false;
-        }
+
         if (minLevel != null && playerProfile.getLevel() < minLevel) {
             return false;
         }
+
         if (maxLevel != null && playerProfile.getLevel() > maxLevel) {
             return false;
         }
-        if (permission != null && !player.get().hasPermission(permission)) {
+
+        if (permission != null && !player.hasPermission(permission)) {
             return false;
         }
+
         for (String prerequisiteTask : prerequisiteTasks) {
             if (!playerProfile.hasCompletedTask(prerequisiteTask)) {
                 return false;
             }
         }
+
         for (PlayerTask task : playerProfile.getTasks()) {
             if (conflictsWith(task.getTaskConfiguration().getId())) {
                 return false;
@@ -442,6 +406,7 @@ public class TaskConfiguration {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -468,7 +433,7 @@ public class TaskConfiguration {
             return false;
         }
 
-        if (!biomes.isEmpty() && !biomes.contains(normalizeString(location.getBlock().getBiome().name()))) {
+        if (!biomes.isEmpty() && !biomes.contains(StringUtils.normalizeString(location.getBlock().getBiome().name()))) {
             return false;
         }
 
@@ -567,50 +532,5 @@ public class TaskConfiguration {
         }
 
         return true;
-    }
-
-    private static String normalizeString(String string) {
-        if (string == null) {
-            return null;
-        }
-        return string.trim().toLowerCase().replace(" ", "_").replace("-", "_");
-    }
-
-    public static Optional<TaskConfiguration> get(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
-        return Optional.ofNullable(taskConfigurations.get(id));
-    }
-
-    public static Optional<TaskConfiguration> getNewTask(PlayerProfile playerProfile) {
-        if (playerProfile == null) {
-            throw new IllegalArgumentException("Player profile cannot be null");
-        }
-        ArrayList<TaskConfiguration> possibleTasks = new ArrayList<>();
-        for (TaskConfiguration taskConfiguration : taskConfigurations.values()) {
-            if (taskConfiguration.meetsRequirements(playerProfile)) {
-                possibleTasks.add(taskConfiguration);
-            }
-        }
-        
-        if (possibleTasks.isEmpty()) {
-            return Optional.empty();
-        }
-
-        return Optional.of(possibleTasks.get((int) (Math.random() * possibleTasks.size())));
-    }
-
-    public static List<String> getIds() {
-        return new ArrayList<>(taskConfigurations.keySet());
-    }
-
-    public static void loadConfig() {
-        taskConfigurations.clear();
-        YamlConfiguration config = ConfigFile.get("tasks");
-        for (String id : config.getKeys(false)) {
-            new TaskConfiguration(config, id);
-        }
-        Log.info("Loaded " + taskConfigurations.size() + " tasks");
     }
 }
