@@ -5,8 +5,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import fun.sunrisemc.tasks.TasksPlugin;
+import fun.sunrisemc.tasks.config.MainConfig;
 import fun.sunrisemc.tasks.player.PlayerProfile;
-import net.md_5.bungee.api.ChatColor;
 
 public class PlayerChat implements Listener {
 
@@ -14,7 +15,14 @@ public class PlayerChat implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfile.get(player);
-        String level = ChatColor.WHITE + "[" + playerProfile.getColor() + playerProfile.getLevel() + ChatColor.WHITE + "]";
-        event.setFormat(level + " " + event.getFormat());
+        MainConfig config = TasksPlugin.getMainConfig();
+        if (config.SHOW_LEVEL) {
+            String color = playerProfile.getColor();
+            String level = String.valueOf(playerProfile.getLevel());
+            String message = event.getFormat();
+            String format = config.CHAT_FORMAT;
+            String newFormat = format.replace("{color}", color).replace("{level}", level).replace("{message}", message);
+            event.setFormat(newFormat);
+        }
     }
 }
