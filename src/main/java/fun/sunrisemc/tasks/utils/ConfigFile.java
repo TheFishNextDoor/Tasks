@@ -17,28 +17,51 @@ public class ConfigFile {
         }
 
         File configFile = new File(getFolder(), name + ".yml");
-
         if (!configFile.exists()) {
-            try {
-                TasksPlugin.getInstance().saveResource(name + ".yml", false);
-            } catch (Exception e) {
-                Log.warning("Failed to save default configuration for " + name + ".yml");
-                e.printStackTrace();
-            }
+            create(name);
         }
 
         YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
         if (copyDefaults(config, getDefault(name))) {
-            try {
-                config.save(configFile);
-            } catch (Exception e) {
-                Log.warning("Failed to copy defaults to " + configFile.getName());
-                e.printStackTrace();
-            }
+            save(name, config);
         }
 
         return config;
+    }
+
+    public static boolean save(String filename, YamlConfiguration config) {
+        File configFile = new File(getFolder(), filename + ".yml");
+        try {
+            config.save(configFile);
+            return true;
+        } catch (Exception e) {
+            Log.warning("Failed to save configuration for " + filename + ".yml");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean create(String filename) {
+        try {
+            TasksPlugin.getInstance().saveResource(filename + ".yml", false);
+        } catch (Exception e) {
+            Log.warning("Failed to save default configuration for " + filename + ".yml");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean moveKeyIfExists(String filename, String fromKey, String toKey) {
+        YamlConfiguration config = get(filename);
+        if (config.contains(fromKey)) {
+            config.set(toKey, config.get(fromKey));
+            config.set(fromKey, null);
+            save(filename, config);
+            return true;
+        }
+        return false;
     }
 
     private static File getFolder() {

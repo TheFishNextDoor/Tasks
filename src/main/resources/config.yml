@@ -1,11 +1,10 @@
 levels:
   enable: true # Enable or disable the leveling system
   show-level: true # Show the player's level in chat
-  chat-format: '&f[{color}{level}&f] {message}'
+  chat-format: '&f[{color}{level}&f] {message}' # The format for chat messages
   xp-curve:
     base: 10 # The base amount of XP required to level up
     multiplier: 1.02 # The xp increase each level (exponential)
-
 tasks:
   allow-skipping: true # Allow players to skip tasks
   max-tasks: 8 # Maximum number of tasks to give a player at one time

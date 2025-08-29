@@ -19,6 +19,8 @@ public class MainConfig {
     public final double TASK_MONEY_MULTIPLIER;
 
     public MainConfig() {
+        updateConfig();
+        
         YamlConfiguration config = ConfigFile.get("config");
 
         this.ENABLE_LEVELLING = config.getBoolean("levels.enable", true);
@@ -31,5 +33,9 @@ public class MainConfig {
         this.MAX_TASKS = NumberUtils.clamp(config.getInt("tasks.max-tasks"), 0, 20);
         this.TASK_XP_MULTIPLIER = NumberUtils.clamp(config.getDouble("tasks.reward-xp-multiplier"), 0.0, 1_000_000.0);
         this.TASK_MONEY_MULTIPLIER = NumberUtils.clamp(config.getDouble("tasks.reward-money-multiplier"), 0.0, 1_000_000.0);
+    }
+
+    private void updateConfig() {
+        ConfigFile.moveKeyIfExists("config", "xp-curve", "levels.xp-curve");
     }
 }
