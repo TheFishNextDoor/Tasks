@@ -2,6 +2,7 @@ package fun.sunrisemc.tasks.task;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -24,6 +25,47 @@ import fun.sunrisemc.tasks.utils.StringUtils;
 import net.md_5.bungee.api.ChatColor;
 
 public class TaskConfiguration {
+
+    private final List<String> SETTINGS = List.of(
+        "amount",
+        "message",
+        "time-limit-minutes",
+        "reset-on-death",
+        "skippable",
+        "actionbar",
+        "progress-display",
+        "repeatable",
+        "min-level",
+        "max-level",
+        "prerequisite-tasks",
+        "incompatible-tasks",
+        "permission",
+        "reward-money",
+        "reward-xp",
+        "reward-skips",
+        "reward-unlocks",
+        "reward-console-commands",
+        "reward-player-commands",
+        "reward-messages",
+        "triggers",
+        "worlds",
+        "environments",
+        "biomes",
+        "min-x",
+        "max-x",
+        "min-y",
+        "max-y",
+        "min-z",
+        "max-z",
+        "entity-in-water",
+        "entity-on-ground",
+        "entity-names",
+        "entity-types",
+        "entity-categories",
+        "item-names",
+        "item-materials",
+        "block-materials"
+    );
 
     private final String id;
 
@@ -102,9 +144,9 @@ public class TaskConfiguration {
         this.id = id;
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
-            if (!TaskConfigurationManager.settings.contains(setting)) {
+            if (!SETTINGS.contains(setting)) {
                 Log.warning("Invalid setting for task " + id + ": " + setting);
-                String possibleSettings = String.join(", ", TaskConfigurationManager.settings);
+                String possibleSettings = String.join(", ", SETTINGS);
                 Log.warning("Valid settings are: " + possibleSettings);
             }
         }

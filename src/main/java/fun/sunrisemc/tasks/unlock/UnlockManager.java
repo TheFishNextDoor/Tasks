@@ -17,15 +17,6 @@ public class UnlockManager {
 
     static ArrayList<Unlock> unlocksSorted = new ArrayList<>();
 
-    static List<String> settings = List.of(
-        "level",
-        "name",
-        "permissions",
-        "console-commands",
-        "player-commands",
-        "messages"
-    );
-    
     public static Optional<Unlock> get(String id) {
         return Optional.ofNullable(unlocksLookup.get(id));
     }

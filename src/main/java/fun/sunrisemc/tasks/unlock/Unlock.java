@@ -1,6 +1,7 @@
 package fun.sunrisemc.tasks.unlock;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -15,6 +16,15 @@ import net.milkbowl.vault.permission.Permission;
 
 public class Unlock implements Comparable<Unlock> {
 
+    private final List<String> SETTINGS = List.of(
+        "level",
+        "name",
+        "permissions",
+        "console-commands",
+        "player-commands",
+        "messages"
+    );
+
     private final String id;
 
     private int level;
@@ -25,6 +35,8 @@ public class Unlock implements Comparable<Unlock> {
     private ArrayList<String> console_commands = new ArrayList<String>();
     private ArrayList<String> player_commands = new ArrayList<String>();
     private ArrayList<String> messages = new ArrayList<String>();
+
+
 
     Unlock(YamlConfiguration config, String id) {
         if (config == null) {
@@ -37,9 +49,9 @@ public class Unlock implements Comparable<Unlock> {
         this.id = id;
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
-            if (!UnlockManager.settings.contains(setting)) {
+            if (!SETTINGS.contains(setting)) {
                 Log.warning("Invalid setting for unlock " + id + ": " + setting);
-                String possibleSettings = String.join(", ", UnlockManager.settings);
+                String possibleSettings = String.join(", ", SETTINGS);
                 Log.warning("Valid settings are: " + possibleSettings);
             }
         }

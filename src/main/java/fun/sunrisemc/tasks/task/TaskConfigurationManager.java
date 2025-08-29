@@ -15,47 +15,6 @@ public class TaskConfigurationManager {
 
     static HashMap<String, TaskConfiguration> taskConfigurations = new HashMap<>();
 
-    static List<String> settings = List.of(
-        "amount",
-        "message",
-        "time-limit-minutes",
-        "reset-on-death",
-        "skippable",
-        "actionbar",
-        "progress-display",
-        "repeatable",
-        "min-level",
-        "max-level",
-        "prerequisite-tasks",
-        "incompatible-tasks",
-        "permission",
-        "reward-money",
-        "reward-xp",
-        "reward-skips",
-        "reward-unlocks",
-        "reward-console-commands",
-        "reward-player-commands",
-        "reward-messages",
-        "triggers",
-        "worlds",
-        "environments",
-        "biomes",
-        "min-x",
-        "max-x",
-        "min-y",
-        "max-y",
-        "min-z",
-        "max-z",
-        "entity-in-water",
-        "entity-on-ground",
-        "entity-names",
-        "entity-types",
-        "entity-categories",
-        "item-names",
-        "item-materials",
-        "block-materials"
-    );
-
     public static Optional<TaskConfiguration> get(String id) {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
