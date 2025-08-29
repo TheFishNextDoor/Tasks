@@ -14,7 +14,7 @@ import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import net.md_5.bungee.api.ChatColor;
 
-public class Level implements CommandExecutor, TabCompleter {
+public class LevelCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {

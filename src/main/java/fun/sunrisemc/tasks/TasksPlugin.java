@@ -3,10 +3,10 @@ package fun.sunrisemc.tasks;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import fun.sunrisemc.tasks.command.Level;
-import fun.sunrisemc.tasks.command.Tasks;
-import fun.sunrisemc.tasks.command.TasksAdmin;
-import fun.sunrisemc.tasks.command.Unlocks;
+import fun.sunrisemc.tasks.command.LevelCommand;
+import fun.sunrisemc.tasks.command.TasksCommand;
+import fun.sunrisemc.tasks.command.TasksAdminCommand;
+import fun.sunrisemc.tasks.command.UnlocksCommand;
 import fun.sunrisemc.tasks.config.MainConfig;
 import fun.sunrisemc.tasks.event.BedEnter;
 import fun.sunrisemc.tasks.event.BedLeave;
@@ -70,10 +70,10 @@ public class TasksPlugin extends JavaPlugin {
 
         loadConfigs();
 
-        CommandUtils.register(this, "tasksadmin", new TasksAdmin());
-        CommandUtils.register(this, "tasks", new Tasks());
-        CommandUtils.register(this, "level", new Level());
-        CommandUtils.register(this, "unlocks", new Unlocks());
+        CommandUtils.register(this, "tasksadmin", new TasksAdminCommand());
+        CommandUtils.register(this, "tasks", new TasksCommand());
+        CommandUtils.register(this, "level", new LevelCommand());
+        CommandUtils.register(this, "unlocks", new UnlocksCommand());
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerJoin(), this);

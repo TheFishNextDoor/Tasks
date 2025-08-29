@@ -15,7 +15,7 @@ import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.PlayerTask;
 import net.md_5.bungee.api.ChatColor;
 
-public class Tasks implements CommandExecutor, TabCompleter {
+public class TasksCommand implements CommandExecutor, TabCompleter {
 
     private final String COLOR_PERMISSION = "tasks.color";
 

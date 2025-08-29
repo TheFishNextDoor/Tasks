@@ -20,7 +20,7 @@ import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.utils.PlayerUtils;
 import net.md_5.bungee.api.ChatColor;
 
-public class TasksAdmin implements CommandExecutor, TabCompleter {
+public class TasksAdminCommand implements CommandExecutor, TabCompleter {
 
     private final String RELOAD_PERMISSION = "tasks.admin.reload";
     private final String TASK_PERMISSION = "tasks.admin.task";
