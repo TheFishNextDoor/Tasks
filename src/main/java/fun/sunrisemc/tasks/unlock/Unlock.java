@@ -36,8 +36,6 @@ public class Unlock implements Comparable<Unlock> {
     private ArrayList<String> player_commands = new ArrayList<String>();
     private ArrayList<String> messages = new ArrayList<String>();
 
-
-
     Unlock(YamlConfiguration config, String id) {
         if (config == null) {
             throw new IllegalArgumentException("Config cannot be null");
