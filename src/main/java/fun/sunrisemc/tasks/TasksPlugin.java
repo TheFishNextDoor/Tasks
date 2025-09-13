@@ -138,7 +138,7 @@ public class TasksPlugin extends JavaPlugin {
         UnlockManager.loadConfig();
         TaskConfigurationManager.loadConfig();
         PlayerProfileManager.reload();
-        if (!PlayerLevel.verify()) {
+        if (mainConfig.ENABLE_LEVELLING && !PlayerLevel.verify()) {
             Log.severe("PlayerLevel verification failed");
         }
     }
