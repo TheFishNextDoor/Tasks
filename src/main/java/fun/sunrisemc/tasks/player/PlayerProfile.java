@@ -17,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import fun.sunrisemc.tasks.TasksPlugin;
+import fun.sunrisemc.tasks.config.MainConfig;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.task.PlayerTask;
 import fun.sunrisemc.tasks.task.TaskConfiguration;
@@ -171,6 +172,10 @@ public class PlayerProfile {
         if (xp == 0) {
             return;
         }
+        MainConfig config = TasksPlugin.getMainConfig();
+        if (!config.ENABLE_LEVELLING) {
+            return;
+        }
         this.xp += xp;
         getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GRAY + "+" + xp + " Xp"));
         checkLevelUp();
@@ -181,6 +186,10 @@ public class PlayerProfile {
             throw new IllegalArgumentException("Xp must be positive");
         }
         if (xp == 0) {
+            return;
+        }
+        MainConfig config = TasksPlugin.getMainConfig();
+        if (!config.ENABLE_LEVELLING) {
             return;
         }
         this.xp -= xp;
@@ -196,6 +205,10 @@ public class PlayerProfile {
             throw new IllegalArgumentException("Xp must be positive");
         }
         if (this.xp == xp) {
+            return;
+        }
+        MainConfig config = TasksPlugin.getMainConfig();
+        if (!config.ENABLE_LEVELLING) {
             return;
         }
         this.xp = xp;
