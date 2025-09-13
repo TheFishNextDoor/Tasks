@@ -36,7 +36,7 @@ public class UnlockManager {
     public static void loadConfig() {
         unlocksSorted.clear();
         unlocksLookup.clear();
-        YamlConfiguration config = ConfigFile.get("unlocks");
+        YamlConfiguration config = ConfigFile.get("unlocks", false);
         for (String id : config.getKeys(false)) {
             new Unlock(config, id);
         }

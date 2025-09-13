@@ -11,7 +11,7 @@ import fun.sunrisemc.tasks.TasksPlugin;
 
 public class ConfigFile {
 
-    public static YamlConfiguration get(String name) {
+    public static YamlConfiguration get(String name, boolean copyMissingDefaults) {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null");
         }
@@ -23,8 +23,10 @@ public class ConfigFile {
 
         YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
-        if (copyDefaults(config, getDefault(name))) {
-            save(name, config);
+        if (copyMissingDefaults) {
+            if (copyDefaults(config, getDefault(name))) {
+                save(name, config);
+            }
         }
 
         return config;
@@ -54,7 +56,7 @@ public class ConfigFile {
     }
 
     public static boolean moveKeyIfExists(String filename, String fromKey, String toKey) {
-        YamlConfiguration config = get(filename);
+        YamlConfiguration config = get(filename, false);
         if (config.contains(fromKey)) {
             config.set(toKey, config.get(fromKey));
             config.set(fromKey, null);

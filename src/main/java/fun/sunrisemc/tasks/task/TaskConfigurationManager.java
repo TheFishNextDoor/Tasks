@@ -46,7 +46,7 @@ public class TaskConfigurationManager {
 
     public static void loadConfig() {
         taskConfigurations.clear();
-        YamlConfiguration config = ConfigFile.get("tasks");
+        YamlConfiguration config = ConfigFile.get("tasks", false);
         for (String id : config.getKeys(false)) {
             new TaskConfiguration(config, id);
         }

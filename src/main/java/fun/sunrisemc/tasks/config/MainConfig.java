@@ -21,7 +21,7 @@ public class MainConfig {
     public MainConfig() {
         updateConfig();
         
-        YamlConfiguration config = ConfigFile.get("config");
+        YamlConfiguration config = ConfigFile.get("config", true);
 
         this.ENABLE_LEVELLING = config.getBoolean("levels.enable", true);
         this.SHOW_LEVEL = config.getBoolean("levels.show-level", true);
