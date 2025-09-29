@@ -29,23 +29,24 @@ public class LevelCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage(ChatColor.RED + "You must be a player to use this command.");
             return true;
         }
+        Player player = (Player) sender;
 
         MainConfig config = TasksPlugin.getMainConfig();
         if (!config.ENABLE_LEVELLING) {
-            sender.sendMessage(ChatColor.RED + "Leveling is disabled on this server.");
+            player.sendMessage(ChatColor.RED + "Leveling is disabled on this server.");
             return true;
         }
         
-        Player player = (Player) sender;
         PlayerProfile playerProfile = PlayerProfileManager.get(player);
         int level = playerProfile.getLevel();
         int xp = playerProfile.getXpSinceLastLevel();
         int nextLevel = xp + playerProfile.getXpToNextLevel();
-        player.sendMessage(playerProfile.getColor() + ChatColor.BOLD + "Level " + level + ChatColor.WHITE + " (" + xp + "/" + nextLevel + ")");
+        String color = playerProfile.getColor();
+        player.sendMessage(color + ChatColor.BOLD + "Level " + level + ChatColor.WHITE + " (" + xp + "/" + nextLevel + ")");
         if (TasksPlugin.getMainConfig().ALLOW_TASK_SKIPPING) {
             player.sendMessage(ChatColor.WHITE + "You have " + playerProfile.getSkips() + " skip(s) remaining");
         }
-        player.sendMessage(playerProfile.getColor() + ChatColor.BOLD + "Upcoming Unlocks");
+        player.sendMessage(color + ChatColor.BOLD + "Upcoming Unlocks");
         int shownUnlocks = 0;
         for (Unlock unlock : UnlockManager.getSorted()) {
             if (shownUnlocks >= 5) {
