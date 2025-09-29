@@ -2,6 +2,7 @@ package fun.sunrisemc.tasks.hook;
 
 import org.bukkit.Server;
 import org.bukkit.plugin.RegisteredServiceProvider;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import net.milkbowl.vault.chat.Chat;
@@ -41,7 +42,7 @@ public class Vault {
         return chat;
     }
 
-    public static boolean hook(TasksPlugin plugin) {
+    public static boolean hook(@NonNull TasksPlugin plugin) {
         usingVault = false;
         
         Server server = plugin.getServer();

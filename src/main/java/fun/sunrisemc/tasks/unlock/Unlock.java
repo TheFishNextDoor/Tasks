@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.player.PlayerProfile;
@@ -36,14 +37,7 @@ public class Unlock implements Comparable<Unlock> {
     private ArrayList<String> playerCommands = new ArrayList<String>();
     private ArrayList<String> messages = new ArrayList<String>();
 
-    Unlock(YamlConfiguration config, String id) {
-        if (config == null) {
-            throw new IllegalArgumentException("Config cannot be null");
-        }
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
-
+    Unlock(@NonNull YamlConfiguration config, @NonNull String id) {
         this.id = id;
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
@@ -85,10 +79,7 @@ public class Unlock implements Comparable<Unlock> {
     }
 
     @Override
-    public int compareTo(Unlock other) {
-        if (other == null) {
-            throw new IllegalArgumentException("Other unlock cannot be null");
-        }
+    public int compareTo(@NonNull Unlock other) {
         return Integer.compare(this.getLevel(), other.getLevel());
     }
 
@@ -100,21 +91,14 @@ public class Unlock implements Comparable<Unlock> {
         return level;
     }
 
-    public boolean isValidFor(PlayerProfile playerProfile) {
-        if (playerProfile == null) {
-            throw new IllegalArgumentException("Player profile cannot be null");
-        }
+    public boolean isValidFor(@NonNull PlayerProfile playerProfile) {
         if (level < 1 || level > playerProfile.getLevel()) {
             return false;
         }
         return true;
     }
 
-    public void giveTo(PlayerProfile playerProfile) {
-        if (playerProfile == null) {
-            throw new IllegalArgumentException("Player profile cannot be null");
-        }
-
+    public void giveTo(@NonNull PlayerProfile playerProfile) {
         Optional<Player> optionalPlayer = playerProfile.getPlayer();
         if (!optionalPlayer.isPresent()) {
             return;
@@ -148,10 +132,7 @@ public class Unlock implements Comparable<Unlock> {
         return;
     }
 
-    public void givePermissions(Player player) {
-        if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null");
-        }
+    public void givePermissions(@NonNull Player player) {
         if (Vault.isUsingVault()) {
             Permission permissionsProvider = Vault.getPermissions();
             for (String permission : permissions) {

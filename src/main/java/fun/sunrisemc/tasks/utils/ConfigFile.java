@@ -6,16 +6,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 
 public class ConfigFile {
 
-    public static YamlConfiguration get(String name, boolean copyMissingDefaults) {
-        if (name == null) {
-            throw new IllegalArgumentException("Name cannot be null");
-        }
-
+    public static YamlConfiguration get(@NonNull String name, boolean copyMissingDefaults) {
         File configFile = new File(getFolder(), name + ".yml");
         if (!configFile.exists()) {
             create(name);
@@ -32,7 +29,7 @@ public class ConfigFile {
         return config;
     }
 
-    public static boolean save(String filename, YamlConfiguration config) {
+    public static boolean save(@NonNull String filename, @NonNull YamlConfiguration config) {
         File configFile = new File(getFolder(), filename + ".yml");
         try {
             config.save(configFile);
@@ -44,7 +41,7 @@ public class ConfigFile {
         }
     }
 
-    public static boolean create(String filename) {
+    public static boolean create(@NonNull String filename) {
         try {
             TasksPlugin.getInstance().saveResource(filename + ".yml", false);
         } catch (Exception e) {
@@ -55,7 +52,7 @@ public class ConfigFile {
         return true;
     }
 
-    public static boolean moveKeyIfExists(String filename, String fromKey, String toKey) {
+    public static boolean moveKeyIfExists(@NonNull String filename, @NonNull String fromKey, @NonNull String toKey) {
         YamlConfiguration config = get(filename, false);
         if (config.contains(fromKey)) {
             config.set(toKey, config.get(fromKey));
@@ -74,7 +71,7 @@ public class ConfigFile {
         return pluginFolder;
     }
 
-    private static YamlConfiguration getDefault(String name) {
+    private static YamlConfiguration getDefault(@NonNull String name) {
         YamlConfiguration defaultConfig = new YamlConfiguration();
         try {
             InputStream resourceStream = TasksPlugin.getInstance().getResource(name + ".yml");
@@ -89,7 +86,7 @@ public class ConfigFile {
         return defaultConfig;
     }
 
-    private static boolean copyDefaults(YamlConfiguration config, YamlConfiguration defaultConfig) {
+    private static boolean copyDefaults(@NonNull YamlConfiguration config, @NonNull YamlConfiguration defaultConfig) {
         boolean changed = false;
         for (String key : defaultConfig.getKeys(true)) {
             if (!config.contains(key)) {

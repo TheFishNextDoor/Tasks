@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 
@@ -12,34 +13,19 @@ public class PlayerProfileManager {
 
     static ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
 
-    public static void load(Player player) {
-        if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null");
-        }
+    public static void load(@NonNull Player player) {
         PlayerProfileManager.load(player.getUniqueId());
     }
 
-    public static void load(UUID uuid) {
-        if (uuid == null) {
-            throw new IllegalArgumentException("UUID cannot be null");
-        }
-        Bukkit.getScheduler().runTaskAsynchronously(TasksPlugin.getInstance(), () -> {
-            PlayerProfileManager.get(uuid);
-        });
+    public static void load(@NonNull UUID uuid) {
+        Bukkit.getScheduler().runTaskAsynchronously(TasksPlugin.getInstance(), () -> PlayerProfileManager.get(uuid));
     }
 
-    public static PlayerProfile get(Player player) {
-        if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null");
-        }
+    public static PlayerProfile get(@NonNull Player player) {
         return PlayerProfileManager.get(player.getUniqueId());
     }
 
-    public static PlayerProfile get(UUID uuid) {
-        if (uuid == null) {
-            throw new IllegalArgumentException("UUID cannot be null");
-        }
-    
+    public static PlayerProfile get(@NonNull UUID uuid) {
         PlayerProfile playerProfile = playerProfiles.get(uuid);
         if (playerProfile == null) {
             playerProfile = new PlayerProfile(uuid);
@@ -62,5 +48,4 @@ public class PlayerProfileManager {
     public static void saveAll() {
         playerProfiles.values().forEach(PlayerProfile::save);
     }
-    
 }

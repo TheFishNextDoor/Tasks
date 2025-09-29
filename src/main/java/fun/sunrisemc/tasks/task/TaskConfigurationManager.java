@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.utils.ConfigFile;
@@ -15,17 +16,11 @@ public class TaskConfigurationManager {
 
     static HashMap<String, TaskConfiguration> taskConfigurations = new HashMap<>();
 
-    public static Optional<TaskConfiguration> get(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
+    public static Optional<TaskConfiguration> get(@NonNull String id) {
         return Optional.ofNullable(taskConfigurations.get(id));
     }
 
-    public static Optional<TaskConfiguration> getNewTask(PlayerProfile playerProfile) {
-        if (playerProfile == null) {
-            throw new IllegalArgumentException("Player profile cannot be null");
-        }
+    public static Optional<TaskConfiguration> getNewTask(@NonNull PlayerProfile playerProfile) {
         ArrayList<TaskConfiguration> possibleTasks = new ArrayList<>();
         for (TaskConfiguration taskConfiguration : taskConfigurations.values()) {
             if (taskConfiguration.meetsRequirements(playerProfile)) {

@@ -1,16 +1,10 @@
 package fun.sunrisemc.tasks.utils;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 public class EnumUtils {
 
-    public static <E extends Enum<E>> E fromString(Class<E> enumClass, String name) {
-        if (enumClass == null) {
-            throw new IllegalArgumentException("Enum class cannot be null");
-        }
-        
-        if (name == null) {
-            return null;
-        }
-
+    public static <E extends Enum<E>> E fromString(@NonNull Class<E> enumClass, @NonNull String name) {
         name = name.trim().replace(" ", "_").replace("-", "_");
 
         try {
@@ -27,11 +21,7 @@ public class EnumUtils {
         return null;
     }
 
-    public static String allStrings(Class<? extends Enum<?>> enumClass) {
-        if (enumClass == null) {
-            throw new IllegalArgumentException("Enum class cannot be null");
-        }
-
+    public static String allStrings(@NonNull Class<? extends Enum<?>> enumClass) {
         Enum<?>[] constants = enumClass.getEnumConstants();
         if (constants == null) {
             return "";

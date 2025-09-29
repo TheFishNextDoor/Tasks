@@ -6,10 +6,11 @@ import java.util.Optional;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class PlayerUtils {
 
-    public static Optional<Player> getNearestPlayer(Location location) {
+    public static Optional<Player> getNearestPlayer(@NonNull Location location) {
         Player nearestPlayer = null;
         double nearestDistance = Double.MAX_VALUE;
         for (Player player : location.getWorld().getPlayers()) {

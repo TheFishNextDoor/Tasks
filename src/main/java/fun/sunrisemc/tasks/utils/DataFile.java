@@ -3,16 +3,13 @@ package fun.sunrisemc.tasks.utils;
 import java.io.File;
 
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 
 public class DataFile {
 
-    public static YamlConfiguration get(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("Name cannot be null");
-        }
-
+    public static YamlConfiguration get(@NonNull String name) {
         File dataFile = new File(getFolder(), name + ".yml");
         if (!dataFile.exists()) {
             try {
@@ -24,14 +21,7 @@ public class DataFile {
         return YamlConfiguration.loadConfiguration(dataFile);
     }
 
-    public static void save(String name, YamlConfiguration data) {
-        if (name == null) {
-            throw new IllegalArgumentException("Name cannot be null");
-        }
-        if (data == null) {
-            throw new IllegalArgumentException("Data cannot be null");
-        }
-
+    public static void save(@NonNull String name, @NonNull YamlConfiguration data) {
         File dataFile = new File(getFolder(), name + ".yml");
         try {
             data.save(dataFile);

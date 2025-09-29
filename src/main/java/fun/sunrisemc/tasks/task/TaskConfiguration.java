@@ -14,6 +14,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.SpawnCategory;
 import org.bukkit.inventory.ItemStack;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfile;
@@ -133,14 +135,7 @@ public class TaskConfiguration {
 
     private HashSet<Material> blockMaterials = new HashSet<>();
 
-    TaskConfiguration(YamlConfiguration config, String id) {
-        if (config == null) {
-            throw new IllegalArgumentException("Config cannot be null");
-        }
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
-
+    TaskConfiguration(@NonNull YamlConfiguration config, @NonNull String id) {
         this.id = id;
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
@@ -369,10 +364,7 @@ public class TaskConfiguration {
         return progressDisplayType;
     }
 
-    public boolean conflictsWith(String otherTaskId) {
-        if (otherTaskId == null) {
-            throw new IllegalArgumentException("Other task id cannot be null");
-        }
+    public boolean conflictsWith(@NonNull String otherTaskId) {
         return incompatibleTasks.contains(otherTaskId);
     }
 
@@ -404,11 +396,7 @@ public class TaskConfiguration {
         return rewardMessages;
     }
 
-    public boolean meetsRequirements(PlayerProfile playerProfile) {
-        if (playerProfile == null) {
-            throw new IllegalArgumentException("Player profile cannot be null");
-        }
-
+    public boolean meetsRequirements(@NonNull PlayerProfile playerProfile) {
         Optional<Player> optionalPlayer = playerProfile.getPlayer();
         if (!optionalPlayer.isPresent()) {
             return false;
@@ -453,17 +441,7 @@ public class TaskConfiguration {
         return true;
     }
 
-    public boolean isValidFor(TriggerType trigger, Player player, Location location, Entity entity, ItemStack item, Block block) {
-        if (trigger == null) {
-            throw new IllegalArgumentException("Trigger cannot be null");
-        }
-        if (player == null) {
-            throw new IllegalArgumentException("Player cannot be null");
-        }
-        if (location == null) {
-            throw new IllegalArgumentException("Location cannot be null");
-        }
-
+    public boolean isValidFor(@NonNull TriggerType trigger, @NonNull Player player, @NonNull Location location, @Nullable Entity entity, @Nullable ItemStack item, @Nullable Block block) {
         if (!triggers.contains(trigger)) {
             return false;
         }

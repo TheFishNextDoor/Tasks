@@ -15,6 +15,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.config.MainConfig;
@@ -52,11 +54,7 @@ public class PlayerProfile {
 
     private int level;
 
-    PlayerProfile(UUID uuid) {
-        if (uuid == null) {
-            throw new IllegalArgumentException("UUID cannot be null");
-        }
-
+    PlayerProfile(@NonNull UUID uuid) {
         this.uuid = uuid;
 
         String id = uuid.toString();
@@ -260,10 +258,7 @@ public class PlayerProfile {
         getPlayer().ifPresent(player -> player.sendMessage(ChatColor.LIGHT_PURPLE + "Your skips have been set to " + skips));
     }
 
-    public boolean skip(PlayerTask playerTask) {
-        if (playerTask == null) {
-            throw new IllegalArgumentException("PlayerTask cannot be null");
-        }
+    public boolean skip(@NonNull PlayerTask playerTask) {
         if (skips <= 0) {
             return false;
         }
@@ -282,48 +277,30 @@ public class PlayerProfile {
         return color + "";
     }
 
-    public void setColor(ChatColor color) {
-        if (color == null) {
-            throw new IllegalArgumentException("Color cannot be null");
-        }
+    public void setColor(@NonNull ChatColor color) {
         if (color == ChatColor.STRIKETHROUGH || color == ChatColor.MAGIC || color == ChatColor.BOLD || color == ChatColor.ITALIC || color == ChatColor.UNDERLINE || color == ChatColor.RESET) {
             throw new IllegalArgumentException("Invalid color");
         }
         this.color = color;
     }
 
-    public boolean addCompletedUnlock(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
+    public boolean addCompletedUnlock(@NonNull String id) {
         return completedUnlocks.add(id);
     }
 
-    public boolean hasCompletedUnlock(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
+    public boolean hasCompletedUnlock(@NonNull String id) {
         return completedUnlocks.contains(id);
     }
 
-    public boolean addCompletedTask(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
+    public boolean addCompletedTask(@NonNull String id) {
         return completedTasks.add(id);
     }
 
-    public boolean hasCompletedTask(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
+    public boolean hasCompletedTask(@NonNull String id) {
         return completedTasks.contains(id);
     }
 
-    public boolean addTask(PlayerTask task) {
-        if (task == null) {
-            throw new IllegalArgumentException("Task cannot be null");
-        }
+    public boolean addTask(@NonNull PlayerTask task) {
         if (hasTask(task.getTaskConfiguration().getId())) {
             return false;
         }
@@ -332,10 +309,7 @@ public class PlayerProfile {
         return true;
     }
 
-    public boolean removeTask(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
+    public boolean removeTask(@NonNull String id) {
         Optional<PlayerTask> task = getTask(id);
         if (!task.isPresent()) {
             return false;
@@ -347,17 +321,11 @@ public class PlayerProfile {
         return false;
     }
 
-    public boolean hasTask(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
+    public boolean hasTask(@NonNull String id) {
         return tasks.stream().anyMatch(task -> task.getTaskConfiguration().getId().equals(id));
     }
 
-    public Optional<PlayerTask> getTask(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
+    public Optional<PlayerTask> getTask(@NonNull String id) {
         return tasks.stream().filter(task -> task.getTaskConfiguration().getId().equals(id)).findFirst();
     }
 
@@ -371,7 +339,7 @@ public class PlayerProfile {
         return taskIds;
     }
 
-    public void triggerTasks(TriggerType triggerType, Location location, Entity entity, ItemStack item, Block block, int amount) {
+    public void triggerTasks(@NonNull TriggerType triggerType, @NonNull Location location, @Nullable Entity entity, @Nullable ItemStack item, @Nullable Block block, int amount) {
         tasks.forEach(task -> task.trigger(triggerType, location, entity, item, block, amount));
     }
 
@@ -380,15 +348,11 @@ public class PlayerProfile {
         populateTasks();
     }
 
-    public void sendNotification(String title) {
+    public void sendNotification(@NonNull String title) {
         sendNotification(title, null);
     }
 
-    public void sendNotification(String title, String info) {
-        if (title == null) {
-            throw new IllegalArgumentException("Title cannot be null");
-        }
-
+    public void sendNotification(@NonNull String title, @Nullable String info) {
         Optional<Player> optionalPlayer = getPlayer();
         if (!optionalPlayer.isPresent()) {
             return;

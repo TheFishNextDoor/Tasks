@@ -8,6 +8,8 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.unlock.Unlock;
@@ -28,20 +30,14 @@ public class PlayerTask {
 
     private boolean completed;
 
-    public PlayerTask(TaskConfiguration taskConfiguration, PlayerProfile playerProfile, int progress, long expires) {
-        if (taskConfiguration == null) {
-            throw new IllegalArgumentException("Task configuration cannot be null");
-        }
-        if (playerProfile == null) {
-            throw new IllegalArgumentException("Player profile cannot be null");
-        }
+    public PlayerTask(@NonNull TaskConfiguration taskConfiguration, @NonNull PlayerProfile playerProfile, int progress, long expires) {
         this.taskConfiguration = taskConfiguration;
         this.playerProfile = playerProfile;
         this.progress = progress;
         this.expires = expires;
     }
 
-    public PlayerTask(TaskConfiguration taskConfiguration, PlayerProfile playerProfile) {
+    public PlayerTask(@NonNull TaskConfiguration taskConfiguration, @NonNull PlayerProfile playerProfile) {
         this(taskConfiguration, playerProfile, 0, taskConfiguration.getTimeLimitMS() == 0 ? 0 : System.currentTimeMillis() + taskConfiguration.getTimeLimitMS());
     }
 
@@ -139,7 +135,7 @@ public class PlayerTask {
         return expires != 0;
     }
 
-    public void trigger(TriggerType triggerType, Location location, Entity entity, ItemStack item, Block block, int amount) {
+    public void trigger(@NonNull TriggerType triggerType, @NonNull Location location, @Nullable Entity entity, @Nullable ItemStack item, @Nullable Block block, int amount) {
         Optional<Player> player = playerProfile.getPlayer();
         if (!player.isPresent()) {
             return;
