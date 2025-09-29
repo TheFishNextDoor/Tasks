@@ -7,6 +7,8 @@ import fun.sunrisemc.tasks.player.PlayerProfileManager;
 
 public class AutoSave {
 
+    private static final int INTERVAL = 20 * 60 * 5; // 5 minutes
+
     private static int id = -1;
 
     public static void start() {
@@ -15,7 +17,7 @@ public class AutoSave {
         }
         Bukkit.getScheduler().runTaskTimerAsynchronously(TasksPlugin.getInstance(), () -> {
             PlayerProfileManager.saveAll();
-        }, 20 * 60 * 5, 20 * 60 * 5);
+        }, INTERVAL, INTERVAL);
     }
 
     public static void stop() {

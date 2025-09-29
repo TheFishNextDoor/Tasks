@@ -7,6 +7,8 @@ import fun.sunrisemc.tasks.player.PlayerProfileManager;
 
 public class TaskRefresh {
 
+    private static final int INTERVAL = 20 * 5; // 5 seconds
+
     private static int id = -1;
 
     public static void start() {
@@ -15,7 +17,7 @@ public class TaskRefresh {
         }
         id = Bukkit.getScheduler().scheduleSyncRepeatingTask(TasksPlugin.getInstance(), () -> {
             PlayerProfileManager.refreshAllTasks();
-        }, 20 * 5, 20 * 5);
+        }, INTERVAL, INTERVAL);
     }
 
     public static void stop() {

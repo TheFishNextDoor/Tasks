@@ -11,6 +11,8 @@ import fun.sunrisemc.tasks.utils.InventoryUtils;
 
 public class TimerTrigger {
 
+    private static final int INTERVAL = 20 * 1; // 1 second
+
     private static int id = -1;
 
     public static void start() {
@@ -23,7 +25,7 @@ public class TimerTrigger {
                 ItemStack hand = InventoryUtils.getItemInHand(player);
                 playerProfile.triggerTasks(TriggerType.TIMER, player.getLocation(), player, hand, null, 1);
             });
-        }, 20 * 1, 20 * 1);
+        }, INTERVAL, INTERVAL);
     }
 
     public static void stop() {
