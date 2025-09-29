@@ -95,8 +95,6 @@ public class PlayerProfile {
         }
 
         this.level = PlayerLevel.getLevel(xp);
-        
-        PlayerProfileManager.playerProfiles.putIfAbsent(uuid, this);
     }
 
     public void save() {
@@ -125,7 +123,7 @@ public class PlayerProfile {
         DataFile.save(id, playerData);
 
         if (!isOnline()) {
-            PlayerProfileManager.playerProfiles.remove(uuid);
+            PlayerProfileManager.unload(uuid);
         }
     }
 

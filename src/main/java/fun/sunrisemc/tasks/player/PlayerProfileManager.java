@@ -11,7 +11,7 @@ import fun.sunrisemc.tasks.TasksPlugin;
 
 public class PlayerProfileManager {
 
-    static ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
 
     public static void load(@NonNull Player player) {
         PlayerProfileManager.load(player.getUniqueId());
@@ -19,6 +19,10 @@ public class PlayerProfileManager {
 
     public static void load(@NonNull UUID uuid) {
         Bukkit.getScheduler().runTaskAsynchronously(TasksPlugin.getInstance(), () -> PlayerProfileManager.get(uuid));
+    }
+
+    public static boolean unload(@NonNull UUID uuid) {
+        return playerProfiles.remove(uuid) != null;
     }
 
     public static PlayerProfile get(@NonNull Player player) {
@@ -29,6 +33,7 @@ public class PlayerProfileManager {
         PlayerProfile playerProfile = playerProfiles.get(uuid);
         if (playerProfile == null) {
             playerProfile = new PlayerProfile(uuid);
+            playerProfiles.put(uuid, playerProfile);
         }
         return playerProfile;
     }

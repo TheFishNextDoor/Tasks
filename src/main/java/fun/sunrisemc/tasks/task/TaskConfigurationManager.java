@@ -14,7 +14,7 @@ import fun.sunrisemc.tasks.utils.Log;
 
 public class TaskConfigurationManager {
 
-    static HashMap<String, TaskConfiguration> taskConfigurations = new HashMap<>();
+    private static HashMap<String, TaskConfiguration> taskConfigurations = new HashMap<>();
 
     public static Optional<TaskConfiguration> get(@NonNull String id) {
         return Optional.ofNullable(taskConfigurations.get(id));
@@ -43,7 +43,7 @@ public class TaskConfigurationManager {
         taskConfigurations.clear();
         YamlConfiguration config = ConfigFile.get("tasks", false);
         for (String id : config.getKeys(false)) {
-            new TaskConfiguration(config, id);
+            taskConfigurations.put(id, new TaskConfiguration(config, id));
         }
         Log.info("Loaded " + taskConfigurations.size() + " tasks");
     }

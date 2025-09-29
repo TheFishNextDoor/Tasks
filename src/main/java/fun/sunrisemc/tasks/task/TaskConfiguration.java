@@ -323,8 +323,6 @@ public class TaskConfiguration {
             }
             this.blockMaterials.add(blockMaterial);
         }
-
-        TaskConfigurationManager.taskConfigurations.put(id, this);
     }
 
     @Override
