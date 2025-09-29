@@ -15,9 +15,9 @@ public class AutoSave {
         if (id != -1) {
             return;
         }
-        Bukkit.getScheduler().runTaskTimerAsynchronously(TasksPlugin.getInstance(), () -> {
+        id = Bukkit.getScheduler().runTaskTimerAsynchronously(TasksPlugin.getInstance(), () -> {
             PlayerProfileManager.saveAll();
-        }, INTERVAL, INTERVAL);
+        }, INTERVAL, INTERVAL).getTaskId();
     }
 
     public static void stop() {
