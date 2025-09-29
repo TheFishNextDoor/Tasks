@@ -79,7 +79,7 @@ public class Unlock implements Comparable<Unlock> {
     }
 
     @Override
-    public int compareTo(@NonNull Unlock other) {
+    public int compareTo(Unlock other) {
         return Integer.compare(this.getLevel(), other.getLevel());
     }
 

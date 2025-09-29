@@ -14,6 +14,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.utils.MoneyUtils;
+
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
