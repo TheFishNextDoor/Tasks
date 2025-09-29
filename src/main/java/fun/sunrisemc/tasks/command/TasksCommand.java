@@ -8,8 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-
 import fun.sunrisemc.tasks.TasksPlugin;
+import fun.sunrisemc.tasks.permission.Permissions;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.PlayerTask;
@@ -17,13 +17,11 @@ import net.md_5.bungee.api.ChatColor;
 
 public class TasksCommand implements CommandExecutor, TabCompleter {
 
-    private final String COLOR_PERMISSION = "tasks.color";
-
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
             ArrayList<String> subcommands = new ArrayList<String>();
-            if (sender.hasPermission(COLOR_PERMISSION)) {
+            if (sender.hasPermission(Permissions.COLOR_PERMISSION)) {
                 subcommands.add("color");
             }
             if (TasksPlugin.getMainConfig().ALLOW_TASK_SKIPPING) {
@@ -33,7 +31,7 @@ public class TasksCommand implements CommandExecutor, TabCompleter {
             return subcommands;
         }
         else if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("color") && sender.hasPermission(COLOR_PERMISSION)) {
+            if (args[0].equalsIgnoreCase("color") && sender.hasPermission(Permissions.COLOR_PERMISSION)) {
                 return List.of("#RRGGBB", "black", "dark_blue", "dark_green", "dark_aqua", "dark_red", "dark_purple", "gold", "gray", "dark_gray", "blue", "green", "aqua", "red", "light_purple", "yellow", "white");
             }
             else if (args[0].equalsIgnoreCase("skip") && TasksPlugin.getMainConfig().ALLOW_TASK_SKIPPING && sender instanceof Player) {
@@ -64,7 +62,7 @@ public class TasksCommand implements CommandExecutor, TabCompleter {
         String subCommand = args.length > 0 ? args[0] : "";
 
         // Color //
-        if (subCommand.equalsIgnoreCase("color") && sender.hasPermission(COLOR_PERMISSION)) {
+        if (subCommand.equalsIgnoreCase("color") && sender.hasPermission(Permissions.COLOR_PERMISSION)) {
             if (args.length < 2) {
                 sender.sendMessage(ChatColor.RED + "Usage: /tasks color <color>");
                 return true;
