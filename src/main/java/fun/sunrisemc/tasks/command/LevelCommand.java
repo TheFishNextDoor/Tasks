@@ -39,10 +39,10 @@ public class LevelCommand implements CommandExecutor, TabCompleter {
         
         PlayerProfile playerProfile = PlayerProfileManager.get(player);
         int level = playerProfile.getLevel();
-        int xp = playerProfile.getXpSinceLastLevel();
-        int nextLevel = xp + playerProfile.getXpToNextLevel();
+        int xpSinceLastLevel = playerProfile.getXpSinceLastLevel();
+        int xpToNextLevel = xpSinceLastLevel + playerProfile.getXpToNextLevel();
         String color = playerProfile.getColor();
-        player.sendMessage(color + ChatColor.BOLD + "Level " + level + ChatColor.WHITE + " (" + xp + "/" + nextLevel + ")");
+        player.sendMessage(color + ChatColor.BOLD + "Level " + level + ChatColor.WHITE + " (" + xpSinceLastLevel + "/" + xpToNextLevel + ")");
         if (TasksPlugin.getMainConfig().ALLOW_TASK_SKIPPING) {
             int skips = playerProfile.getSkips();
             if (skips == 1) {
