@@ -44,7 +44,13 @@ public class LevelCommand implements CommandExecutor, TabCompleter {
         String color = playerProfile.getColor();
         player.sendMessage(color + ChatColor.BOLD + "Level " + level + ChatColor.WHITE + " (" + xp + "/" + nextLevel + ")");
         if (TasksPlugin.getMainConfig().ALLOW_TASK_SKIPPING) {
-            player.sendMessage(ChatColor.WHITE + "You have " + playerProfile.getSkips() + " skip(s) remaining");
+            int skips = playerProfile.getSkips();
+            if (skips == 1) {
+                player.sendMessage(ChatColor.WHITE + "You have 1 skip remaining");
+            }
+            else {
+                player.sendMessage(ChatColor.WHITE + "You have " + skips + " skips remaining");
+            }
         }
         player.sendMessage(color + ChatColor.BOLD + "Upcoming Unlocks");
         int shownUnlocks = 0;
