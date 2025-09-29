@@ -12,6 +12,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import fun.sunrisemc.tasks.TasksPlugin;
+import fun.sunrisemc.tasks.config.MainConfig;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.PlayerTask;
@@ -32,6 +33,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        MainConfig config = TasksPlugin.getMainConfig();
         if (args.length == 1) {
             ArrayList<String> subcommands = new ArrayList<String>();
             subcommands.add("help");
@@ -47,12 +49,12 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             if (sender.hasPermission(UNLOCK_PERMISSION)) {
                 subcommands.add("unlock");
             }
-            if (sender.hasPermission(SKIPS_PERMISSION)) {
+            if (config.ALLOW_TASK_SKIPPING && sender.hasPermission(SKIPS_PERMISSION)) {
                 subcommands.add("skips");
             }
             return subcommands;
         }
-        if (args.length == 2) {
+        else if (args.length == 2) {
             String subcommand = args[0];
             if (subcommand.equalsIgnoreCase("task") && sender.hasPermission(TASK_PERMISSION)) {
                 return List.of("list", "give", "remove", "addprogress");
@@ -63,57 +65,57 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             else if (subcommand.equalsIgnoreCase("unlock") && sender.hasPermission(UNLOCK_PERMISSION)) {
                 return List.of("list", "give");
             }
-            else if (subcommand.equalsIgnoreCase("skips") && sender.hasPermission(SKIPS_PERMISSION)) {
+            else if (subcommand.equalsIgnoreCase("skips") && config.ALLOW_TASK_SKIPPING && sender.hasPermission(SKIPS_PERMISSION)) {
                 return List.of("give", "take", "set");
             }
             else {
                 return null;
             }
         }
-        if (args.length == 3) {
+        else if (args.length == 3) {
             return PlayerUtils.getPlayerNames();
         }
-        if (args.length == 4) {
+        else if (args.length == 4) {
             Player player = Bukkit.getPlayer(args[2]);
             if (player == null) {
                 return null;
             }
 
             PlayerProfile playerProfile = PlayerProfileManager.get(player);
-            String subcommand = args[0];
-            String subsubcommand = args[1];
-            if (subcommand.equalsIgnoreCase("task")) {
-                if (subsubcommand.equalsIgnoreCase("give")) {
+            String subCommand = args[0];
+            String subSubCommand = args[1];
+            if (subCommand.equalsIgnoreCase("task") && sender.hasPermission(TASK_PERMISSION)) {
+                if (subSubCommand.equalsIgnoreCase("give")) {
                     return TaskConfigurationManager.getIds();
                 }
-                else if (subsubcommand.equalsIgnoreCase("remove")) {
+                else if (subSubCommand.equalsIgnoreCase("remove")) {
                     return playerProfile.getTaskIds();
                 }
-                else if (subsubcommand.equalsIgnoreCase("addprogress")) {
+                else if (subSubCommand.equalsIgnoreCase("addprogress")) {
                     return playerProfile.getTaskIds();
                 }
                 else {
                     return null;
                 }
             }
-            else if (subcommand.equalsIgnoreCase("xp")) {
-                if (subsubcommand.equalsIgnoreCase("set")) {
+            else if (subCommand.equalsIgnoreCase("xp") && sender.hasPermission(XP_PERMISSION)) {
+                if (subSubCommand.equalsIgnoreCase("set")) {
                     return List.of(playerProfile.getTotalXp() + "");
                 }
                 else {
                     return null;
                 }
             }
-            else if (subcommand.equalsIgnoreCase("unlock")) {
-                if (subsubcommand.equalsIgnoreCase("give")) {
+            else if (subCommand.equalsIgnoreCase("unlock") && sender.hasPermission(UNLOCK_PERMISSION)) {
+                if (subSubCommand.equalsIgnoreCase("give")) {
                     return UnlockManager.getIds();
                 }
                 else {
                     return null;
                 }
             }
-            else if (subcommand.equalsIgnoreCase("skips")) {
-                if (subsubcommand.equalsIgnoreCase("set")) {
+            else if (subCommand.equalsIgnoreCase("skips") && config.ALLOW_TASK_SKIPPING && sender.hasPermission(SKIPS_PERMISSION)) {
+                if (subSubCommand.equalsIgnoreCase("set")) {
                     return List.of(playerProfile.getSkips() + "");
                 }
                 else {
@@ -131,6 +133,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        MainConfig config = TasksPlugin.getMainConfig();
         String subCommand = args.length > 0 ? args[0] : "";
         
         // Reload //
@@ -241,6 +244,8 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
         }
+
+        // XP //
         else if (subCommand.equalsIgnoreCase("xp") && sender.hasPermission(XP_PERMISSION)) {
             if (args.length < 2) {
                 sender.sendMessage(ChatColor.RED + "You must specify a subcommand");
@@ -315,6 +320,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
         }
+
         // Unlock //
         else if (subCommand.equalsIgnoreCase("unlock") && sender.hasPermission(UNLOCK_PERMISSION)) {
             if (args.length < 2) {
@@ -369,7 +375,9 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
         }
-        else if (subCommand.equalsIgnoreCase("skips") && sender.hasPermission(SKIPS_PERMISSION)) {
+
+        // Skips //
+        else if (subCommand.equalsIgnoreCase("skips") && config.ALLOW_TASK_SKIPPING && sender.hasPermission(SKIPS_PERMISSION)) {
             if (args.length < 2) {
                 sender.sendMessage(ChatColor.RED + "You must specify a subcommand");
                 return true;
@@ -437,12 +445,13 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
                     return true;
                 }
             }
-            // Skip Invalid Subcommand //
+            // Skips Invalid Subcommand //
             else {
                 sender.sendMessage(ChatColor.RED + "Invalid subcommand");
                 return true;
             }
         }
+
         // Help (default) //
         else {
             sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "Tasks Admin Help");
