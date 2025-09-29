@@ -32,8 +32,8 @@ public class Unlock implements Comparable<Unlock> {
     private String name;
 
     private ArrayList<String> permissions = new ArrayList<String>();
-    private ArrayList<String> console_commands = new ArrayList<String>();
-    private ArrayList<String> player_commands = new ArrayList<String>();
+    private ArrayList<String> consoleCommands = new ArrayList<String>();
+    private ArrayList<String> playerCommands = new ArrayList<String>();
     private ArrayList<String> messages = new ArrayList<String>();
 
     Unlock(YamlConfiguration config, String id) {
@@ -63,19 +63,16 @@ public class Unlock implements Comparable<Unlock> {
         }
 
         for (String command : config.getStringList(id + ".console-commands")) {
-            console_commands.add(command);
+            consoleCommands.add(command);
         }
 
         for (String command : config.getStringList(id + ".player-commands")) {
-            player_commands.add(command);
+            playerCommands.add(command);
         }
 
         for (String message : config.getStringList(id + ".messages")) {
             messages.add(ChatColor.translateAlternateColorCodes('&', message));
         }
-
-        UnlockManager.unlocksSorted.add(this);
-        UnlockManager.unlocksLookup.put(id, this);
     }
 
     @Override
@@ -133,12 +130,12 @@ public class Unlock implements Comparable<Unlock> {
         playerProfile.sendNotification("Unlocked", name);
 
         String playerName = player.getName();
-        for (String command : console_commands) {
+        for (String command : consoleCommands) {
             Server server = Bukkit.getServer();
             command = command.replace("{player}", playerName);
             server.dispatchCommand(server.getConsoleSender(), command);
         }
-        for (String command : player_commands) {
+        for (String command : playerCommands) {
             command = command.replace("{player}", playerName);
             player.performCommand(command);
         }

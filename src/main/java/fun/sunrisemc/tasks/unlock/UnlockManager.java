@@ -13,16 +13,16 @@ import fun.sunrisemc.tasks.utils.Log;
 
 public class UnlockManager {
 
-    static HashMap<String, Unlock> unlocksLookup = new HashMap<>();
+    private static HashMap<String, Unlock> unlocksLookup = new HashMap<>();
 
-    static ArrayList<Unlock> unlocksSorted = new ArrayList<>();
+    private static List<Unlock> unlocksSorted = Collections.unmodifiableList(new ArrayList<>());
 
     public static Optional<Unlock> get(String id) {
         return Optional.ofNullable(unlocksLookup.get(id));
     }
 
     public static List<Unlock> getSorted() {
-        return Collections.unmodifiableList(unlocksSorted);
+        return unlocksSorted;
     }
 
     public static ArrayList<String> getIds() {
@@ -34,13 +34,19 @@ public class UnlockManager {
     }
 
     public static void loadConfig() {
-        unlocksSorted.clear();
-        unlocksLookup.clear();
+        unlocksLookup = new HashMap<>();
+        ArrayList<Unlock> tempUnlocksSorted = new ArrayList<>();
+
         YamlConfiguration config = ConfigFile.get("unlocks", false);
         for (String id : config.getKeys(false)) {
-            new Unlock(config, id);
+            Unlock unlock = new Unlock(config, id);
+            unlocksLookup.put(id, unlock);
+            tempUnlocksSorted.add(unlock);
         }
-        Collections.sort(unlocksSorted);
+
+        Collections.sort(tempUnlocksSorted);
+        unlocksSorted = Collections.unmodifiableList(tempUnlocksSorted);
+
         Log.info("Loaded " + unlocksSorted.size() + " unlocks");
     }
 }
