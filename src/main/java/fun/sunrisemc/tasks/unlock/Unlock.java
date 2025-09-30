@@ -65,7 +65,8 @@ public class Unlock implements Comparable<Unlock> {
         }
 
         for (String message : config.getStringList(id + ".messages")) {
-            messages.add(ChatColor.translateAlternateColorCodes('&', message));
+            String messageFormatted = ChatColor.translateAlternateColorCodes('&', message);
+            messages.add(messageFormatted);
         }
     }
 
