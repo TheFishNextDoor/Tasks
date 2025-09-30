@@ -2,6 +2,8 @@ package fun.sunrisemc.tasks.utils;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import fun.sunrisemc.tasks.TasksPlugin;
+
 public class EnumUtils {
 
     public static <E extends Enum<E>> E fromString(@NonNull Class<E> enumClass, @NonNull String name) {
@@ -15,7 +17,7 @@ public class EnumUtils {
             }
         }
         catch (Exception e) {
-            Log.severe("Failed to parse enum: " + enumClass.getSimpleName() + " - " + name);
+            TasksPlugin.logSevere("Failed to parse enum: " + enumClass.getSimpleName() + " - " + name);
         }
 
         return null;

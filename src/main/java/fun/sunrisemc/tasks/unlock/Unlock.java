@@ -9,9 +9,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.player.PlayerProfile;
-import fun.sunrisemc.tasks.utils.Log;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.permission.Permission;
 
@@ -42,9 +42,9 @@ public class Unlock implements Comparable<Unlock> {
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
             if (!SETTINGS.contains(setting)) {
-                Log.warning("Invalid setting for unlock " + id + ": " + setting);
+                TasksPlugin.logWarning("Invalid setting for unlock " + id + ": " + setting);
                 String possibleSettings = String.join(", ", SETTINGS);
-                Log.warning("Valid settings are: " + possibleSettings);
+                TasksPlugin.logWarning("Valid settings are: " + possibleSettings);
             }
         }
 

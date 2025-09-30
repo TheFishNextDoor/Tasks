@@ -28,7 +28,6 @@ import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
-import fun.sunrisemc.tasks.utils.Log;
 import fun.sunrisemc.tasks.utils.Money;
 import net.md_5.bungee.api.ChatColor;
 
@@ -75,7 +74,7 @@ public class PlayerProfile {
             for (String taskKey : playerData.getConfigurationSection("tasks").getKeys(false)) {
                 Optional<TaskConfiguration> taskConfiguration = TaskConfigurationManager.get(taskKey);
                 if (!taskConfiguration.isPresent()) {
-                    Log.warning("Removing invalid task " + taskKey + " for player " + id);
+                    TasksPlugin.logWarning("Removing invalid task " + taskKey + " for player " + id);
                     continue;
                 }
                 int progress = playerData.getInt("tasks." + taskKey + ".progress");

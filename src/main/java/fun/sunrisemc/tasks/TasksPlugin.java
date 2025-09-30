@@ -7,6 +7,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.tasks.command.LevelCommand;
 import fun.sunrisemc.tasks.command.TasksCommand;
@@ -54,7 +55,6 @@ import fun.sunrisemc.tasks.scheduler.TaskRefresh;
 import fun.sunrisemc.tasks.scheduler.TimerTrigger;
 import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
-import fun.sunrisemc.tasks.utils.Log;
 
 public class TasksPlugin extends JavaPlugin {
 
@@ -66,10 +66,10 @@ public class TasksPlugin extends JavaPlugin {
         instance = this;
 
         if (Vault.hook(this)) {
-            Log.info("Vault hooked");
+            TasksPlugin.logInfo("Vault hooked");
         } 
         else {
-            Log.warning("Vault not found");
+            TasksPlugin.logWarning("Vault not found");
         }
 
         loadConfigs();
@@ -118,7 +118,7 @@ public class TasksPlugin extends JavaPlugin {
         TaskRefresh.start();
         TimerTrigger.start();
 
-        Log.info("Plugin enabled");
+        TasksPlugin.logInfo("Plugin enabled");
     }
 
     public void onDisable() {
@@ -126,7 +126,7 @@ public class TasksPlugin extends JavaPlugin {
         TaskRefresh.stop();
         TimerTrigger.stop();
         PlayerProfileManager.saveAll();
-        Log.info("Plugin disabled");
+        TasksPlugin.logInfo("Plugin disabled");
     }
 
     public static void loadConfigs() {
@@ -135,8 +135,20 @@ public class TasksPlugin extends JavaPlugin {
         TaskConfigurationManager.loadConfig();
         PlayerProfileManager.reload();
         if (mainConfig.ENABLE_LEVELLING && !PlayerLevel.verify()) {
-            Log.severe("PlayerLevel verification failed");
+            TasksPlugin.logSevere("PlayerLevel verification failed");
         }
+    }
+
+    public static void logInfo(@NonNull String message) {
+        getInstance().getLogger().info(message);
+    }
+
+    public static void logWarning(@NonNull String message) {
+        getInstance().getLogger().warning(message);
+    }
+
+    public static void logSevere(@NonNull String message) {
+        getInstance().getLogger().severe(message);
     }
 
     public static TasksPlugin getInstance() {
@@ -150,7 +162,7 @@ public class TasksPlugin extends JavaPlugin {
     private boolean registerCommand(@Nonnull String commandName, @Nonnull CommandExecutor commandExecutor) {
         PluginCommand command = getCommand(commandName);
         if (command == null) {
-            Log.warning("Command '" + commandName + "' not found in plugin.yml.");
+            TasksPlugin.logWarning("Command '" + commandName + "' not found in plugin.yml.");
             return false;
         }
 

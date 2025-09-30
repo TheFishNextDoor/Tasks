@@ -9,8 +9,8 @@ import java.util.Optional;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.file.ConfigFile;
-import fun.sunrisemc.tasks.utils.Log;
 
 public class UnlockManager {
 
@@ -48,6 +48,6 @@ public class UnlockManager {
         Collections.sort(tempUnlocksSorted);
         unlocksSorted = Collections.unmodifiableList(tempUnlocksSorted);
 
-        Log.info("Loaded " + unlocksSorted.size() + " unlocks");
+        TasksPlugin.logInfo("Loaded " + unlocksSorted.size() + " unlocks");
     }
 }

@@ -9,7 +9,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
-import fun.sunrisemc.tasks.utils.Log;
 
 public class ConfigFile {
 
@@ -36,7 +35,7 @@ public class ConfigFile {
             config.save(configFile);
             return true;
         } catch (Exception e) {
-            Log.warning("Failed to save configuration for " + filename + ".yml");
+            TasksPlugin.logWarning("Failed to save configuration for " + filename + ".yml");
             e.printStackTrace();
             return false;
         }
@@ -46,7 +45,7 @@ public class ConfigFile {
         try {
             TasksPlugin.getInstance().saveResource(filename + ".yml", false);
         } catch (Exception e) {
-            Log.warning("Failed to save default configuration for " + filename + ".yml");
+            TasksPlugin.logWarning("Failed to save default configuration for " + filename + ".yml");
             e.printStackTrace();
             return false;
         }
@@ -81,7 +80,7 @@ public class ConfigFile {
                 defaultConfig.load(reader);
             }
         } catch (Exception e) {
-            Log.warning("Failed to load default configuration for " + name + ".yml");
+            TasksPlugin.logWarning("Failed to load default configuration for " + name + ".yml");
             e.printStackTrace();
         }
         return defaultConfig;
