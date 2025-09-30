@@ -5,7 +5,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public class EnumUtils {
 
     public static <E extends Enum<E>> E fromString(@NonNull Class<E> enumClass, @NonNull String name) {
-        name = name.trim().replace(" ", "_").replace("-", "_");
+        name = StringUtils.normalizeString(name);
 
         try {
             for (E constant : enumClass.getEnumConstants()) {
