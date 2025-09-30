@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
-import fun.sunrisemc.tasks.utils.InventoryUtils;
+import fun.sunrisemc.tasks.utils.PlayerUtils;
 
 public class BedEnter implements Listener {
     
@@ -19,7 +19,7 @@ public class BedEnter implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfileManager.get(player);
         Block block = event.getBed();
-        ItemStack item = InventoryUtils.getItemInHand(player);
+        ItemStack item = PlayerUtils.getItemInHand(player);
         playerProfile.triggerTasks(TriggerType.ENTER_BED, block.getLocation(), player, item, block, 1);
     }
 }

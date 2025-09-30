@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
-import fun.sunrisemc.tasks.utils.InventoryUtils;
+import fun.sunrisemc.tasks.utils.PlayerUtils;
 
 public class HarvestBlock implements Listener {
 
@@ -20,7 +20,7 @@ public class HarvestBlock implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfileManager.get(player);
         Block block = event.getHarvestedBlock();
-        ItemStack hand = InventoryUtils.getItemInHand(player);
+        ItemStack hand = PlayerUtils.getItemInHand(player);
         Location location = block.getLocation();
         playerProfile.triggerTasks(TriggerType.HARVEST_BLOCK, location, player, hand, block, 1);
         for (ItemStack item : event.getItemsHarvested()) {

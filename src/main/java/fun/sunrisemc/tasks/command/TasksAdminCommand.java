@@ -68,7 +68,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             }
         }
         else if (args.length == 3) {
-            return PlayerUtils.getPlayerNames();
+            return PlayerUtils.getOnlinePlayerNames();
         }
         else if (args.length == 4) {
             Player player = Bukkit.getPlayer(args[2]);

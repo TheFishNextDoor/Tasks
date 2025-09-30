@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
-import fun.sunrisemc.tasks.utils.InventoryUtils;
+import fun.sunrisemc.tasks.utils.PlayerUtils;
 
 public class InteractEntity implements Listener {
 
@@ -19,7 +19,7 @@ public class InteractEntity implements Listener {
         Player player = event.getPlayer();
         PlayerProfile playerProfile = PlayerProfileManager.get(player);
         Entity entity = event.getRightClicked();
-        ItemStack item = InventoryUtils.getItemInHand(player);
+        ItemStack item = PlayerUtils.getItemInHand(player);
         playerProfile.triggerTasks(TriggerType.INTERACT_ENTITY, entity.getLocation(), entity, item, null, 1);
     }
 }

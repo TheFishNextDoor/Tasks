@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
-import fun.sunrisemc.tasks.utils.InventoryUtils;
+import fun.sunrisemc.tasks.utils.PlayerUtils;
 
 public class EntityDeath implements Listener {
 
@@ -21,7 +21,7 @@ public class EntityDeath implements Listener {
         ItemStack hand = null;
 
         if (killer != null) {
-            hand = InventoryUtils.getItemInHand(killer);
+            hand = PlayerUtils.getItemInHand(killer);
             PlayerProfile playerProfile = PlayerProfileManager.get(killer);
             playerProfile.triggerTasks(TriggerType.KILL_ENTITY, entity.getLocation(), entity, hand, null, 1);
             for (ItemStack item : event.getDrops()) {
@@ -33,7 +33,7 @@ public class EntityDeath implements Listener {
             Player player = (Player) entity;
             PlayerProfile playerProfile = PlayerProfileManager.get(player);
             if (killer != null) {
-                hand = InventoryUtils.getItemInHand(killer);
+                hand = PlayerUtils.getItemInHand(killer);
             }
             playerProfile.triggerTasks(TriggerType.DEATH, player.getLocation(), player, hand, null, 1);
         }
