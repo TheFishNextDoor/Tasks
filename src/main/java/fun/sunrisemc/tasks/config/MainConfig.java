@@ -2,7 +2,7 @@ package fun.sunrisemc.tasks.config;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import fun.sunrisemc.tasks.utils.ConfigFile;
+import fun.sunrisemc.tasks.file.ConfigFile;
 
 public class MainConfig {
 

@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import fun.sunrisemc.tasks.utils.ConfigFile;
+import fun.sunrisemc.tasks.file.ConfigFile;
 import fun.sunrisemc.tasks.utils.Log;
 
 public class UnlockManager {

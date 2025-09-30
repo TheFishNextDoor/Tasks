@@ -1,4 +1,4 @@
-package fun.sunrisemc.tasks.utils;
+package fun.sunrisemc.tasks.file;
 
 import java.io.File;
 import java.io.InputStream;
@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
+import fun.sunrisemc.tasks.utils.Log;
 
 public class ConfigFile {
 

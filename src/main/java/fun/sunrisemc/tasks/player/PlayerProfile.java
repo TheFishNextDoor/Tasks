@@ -20,6 +20,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.config.MainConfig;
+import fun.sunrisemc.tasks.file.DataFile;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.task.PlayerTask;
 import fun.sunrisemc.tasks.task.TaskConfiguration;
@@ -27,7 +28,6 @@ import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
-import fun.sunrisemc.tasks.utils.DataFile;
 import fun.sunrisemc.tasks.utils.Log;
 import fun.sunrisemc.tasks.utils.MoneyUtils;
 import net.md_5.bungee.api.ChatColor;
