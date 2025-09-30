@@ -29,7 +29,7 @@ import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
 import fun.sunrisemc.tasks.utils.Log;
-import fun.sunrisemc.tasks.utils.MoneyUtils;
+import fun.sunrisemc.tasks.utils.Money;
 import net.md_5.bungee.api.ChatColor;
 
 public class PlayerProfile {
@@ -146,7 +146,7 @@ public class PlayerProfile {
             return;
         }
         Vault.getEconomy().depositPlayer(getPlayer().get(), amount);
-        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GOLD + "+" + MoneyUtils.format(amount)));
+        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GOLD + "+" + Money.format(amount)));
     }
 
     public int getTotalXp() {

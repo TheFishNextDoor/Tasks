@@ -2,7 +2,7 @@ package fun.sunrisemc.tasks.utils;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class MoneyUtils {
+public class Money {
 
     private static final String currencyPrefix = "$";
     private static final String currencySuffix = "";

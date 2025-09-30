@@ -13,7 +13,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.unlock.Unlock;
-import fun.sunrisemc.tasks.utils.MoneyUtils;
+import fun.sunrisemc.tasks.utils.Money;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
@@ -80,7 +80,7 @@ public class PlayerTask {
         String rewardMoneySection = "";
         double rewardMoney = taskConfiguration.getRewardMoney();
         if (rewardMoney > 0) {
-            rewardMoneySection = ChatColor.WHITE + " (" + MoneyUtils.format(rewardMoney) + ChatColor.WHITE + ")";
+            rewardMoneySection = ChatColor.WHITE + " (" + Money.format(rewardMoney) + ChatColor.WHITE + ")";
         }
 
         String rewardSkipsSection = "";
