@@ -1,5 +1,10 @@
 package fun.sunrisemc.tasks;
 
+import javax.annotation.Nonnull;
+
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -49,7 +54,6 @@ import fun.sunrisemc.tasks.scheduler.TaskRefresh;
 import fun.sunrisemc.tasks.scheduler.TimerTrigger;
 import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
-import fun.sunrisemc.tasks.utils.CommandUtils;
 import fun.sunrisemc.tasks.utils.Log;
 
 public class TasksPlugin extends JavaPlugin {
@@ -70,10 +74,10 @@ public class TasksPlugin extends JavaPlugin {
 
         loadConfigs();
 
-        CommandUtils.register(this, "tasksadmin", new TasksAdminCommand());
-        CommandUtils.register(this, "tasks", new TasksCommand());
-        CommandUtils.register(this, "level", new LevelCommand());
-        CommandUtils.register(this, "unlocks", new UnlocksCommand());
+        registerCommand("tasksadmin", new TasksAdminCommand());
+        registerCommand("tasks", new TasksCommand());
+        registerCommand("level", new LevelCommand());
+        registerCommand("unlocks", new UnlocksCommand());
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerJoin(), this);
@@ -125,14 +129,6 @@ public class TasksPlugin extends JavaPlugin {
         Log.info("Plugin disabled");
     }
 
-    public static TasksPlugin getInstance() {
-        return instance;
-    }
-
-    public static MainConfig getMainConfig() {
-        return mainConfig;
-    }
-
     public static void loadConfigs() {
         mainConfig = new MainConfig();
         UnlockManager.loadConfig();
@@ -141,5 +137,29 @@ public class TasksPlugin extends JavaPlugin {
         if (mainConfig.ENABLE_LEVELLING && !PlayerLevel.verify()) {
             Log.severe("PlayerLevel verification failed");
         }
+    }
+
+    public static TasksPlugin getInstance() {
+        return instance;
+    }
+
+    public static MainConfig getMainConfig() {
+        return mainConfig;
+    }
+
+    private boolean registerCommand(@Nonnull String commandName, @Nonnull CommandExecutor commandExecutor) {
+        PluginCommand command = getCommand(commandName);
+        if (command == null) {
+            Log.warning("Command '" + commandName + "' not found in plugin.yml.");
+            return false;
+        }
+
+        command.setExecutor(commandExecutor);
+
+        if (commandExecutor instanceof TabCompleter) {
+            command.setTabCompleter((TabCompleter) commandExecutor);
+        }
+
+        return true;
     }
 }
