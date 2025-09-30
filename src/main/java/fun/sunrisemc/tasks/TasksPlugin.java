@@ -66,10 +66,10 @@ public class TasksPlugin extends JavaPlugin {
         instance = this;
 
         if (Vault.hook(this)) {
-            TasksPlugin.logInfo("Vault hooked");
+            TasksPlugin.logInfo("Vault hooked.");
         } 
         else {
-            TasksPlugin.logWarning("Vault not found");
+            TasksPlugin.logWarning("Vault not found. Economy and Permissions features will be disabled.");
         }
 
         loadConfigs();
@@ -118,7 +118,7 @@ public class TasksPlugin extends JavaPlugin {
         TaskRefresh.start();
         TimerTrigger.start();
 
-        TasksPlugin.logInfo("Plugin enabled");
+        TasksPlugin.logInfo("Plugin enabled.");
     }
 
     public void onDisable() {
@@ -126,7 +126,7 @@ public class TasksPlugin extends JavaPlugin {
         TaskRefresh.stop();
         TimerTrigger.stop();
         PlayerProfileManager.saveAll();
-        TasksPlugin.logInfo("Plugin disabled");
+        TasksPlugin.logInfo("Plugin disabled.");
     }
 
     public static void loadConfigs() {
@@ -135,7 +135,7 @@ public class TasksPlugin extends JavaPlugin {
         TaskConfigurationManager.loadConfig();
         PlayerProfileManager.reload();
         if (mainConfig.ENABLE_LEVELLING && !PlayerLevel.verify()) {
-            TasksPlugin.logSevere("PlayerLevel verification failed");
+            TasksPlugin.logSevere("PlayerLevel verification failed.");
         }
     }
 
@@ -162,7 +162,7 @@ public class TasksPlugin extends JavaPlugin {
     private boolean registerCommand(@Nonnull String commandName, @Nonnull CommandExecutor commandExecutor) {
         PluginCommand command = getCommand(commandName);
         if (command == null) {
-            TasksPlugin.logWarning("Command '" + commandName + "' not found in plugin.yml.");
+            TasksPlugin.logSevere("Command '" + commandName + "' not found in plugin.yml.");
             return false;
         }
 

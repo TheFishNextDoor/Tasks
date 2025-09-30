@@ -142,9 +142,9 @@ public class TaskConfiguration {
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
             if (!SETTINGS.contains(setting)) {
-                TasksPlugin.logWarning("Invalid setting for task " + id + ": " + setting);
+                TasksPlugin.logWarning("Invalid setting for task " + id + ": " + setting + ".");
                 String possibleSettings = String.join(", ", SETTINGS);
-                TasksPlugin.logWarning("Valid settings are: " + possibleSettings);
+                TasksPlugin.logWarning("Valid settings are: " + possibleSettings + ".");
             }
         }
 
@@ -170,8 +170,8 @@ public class TaskConfiguration {
             String progressDisplayName = config.getString(id + ".progress-display");
             ProgressDisplayType potentialProgressDisplayType = EnumUtils.fromString(ProgressDisplayType.class, progressDisplayName);
             if (potentialProgressDisplayType == null) {
-                TasksPlugin.logWarning("Invalid progress display for task " + id + ": " + progressDisplayName);
-                TasksPlugin.logWarning("Valid progress displays are: " + EnumUtils.allStrings(ProgressDisplayType.class));
+                TasksPlugin.logWarning("Invalid progress display for task " + id + ": " + progressDisplayName + ".");
+                TasksPlugin.logWarning("Valid progress displays are: " + EnumUtils.allStrings(ProgressDisplayType.class) + ".");
             }
             else {
                 this.progressDisplayType = potentialProgressDisplayType;
@@ -201,7 +201,7 @@ public class TaskConfiguration {
         for (String unlockName : config.getStringList(id + ".reward-unlocks")) {
             Optional<Unlock> unlock = UnlockManager.get(unlockName);
             if (!unlock.isPresent()) {
-                TasksPlugin.logWarning("Invalid reward unlock for task " + id + ": " + unlockName);
+                TasksPlugin.logWarning("Invalid reward unlock for task " + id + ": " + unlockName + ".");
                 continue;
             }
             this.rewardUnlocks.add(unlock.get());
@@ -222,8 +222,8 @@ public class TaskConfiguration {
         for (String triggerName : config.getStringList(id + ".triggers")) {
             TriggerType trigger = EnumUtils.fromString(TriggerType.class, triggerName);
             if (trigger == null) {
-                TasksPlugin.logWarning("Invalid trigger for task " + id + ": " + triggerName);
-                TasksPlugin.logWarning("Valid triggers are: " + EnumUtils.allStrings(TriggerType.class));
+                TasksPlugin.logWarning("Invalid trigger for task " + id + ": " + triggerName + ".");
+                TasksPlugin.logWarning("Valid triggers are: " + EnumUtils.allStrings(TriggerType.class) + ".");
                 continue;
             }
             this.triggers.add(trigger);
@@ -239,8 +239,8 @@ public class TaskConfiguration {
         for (String environmentName : config.getStringList(id + ".environments")) {
             Environment environment = EnumUtils.fromString(Environment.class, environmentName);
             if (environment == null) {
-                TasksPlugin.logWarning("Invalid environment for task " + id + ": " + environmentName);
-                TasksPlugin.logWarning("Valid environments are: " + EnumUtils.allStrings(Environment.class));
+                TasksPlugin.logWarning("Invalid environment for task " + id + ": " + environmentName + ".");
+                TasksPlugin.logWarning("Valid environments are: " + EnumUtils.allStrings(Environment.class) + ".");
                 continue;
             }
             this.environments.add(environment);
@@ -284,8 +284,8 @@ public class TaskConfiguration {
         for (String entityTypeName : config.getStringList(id + ".entity-types")) {
             EntityType entityType = EnumUtils.fromString(EntityType.class, entityTypeName);
             if (entityType == null) {
-                TasksPlugin.logWarning("Invalid entity type for task " + id + ": " + entityTypeName);
-                TasksPlugin.logWarning("Valid entity types are: " + EnumUtils.allStrings(EntityType.class));
+                TasksPlugin.logWarning("Invalid entity type for task " + id + ": " + entityTypeName + ".");
+                TasksPlugin.logWarning("Valid entity types are: " + EnumUtils.allStrings(EntityType.class) + ".");
                 continue;
             }
             this.entityTypes.add(entityType);
@@ -294,8 +294,8 @@ public class TaskConfiguration {
         for (String categoryName : config.getStringList(id + ".entity-categories")) {
             SpawnCategory category = EnumUtils.fromString(SpawnCategory.class, categoryName);
             if (category == null) {
-                TasksPlugin.logWarning("Invalid entity category for task " + id + ": " + categoryName);
-                TasksPlugin.logWarning("Valid entity categories are: " + EnumUtils.allStrings(SpawnCategory.class));
+                TasksPlugin.logWarning("Invalid entity category for task " + id + ": " + categoryName + ".");
+                TasksPlugin.logWarning("Valid entity categories are: " + EnumUtils.allStrings(SpawnCategory.class) + ".");
                 continue;
             }
             this.entityCategories.add(category);
@@ -308,7 +308,7 @@ public class TaskConfiguration {
         for (String itemMaterialName : config.getStringList(id + ".item-materials")) {
             Material itemMaterial = EnumUtils.fromString(Material.class, itemMaterialName);
             if (itemMaterial == null) {
-                TasksPlugin.logWarning("Invalid item material for task " + id + ": " + itemMaterialName);
+                TasksPlugin.logWarning("Invalid item material for task " + id + ": " + itemMaterialName + ".");
                 continue;
             }
             this.itemMaterials.add(itemMaterial);
@@ -317,7 +317,7 @@ public class TaskConfiguration {
         for (String blockMaterialName : config.getStringList(id + ".block-materials")) {
             Material blockMaterial = EnumUtils.fromString(Material.class, blockMaterialName);
             if (blockMaterial == null) {
-                TasksPlugin.logWarning("Invalid block material for task " + id + ": " + blockMaterialName);
+                TasksPlugin.logWarning("Invalid block material for task " + id + ": " + blockMaterialName + ".");
                 continue;
             }
             this.blockMaterials.add(blockMaterial);

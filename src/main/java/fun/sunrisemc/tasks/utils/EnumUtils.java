@@ -17,7 +17,7 @@ public class EnumUtils {
             }
         }
         catch (Exception e) {
-            TasksPlugin.logSevere("Failed to parse enum: " + enumClass.getSimpleName() + " - " + name);
+            TasksPlugin.logSevere("Failed to parse enum: " + enumClass.getSimpleName() + " - " + name + ".");
         }
 
         return null;

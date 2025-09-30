@@ -74,7 +74,7 @@ public class PlayerProfile {
             for (String taskKey : playerData.getConfigurationSection("tasks").getKeys(false)) {
                 Optional<TaskConfiguration> taskConfiguration = TaskConfigurationManager.get(taskKey);
                 if (!taskConfiguration.isPresent()) {
-                    TasksPlugin.logWarning("Removing invalid task " + taskKey + " for player " + id);
+                    TasksPlugin.logWarning("Removing invalid task " + taskKey + " for player " + id + ".");
                     continue;
                 }
                 int progress = playerData.getInt("tasks." + taskKey + ".progress");

@@ -48,6 +48,6 @@ public class UnlockManager {
         Collections.sort(tempUnlocksSorted);
         unlocksSorted = Collections.unmodifiableList(tempUnlocksSorted);
 
-        TasksPlugin.logInfo("Loaded " + unlocksSorted.size() + " unlocks");
+        TasksPlugin.logInfo("Loaded " + unlocksSorted.size() + " unlocks.");
     }
 }

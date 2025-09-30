@@ -42,9 +42,9 @@ public class Unlock implements Comparable<Unlock> {
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
             if (!SETTINGS.contains(setting)) {
-                TasksPlugin.logWarning("Invalid setting for unlock " + id + ": " + setting);
+                TasksPlugin.logWarning("Invalid setting for unlock " + id + ": " + setting + ".");
                 String possibleSettings = String.join(", ", SETTINGS);
-                TasksPlugin.logWarning("Valid settings are: " + possibleSettings);
+                TasksPlugin.logWarning("Valid settings are: " + possibleSettings + ".");
             }
         }
 

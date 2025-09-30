@@ -45,6 +45,6 @@ public class TaskConfigurationManager {
         for (String id : config.getKeys(false)) {
             taskConfigurations.put(id, new TaskConfiguration(config, id));
         }
-        TasksPlugin.logInfo("Loaded " + taskConfigurations.size() + " tasks");
+        TasksPlugin.logInfo("Loaded " + taskConfigurations.size() + " tasks.");
     }
 }

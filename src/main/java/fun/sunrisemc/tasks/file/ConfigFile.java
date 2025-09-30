@@ -35,7 +35,7 @@ public class ConfigFile {
             config.save(configFile);
             return true;
         } catch (Exception e) {
-            TasksPlugin.logWarning("Failed to save configuration for " + filename + ".yml");
+            TasksPlugin.logWarning("Failed to save configuration for " + filename + ".yml.");
             e.printStackTrace();
             return false;
         }
@@ -45,7 +45,7 @@ public class ConfigFile {
         try {
             TasksPlugin.getInstance().saveResource(filename + ".yml", false);
         } catch (Exception e) {
-            TasksPlugin.logWarning("Failed to save default configuration for " + filename + ".yml");
+            TasksPlugin.logWarning("Failed to save default configuration for " + filename + ".yml.");
             e.printStackTrace();
             return false;
         }
@@ -74,13 +74,13 @@ public class ConfigFile {
     private static YamlConfiguration getDefault(@NonNull String name) {
         YamlConfiguration defaultConfig = new YamlConfiguration();
         try {
-            InputStream resourceStream = TasksPlugin.getInstance().getResource(name + ".yml");
+            InputStream resourceStream = TasksPlugin.getInstance().getResource(name + ".yml.");
             if (resourceStream != null) {
                 InputStreamReader reader = new InputStreamReader(resourceStream, StandardCharsets.UTF_8);
                 defaultConfig.load(reader);
             }
         } catch (Exception e) {
-            TasksPlugin.logWarning("Failed to load default configuration for " + name + ".yml");
+            TasksPlugin.logWarning("Failed to load default configuration for " + name + ".yml.");
             e.printStackTrace();
         }
         return defaultConfig;
