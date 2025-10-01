@@ -1,12 +1,11 @@
 package fun.sunrisemc.tasks;
 
-import javax.annotation.Nonnull;
-
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import fun.sunrisemc.tasks.command.LevelCommand;
@@ -159,7 +158,7 @@ public class TasksPlugin extends JavaPlugin {
         return mainConfig;
     }
 
-    private boolean registerCommand(@Nonnull String commandName, @Nonnull CommandExecutor commandExecutor) {
+    private boolean registerCommand(@NonNull String commandName, @NonNull CommandExecutor commandExecutor) {
         PluginCommand command = getCommand(commandName);
         if (command == null) {
             TasksPlugin.logSevere("Command '" + commandName + "' not found in plugin.yml.");
