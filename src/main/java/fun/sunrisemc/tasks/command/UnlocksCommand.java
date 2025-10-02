@@ -41,7 +41,7 @@ public class UnlocksCommand implements CommandExecutor, TabCompleter {
             }
         }
         if (!hasUnlocks) {
-            player.sendMessage(ChatColor.WHITE + "You have not unlocked anything yet");
+            player.sendMessage(ChatColor.WHITE + "You have not unlocked anything yet.");
         }
 
         return true;

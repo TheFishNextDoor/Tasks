@@ -73,10 +73,10 @@ public class TasksCommand implements CommandExecutor, TabCompleter {
                 playerProfile.setColor(color);
             }
             catch (IllegalArgumentException e) {
-                sender.sendMessage(ChatColor.RED + "Invalid color");
+                sender.sendMessage(ChatColor.RED + "Invalid color.");
                 return true;
             }
-            playerProfile.sendNotification("Color Changed");
+            playerProfile.sendNotification("Color Changed.");
             return true;
         }
         // Skip //
@@ -86,7 +86,7 @@ public class TasksCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
             if (playerProfile.getSkips() <= 0) {
-                sender.sendMessage(ChatColor.RED + "You do not have any skips");
+                sender.sendMessage(ChatColor.RED + "You do not have any skips.");
                 return true;
             }
             Integer taskNumber;
@@ -94,29 +94,29 @@ public class TasksCommand implements CommandExecutor, TabCompleter {
                 taskNumber = Integer.parseInt(args[1]);
             }
             catch (NumberFormatException e) {
-                sender.sendMessage(ChatColor.RED + "Invalid task number");
+                sender.sendMessage(ChatColor.RED + "Invalid task number.");
                 return true;
             }
             if (taskNumber < 1 || taskNumber > playerProfile.getTasks().size()) {
-                sender.sendMessage(ChatColor.RED + "Invalid task number");
+                sender.sendMessage(ChatColor.RED + "Invalid task number.");
                 return true;
             }
             PlayerTask task = playerProfile.getTasks().get(taskNumber - 1);
             if (playerProfile.skip(task)) {
-                sender.sendMessage(playerProfile.getColor() + "You have " + playerProfile.getSkips() + " skip(s) remaining");
+                sender.sendMessage(playerProfile.getColor() + "You have " + playerProfile.getSkips() + " skip(s) remaining.");
             }
             else {
-                sender.sendMessage(ChatColor.RED + "Cannot skip task");
+                sender.sendMessage(ChatColor.RED + "Cannot skip task.");
             }
             return true;
         }
         else if (subCommand.equalsIgnoreCase("skips") && TasksPlugin.getMainConfig().ALLOW_TASK_SKIPPING) {
             int skips = playerProfile.getSkips();
             if (skips == 1) {
-                sender.sendMessage(playerProfile.getColor() + "You have 1 skip remaining");
+                sender.sendMessage(playerProfile.getColor() + "You have 1 skip remaining.");
             }
             else {
-                sender.sendMessage(playerProfile.getColor() + "You have " + skips + " skips remaining");
+                sender.sendMessage(playerProfile.getColor() + "You have " + skips + " skips remaining.");
             }
             return true;
         }
