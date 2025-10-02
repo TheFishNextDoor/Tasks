@@ -134,24 +134,24 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
         // Reload //
         if (subCommand.equalsIgnoreCase("reload") && sender.hasPermission(Permissions.RELOAD_PERMISSION)) {
             TasksPlugin.loadConfigs();
-            sender.sendMessage(ChatColor.BLUE + "Plugin reloaded");
+            sender.sendMessage(ChatColor.BLUE + "Plugin reloaded.");
             return true;
         }
 
         // Task //
         else if (subCommand.equalsIgnoreCase("task") && sender.hasPermission(Permissions.TASK_PERMISSION)) {
             if (args.length < 2) {
-                sender.sendMessage(ChatColor.RED + "You must specify a subcommand");
+                sender.sendMessage(ChatColor.RED + "You must specify a subcommand.");
                 return true;
             }
             String subSubCommand = args[1];
             if (args.length < 3) {
-                sender.sendMessage(ChatColor.RED + "You must specify a player");
+                sender.sendMessage(ChatColor.RED + "You must specify a player.");
                 return true;
             }
             Player player = Bukkit.getPlayer(args[2]);
             if (player == null) {
-                sender.sendMessage(ChatColor.RED + "Player not found");
+                sender.sendMessage(ChatColor.RED + "Player not found.");
                 return true;
             }
             PlayerProfile playerProfile = PlayerProfileManager.get(player);
@@ -172,26 +172,26 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             // Task Give //
             else if (subSubCommand.equalsIgnoreCase("give")) {
                 if (args.length < 4) {
-                    sender.sendMessage(ChatColor.RED + "You must specify a task");
+                    sender.sendMessage(ChatColor.RED + "You must specify a task.");
                     return true;
                 }
                 Optional<TaskConfiguration> taskConfiguration = TaskConfigurationManager.get(args[3]);
                 if (taskConfiguration.isEmpty()) {
-                    sender.sendMessage(ChatColor.RED + "Task not found");
+                    sender.sendMessage(ChatColor.RED + "Task not found.");
                     return true;
                 }
                 if (playerProfile.addTask(new PlayerTask(taskConfiguration.get(), playerProfile))) {
-                    sender.sendMessage(ChatColor.BLUE + "Task given");
+                    sender.sendMessage(ChatColor.BLUE + "Task given.");
                 }
                 else {
-                    sender.sendMessage(ChatColor.RED + "Failed to give task");
+                    sender.sendMessage(ChatColor.RED + "Failed to give task.");
                 }
                 return true;
             }
             // Task Remove //
             else if (subSubCommand.equalsIgnoreCase("remove")) {
                 if (args.length < 4) {
-                    sender.sendMessage(ChatColor.RED + "You must specify a task");
+                    sender.sendMessage(ChatColor.RED + "You must specify a task.");
                     return true;
                 }
                 Optional<PlayerTask> task = playerProfile.getTask(args[3]);
@@ -200,22 +200,22 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
                     return true;
                 }
                 if (playerProfile.removeTask(task.get().getTaskConfiguration().getId())) {
-                    sender.sendMessage(ChatColor.BLUE + "Task removed");
+                    sender.sendMessage(ChatColor.BLUE + "Task removed.");
                 }
                 else {
-                    sender.sendMessage(ChatColor.RED + "Failed to remove task");
+                    sender.sendMessage(ChatColor.RED + "Failed to remove task.");
                 }
                 return true;
             }
             // Task AddProgress //
             else if (subSubCommand.equalsIgnoreCase("addprogress")) {
                 if (args.length < 4) {
-                    sender.sendMessage(ChatColor.RED + "You must specify a task");
+                    sender.sendMessage(ChatColor.RED + "You must specify a task.");
                     return true;
                 }
                 Optional<PlayerTask> task = playerProfile.getTask(args[3]);
                 if (task.isEmpty()) {
-                    sender.sendMessage(ChatColor.RED + "Task not found");
+                    sender.sendMessage(ChatColor.RED + "Task not found.");
                     return true;
                 }
                 if (args.length < 5) {
@@ -225,17 +225,17 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
                 try {
                     int amount = Integer.parseInt(args[4]);
                     task.get().addProgress(amount);
-                    sender.sendMessage(ChatColor.BLUE + "Progress added");
+                    sender.sendMessage(ChatColor.BLUE + "Progress added.");
                     return true;
                 }
                 catch (NumberFormatException e) {
-                    sender.sendMessage(ChatColor.RED + "Invalid amount");
+                    sender.sendMessage(ChatColor.RED + "Invalid amount.");
                     return true;
                 }
             }
             // Task Invalid Subcommand //
             else {
-                sender.sendMessage(ChatColor.RED + "Invalid subcommand");
+                sender.sendMessage(ChatColor.RED + "Invalid subcommand.");
                 return true;
             }
         }
@@ -243,17 +243,17 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
         // XP //
         else if (subCommand.equalsIgnoreCase("xp") && config.ENABLE_LEVELLING && sender.hasPermission(Permissions.XP_PERMISSION)) {
             if (args.length < 2) {
-                sender.sendMessage(ChatColor.RED + "You must specify a subcommand");
+                sender.sendMessage(ChatColor.RED + "You must specify a subcommand.");
                 return true;
             }
             String subSubCommand = args[1];
             if (args.length < 3) {
-                sender.sendMessage(ChatColor.RED + "You must specify a player");
+                sender.sendMessage(ChatColor.RED + "You must specify a player.");
                 return true;
             }
             Player player = Bukkit.getPlayer(args[2]);
             if (player == null) {
-                sender.sendMessage(ChatColor.RED + "Player not found");
+                sender.sendMessage(ChatColor.RED + "Player not found.");
                 return true;
             }
             PlayerProfile playerProfile = PlayerProfileManager.get(player);
@@ -261,57 +261,57 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             // XP Give //
             if (subSubCommand.equalsIgnoreCase("give")) {
                 if (args.length < 4) {
-                    sender.sendMessage(ChatColor.RED + "You must specify an amount");
+                    sender.sendMessage(ChatColor.RED + "You must specify an amount.");
                     return true;
                 }
                 try {
                     int amount = Integer.parseInt(args[3]);
                     playerProfile.addXp(amount);
-                    sender.sendMessage(ChatColor.BLUE + "XP given");
+                    sender.sendMessage(ChatColor.BLUE + "XP given.");
                     return true;
                 }
                 catch (Exception e) {
-                    sender.sendMessage(ChatColor.RED + "Invalid amount");
+                    sender.sendMessage(ChatColor.RED + "Invalid amount.");
                     return true;
                 }
             }
             // XP Take //
             else if (subSubCommand.equalsIgnoreCase("take")) {
                 if (args.length < 4) {
-                    sender.sendMessage(ChatColor.RED + "You must specify an amount");
+                    sender.sendMessage(ChatColor.RED + "You must specify an amount.");
                     return true;
                 }
                 try {
                     int amount = Integer.parseInt(args[3]);
                     playerProfile.removeXp(amount);
-                    sender.sendMessage(ChatColor.BLUE + "XP taken");
+                    sender.sendMessage(ChatColor.BLUE + "XP taken.");
                     return true;
                 }
                 catch (Exception e) {
-                    sender.sendMessage(ChatColor.RED + "Invalid amount");
+                    sender.sendMessage(ChatColor.RED + "Invalid amount.");
                     return true;
                 }
             }
             // XP Set //
             else if (subSubCommand.equalsIgnoreCase("set")) {
                 if (args.length < 4) {
-                    sender.sendMessage(ChatColor.RED + "You must specify an amount");
+                    sender.sendMessage(ChatColor.RED + "You must specify an amount.");
                     return true;
                 }
                 try {
                     int amount = Integer.parseInt(args[3]);
                     playerProfile.setXp(amount);
-                    sender.sendMessage(ChatColor.BLUE + "XP set");
+                    sender.sendMessage(ChatColor.BLUE + "XP set.");
                     return true;
                 }
                 catch (Exception e) {
-                    sender.sendMessage(ChatColor.RED + "Invalid amount");
+                    sender.sendMessage(ChatColor.RED + "Invalid amount.");
                     return true;
                 }
             }
             // XP Invalid Subcommand //
             else {
-                sender.sendMessage(ChatColor.RED + "Invalid subcommand");
+                sender.sendMessage(ChatColor.RED + "Invalid subcommand.");
                 return true;
             }
         }
@@ -319,17 +319,17 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
         // Unlock //
         else if (subCommand.equalsIgnoreCase("unlock") && sender.hasPermission(Permissions.UNLOCK_PERMISSION)) {
             if (args.length < 2) {
-                sender.sendMessage(ChatColor.RED + "You must specify a subcommand");
+                sender.sendMessage(ChatColor.RED + "You must specify a subcommand.");
                 return true;
             }
             String subSubCommand = args[1];
             if (args.length < 3) {
-                sender.sendMessage(ChatColor.RED + "You must specify a player");
+                sender.sendMessage(ChatColor.RED + "You must specify a player.");
                 return true;
             }
             Player player = Bukkit.getPlayer(args[2]);
             if (player == null) {
-                sender.sendMessage(ChatColor.RED + "Player not found");
+                sender.sendMessage(ChatColor.RED + "Player not found.");
                 return true;
             }
             PlayerProfile playerProfile = PlayerProfileManager.get(player);
@@ -352,21 +352,21 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             // Unlock Give //
             else if (subSubCommand.equalsIgnoreCase("give")) {
                 if (args.length < 4) {
-                    sender.sendMessage(ChatColor.RED + "You must specify an unlock");
+                    sender.sendMessage(ChatColor.RED + "You must specify an unlock.");
                     return true;
                 }
                 Optional<Unlock> unlock = UnlockManager.get(args[3]);
                 if (unlock.isEmpty()) {
-                    sender.sendMessage(ChatColor.RED + "Unlock not found");
+                    sender.sendMessage(ChatColor.RED + "Unlock not found.");
                     return true;
                 }
                 unlock.get().giveTo(playerProfile);
-                sender.sendMessage(ChatColor.BLUE + "Unlock given");
+                sender.sendMessage(ChatColor.BLUE + "Unlock given.");
                 return true;
             }
             // Unlock Invalid Subcommand //
             else {
-                sender.sendMessage(ChatColor.RED + "Invalid subcommand");
+                sender.sendMessage(ChatColor.RED + "Invalid subcommand.");
                 return true;
             }
         }
@@ -374,17 +374,17 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
         // Skips //
         else if (subCommand.equalsIgnoreCase("skips") && config.ALLOW_TASK_SKIPPING && sender.hasPermission(Permissions.SKIPS_PERMISSION)) {
             if (args.length < 2) {
-                sender.sendMessage(ChatColor.RED + "You must specify a subcommand");
+                sender.sendMessage(ChatColor.RED + "You must specify a subcommand.");
                 return true;
             }
             String subSubCommand = args[1];
             if (args.length < 3) {
-                sender.sendMessage(ChatColor.RED + "You must specify a player");
+                sender.sendMessage(ChatColor.RED + "You must specify a player.");
                 return true;
             }
             Player player = Bukkit.getPlayer(args[2]);
             if (player == null) {
-                sender.sendMessage(ChatColor.RED + "Player not found");
+                sender.sendMessage(ChatColor.RED + "Player not found.");
                 return true;
             }
             PlayerProfile playerProfile = PlayerProfileManager.get(player);
@@ -392,57 +392,57 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             // Skips Give //
             if (subSubCommand.equalsIgnoreCase("give")) {
                 if (args.length < 4) {
-                    sender.sendMessage(ChatColor.RED + "You must specify an amount");
+                    sender.sendMessage(ChatColor.RED + "You must specify an amount.");
                     return true;
                 }
                 try {
                     int amount = Integer.parseInt(args[3]);
                     playerProfile.addSkips(amount);
-                    sender.sendMessage(ChatColor.BLUE + "Skips given");
+                    sender.sendMessage(ChatColor.BLUE + "Skips given.");
                     return true;
                 }
                 catch (Exception e) {
-                    sender.sendMessage(ChatColor.RED + "Invalid amount");
+                    sender.sendMessage(ChatColor.RED + "Invalid amount.");
                     return true;
                 }
             }
             // Skips Take //
             else if (subSubCommand.equalsIgnoreCase("take")) {
                 if (args.length < 4) {
-                    sender.sendMessage(ChatColor.RED + "You must specify an amount");
+                    sender.sendMessage(ChatColor.RED + "You must specify an amount.");
                     return true;
                 }
                 try {
                     int amount = Integer.parseInt(args[3]);
                     playerProfile.removeSkips(amount);
-                    sender.sendMessage(ChatColor.BLUE + "Skips taken");
+                    sender.sendMessage(ChatColor.BLUE + "Skips taken.");
                     return true;
                 }
                 catch (Exception e) {
-                    sender.sendMessage(ChatColor.RED + "Invalid amount");
+                    sender.sendMessage(ChatColor.RED + "Invalid amount.");
                     return true;
                 }
             }
             // Skips Set //
             else if (subSubCommand.equalsIgnoreCase("set")) {
                 if (args.length < 4) {
-                    sender.sendMessage(ChatColor.RED + "You must specify an amount");
+                    sender.sendMessage(ChatColor.RED + "You must specify an amount.");
                     return true;
                 }
                 try {
                     int amount = Integer.parseInt(args[3]);
                     playerProfile.setSkips(amount);
-                    sender.sendMessage(ChatColor.BLUE + "Skips set");
+                    sender.sendMessage(ChatColor.BLUE + "Skips set.");
                     return true;
                 }
                 catch (Exception e) {
-                    sender.sendMessage(ChatColor.RED + "Invalid amount");
+                    sender.sendMessage(ChatColor.RED + "Invalid amount.");
                     return true;
                 }
             }
             // Skips Invalid Subcommand //
             else {
-                sender.sendMessage(ChatColor.RED + "Invalid subcommand");
+                sender.sendMessage(ChatColor.RED + "Invalid subcommand.");
                 return true;
             }
         }
