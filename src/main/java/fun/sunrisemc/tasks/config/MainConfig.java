@@ -8,7 +8,7 @@ public class MainConfig {
 
     public final boolean ENABLE_LEVELLING;
     public final boolean SHOW_LEVEL;
-    public final String CHAT_FORMAT;
+    public final String CHAT_PREFIX_FORMAT;
     public final double LEVEL_BASE;
     public final double LEVEL_MULTIPLIER;
 
@@ -24,7 +24,7 @@ public class MainConfig {
 
         this.ENABLE_LEVELLING = config.getBoolean("levels.enable", true);
         this.SHOW_LEVEL = config.getBoolean("levels.show-level", true);
-        this.CHAT_FORMAT = config.getString("levels.chat-format", "&f[{color}{level}&f] {message}");
+        this.CHAT_PREFIX_FORMAT = config.getString("levels.chat-prefix-format", "&f[{color}{level}&f] ");
         this.LEVEL_BASE = getDoubleClamped(config, "levels.xp-curve.base", 1.0, 1_000_000.0);
         this.LEVEL_MULTIPLIER = getDoubleClamped(config, "levels.xp-curve.multiplier", 1.0, 10.0);
         this.ALLOW_TASK_SKIPPING = config.getBoolean("tasks.allow-skipping", true);
