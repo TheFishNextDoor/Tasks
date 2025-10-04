@@ -74,7 +74,7 @@ public class ConfigFile {
     private static YamlConfiguration getDefault(@NonNull String name) {
         YamlConfiguration defaultConfig = new YamlConfiguration();
         try {
-            InputStream resourceStream = TasksPlugin.getInstance().getResource(name + ".yml.");
+            InputStream resourceStream = TasksPlugin.getInstance().getResource(name + ".yml");
             if (resourceStream != null) {
                 InputStreamReader reader = new InputStreamReader(resourceStream, StandardCharsets.UTF_8);
                 defaultConfig.load(reader);
