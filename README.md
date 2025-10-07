@@ -38,9 +38,13 @@ Use the /tasksadmin (/ta) command for admin things.
 
 ## Config
 ```yaml
-xp-curve:
-  base: 10 # The base amount of XP required to level up
-  multiplier: 1.02 # The xp increase each level (exponential)
+levels:
+  enable: true # Enable or disable the leveling system
+  show-level: true # Show the player's level in chat
+  chat-prefix-format: '&f[{color}{level}&f] ' # The format for chat messages
+  xp-curve:
+    base: 10 # The base amount of XP required to level up
+    multiplier: 1.02 # The xp increase each level (exponential)
 
 tasks:
   allow-skipping: true # Allow players to skip tasks
