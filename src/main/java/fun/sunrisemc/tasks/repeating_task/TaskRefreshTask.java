@@ -1,11 +1,11 @@
-package fun.sunrisemc.tasks.scheduler;
+package fun.sunrisemc.tasks.repeating_task;
 
 import org.bukkit.Bukkit;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 
-public class TaskRefresh {
+public class TaskRefreshTask {
 
     private static final int INTERVAL = 20 * 5; // 5 seconds
 

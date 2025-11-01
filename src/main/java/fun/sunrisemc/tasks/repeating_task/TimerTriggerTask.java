@@ -1,4 +1,4 @@
-package fun.sunrisemc.tasks.scheduler;
+package fun.sunrisemc.tasks.repeating_task;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
@@ -9,7 +9,7 @@ import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.utils.PlayerUtils;
 
-public class TimerTrigger {
+public class TimerTriggerTask {
 
     private static final int INTERVAL = 20 * 1; // 1 second
 

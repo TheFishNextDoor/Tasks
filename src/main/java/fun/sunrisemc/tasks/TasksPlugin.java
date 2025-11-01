@@ -49,9 +49,9 @@ import fun.sunrisemc.tasks.event.ThrowEgg;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.player.PlayerLevel;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
-import fun.sunrisemc.tasks.scheduler.AutoSave;
-import fun.sunrisemc.tasks.scheduler.TaskRefresh;
-import fun.sunrisemc.tasks.scheduler.TimerTrigger;
+import fun.sunrisemc.tasks.repeating_task.AutoSaveTask;
+import fun.sunrisemc.tasks.repeating_task.TaskRefreshTask;
+import fun.sunrisemc.tasks.repeating_task.TimerTriggerTask;
 import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
 
@@ -113,17 +113,17 @@ public class TasksPlugin extends JavaPlugin {
         pluginManager.registerEvents(new Portal(), this);
         pluginManager.registerEvents(new Respawn(), this);
 
-        AutoSave.start();
-        TaskRefresh.start();
-        TimerTrigger.start();
+        AutoSaveTask.start();
+        TaskRefreshTask.start();
+        TimerTriggerTask.start();
 
         TasksPlugin.logInfo("Plugin enabled.");
     }
 
     public void onDisable() {
-        AutoSave.stop();
-        TaskRefresh.stop();
-        TimerTrigger.stop();
+        AutoSaveTask.stop();
+        TaskRefreshTask.stop();
+        TimerTriggerTask.stop();
         PlayerProfileManager.saveAll();
         TasksPlugin.logInfo("Plugin disabled.");
     }

@@ -1,11 +1,11 @@
-package fun.sunrisemc.tasks.scheduler;
+package fun.sunrisemc.tasks.repeating_task;
 
 import org.bukkit.Bukkit;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 
-public class AutoSave {
+public class AutoSaveTask {
 
     private static final int INTERVAL = 20 * 60 * 5; // 5 minutes
 
