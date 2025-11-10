@@ -1,6 +1,12 @@
 # Tasks
 Reward players for doing actions. Highly configurable and allows for daily and weekly tasks or even a quest like progression system.
 
+## Setup
+1. Add Tasks jar into your plugins folder.
+2. Restart your server.
+3. Edit config.yml, tasks.yml and unlocks.yml to your liking.
+4. Type /ta reload.
+
 ## Commands:
 
 ### User Commands
