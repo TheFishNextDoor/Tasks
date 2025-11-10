@@ -4,37 +4,37 @@ Reward players for doing actions. Highly configurable and allows for daily and w
 ## Commands:
 
 ### User Commands
-- **/tasks**: List your current tasks
-- **/tasks skip &lt;number&gt;**: Skip a task
-- **/tasks color &lt;color&gt;**: Change the color of your personal task related messages
-- **/level**: Check your level and experience
-- **/unlocks**: List your unlocks
+- **/tasks**: List your current tasks.
+- **/tasks skip &lt;number&gt;**: Skip a task.
+- **/tasks color &lt;color&gt;**: Change the color of your personal task related messages.
+- **/level**: Check your level and experience.
+- **/unlocks**: List your unlocks.
 
 ### Admin Commands
 Use the /tasksadmin (/ta) command for admin things.
-- **/ta help**: Show the help message
-- **/ta reload**: Reload the plugin
-- **/ta task list &lt;player&gt;**: List a player's tasks
-- **/ta task give &lt;player&gt; &lt;task&gt;**: Give a player a task
-- **/ta task remove &lt;player&gt; &lt;task&gt;**: Remove a task from a player
-- **/ta task addprogress &lt;player&gt; &lt;task&gt; &lt;amount&gt;**: Add progress to a task
-- **/ta xp give &lt;player&gt; &lt;amount&gt;**: Give a player XP (Tasks plugin xp not minecraft xp)
-- **/ta xp take &lt;player&gt; &lt;amount&gt;**: Take XP from a player
-- **/ta xp set &lt;player&gt; &lt;amount&gt;**: Set a player's XP
-- **/ta unlock list &lt;player&gt;**: List a player's unlocks
-- **/ta unlock give &lt;player&gt; &lt;unlock&gt;**: Give a player an unlock
-- **/ta skips give &lt;player&gt; &lt;amount&gt;**: Give a player skips
-- **/ta skips take &lt;player&gt; &lt;amount&gt;**: Take skips from a player
-- **/ta skips set &lt;player&gt; &lt;amount&gt;**: Set a player's skips
+- **/ta help**: Show the help message.
+- **/ta reload**: Reload the plugin.
+- **/ta task list &lt;player&gt;**: List a player's tasks.
+- **/ta task give &lt;player&gt; &lt;task&gt;**: Give a player a task.
+- **/ta task remove &lt;player&gt; &lt;task&gt;**: Remove a task from a player.
+- **/ta task addprogress &lt;player&gt; &lt;task&gt; &lt;amount&gt;**: Add progress to a task.
+- **/ta xp give &lt;player&gt; &lt;amount&gt;**: Give a player XP (Tasks plugin xp not minecraft xp).
+- **/ta xp take &lt;player&gt; &lt;amount&gt;**: Take XP from a player.
+- **/ta xp set &lt;player&gt; &lt;amount&gt;**: Set a player's XP.
+- **/ta unlock list &lt;player&gt;**: List a player's unlocks.
+- **/ta unlock give &lt;player&gt; &lt;unlock&gt;**: Give a player an unlock.
+- **/ta skips give &lt;player&gt; &lt;amount&gt;**: Give a player skips.
+- **/ta skips take &lt;player&gt; &lt;amount&gt;**: Take skips from a player.
+- **/ta skips set &lt;player&gt; &lt;amount&gt;**: Set a player's skips.
 
 ## Permissions
-- **tasks.color** (default): Allows the player to change the color of their tasks
-- **tasks.admin**: Allows the player to use admin commands
-- **tasks.admin.reload**: Allows the player to reload the plugin
-- **tasks.admin.task**: Allows the player to alter players' tasks
-- **tasks.admin.xp**: Allows the player to alter players' XP
-- **tasks.admin.unlock**: Allows the player to alter players' unlocks
-- **tasks.admin.skips**: Allows the player to alter players' skips
+- **tasks.color** (default): Allows the player to change the color of their tasks.
+- **tasks.admin**: Allows the player to use admin commands.
+- **tasks.admin.reload**: Allows the player to reload the plugin.
+- **tasks.admin.task**: Allows the player to alter players' tasks.
+- **tasks.admin.xp**: Allows the player to alter players' XP.
+- **tasks.admin.unlock**: Allows the player to alter players' unlocks.
+- **tasks.admin.skips**: Allows the player to alter players' skips.
 
 ## Config
 ```yaml
