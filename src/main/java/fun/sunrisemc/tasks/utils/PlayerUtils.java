@@ -1,11 +1,14 @@
 package fun.sunrisemc.tasks.utils;
 
 import java.util.ArrayList;
+import java.util.Optional;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 public class PlayerUtils {
 
@@ -24,5 +27,10 @@ public class PlayerUtils {
             return mainHand;
         }
         return inventory.getItemInOffHand();
+    }
+
+    public static Optional<Player> getPlayerByName(@NotNull String name) {
+        Player player = org.bukkit.Bukkit.getPlayerExact(name);
+        return Optional.ofNullable(player);
     }
 }
