@@ -1,7 +1,7 @@
 name: Tasks
 main: fun.sunrisemc.tasks.TasksPlugin
 version: 1.1.0
-api-version: 1.18
+api-version: 1.20
 author: TheFishNextDoor
 description: A simple task plugin
 softdepend: [Vault]
