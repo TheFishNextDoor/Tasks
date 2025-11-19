@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class StringUtils {
 
     public static Optional<Integer> parseInteger(@NotNull String str) {
@@ -33,6 +35,16 @@ public class StringUtils {
             return Optional.of(value);
         } 
         catch (NumberFormatException e) {
+            return Optional.empty();
+        }
+    }
+
+    public static Optional<ChatColor> parseChatColor(@NotNull String color) {
+        try {
+            ChatColor chatColor = ChatColor.of(color);
+            return Optional.of(chatColor);
+        } 
+        catch (IllegalArgumentException e) {
             return Optional.empty();
         }
     }
