@@ -213,6 +213,7 @@ Triggers control when tasks get triggered. Each time a player triggers a task it
     - Location: The location of the entity
     - Entity: The entity sheared
     - Item: The item used
+    - Block: The block at the entities location
     - Amount: 1
 
 ### TAME_ENTITY
@@ -237,6 +238,7 @@ Triggers control when tasks get triggered. Each time a player triggers a task it
     - Location: The location of the egg entity
     - Entity: The egg entity
     - Item: The egg item
+    - Block: The block at the egg's location when it is first thrown
     - Amount: 1
 
 ### PICKUP_ARROW
@@ -244,6 +246,7 @@ Triggers control when tasks get triggered. Each time a player triggers a task it
 - **Associated Data:**
     - Location: The location of the arrow entity
     - Entity: The arrow entity
+    - Block: The block the arrow is attached to
     - Amount: 1
 
 ### CRAFT_ITEM
@@ -414,6 +417,7 @@ Triggers control when tasks get triggered. Each time a player triggers a task it
     - Location: The location of the player
     - Entity: The player using the trident
     - Item: The trident
+    - Block: The block at the riptide location
     - Amount: 1
 
 ### TELEPORT_TO
@@ -438,6 +442,7 @@ Triggers control when tasks get triggered. Each time a player triggers a task it
     - Location: The destination
     - Entity: The player entering the portal
     - Item: The item in the players hand
+    - Block: The block portaled to
     - Amount: 1
 
 ### PORTAL_FROM
@@ -446,6 +451,7 @@ Triggers control when tasks get triggered. Each time a player triggers a task it
     - Location: The origin
     - Entity: The player entering the portal
     - Item: The item in the players hand
+    - Block: The block portaled from
     - Amount: 1
 
 ### DEATH
@@ -462,6 +468,7 @@ Triggers control when tasks get triggered. Each time a player triggers a task it
     - Location: The respawn location
     - Entity: The player respawning
     - Item: The item in the players hand
+    - Block: The block at the respawn location (probably air)
     - Amount: 1
 
 ### TIMER

@@ -32,8 +32,14 @@ public class BlockDropItem implements Listener {
 
         // Trigger tasks for each dropped item
         event.getItems().forEach(droppedItem -> {
+            // Get dropped item stack
             ItemStack droppedItemStack = droppedItem.getItemStack();
-            playerProfile.triggerTasks(TriggerType.BREAK_BLOCK_DROP_ITEM, blockLocation, player, droppedItemStack, block, droppedItemStack.getAmount());
+
+            // Get amount dropped
+            int amountDropped = droppedItemStack.getAmount();
+
+            // Trigger tasks
+            playerProfile.triggerTasks(TriggerType.BREAK_BLOCK_DROP_ITEM, blockLocation, player, droppedItemStack, block, amountDropped);
         });
     }
 }

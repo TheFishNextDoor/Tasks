@@ -1,11 +1,14 @@
 package fun.sunrisemc.tasks.event;
 
+import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
+
+import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
@@ -14,28 +17,57 @@ import fun.sunrisemc.tasks.utils.PlayerUtils;
 
 public class EntityDeath implements Listener {
 
-    @EventHandler
-    public void onEntityDeath(EntityDeathEvent event) {
-        LivingEntity entity = event.getEntity();
-        Player killer = entity.getKiller();
-        ItemStack hand = null;
+    @EventHandler(ignoreCancelled = true)
+    public void onEntityDeath(@NotNull EntityDeathEvent event) {
+        // Get the entity that died
+        LivingEntity killedEntity = event.getEntity();
 
+        // Get the player who killed the entity, if any
+        Player killer = killedEntity.getKiller();
+
+        // Player kill entity
         if (killer != null) {
-            hand = PlayerUtils.getItemInHand(killer);
+            // Get the player's profile
             PlayerProfile playerProfile = PlayerProfileManager.get(killer);
-            playerProfile.triggerTasks(TriggerType.KILL_ENTITY, entity.getLocation(), entity, hand, null, 1);
-            for (ItemStack item : event.getDrops()) {
-                playerProfile.triggerTasks(TriggerType.KILL_ENTITY_DROP_ITEM, entity.getLocation(), entity, item, null, item.getAmount());
+
+            // Get item in the player's hand
+            ItemStack itemInKillersHand = PlayerUtils.getItemInHand(killer);
+
+            // Get the killed entities location
+            Location entityLocation = killedEntity.getLocation();
+            
+            // Trigger kill entity tasks
+            playerProfile.triggerTasks(TriggerType.KILL_ENTITY, entityLocation, killedEntity, itemInKillersHand, null, 1);
+
+            // Trigger kill entity drop item tasks for each dropped item
+            for (ItemStack droppedItem : event.getDrops()) {
+                // Get the amount of the dropped item
+                int droppedItemAmount = droppedItem.getAmount();
+
+                // Trigger tasks
+                playerProfile.triggerTasks(TriggerType.KILL_ENTITY_DROP_ITEM, entityLocation, killedEntity, droppedItem, null, droppedItemAmount);
             }
         }
 
-        if (entity instanceof Player) {
-            Player player = (Player) entity;
-            PlayerProfile playerProfile = PlayerProfileManager.get(player);
+        // Player death
+        if (killedEntity instanceof Player) {
+            // Get the killed player
+            Player killedPlayer = (Player) killedEntity;
+
+            // Get the killed player's profile
+            PlayerProfile playerProfile = PlayerProfileManager.get(killedPlayer);
+
+            // Get the location of the killed player
+            Location deathLocation = killedPlayer.getLocation();
+
+            // Get item in killer's hand, if any
+            ItemStack itemInKillersHand = null;
             if (killer != null) {
-                hand = PlayerUtils.getItemInHand(killer);
+                itemInKillersHand = PlayerUtils.getItemInHand(killer);
             }
-            playerProfile.triggerTasks(TriggerType.DEATH, player.getLocation(), player, hand, null, 1);
+
+            // Trigger death tasks
+            playerProfile.triggerTasks(TriggerType.DEATH, deathLocation, killedPlayer, itemInKillersHand, null, 1);
         }
     }
 }

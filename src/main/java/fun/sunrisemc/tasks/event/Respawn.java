@@ -1,10 +1,14 @@
 package fun.sunrisemc.tasks.event;
 
+import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
+
+import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
@@ -14,10 +18,23 @@ import fun.sunrisemc.tasks.utils.PlayerUtils;
 public class Respawn implements Listener {
 
     @EventHandler
-    public void onRespawn(PlayerRespawnEvent event) {
+    public void onRespawn(@NotNull PlayerRespawnEvent event) {
+        // Get the player
         Player player = event.getPlayer();
+
+        // Get the player's profile
         PlayerProfile playerProfile = PlayerProfileManager.get(player);
-        ItemStack item = PlayerUtils.getItemInHand(player);
-        playerProfile.triggerTasks(TriggerType.RESPAWN, event.getRespawnLocation(), player, item, null, 1);
+
+        // Get the item in the player's hand
+        ItemStack itemInHand = PlayerUtils.getItemInHand(player);
+
+        // Get the respawn location
+        Location respawnLocation = event.getRespawnLocation();
+
+        // Get the block at the respawn location
+        Block blockAtRespawnLocation = respawnLocation.getBlock();
+
+        // Trigger tasks
+        playerProfile.triggerTasks(TriggerType.RESPAWN, respawnLocation, player, itemInHand, blockAtRespawnLocation, 1);
     }
 }

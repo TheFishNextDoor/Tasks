@@ -8,6 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerHarvestBlockEvent;
 import org.bukkit.inventory.ItemStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 import fun.sunrisemc.tasks.task.TriggerType;
@@ -15,16 +17,33 @@ import fun.sunrisemc.tasks.utils.PlayerUtils;
 
 public class HarvestBlock implements Listener {
 
-    @EventHandler
-    public void onPlayerHarvest(PlayerHarvestBlockEvent event) {
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerHarvest(@NotNull PlayerHarvestBlockEvent event) {
+        // Get the player
         Player player = event.getPlayer();
+
+        // Get the player's profile
         PlayerProfile playerProfile = PlayerProfileManager.get(player);
-        Block block = event.getHarvestedBlock();
-        ItemStack hand = PlayerUtils.getItemInHand(player);
-        Location location = block.getLocation();
-        playerProfile.triggerTasks(TriggerType.HARVEST_BLOCK, location, player, hand, block, 1);
+
+        // Get the block harvested
+        Block blockHarvested = event.getHarvestedBlock();
+
+        // Get the location of the harvested block
+        Location location = blockHarvested.getLocation();
+
+        // Get the item in the player's hand
+        ItemStack itemInHand = PlayerUtils.getItemInHand(player);
+
+        // Trigger harvest block tasks
+        playerProfile.triggerTasks(TriggerType.HARVEST_BLOCK, location, player, itemInHand, blockHarvested, 1);
+
+        // Trigger harvest item tasks for each item harvested
         for (ItemStack item : event.getItemsHarvested()) {
-            playerProfile.triggerTasks(TriggerType.HARVEST_ITEM, location, player, item, block, item.getAmount());
+            // Get amount harvested
+            int amountHarvested = item.getAmount();
+
+            // Trigger harvest item tasks
+            playerProfile.triggerTasks(TriggerType.HARVEST_ITEM, location, player, item, blockHarvested, amountHarvested);
         }
     }
 }
