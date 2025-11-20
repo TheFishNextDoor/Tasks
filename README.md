@@ -204,6 +204,7 @@ Triggers control when tasks get triggered. Each time a player triggers a task it
     - Location: The location of the entity
     - Entity: The entity targeted
     - Item: The bucket
+    - Block: The block the enity is in
     - Amount: 1
 
 ### SHEAR_ENTITY

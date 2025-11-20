@@ -11,7 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockCookEvent;
 import org.bukkit.inventory.ItemStack;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
@@ -19,8 +20,8 @@ import fun.sunrisemc.tasks.task.TriggerType;
 
 public class BlockCook implements Listener {
 
-    @EventHandler
-    public void onBlockCook(BlockCookEvent event) {
+    @EventHandler(ignoreCancelled = true)
+    public void onBlockCook(@NotNull BlockCookEvent event) {
         // Get block
         Block block = event.getBlock();
 
@@ -30,10 +31,10 @@ public class BlockCook implements Listener {
         }
 
         // Get location
-        Location location = block.getLocation();
+        Location campfireLocation = block.getLocation();
 
         // Get nearest player
-        Optional<Player> player = getNearestPlayer(location);
+        Optional<Player> player = getNearestPlayer(campfireLocation);
         if (!player.isPresent()) {
             return;
         }
@@ -42,13 +43,13 @@ public class BlockCook implements Listener {
         PlayerProfile playerProfile = PlayerProfileManager.get(player.get());
 
         // Get the resulting item
-        ItemStack result = event.getResult();
+        ItemStack cookedItem = event.getResult();
 
         // Trigger tasks
-        playerProfile.triggerTasks(TriggerType.SMELT_ITEM, location, player.get(), result, block, result.getAmount());
+        playerProfile.triggerTasks(TriggerType.SMELT_ITEM, campfireLocation, player.get(), cookedItem, block, cookedItem.getAmount());
     }
 
-    private Optional<Player> getNearestPlayer(@NonNull Location location) {
+    private Optional<Player> getNearestPlayer(@NotNull Location location) {
         // Get world
         World world = location.getWorld();
         if (world == null) {
