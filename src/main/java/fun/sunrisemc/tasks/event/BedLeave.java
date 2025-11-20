@@ -16,10 +16,19 @@ public class BedLeave implements Listener {
 
     @EventHandler
     public void onBedLeave(PlayerBedLeaveEvent event) {
+        // Get player
         Player player = event.getPlayer();
+
+        // Get player profile
         PlayerProfile playerProfile = PlayerProfileManager.get(player);
-        Block block = event.getBed();
+
+        // Get bed
+        Block bed = event.getBed();
+
+        // Get item in players hand
         ItemStack item = PlayerUtils.getItemInHand(player);
-        playerProfile.triggerTasks(TriggerType.LEAVE_BED, block.getLocation(), player, item, block, 1);
+
+        // Trigger tasks
+        playerProfile.triggerTasks(TriggerType.LEAVE_BED, bed.getLocation(), player, item, bed, 1);
     }
 }

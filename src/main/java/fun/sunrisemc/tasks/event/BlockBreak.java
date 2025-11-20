@@ -16,10 +16,19 @@ public class BlockBreak implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
+        // Get player
         Player player = event.getPlayer();
+
+        // Get player profile
         PlayerProfile playerProfile = PlayerProfileManager.get(player);
+
+        // Get block broken
         Block block = event.getBlock();
+
+        // Get item in players hand
         ItemStack item = PlayerUtils.getItemInHand(player);
+
+        // Trigger tasks
         playerProfile.triggerTasks(TriggerType.BREAK_BLOCK, block.getLocation(), player, item, block, 1);
     }
 }
