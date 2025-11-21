@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class YAMLUtils {
 
+    // Getting
+
     public static int getIntClamped(@NotNull YamlConfiguration config, @NotNull String path, int min, int max) {
         if (!config.contains(path)) {
             return min;
@@ -61,6 +63,7 @@ public class YAMLUtils {
         return value != null ? value : defaultValue;
     }
 
+    @NotNull
     public static HashSet<String> getKeys(@NotNull YamlConfiguration config, @NotNull String path) {
         if (!config.contains(path)) {
             return new HashSet<>();
@@ -73,6 +76,8 @@ public class YAMLUtils {
 
         return new HashSet<>(section.getKeys(false));
     }
+
+    // Modifying
 
     public static boolean renameKey(YamlConfiguration config, String oldKey, String newKey) {
         if (!config.contains(oldKey) || !config.contains(newKey)) {
