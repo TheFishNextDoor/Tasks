@@ -1,7 +1,6 @@
 package fun.sunrisemc.tasks.event;
 
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,14 +25,11 @@ public class Riptide implements Listener {
 
         // Get the players location
         Location location = player.getLocation();
-        
-        // Get the block at the player's location
-        Block blockAtLocation = location.getBlock();
 
         // Get the trident
         ItemStack trident = event.getItem();
 
         // Trigger tasks
-        playerProfile.triggerTasks(TriggerType.RIPTIDE, location, player, trident, blockAtLocation, 1);
+        playerProfile.triggerTasks(TriggerType.RIPTIDE, location, player, trident, null, 1);
     }
 }

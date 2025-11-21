@@ -1,7 +1,6 @@
 package fun.sunrisemc.tasks.event;
 
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,13 +30,10 @@ public class ShearEntity implements Listener {
         // Get the location of the entity being sheared
         Location entityLocation = entitySheared.getLocation();
 
-        // Get the block at the entity's location
-        Block blockAtEntityLocation = entityLocation.getBlock();
-
         // Get the item used to shear
         ItemStack itemUsed = event.getItem();
 
         // Trigger tasks
-        playerProfile.triggerTasks(TriggerType.SHEAR_ENTITY, entityLocation, entitySheared, itemUsed, blockAtEntityLocation, 1);
+        playerProfile.triggerTasks(TriggerType.SHEAR_ENTITY, entityLocation, entitySheared, itemUsed, null, 1);
     }
 }

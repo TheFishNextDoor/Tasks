@@ -1,7 +1,6 @@
 package fun.sunrisemc.tasks.event;
 
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,10 +30,7 @@ public class Respawn implements Listener {
         // Get the respawn location
         Location respawnLocation = event.getRespawnLocation();
 
-        // Get the block at the respawn location
-        Block blockAtRespawnLocation = respawnLocation.getBlock();
-
         // Trigger tasks
-        playerProfile.triggerTasks(TriggerType.RESPAWN, respawnLocation, player, itemInHand, blockAtRespawnLocation, 1);
+        playerProfile.triggerTasks(TriggerType.RESPAWN, respawnLocation, player, itemInHand, null, 1);
     }
 }

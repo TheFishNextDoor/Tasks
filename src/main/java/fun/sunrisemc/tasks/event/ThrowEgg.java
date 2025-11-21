@@ -1,13 +1,13 @@
 package fun.sunrisemc.tasks.event;
 
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Egg;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerEggThrowEvent;
 import org.bukkit.inventory.ItemStack;
+
 import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
@@ -30,11 +30,10 @@ public class ThrowEgg implements Listener {
         // Get the egg's location
         Location eggLocation = egg.getLocation();
 
-        // Get the block at the egg's location
-        Block blockAtEggLocation = eggLocation.getBlock();
-
         // Get the egg item
         ItemStack eggItem = egg.getItem();
-        playerProfile.triggerTasks(TriggerType.THROW_EGG, eggLocation, egg, eggItem, blockAtEggLocation, 1);
+
+        // Trigger tasks
+        playerProfile.triggerTasks(TriggerType.THROW_EGG, eggLocation, egg, eggItem, null, 1);
     }
 }
