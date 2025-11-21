@@ -1,74 +1,67 @@
 package fun.sunrisemc.tasks.hook;
 
+import java.util.Optional;
+
 import org.bukkit.Server;
 import org.bukkit.plugin.RegisteredServiceProvider;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.bukkit.plugin.ServicesManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import fun.sunrisemc.tasks.TasksPlugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 
 public class Vault {
 
-    private static boolean usingVault = false;
+    // Optional Vault Hook Class //
 
-    private static Economy economy = null;
-    private static Permission permissions = null;
-    private static Chat chat = null;
+    private static @Nullable Economy economy = null;
 
-    public static boolean isUsingVault() {
-        return usingVault;
+    private static @Nullable Permission permissions = null;
+
+    private static @Nullable Chat chat = null;
+
+    public static Optional<Economy> getEconomy() {
+        return Optional.ofNullable(economy);
     }
 
-    public static Economy getEconomy() {
-        if (!usingVault) {
-            throw new IllegalStateException("Vault not found");
-        }
-        return economy;
+    public static Optional<Permission> getPermissions() {
+        return Optional.ofNullable(permissions);
     }
 
-    public static Permission getPermissions() {
-        if (!usingVault) {
-            throw new IllegalStateException("Vault not found");
-        }
-        return permissions;
+    public static Optional<Chat> getChat() {
+        return Optional.ofNullable(chat);
     }
 
-    public static Chat getChat() {
-        if (!usingVault) {
-            throw new IllegalStateException("Vault not found");
-        }
-        return chat;
-    }
-
-    public static boolean hook(@NonNull TasksPlugin plugin) {
-        usingVault = false;
-        
+    public static boolean hook(@NotNull JavaPlugin plugin) {
         Server server = plugin.getServer();
         if (server.getPluginManager().getPlugin("Vault") == null) {
             return false;
         }
 
-        RegisteredServiceProvider<Economy> economyService = server.getServicesManager().getRegistration(Economy.class);
+        ServicesManager servicesManager = server.getServicesManager();
+
+        RegisteredServiceProvider<@NotNull Economy> economyService = servicesManager.getRegistration(Economy.class);
         if (economyService == null) {
             return false;
         }
         economy = economyService.getProvider();
 
-        RegisteredServiceProvider<Permission> permissionService = server.getServicesManager().getRegistration(Permission.class);
+        RegisteredServiceProvider<@NotNull Permission> permissionService = servicesManager.getRegistration(Permission.class);
         if (permissionService == null) {
             return false;
         }
         permissions = permissionService.getProvider();
 
-        RegisteredServiceProvider<Chat> chatService = server.getServicesManager().getRegistration(Chat.class);
+        RegisteredServiceProvider<@NotNull Chat> chatService = servicesManager.getRegistration(Chat.class);
         if (chatService == null) {
             return false;
         }
         chat = chatService.getProvider();
 
-        usingVault = true;
         return true;
     }
 }

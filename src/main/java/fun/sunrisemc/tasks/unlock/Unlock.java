@@ -134,12 +134,14 @@ public class Unlock implements Comparable<Unlock> {
     }
 
     public void givePermissions(@NonNull Player player) {
-        if (Vault.isUsingVault()) {
-            Permission permissionsProvider = Vault.getPermissions();
-            for (String permission : permissions) {
-                if (!player.hasPermission(permission)) {
-                    permissionsProvider.playerAdd(player, permission);
-                }
+        Optional<Permission> permissionsProvider = Vault.getPermissions();
+        if (!permissionsProvider.isPresent()) {
+            return;
+        }
+
+        for (String permission : permissions) {
+            if (!player.hasPermission(permission)) {
+                permissionsProvider.get().playerAdd(player, permission);
             }
         }
     }

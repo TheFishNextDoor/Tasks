@@ -30,6 +30,7 @@ import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
 import fun.sunrisemc.tasks.utils.Money;
 import net.md_5.bungee.api.ChatColor;
+import net.milkbowl.vault.economy.Economy;
 
 public class PlayerProfile {
 
@@ -135,16 +136,17 @@ public class PlayerProfile {
     }
 
     public void addMoney(double amount) {
-        if (amount < 0) {
-            throw new IllegalArgumentException("Amount must be positive");
-        }
-        if (amount == 0) {
+        if (amount <= 0) {
             return;
         }
-        if (!Vault.isUsingVault()) {
+
+        Optional<Economy> economy = Vault.getEconomy();
+        if (economy.isEmpty()) {
             return;
         }
-        Vault.getEconomy().depositPlayer(getPlayer().get(), amount);
+
+        economy.get().depositPlayer(getPlayer().get(), amount);
+        
         getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GOLD + "+" + Money.format(amount)));
     }
 
