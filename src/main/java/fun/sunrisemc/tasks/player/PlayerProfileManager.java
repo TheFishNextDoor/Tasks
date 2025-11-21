@@ -5,7 +5,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 
@@ -13,28 +14,29 @@ public class PlayerProfileManager {
 
     private static ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
 
-    public static void load(@NonNull Player player) {
+    public static void load(@NotNull Player player) {
         PlayerProfileManager.load(player.getUniqueId());
     }
 
-    public static void load(@NonNull UUID uuid) {
+    public static void load(@NotNull UUID uuid) {
         Bukkit.getScheduler().runTaskAsynchronously(TasksPlugin.getInstance(), () -> PlayerProfileManager.get(uuid));
     }
 
-    public static boolean unload(@NonNull UUID uuid) {
+    public static boolean unload(@NotNull UUID uuid) {
         return playerProfiles.remove(uuid) != null;
     }
 
-    public static PlayerProfile get(@NonNull Player player) {
+    public static PlayerProfile get(@NotNull Player player) {
         return PlayerProfileManager.get(player.getUniqueId());
     }
 
-    public static PlayerProfile get(@NonNull UUID uuid) {
+    public static PlayerProfile get(@NotNull UUID uuid) {
         PlayerProfile playerProfile = playerProfiles.get(uuid);
         if (playerProfile == null) {
             playerProfile = new PlayerProfile(uuid);
             playerProfiles.put(uuid, playerProfile);
         }
+
         return playerProfile;
     }
 
@@ -44,8 +46,14 @@ public class PlayerProfileManager {
 
     public static void reload() {
         PlayerProfileManager.saveAll();
+
         playerProfiles.clear();
+
         for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player == null) {
+                continue;
+            }
+
             load(player);
         }
     }

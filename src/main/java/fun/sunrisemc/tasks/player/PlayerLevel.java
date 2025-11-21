@@ -10,7 +10,9 @@ public class PlayerLevel {
         if (!settings.ENABLE_LEVELLING) {
             return 0;
         }
+
         level -= 1;
+
         double b = settings.LEVEL_BASE;
         int total = 0;
         for (int i = 1; i <= level; i++) {
@@ -25,6 +27,7 @@ public class PlayerLevel {
         if (!settings.ENABLE_LEVELLING) {
             return 1;
         }
+        
         double b = settings.LEVEL_BASE;
         int currentXp = 0;
         int level = 0;
