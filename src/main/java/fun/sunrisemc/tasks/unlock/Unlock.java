@@ -7,17 +7,19 @@ import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.utils.YAMLUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.permission.Permission;
 
 public class Unlock implements Comparable<Unlock> {
 
-    private final List<String> SETTINGS = List.of(
+    private final @NotNull List<String> SETTINGS = List.of(
         "level",
         "name",
         "permissions",
@@ -26,21 +28,21 @@ public class Unlock implements Comparable<Unlock> {
         "messages"
     );
 
-    private final String id;
+    private final @NotNull String id;
 
     private int level;
 
-    private String name;
+    private Optional<String> name;
 
-    private ArrayList<String> permissions = new ArrayList<String>();
-    private ArrayList<String> consoleCommands = new ArrayList<String>();
-    private ArrayList<String> playerCommands = new ArrayList<String>();
-    private ArrayList<String> messages = new ArrayList<String>();
+    private @NotNull ArrayList<String> permissions = new ArrayList<String>();
+    private @NotNull ArrayList<String> consoleCommands = new ArrayList<String>();
+    private @NotNull ArrayList<String> playerCommands = new ArrayList<String>();
+    private @NotNull ArrayList<String> messages = new ArrayList<String>();
 
-    Unlock(@NonNull YamlConfiguration config, @NonNull String id) {
+    Unlock(@NotNull YamlConfiguration config, @NotNull String id) {
         this.id = id;
 
-        for (String setting : config.getConfigurationSection(id).getKeys(false)) {
+        for (String setting : YAMLUtils.getKeys(config, id)) {
             if (!SETTINGS.contains(setting)) {
                 TasksPlugin.logWarning("Invalid setting for unlock " + id + ": " + setting + ".");
                 String possibleSettings = String.join(", ", SETTINGS);
@@ -50,7 +52,7 @@ public class Unlock implements Comparable<Unlock> {
 
         level = config.getInt(id + ".level");
 
-        name = config.getString(id + ".name");
+        name = Optional.ofNullable(config.getString(id + ".name"));
         
         for (String permission : config.getStringList(id + ".permissions")) {
             permissions.add(permission);
@@ -71,8 +73,9 @@ public class Unlock implements Comparable<Unlock> {
     }
 
     @Override
+    @NotNull
     public String toString() {
-        String string = name != null ? name : id;
+        String string = name.isPresent() ? name.get() : id;
         if (level > 0) {
             string = string + " (Level " + level + ")";
         }
@@ -92,14 +95,14 @@ public class Unlock implements Comparable<Unlock> {
         return level;
     }
 
-    public boolean isValidFor(@NonNull PlayerProfile playerProfile) {
+    public boolean isValidFor(@NotNull PlayerProfile playerProfile) {
         if (level < 1 || level > playerProfile.getLevel()) {
             return false;
         }
         return true;
     }
 
-    public void giveTo(@NonNull PlayerProfile playerProfile) {
+    public void giveTo(@NotNull PlayerProfile playerProfile) {
         Optional<Player> optionalPlayer = playerProfile.getPlayer();
         if (!optionalPlayer.isPresent()) {
             return;
@@ -112,7 +115,9 @@ public class Unlock implements Comparable<Unlock> {
             return;
         }
 
-        playerProfile.sendNotification("Unlocked", name);
+        if (name.isPresent()) {
+            playerProfile.sendNotification("Unlocked", name.get());
+        }
 
         String playerName = player.getName();
         for (String command : consoleCommands) {
@@ -133,7 +138,7 @@ public class Unlock implements Comparable<Unlock> {
         return;
     }
 
-    public void givePermissions(@NonNull Player player) {
+    public void givePermissions(@NotNull Player player) {
         Optional<Permission> permissionsProvider = Vault.getPermissions();
         if (!permissionsProvider.isPresent()) {
             return;

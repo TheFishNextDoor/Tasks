@@ -8,24 +8,27 @@ import java.util.Optional;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.file.ConfigFile;
 
 public class UnlockManager {
 
-    private static HashMap<String, Unlock> unlocksLookup = new HashMap<>();
+    private static @NotNull HashMap<String, Unlock> unlocksLookup = new HashMap<>();
 
-    private static List<Unlock> unlocksSorted = Collections.unmodifiableList(new ArrayList<>());
+    private static @NotNull List<Unlock> unlocksSorted = Collections.unmodifiableList(new ArrayList<>());
 
     public static Optional<Unlock> get(@NonNull String id) {
         return Optional.ofNullable(unlocksLookup.get(id));
     }
 
+    @NotNull
     public static List<Unlock> getSorted() {
         return unlocksSorted;
     }
 
+    @NotNull
     public static ArrayList<String> getIds() {
         ArrayList<String> ids = new ArrayList<>();
         for (Unlock unlock : unlocksSorted) {
