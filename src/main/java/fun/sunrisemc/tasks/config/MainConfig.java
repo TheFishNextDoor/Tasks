@@ -2,6 +2,8 @@ package fun.sunrisemc.tasks.config;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import org.jetbrains.annotations.NotNull;
+
 import fun.sunrisemc.tasks.file.ConfigFile;
 import fun.sunrisemc.tasks.utils.YAMLUtils;
 
@@ -11,7 +13,7 @@ public class MainConfig {
 
     public final boolean ENABLE_LEVELLING;
     public final boolean SHOW_LEVEL;
-    public final String CHAT_PREFIX_FORMAT;
+    public final @NotNull String CHAT_PREFIX_FORMAT;
     public final double LEVEL_BASE;
     public final double LEVEL_MULTIPLIER;
 
@@ -31,7 +33,7 @@ public class MainConfig {
 
         this.ENABLE_LEVELLING = config.getBoolean("levels.enable", true);
         this.SHOW_LEVEL = config.getBoolean("levels.show-level", true);
-        this.CHAT_PREFIX_FORMAT = config.getString("levels.chat-prefix-format", "&f[{color}{level}&f] ");
+        this.CHAT_PREFIX_FORMAT = YAMLUtils.getStringOrDefault(config, "levels.chat-prefix-format", "&f[{color}{level}&f] ");
         this.LEVEL_BASE = YAMLUtils.getDoubleClamped(config, "levels.xp-curve.base", 1.0, 1_000_000.0);
         this.LEVEL_MULTIPLIER = YAMLUtils.getDoubleClamped(config, "levels.xp-curve.multiplier", 1.0, 10.0);
 

@@ -142,7 +142,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
         // Reload //
         if (subcommand1.equalsIgnoreCase("reload") && sender.hasPermission(Permissions.RELOAD_PERMISSION)) {
             // Reload the plugin configuration
-            TasksPlugin.loadConfigs();
+            TasksPlugin.reload();
 
             // Notify sender
             sender.sendMessage(ChatColor.BLUE + "Plugin reloaded.");

@@ -6,7 +6,8 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import fun.sunrisemc.tasks.command.LevelCommand;
 import fun.sunrisemc.tasks.command.TasksCommand;
@@ -57,12 +58,16 @@ import fun.sunrisemc.tasks.unlock.UnlockManager;
 
 public class TasksPlugin extends JavaPlugin {
 
-    private static TasksPlugin instance;
+    private static @Nullable TasksPlugin instance;
 
-    private static MainConfig mainConfig;
+    private static @Nullable MainConfig mainConfig;
+
+    // Java Plugin
 
     public void onEnable() {
         instance = this;
+
+        mainConfig = new MainConfig();
 
         if (Vault.hook(this)) {
             TasksPlugin.logInfo("Vault hooked.");
@@ -71,7 +76,15 @@ public class TasksPlugin extends JavaPlugin {
             TasksPlugin.logWarning("Vault not found. Economy and Permissions features will be disabled.");
         }
 
-        loadConfigs();
+        UnlockManager.loadConfig();
+
+        TaskConfigurationManager.loadConfig();
+
+        PlayerProfileManager.reload();
+        
+        if (getMainConfig().ENABLE_LEVELLING && !PlayerLevel.verify()) {
+            TasksPlugin.logSevere("PlayerLevel verification failed.");
+        }
 
         registerCommand("tasksadmin", new TasksAdminCommand());
         registerCommand("tasks", new TasksCommand());
@@ -124,41 +137,69 @@ public class TasksPlugin extends JavaPlugin {
         AutoSaveTask.stop();
         TaskRefreshTask.stop();
         TimerTriggerTask.stop();
+
         PlayerProfileManager.saveAll();
+
         TasksPlugin.logInfo("Plugin disabled.");
     }
 
-    public static void loadConfigs() {
+    // Plugin Instance
+
+    @NotNull
+    public static TasksPlugin getInstance() {
+        if (instance != null) {
+            return instance;
+        }
+        else {
+            throw new IllegalStateException("Plugin instance not initialized.");
+        }
+    }
+
+    // Configs
+
+    @NotNull
+    public static MainConfig getMainConfig() {
+        if (mainConfig != null) {
+            return mainConfig;
+        }
+        else {
+            throw new IllegalStateException("Main config not loaded.");
+        }
+    }
+
+    // Reloading
+
+    public static void reload() {
         mainConfig = new MainConfig();
+
         UnlockManager.loadConfig();
+
         TaskConfigurationManager.loadConfig();
+
         PlayerProfileManager.reload();
-        if (mainConfig.ENABLE_LEVELLING && !PlayerLevel.verify()) {
+
+        if (getMainConfig().ENABLE_LEVELLING && !PlayerLevel.verify()) {
             TasksPlugin.logSevere("PlayerLevel verification failed.");
         }
     }
 
-    public static void logInfo(@NonNull String message) {
+    // Logging
+
+    public static void logInfo(@NotNull String message) {
         getInstance().getLogger().info(message);
     }
 
-    public static void logWarning(@NonNull String message) {
+    public static void logWarning(@NotNull String message) {
         getInstance().getLogger().warning(message);
     }
 
-    public static void logSevere(@NonNull String message) {
+    public static void logSevere(@NotNull String message) {
         getInstance().getLogger().severe(message);
     }
 
-    public static TasksPlugin getInstance() {
-        return instance;
-    }
+    // Command Registration
 
-    public static MainConfig getMainConfig() {
-        return mainConfig;
-    }
-
-    private boolean registerCommand(@NonNull String commandName, @NonNull CommandExecutor commandExecutor) {
+    private boolean registerCommand(@NotNull String commandName, @NotNull CommandExecutor commandExecutor) {
         PluginCommand command = getCommand(commandName);
         if (command == null) {
             TasksPlugin.logSevere("Command '" + commandName + "' not found in plugin.yml.");

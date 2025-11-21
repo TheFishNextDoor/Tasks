@@ -44,6 +44,6 @@ public class PlayerChat implements Listener {
         String prefix = ChatColor.translateAlternateColorCodes('&', prefixFormat.replace("{color}", color).replace("{level}", level));
 
         // Apply the prefix
-        event.setFormat(prefix + " " + event.getFormat());
+        event.setFormat(prefix + event.getFormat());
     }
 }
