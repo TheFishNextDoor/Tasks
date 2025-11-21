@@ -49,9 +49,9 @@ import fun.sunrisemc.tasks.event.ThrowEgg;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.player.PlayerLevel;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
-import fun.sunrisemc.tasks.repeating_task.AutoSaveTask;
-import fun.sunrisemc.tasks.repeating_task.TaskRefreshTask;
-import fun.sunrisemc.tasks.repeating_task.TimerTriggerTask;
+import fun.sunrisemc.tasks.scheduler.AutoSaveTask;
+import fun.sunrisemc.tasks.scheduler.TaskRefreshTask;
+import fun.sunrisemc.tasks.scheduler.TimerTriggerTask;
 import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
 

@@ -1,4 +1,4 @@
-package fun.sunrisemc.tasks.repeating_task;
+package fun.sunrisemc.tasks.scheduler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;

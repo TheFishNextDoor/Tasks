@@ -1,13 +1,13 @@
-package fun.sunrisemc.tasks.repeating_task;
+package fun.sunrisemc.tasks.scheduler;
 
 import org.bukkit.Bukkit;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
 
-public class TaskRefreshTask {
+public class AutoSaveTask {
 
-    private static final int INTERVAL = 20 * 5; // 5 seconds
+    private static final int INTERVAL = 20 * 60 * 5; // 5 minutes
 
     private static int id = -1;
 
@@ -15,9 +15,9 @@ public class TaskRefreshTask {
         if (id != -1) {
             return;
         }
-        id = Bukkit.getScheduler().scheduleSyncRepeatingTask(TasksPlugin.getInstance(), () -> {
-            PlayerProfileManager.refreshAllTasks();
-        }, INTERVAL, INTERVAL);
+        id = Bukkit.getScheduler().runTaskTimerAsynchronously(TasksPlugin.getInstance(), () -> {
+            PlayerProfileManager.saveAll();
+        }, INTERVAL, INTERVAL).getTaskId();
     }
 
     public static void stop() {
