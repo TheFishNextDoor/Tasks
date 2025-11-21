@@ -36,7 +36,7 @@ public class EntityTame implements Listener {
         LivingEntity tamedEntity = event.getEntity();
 
         // Get the item in the player's hand
-        ItemStack itemInHand = PlayerUtils.getItemInHand(player);
+        ItemStack itemInHand = PlayerUtils.getItemInHand(player).orElse(null);
 
         // Get the location of the tamed entity
         Location locationOfTamedEntity = tamedEntity.getLocation();

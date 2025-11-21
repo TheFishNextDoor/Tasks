@@ -31,7 +31,7 @@ public class EntityDeath implements Listener {
             PlayerProfile playerProfile = PlayerProfileManager.get(killer);
 
             // Get item in the player's hand
-            ItemStack itemInKillersHand = PlayerUtils.getItemInHand(killer);
+            ItemStack itemInKillersHand = PlayerUtils.getItemInHand(killer).orElse(null);
 
             // Get the killed entities location
             Location entityLocation = killedEntity.getLocation();
@@ -63,7 +63,7 @@ public class EntityDeath implements Listener {
             // Get item in killer's hand, if any
             ItemStack itemInKillersHand = null;
             if (killer != null) {
-                itemInKillersHand = PlayerUtils.getItemInHand(killer);
+                itemInKillersHand = PlayerUtils.getItemInHand(killer).orElse(null);
             }
 
             // Trigger death tasks

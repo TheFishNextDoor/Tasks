@@ -32,7 +32,7 @@ public class InteractEntity implements Listener {
         Location entityLocation = entity.getLocation();
 
         // Get the item in the player's hand
-        ItemStack itemInHand = PlayerUtils.getItemInHand(player);
+        ItemStack itemInHand = PlayerUtils.getItemInHand(player).orElse(null);
 
         // Trigger tasks
         playerProfile.triggerTasks(TriggerType.INTERACT_ENTITY, entityLocation, entity, itemInHand, null, 1);

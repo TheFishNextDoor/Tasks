@@ -32,7 +32,7 @@ public class HarvestBlock implements Listener {
         Location location = blockHarvested.getLocation();
 
         // Get the item in the player's hand
-        ItemStack itemInHand = PlayerUtils.getItemInHand(player);
+        ItemStack itemInHand = PlayerUtils.getItemInHand(player).orElse(null);
 
         // Trigger harvest block tasks
         playerProfile.triggerTasks(TriggerType.HARVEST_BLOCK, location, player, itemInHand, blockHarvested, 1);

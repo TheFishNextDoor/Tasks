@@ -32,7 +32,7 @@ public class BedEnter implements Listener {
         Location bedLocation = enteredBed.getLocation();
 
         // Get item in player's hand
-        ItemStack itemInHand = PlayerUtils.getItemInHand(player);
+        ItemStack itemInHand = PlayerUtils.getItemInHand(player).orElse(null);
 
         // Trigger tasks
         playerProfile.triggerTasks(TriggerType.ENTER_BED, bedLocation, player, itemInHand, enteredBed, 1);

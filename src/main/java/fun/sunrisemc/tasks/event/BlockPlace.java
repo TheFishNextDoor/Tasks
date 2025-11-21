@@ -32,7 +32,7 @@ public class BlockPlace implements Listener {
         Location blockLocation = placedBlock.getLocation();
 
         // Get item in player's hand
-        ItemStack itemInHand = PlayerUtils.getItemInHand(player);
+        ItemStack itemInHand = PlayerUtils.getItemInHand(player).orElse(null);
 
         // Trigger tasks
         playerProfile.triggerTasks(TriggerType.PLACE_BLOCK, blockLocation, player, itemInHand, placedBlock, 1);

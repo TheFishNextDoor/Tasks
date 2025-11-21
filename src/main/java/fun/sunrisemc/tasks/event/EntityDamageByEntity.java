@@ -38,7 +38,7 @@ public class EntityDamageByEntity implements Listener {
         Location damagedEntityLocation = damagedEntity.getLocation();
         
         // Get the item in the player's hand
-        ItemStack itemInPlayersHand = PlayerUtils.getItemInHand(playerWhoDamaged);
+        ItemStack itemInPlayersHand = PlayerUtils.getItemInHand(playerWhoDamaged).orElse(null);
 
         // Get the damage dealt
         int damage = (int) event.getDamage();

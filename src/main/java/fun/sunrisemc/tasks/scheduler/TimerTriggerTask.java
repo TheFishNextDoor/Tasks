@@ -27,7 +27,7 @@ public class TimerTriggerTask {
 
                 PlayerProfile playerProfile = PlayerProfileManager.get(player);
 
-                ItemStack itemInHand = PlayerUtils.getItemInHand(player);
+                ItemStack itemInHand = PlayerUtils.getItemInHand(player).orElse(null);
                 
                 playerProfile.triggerTasks(TriggerType.TIMER, player.getLocation(), player, itemInHand, null, 1);
             });

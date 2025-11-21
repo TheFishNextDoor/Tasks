@@ -32,7 +32,7 @@ public class BlockBreak implements Listener {
         Location blockLocation = blockBroken.getLocation();
 
         // Get item in player's hand
-        ItemStack itemInHand = PlayerUtils.getItemInHand(player);
+        ItemStack itemInHand = PlayerUtils.getItemInHand(player).orElse(null);
 
         // Trigger tasks
         playerProfile.triggerTasks(TriggerType.BREAK_BLOCK, blockLocation, player, itemInHand, blockBroken, 1);

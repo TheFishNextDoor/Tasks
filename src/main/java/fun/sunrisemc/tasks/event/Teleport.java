@@ -26,7 +26,7 @@ public class Teleport implements Listener {
             PlayerProfile playerProfile = PlayerProfileManager.get(player);
 
             // Get the item in the player's hand
-            ItemStack itemInHand = PlayerUtils.getItemInHand(player);
+            ItemStack itemInHand = PlayerUtils.getItemInHand(player).orElse(null);
 
             // Get the location teleported to and from
             Location locationTeleportedTo = event.getTo();

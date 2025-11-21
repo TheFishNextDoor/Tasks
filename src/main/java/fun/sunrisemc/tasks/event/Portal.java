@@ -26,7 +26,7 @@ public class Portal implements Listener {
         PlayerProfile playerProfile = PlayerProfileManager.get(player);
 
         // Get the item in the player's hand
-        ItemStack item = PlayerUtils.getItemInHand(player);
+        ItemStack item = PlayerUtils.getItemInHand(player).orElse(null);
 
         // Get the location portaled to and from
         Location locationPortaledTo = event.getTo();

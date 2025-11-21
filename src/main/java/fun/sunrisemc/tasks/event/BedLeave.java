@@ -32,7 +32,7 @@ public class BedLeave implements Listener {
         Location bedLocation = leftBed.getLocation();
 
         // Get item in player's hand
-        ItemStack itemInHand = PlayerUtils.getItemInHand(player);
+        ItemStack itemInHand = PlayerUtils.getItemInHand(player).orElse(null);
 
         // Trigger tasks
         playerProfile.triggerTasks(TriggerType.LEAVE_BED, bedLocation, player, itemInHand, leftBed, 1);
