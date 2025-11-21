@@ -1,6 +1,7 @@
 package fun.sunrisemc.tasks.task;
 
 public enum TriggerType {
+    
     INTERACT_ENTITY,
     DAMAGE_ENTITY,
     KILL_ENTITY,
@@ -37,4 +38,5 @@ public enum TriggerType {
     DEATH,
     RESPAWN,
     TIMER,
+
 }

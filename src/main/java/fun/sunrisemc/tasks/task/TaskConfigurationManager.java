@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
+import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.file.ConfigFile;
@@ -14,13 +15,13 @@ import fun.sunrisemc.tasks.player.PlayerProfile;
 
 public class TaskConfigurationManager {
 
-    private static HashMap<String, TaskConfiguration> taskConfigurations = new HashMap<>();
+    private static @NotNull HashMap<String, TaskConfiguration> taskConfigurations = new HashMap<>();
 
-    public static Optional<TaskConfiguration> get(@NonNull String id) {
+    public static Optional<TaskConfiguration> get(@NotNull String id) {
         return Optional.ofNullable(taskConfigurations.get(id));
     }
 
-    public static Optional<TaskConfiguration> getNewTask(@NonNull PlayerProfile playerProfile) {
+    public static Optional<TaskConfiguration> getNewTask(@NotNull PlayerProfile playerProfile) {
         ArrayList<TaskConfiguration> possibleTasks = new ArrayList<>();
         for (TaskConfiguration taskConfiguration : taskConfigurations.values()) {
             if (taskConfiguration.meetsRequirements(playerProfile)) {
@@ -35,6 +36,7 @@ public class TaskConfigurationManager {
         return Optional.of(possibleTasks.get((int) (Math.random() * possibleTasks.size())));
     }
 
+    @NotNull
     public static List<String> getIds() {
         return new ArrayList<>(taskConfigurations.keySet());
     }
