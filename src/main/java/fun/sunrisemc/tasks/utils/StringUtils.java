@@ -52,4 +52,28 @@ public class StringUtils {
     public static String normalizeString(@NonNull String string) {
         return string.trim().toLowerCase().replace(" ", "_").replace("-", "_");
     }
+
+    @NotNull
+    public static String formatSecondsAbbreviated(int seconds) {
+        if (seconds <= 0) {
+            return "0s";
+        }
+        else if (seconds < 60) {
+            return seconds + "s";
+        }
+        else if (seconds < 3600) {
+            return seconds / 60 + "m";
+        }
+        else if (seconds < 86400) {
+            return seconds / 3600 + "h";
+        }
+        else {
+            return seconds / 86400 + "d";
+        }
+    }
+
+    @NotNull
+    public static String formatPercent(int seconds, int totalSeconds) {
+        return String.valueOf((int) (((double) seconds / totalSeconds) * 100)) + "%";
+    }
 }

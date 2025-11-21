@@ -295,6 +295,7 @@ public class PlayerProfile {
         return true;
     }
 
+    @NotNull
     public String getColor() {
         return color + "";
     }

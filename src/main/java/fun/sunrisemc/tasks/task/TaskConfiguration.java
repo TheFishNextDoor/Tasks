@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,9 +16,10 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.SpawnCategory;
 import org.bukkit.inventory.ItemStack;
-
+import org.bukkit.inventory.meta.ItemMeta;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfile;
@@ -30,7 +32,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class TaskConfiguration {
 
-    private final List<String> SETTINGS = List.of(
+    private final @NotNull List<String> SETTINGS = List.of(
         "amount",
         "message",
         "time-limit-minutes",
@@ -71,7 +73,7 @@ public class TaskConfiguration {
         "block-materials"
     );
 
-    private final String id;
+    private final @NotNull String id;
 
     // Behavior
 
@@ -446,11 +448,16 @@ public class TaskConfiguration {
             return false;
         }
 
-        if (!worlds.isEmpty() && !worlds.contains(location.getWorld().getName())) {
+        World world = location.getWorld();
+        if (world == null) {
             return false;
         }
 
-        if (!environments.isEmpty() && !environments.contains(location.getWorld().getEnvironment())) {
+        if (!worlds.isEmpty() && !worlds.contains(world.getName())) {
+            return false;
+        }
+
+        if (!environments.isEmpty() && !environments.contains(world.getEnvironment())) {
             return false;
         }
 
@@ -526,10 +533,13 @@ public class TaskConfiguration {
             if (item == null) {
                 return false;
             }
-            if (!item.hasItemMeta()) {
+
+            ItemMeta itemMeta = item.getItemMeta();
+            if (itemMeta == null) {
                 return false;
             }
-            if (!itemNames.contains(item.getItemMeta().getDisplayName())) {
+
+            if (!itemNames.contains(itemMeta.getDisplayName())) {
                 return false;
             }
         }

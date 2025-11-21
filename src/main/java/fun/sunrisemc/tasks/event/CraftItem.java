@@ -67,16 +67,19 @@ public class CraftItem implements Listener {
             amountCrafted = smallestCraftingItemStack * craftResultAmount;
         }
 
-        // Get the location of the crafting inventory
-        Location craftingInventoryLocation = craftingInventory.getLocation();
+        // Get the location of the crafting inventory or default to player location if crafting inventory has no location
+        Location location = craftingInventory.getLocation();
+        if (location == null) {
+            location = player.getLocation();
+        }
 
         // Get the block at the location
-        Block craftingBlock = craftingInventoryLocation != null ? craftingInventoryLocation.getBlock() : null;
+        Block craftingBlock = location != null ? location.getBlock() : null;
 
         // Get the crafted item
         ItemStack craftedItem = event.getCurrentItem();
         
         // Trigger tasks
-        playerProfile.triggerTasks(TriggerType.CRAFT_ITEM, craftingInventoryLocation, player, craftedItem, craftingBlock, amountCrafted);
+        playerProfile.triggerTasks(TriggerType.CRAFT_ITEM, location, player, craftedItem, craftingBlock, amountCrafted);
     }
 }

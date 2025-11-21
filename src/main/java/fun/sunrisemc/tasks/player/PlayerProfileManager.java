@@ -12,7 +12,7 @@ import fun.sunrisemc.tasks.TasksPlugin;
 
 public class PlayerProfileManager {
 
-    private static ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
+    private static @NotNull ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
 
     public static void load(@NotNull Player player) {
         PlayerProfileManager.load(player.getUniqueId());
@@ -30,6 +30,7 @@ public class PlayerProfileManager {
         return PlayerProfileManager.get(player.getUniqueId());
     }
 
+    @NotNull
     public static PlayerProfile get(@NotNull UUID uuid) {
         PlayerProfile playerProfile = playerProfiles.get(uuid);
         if (playerProfile == null) {

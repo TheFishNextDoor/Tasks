@@ -8,22 +8,24 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
-import fun.sunrisemc.tasks.player.PlayerProfile;
-import fun.sunrisemc.tasks.unlock.Unlock;
-import fun.sunrisemc.tasks.utils.Money;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import fun.sunrisemc.tasks.player.PlayerProfile;
+import fun.sunrisemc.tasks.unlock.Unlock;
+import fun.sunrisemc.tasks.utils.Money;
+import fun.sunrisemc.tasks.utils.StringUtils;
+
 public class PlayerTask {
 
-    private TaskConfiguration taskConfiguration;
+    private @NotNull TaskConfiguration taskConfiguration;
 
-    private PlayerProfile playerProfile;
+    private @NotNull PlayerProfile playerProfile;
 
     private int progress;
 
@@ -31,18 +33,19 @@ public class PlayerTask {
 
     private boolean completed;
 
-    public PlayerTask(@NonNull TaskConfiguration taskConfiguration, @NonNull PlayerProfile playerProfile, int progress, long expires) {
+    public PlayerTask(@NotNull TaskConfiguration taskConfiguration, @NotNull PlayerProfile playerProfile, int progress, long expires) {
         this.taskConfiguration = taskConfiguration;
         this.playerProfile = playerProfile;
         this.progress = progress;
         this.expires = expires;
     }
 
-    public PlayerTask(@NonNull TaskConfiguration taskConfiguration, @NonNull PlayerProfile playerProfile) {
+    public PlayerTask(@NotNull TaskConfiguration taskConfiguration, @NotNull PlayerProfile playerProfile) {
         this(taskConfiguration, playerProfile, 0, taskConfiguration.getTimeLimitMS() == 0 ? 0 : System.currentTimeMillis() + taskConfiguration.getTimeLimitMS());
     }
 
     @Override
+    @NotNull
     public String toString() {
         String progressSection;
         if (completed) {
@@ -52,24 +55,10 @@ public class PlayerTask {
             String progressString;
             switch (taskConfiguration.getProgressDisplayType()) {
                 case PERCENT:
-                    progressString = String.valueOf((int) (((double) this.progress / taskConfiguration.getAmount()) * 100)) + "%";
+                    progressString = StringUtils.formatPercent(this.progress, taskConfiguration.getAmount());
                     break;
                 case TIME:
-                    if (progress <= 0) {
-                        progressString = "0s";
-                    }
-                    else if (progress < 60) {
-                        progressString = progress + "s";
-                    }
-                    else if (progress < 3600) {
-                        progressString = progress / 60 + "m";
-                    }
-                    else if (progress < 86400) {
-                        progressString = progress / 3600 + "h";
-                    }
-                    else {
-                        progressString = progress / 86400 + "d";
-                    }
+                    progressString = StringUtils.formatSecondsAbbreviated(this.progress);
                     break;
                 default:
                     progressString = progress + "/" + taskConfiguration.getAmount();
@@ -92,26 +81,30 @@ public class PlayerTask {
         String expireSection = "";
         if (!completed && canExpire()) {
             long timeLeft = expires - System.currentTimeMillis();
-            if (timeLeft <= 0) {
-                expireSection = ChatColor.WHITE + " (" + ChatColor.RED + "0s left" + ChatColor.WHITE + ")";
-            } 
-            else if (timeLeft < 60000) {
-                expireSection = ChatColor.WHITE + " (" + ChatColor.RED + timeLeft / 1000 + "s left" + ChatColor.WHITE + ")";
+
+            ChatColor color;
+            if (timeLeft < 60000) {
+                color = ChatColor.RED;
             } 
             else if (timeLeft < 3600000) {
-                expireSection = ChatColor.WHITE + " (" + ChatColor.YELLOW + timeLeft / 60000 + "m left" + ChatColor.WHITE + ")";
+                color = ChatColor.YELLOW;
             } 
             else if (timeLeft < 86400000) {
-                expireSection = ChatColor.WHITE + " (" + ChatColor.GREEN + timeLeft / 3600000 + "h left" + ChatColor.WHITE + ")";
+                color = ChatColor.GREEN;
             } 
             else {
-                expireSection = ChatColor.WHITE + " (" + ChatColor.AQUA + timeLeft / 86400000 + "d left" + ChatColor.WHITE + ")";
+                color = ChatColor.AQUA;
             }
+
+            String formattedSeconds = StringUtils.formatSecondsAbbreviated((int) (timeLeft / 1000));
+
+            expireSection = ChatColor.WHITE + " (" + color + formattedSeconds + " left" + ChatColor.WHITE + ")";
         }
 
         return taskConfiguration.toString() + progressSection + rewardMoneySection + rewardSkipsSection + expireSection;
     }
 
+    @NotNull
     public TaskConfiguration getTaskConfiguration() {
         return taskConfiguration;
     }
@@ -136,9 +129,9 @@ public class PlayerTask {
         return expires != 0;
     }
 
-    public void trigger(@NonNull TriggerType triggerType, @NonNull Location location, @Nullable Entity entity, @Nullable ItemStack item, @Nullable Block block, int amount) {
+    public void trigger(@NotNull TriggerType triggerType, @NotNull Location location, @Nullable Entity entity, @Nullable ItemStack item, @Nullable Block block, int amount) {
         Optional<Player> player = playerProfile.getPlayer();
-        if (!player.isPresent()) {
+        if (player.isEmpty()) {
             return;
         }
 
@@ -172,19 +165,20 @@ public class PlayerTask {
             return;
         }
 
-        Optional<Player> optionalPlayer = playerProfile.getPlayer();
-        if (!optionalPlayer.isPresent()) {
+        Optional<Player> player = playerProfile.getPlayer();
+        if (player.isEmpty()) {
             return;
         }
-        Player player = optionalPlayer.get();
 
         completed = true;
+
         playerProfile.addCompletedTask(taskConfiguration.getId());
+
         playerProfile.sendNotification("Task Completed", taskConfiguration.toString());
 
-        String name = player.getName();
+        String name = player.get().getName();
         for (String message : taskConfiguration.getRewardMessages()) {
-            player.sendMessage(message.replace("{player}", name));
+            player.get().sendMessage(message.replace("{player}", name));
         }
         
         playerProfile.addMoney(taskConfiguration.getRewardMoney());
@@ -193,15 +187,18 @@ public class PlayerTask {
             unlock.giveTo(playerProfile);
         }
 
-        Server server = player.getServer();
+        Server server = player.get().getServer();
+
         for (String consoleCommand : taskConfiguration.getRewardConsoleCommands()) {
             server.dispatchCommand(server.getConsoleSender(), consoleCommand.replace("{player}", name));
         }
+
         for (String playerCommand : taskConfiguration.getRewardPlayerCommands()) {
-            player.performCommand(playerCommand.replace("{player}", name));
+            player.get().performCommand(playerCommand.replace("{player}", name));
         }
 
         playerProfile.addXp(taskConfiguration.getRewardXp());
+
         playerProfile.addSkips(taskConfiguration.getRewardSkips());
     }
 }
