@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.checkerframework.checker.nullness.qual.NonNull;
+
 import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
@@ -19,7 +19,7 @@ public class UnlockManager {
 
     private static @NotNull List<Unlock> unlocksSorted = Collections.unmodifiableList(new ArrayList<>());
 
-    public static Optional<Unlock> get(@NonNull String id) {
+    public static Optional<Unlock> get(@NotNull String id) {
         return Optional.ofNullable(unlocksLookup.get(id));
     }
 

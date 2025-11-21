@@ -3,19 +3,22 @@ package fun.sunrisemc.tasks.unlock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import net.md_5.bungee.api.ChatColor;
+
 import org.jetbrains.annotations.NotNull;
+
+import net.milkbowl.vault.permission.Permission;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.utils.YAMLUtils;
-import net.md_5.bungee.api.ChatColor;
-import net.milkbowl.vault.permission.Permission;
 
 public class Unlock implements Comparable<Unlock> {
 

@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.SpawnCategory;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -153,7 +152,7 @@ public class StringUtils {
 
     // Normalization
 
-    public static String normalizeString(@NonNull String string) {
+    public static String normalizeString(@NotNull String string) {
         return string.trim().toLowerCase().replace(" ", "").replace("_", "").replace("-", "");
     }
 
