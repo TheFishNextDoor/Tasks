@@ -79,7 +79,7 @@ public class TaskConfiguration {
 
     private int amount;
 
-    private String message = null;
+    private Optional<String> message = Optional.empty();
 
     private long timeLimitMS = 0;
 
@@ -89,57 +89,57 @@ public class TaskConfiguration {
 
     private boolean actionbar = true;
 
-    private ProgressDisplayType progressDisplayType = ProgressDisplayType.STANDARD;
+    private @NotNull ProgressDisplayType progressDisplayType = ProgressDisplayType.STANDARD;
 
     // Requirements
     private boolean repeatable = true;
 
-    private Integer minLevel = null;
-    private Integer maxLevel = null;
+    private Optional<Integer> minLevel = Optional.empty();
+    private Optional<Integer> maxLevel = Optional.empty();
 
-    private String permission = null;
+    private Optional<String> permission = Optional.empty();
 
-    private ArrayList<String> prerequisiteTasks = new ArrayList<>();
-    private HashSet<String> incompatibleTasks = new HashSet<>();
+    private @NotNull ArrayList<String> prerequisiteTasks = new ArrayList<>();
+    private @NotNull HashSet<String> incompatibleTasks = new HashSet<>();
 
     // Rewards
     private double rewardMoney;
     private int rewardXp;
     private int rewardSkips;
 
-    private ArrayList<Unlock> rewardUnlocks = new ArrayList<>();
+    private @NotNull ArrayList<Unlock> rewardUnlocks = new ArrayList<>();
 
-    private ArrayList<String> rewardConsoleCommands = new ArrayList<>();
-    private ArrayList<String> rewardPlayerCommands = new ArrayList<>();
-    private ArrayList<String> rewardMessages = new ArrayList<>();
+    private @NotNull ArrayList<String> rewardConsoleCommands = new ArrayList<>();
+    private @NotNull ArrayList<String> rewardPlayerCommands = new ArrayList<>();
+    private @NotNull ArrayList<String> rewardMessages = new ArrayList<>();
 
     // Conditions
-    private HashSet<TriggerType> triggers = new HashSet<>();
+    private @NotNull HashSet<TriggerType> triggers = new HashSet<>();
 
-    private HashSet<String> worlds = new HashSet<>();
-    private HashSet<Environment> environments = new HashSet<>();
-    private HashSet<String> biomes = new HashSet<>();
+    private @NotNull HashSet<String> worlds = new HashSet<>();
+    private @NotNull HashSet<Environment> environments = new HashSet<>();
+    private @NotNull HashSet<String> biomes = new HashSet<>();
 
-    private Integer minX = null;
-    private Integer maxX = null;
-    private Integer minY = null;
-    private Integer maxY = null;
-    private Integer minZ = null;
-    private Integer maxZ = null;
+    private Optional<Integer> minX = Optional.empty();
+    private Optional<Integer> maxX = Optional.empty();
+    private Optional<Integer> minY = Optional.empty();
+    private Optional<Integer> maxY = Optional.empty();
+    private Optional<Integer> minZ = Optional.empty();
+    private Optional<Integer> maxZ = Optional.empty();
 
-    private Boolean entityIsInWater = null;
-    private Boolean entityIsOnGround = null;
+    private Optional<Boolean> entityIsInWater = Optional.empty();
+    private Optional<Boolean> entityIsOnGround = Optional.empty();
 
-    private HashSet<String> entityNames = new HashSet<>();
-    private HashSet<EntityType> entityTypes = new HashSet<>();
-    private HashSet<SpawnCategory> entityCategories = new HashSet<>();
+    private @NotNull HashSet<String> entityNames = new HashSet<>();
+    private @NotNull HashSet<EntityType> entityTypes = new HashSet<>();
+    private @NotNull HashSet<SpawnCategory> entityCategories = new HashSet<>();
 
-    private HashSet<String> itemNames = new HashSet<>();
-    private HashSet<Material> itemMaterials = new HashSet<>();
+    private @NotNull HashSet<String> itemNames = new HashSet<>();
+    private @NotNull HashSet<Material> itemMaterials = new HashSet<>();
 
-    private HashSet<Material> blockMaterials = new HashSet<>();
+    private @NotNull HashSet<Material> blockMaterials = new HashSet<>();
 
-    TaskConfiguration(@NonNull YamlConfiguration config, @NonNull String id) {
+    TaskConfiguration(@NotNull YamlConfiguration config, @NotNull String id) {
         this.id = id;
 
         for (String setting : config.getConfigurationSection(id).getKeys(false)) {
@@ -152,7 +152,7 @@ public class TaskConfiguration {
 
         this.amount = Math.max(config.getInt(id + ".amount"), 1);
 
-        this.message = config.getString(id + ".message");
+        this.message = Optional.ofNullable(config.getString(id + ".message"));
 
         this.timeLimitMS = Math.max(config.getInt(id + ".time-limit-minutes") * 60000, 0);
 
@@ -185,13 +185,13 @@ public class TaskConfiguration {
         }
 
         if (config.contains(id + ".min-level")) {
-            this.minLevel = config.getInt(id + ".min-level");
+            this.minLevel = Optional.of(config.getInt(id + ".min-level"));
         }
         if (config.contains(id + ".max-level")) {
-            this.maxLevel = config.getInt(id + ".max-level");
+            this.maxLevel = Optional.of(config.getInt(id + ".max-level"));
         }
 
-        this.permission = config.getString(id + ".permission");
+        this.permission = Optional.ofNullable(config.getString(id + ".permission"));
 
         this.prerequisiteTasks.addAll(config.getStringList(id + ".prerequisite-tasks"));
         this.incompatibleTasks.addAll(config.getStringList(id + ".incompatible-tasks"));
@@ -253,30 +253,30 @@ public class TaskConfiguration {
         }
 
         if (config.contains(id + ".min-x")) {
-            this.minX = config.getInt(id + ".min-x");
+            this.minX = Optional.of(config.getInt(id + ".min-x"));
         }
         if (config.contains(id + ".max-x")) {
-            this.maxX = config.getInt(id + ".max-x");
+            this.maxX = Optional.of(config.getInt(id + ".max-x"));
         }
         if (config.contains(id + ".min-y")) {
-            this.minY = config.getInt(id + ".min-y");
+            this.minY = Optional.of(config.getInt(id + ".min-y"));
         }
         if (config.contains(id + ".max-y")) {
-            this.maxY = config.getInt(id + ".max-y");
+            this.maxY = Optional.of(config.getInt(id + ".max-y"));
         }
         if (config.contains(id + ".min-z")) {
-            this.minZ = config.getInt(id + ".min-z");
+            this.minZ = Optional.of(config.getInt(id + ".min-z"));
         }
         if (config.contains(id + ".max-z")) {
-            this.maxZ = config.getInt(id + ".max-z");
+            this.maxZ = Optional.of(config.getInt(id + ".max-z"));
         }
 
         if (config.contains(id + ".entity-in-water")) {
-            this.entityIsInWater = config.getBoolean(id + ".entity-in-water");
+            this.entityIsInWater = Optional.of(config.getBoolean(id + ".entity-in-water"));
         }
 
         if (config.contains(id + ".entity-on-ground")) {
-            this.entityIsOnGround = config.getBoolean(id + ".entity-on-ground");
+            this.entityIsOnGround = Optional.of(config.getBoolean(id + ".entity-on-ground"));
         }
 
         for (String entityName : config.getStringList(id + ".entity-names")) {
@@ -327,17 +327,17 @@ public class TaskConfiguration {
     }
 
     @Override
+    @NotNull
     public String toString() {
-        if (message != null) {
-            String formattedMessage = message;
-            formattedMessage = message.replace("{total}", String.valueOf(amount));
-            return formattedMessage;
+        if (message.isPresent()) {
+            return message.get().replace("{total}", String.valueOf(amount));
         }
         else {
             return id;
         }
     }
 
+    @NotNull
     public String getId() {
         return id;
     }
@@ -362,6 +362,7 @@ public class TaskConfiguration {
         return actionbar;
     }
 
+    @NotNull
     public ProgressDisplayType getProgressDisplayType() {
         return progressDisplayType;
     }
@@ -382,18 +383,22 @@ public class TaskConfiguration {
         return rewardSkips;
     }
 
+    @NotNull
     public ArrayList<Unlock> getRewardUnlocks() {
         return rewardUnlocks;
     }
 
+    @NotNull
     public ArrayList<String> getRewardConsoleCommands() {
         return rewardConsoleCommands;
     }
 
+    @NotNull
     public ArrayList<String> getRewardPlayerCommands() {
         return rewardPlayerCommands;
     }
 
+    @NotNull
     public ArrayList<String> getRewardMessages() {
         return rewardMessages;
     }
@@ -413,15 +418,15 @@ public class TaskConfiguration {
             return false;
         }
 
-        if (minLevel != null && playerProfile.getLevel() < minLevel) {
+        if (minLevel.isPresent() && playerProfile.getLevel() < minLevel.get()) {
             return false;
         }
 
-        if (maxLevel != null && playerProfile.getLevel() > maxLevel) {
+        if (maxLevel.isPresent() && playerProfile.getLevel() > maxLevel.get()) {
             return false;
         }
 
-        if (permission != null && !player.hasPermission(permission)) {
+        if (permission.isPresent() && !player.hasPermission(permission.get())) {
             return false;
         }
 
@@ -465,39 +470,39 @@ public class TaskConfiguration {
             return false;
         }
 
-        if (minX != null && location.getBlockX() < minX) {
+        if (minX.isPresent() && location.getBlockX() < minX.get()) {
             return false;
         }
-        if (maxX != null && location.getBlockX() > maxX) {
+        if (maxX.isPresent() && location.getBlockX() > maxX.get()) {
             return false;
         }
-        if (minY != null && location.getBlockY() < minY) {
+        if (minY.isPresent() && location.getBlockY() < minY.get()) {
             return false;
         }
-        if (maxY != null && location.getBlockY() > maxY) {
+        if (maxY.isPresent() && location.getBlockY() > maxY.get()) {
             return false;
         }
-        if (minZ != null && location.getBlockZ() < minZ) {
+        if (minZ.isPresent() && location.getBlockZ() < minZ.get()) {
             return false;
         }
-        if (maxZ != null && location.getBlockZ() > maxZ) {
+        if (maxZ.isPresent() && location.getBlockZ() > maxZ.get()) {
             return false;
         }
 
-        if (entityIsInWater != null) {
+        if (entityIsInWater.isPresent()) {
             if (entity == null) {
                 return false;
             }
-            if (entityIsInWater != entity.isInWater()) {
+            if (entityIsInWater.get() != entity.isInWater()) {
                 return false;
             }
         }
 
-        if (entityIsOnGround != null) {
+        if (entityIsOnGround.isPresent()) {
             if (entity == null) {
                 return false;
             }
-            if (entityIsOnGround != entity.isOnGround()) {
+            if (entityIsOnGround.get() != entity.isOnGround()) {
                 return false;
             }
         }
