@@ -7,13 +7,17 @@ import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.SpawnCategory;
 import org.checkerframework.checker.nullness.qual.NonNull;
+
+import net.md_5.bungee.api.ChatColor;
+
 import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.task.ProgressDisplayType;
 import fun.sunrisemc.tasks.task.TriggerType;
-import net.md_5.bungee.api.ChatColor;
 
 public class StringUtils {
+
+    // Parsing
 
     public static Optional<Integer> parseInteger(@NotNull String str) {
         try {
@@ -45,7 +49,6 @@ public class StringUtils {
         }
     }
 
-    // Parse material
     public static Optional<org.bukkit.Material> parseMaterial(@NotNull String name) {
         String normalizedNameA = normalizeString(name);
         for (org.bukkit.Material material : org.bukkit.Material.values()) {
@@ -57,7 +60,6 @@ public class StringUtils {
         return Optional.empty();
     }
 
-    // Parse spawn category
     public static Optional<SpawnCategory> parseSpawnCategory(@NotNull String name) {
         String normalizedNameA = normalizeString(name);
         for (SpawnCategory spawnCategory : SpawnCategory.values()) {
@@ -123,9 +125,7 @@ public class StringUtils {
         return Optional.empty();
     }
 
-    public static String normalizeString(@NonNull String string) {
-        return string.trim().toLowerCase().replace(" ", "").replace("_", "").replace("-", "");
-    }
+    // Formatting
 
     @NotNull
     public static String formatSecondsAbbreviated(int seconds) {
@@ -150,6 +150,14 @@ public class StringUtils {
     public static String formatPercent(int seconds, int totalSeconds) {
         return String.valueOf((int) (((double) seconds / totalSeconds) * 100)) + "%";
     }
+
+    // Normalization
+
+    public static String normalizeString(@NonNull String string) {
+        return string.trim().toLowerCase().replace(" ", "").replace("_", "").replace("-", "");
+    }
+
+    // Lists
 
     @NotNull
     public static String commaSeparatedList(@NotNull Object[] items) {
