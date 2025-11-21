@@ -44,6 +44,10 @@ public class MainConfig {
     }
 
     private void updateConfig() {
-        ConfigFile.moveKeyIfExists("config", "xp-curve", "levels.xp-curve");
+        YamlConfiguration config = ConfigFile.get("config", true);
+
+        if (YAMLUtils.moveKey(config, "xp-curve", "levels.xp-curve")) {
+            ConfigFile.save("config", config);
+        }
     }
 }

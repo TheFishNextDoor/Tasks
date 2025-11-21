@@ -14,7 +14,9 @@ public class YAMLUtils {
         if (!config.contains(path)) {
             return min;
         }
+
         int value = config.getInt(path);
+
         return Math.clamp(value, min, max);
     }
 
@@ -22,7 +24,9 @@ public class YAMLUtils {
         if (!config.contains(path)) {
             return min;
         }
+
         double value = config.getDouble(path);
+
         return Math.clamp(value, min, max);
     }
 
@@ -30,7 +34,9 @@ public class YAMLUtils {
         if (!config.contains(path)) {
             return min;
         }
+
         long value = config.getLong(path);
+
         return Math.clamp(value, min, max);
     }
 
@@ -38,7 +44,9 @@ public class YAMLUtils {
         if (!config.contains(path)) {
             return Optional.empty();
         }
+
         String value = config.getString(path);
+
         return Optional.ofNullable(value);
     }
 
@@ -47,7 +55,9 @@ public class YAMLUtils {
         if (!config.contains(path)) {
             return defaultValue;
         }
+
         String value = config.getString(path);
+
         return value != null ? value : defaultValue;
     }
 
@@ -55,10 +65,34 @@ public class YAMLUtils {
         if (!config.contains(path)) {
             return new HashSet<>();
         }
+
         ConfigurationSection section = config.getConfigurationSection(path);
         if (section == null) {
             return new HashSet<>();
         }
+
         return new HashSet<>(section.getKeys(false));
+    }
+
+    public static boolean renameKey(YamlConfiguration config, String oldKey, String newKey) {
+        if (!config.contains(oldKey) || !config.contains(newKey)) {
+            return false;
+        }
+
+        Object value = config.get(oldKey);
+        config.set(newKey, value);
+        config.set(oldKey, null);
+        return true;
+    }
+
+    public static boolean moveKey(YamlConfiguration config, String oldKey, String newKey) {
+        if (!config.contains(oldKey) || config.contains(newKey)) {
+            return false;
+        }
+
+        Object value = config.get(oldKey);
+        config.set(newKey, value);
+        config.set(oldKey, null);
+        return true;
     }
 }

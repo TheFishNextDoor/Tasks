@@ -2,6 +2,7 @@ package fun.sunrisemc.tasks.file;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -9,51 +10,57 @@ import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 
-public class DataFile {
+public class PlayerDataFile {
 
     @NotNull
-    public static YamlConfiguration get(@NotNull String name) {
+    public static YamlConfiguration get(@NotNull UUID uuid) {
+        // Get the name
+        String name = uuid.toString();
+
         // Get the file
-        File dataFile = new File(getFolder(), name + ".yml");
+        File playerDataFile = new File(getFolder(), name + ".yml");
 
         // Create the file if it does not exist
-        if (!dataFile.exists()) {
+        if (!playerDataFile.exists()) {
             try {
-                dataFile.createNewFile();
+                playerDataFile.createNewFile();
             }
             catch (Exception e) {
-                TasksPlugin.logSevere("Failed to create data file for " + name + ".yml.");
+                TasksPlugin.logSevere("Failed to create player data file for " + name + ".yml.");
                 return new YamlConfiguration();
             }
         }
-        
-        // Load the configuration
-        YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(dataFile);
 
+        // Load the configuration
+        YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(playerDataFile);
+        
         return yamlConfiguration;
     }
 
-    public static boolean save(@NotNull String name, @NotNull YamlConfiguration data) {
+    public static boolean save(@NotNull UUID uuid, @NotNull YamlConfiguration data) {
+        // Get the name
+        String name = uuid.toString();
+
         // Get the file
-        File dataFile = new File(getFolder(), name + ".yml");
+        File playerDataFile = new File(getFolder(), name + ".yml");
 
         // Save the configuration
         try {
-            data.save(dataFile);
+            data.save(playerDataFile);
             return true;
         }
         catch (Exception e) {
-            TasksPlugin.logSevere("Failed to save data file for " + name + ".yml.");
+            TasksPlugin.logSevere("Failed to save player data file for " + name + ".yml.");
             return false;
         }
     }
 
     public static boolean delete(@NotNull String name) {
         // Get the player data folder
-        File dataFile = getFolder();
+        File playerDataFolder = getFolder();
         
         // Get the file
-        File playerDataFile = new File(dataFile, name + ".yml");
+        File playerDataFile = new File(playerDataFolder, name + ".yml");
 
         // Check if the file exists
         if (!playerDataFile.exists()) {
@@ -65,27 +72,27 @@ public class DataFile {
             return playerDataFile.delete();
         }
         catch (Exception e) {
-            TasksPlugin.logSevere("Failed to delete data file for " + name + ".yml.");
+            TasksPlugin.logSevere("Failed to delete player data file for " + name + ".yml.");
             return false;
         }
     }
 
     @NotNull
     public static File getFolder() {
-        // Get plugin folder
-        File pluginFolder = ConfigFile.getFolder();
+        // Get data folder
+        File dataFolder = DataFile.getFolder();
 
-        // Get the data folder
-        File dataFolder = new File(pluginFolder, "data");
+        // Get player data folder
+        File playerDataFolder = new File(dataFolder, "players");
 
-        // Create the data folder if it does not exist
-        if (!dataFolder.exists()) {
-            dataFolder.mkdirs();
+        // Create the player data folder if it does not exist
+        if (!playerDataFolder.exists()) {
+            playerDataFolder.mkdirs();
         }
-
-        return dataFolder;
+        
+        return playerDataFolder;
     }
-    
+
     @NotNull
     public static ArrayList<String> getNames() {
         // Get folder
@@ -111,5 +118,5 @@ public class DataFile {
         }
 
         return names;
-    } 
+    }
 }
