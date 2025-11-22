@@ -12,6 +12,6 @@ public class PlayerJoin implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerJoin(@NotNull PlayerJoinEvent event) {
-        PlayerProfileManager.load(event.getPlayer());
+        PlayerProfileManager.preload(event.getPlayer());
     }
 }

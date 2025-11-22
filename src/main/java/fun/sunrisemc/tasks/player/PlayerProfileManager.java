@@ -14,24 +14,11 @@ public class PlayerProfileManager {
 
     private static @NotNull ConcurrentHashMap<UUID, PlayerProfile> playerProfiles = new ConcurrentHashMap<>();
 
-    public static void load(@NotNull Player player) {
-        PlayerProfileManager.load(player.getUniqueId());
-    }
-
-    public static void load(@NotNull UUID uuid) {
-        Bukkit.getScheduler().runTaskAsynchronously(TasksPlugin.getInstance(), () -> PlayerProfileManager.get(uuid));
-    }
-
-    public static boolean unload(@NotNull UUID uuid) {
-        return playerProfiles.remove(uuid) != null;
-    }
-
-    public static PlayerProfile get(@NotNull Player player) {
-        return PlayerProfileManager.get(player.getUniqueId());
-    }
+    // Getting
 
     @NotNull
-    public static PlayerProfile get(@NotNull UUID uuid) {
+    public static PlayerProfile get(@NotNull Player player) {
+        UUID uuid = player.getUniqueId();
         PlayerProfile playerProfile = playerProfiles.get(uuid);
         if (playerProfile == null) {
             playerProfile = new PlayerProfile(uuid);
@@ -41,8 +28,16 @@ public class PlayerProfileManager {
         return playerProfile;
     }
 
+    // Task Refresh
+
     public static void refreshAllTasks() {
         playerProfiles.values().forEach(PlayerProfile::refreshTasks);
+    }
+
+    // Loading and Saving
+
+    public static void preload(@NotNull Player player) {
+        Bukkit.getScheduler().runTaskAsynchronously(TasksPlugin.getInstance(), () -> PlayerProfileManager.get(player));
     }
 
     public static void reload() {
@@ -55,11 +50,15 @@ public class PlayerProfileManager {
                 continue;
             }
 
-            load(player);
+            preload(player);
         }
     }
 
     public static void saveAll() {
         playerProfiles.values().forEach(PlayerProfile::save);
+    }
+
+    protected static boolean unload(@NotNull UUID uuid) {
+        return playerProfiles.remove(uuid) != null;
     }
 }
