@@ -254,13 +254,13 @@ public class TasksPlugin extends JavaPlugin {
 
             for (String name : playerDataFileNames) {
                 // Get the old file
-                YamlConfiguration configuration = DataFile.get(name);
+                YamlConfiguration playerData = DataFile.get(name);
 
                 // Create the UUID
                 UUID uuid = UUID.fromString(name);
 
                 // Save the file and delete the old one
-                if (PlayerDataFile.save(uuid, configuration)) {
+                if (PlayerDataFile.save(uuid, playerData)) {
                     DataFile.delete(name);
                 }
             }
