@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerUtils {
 
+    @NotNull
     public static ArrayList<String> getOnlinePlayerNames() {
         ArrayList<String> playerNames = new ArrayList<>();
         for (Player player : Bukkit.getOnlinePlayers()) {
