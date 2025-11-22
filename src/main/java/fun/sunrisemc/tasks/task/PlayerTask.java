@@ -23,15 +23,23 @@ import fun.sunrisemc.tasks.utils.StringUtils;
 
 public class PlayerTask {
 
+    // Task Configuration
+
     private @NotNull TaskConfiguration taskConfiguration;
 
     private @NotNull PlayerProfile playerProfile;
 
-    private int progress;
+    // Expiration
 
     private long expires;
 
+    // Progress
+
+    private int progress;
+
     private boolean completed;
+
+    // Constructors
 
     public PlayerTask(@NotNull TaskConfiguration taskConfiguration, @NotNull PlayerProfile playerProfile, int progress, long expires) {
         this.taskConfiguration = taskConfiguration;
@@ -43,6 +51,8 @@ public class PlayerTask {
     public PlayerTask(@NotNull TaskConfiguration taskConfiguration, @NotNull PlayerProfile playerProfile) {
         this(taskConfiguration, playerProfile, 0, taskConfiguration.getTimeLimitMS() == 0 ? 0 : System.currentTimeMillis() + taskConfiguration.getTimeLimitMS());
     }
+
+    // Displaying
 
     @Override
     @NotNull
@@ -104,18 +114,14 @@ public class PlayerTask {
         return taskConfiguration.toString() + progressSection + rewardMoneySection + rewardSkipsSection + expireSection;
     }
 
+    // Task Configuration
+
     @NotNull
     public TaskConfiguration getTaskConfiguration() {
         return taskConfiguration;
     }
 
-    public int getProgress() {
-        return progress;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
+    // Expiration
 
     public long getExpires() {
         return expires;
@@ -129,19 +135,14 @@ public class PlayerTask {
         return expires != 0;
     }
 
-    public void trigger(@NotNull TriggerType triggerType, @NotNull Location location, @Nullable Entity entity, @Nullable ItemStack item, @Nullable Block block, int amount) {
-        Optional<Player> player = playerProfile.getPlayer();
-        if (player.isEmpty()) {
-            return;
-        }
+    // Progress
 
-        if (taskConfiguration.isValidFor(triggerType, player.get(), location, entity, item, block)) {
-            addProgress(amount);
-        }
+    public int getProgress() {
+        return progress;
+    }
 
-        if (triggerType == TriggerType.DEATH && taskConfiguration.resetOnDeath()) {
-            progress = 0;
-        }
+    public boolean isCompleted() {
+        return completed;
     }
 
     public void addProgress(int progress) {
@@ -157,6 +158,21 @@ public class PlayerTask {
         }
         if (taskConfiguration.showActionbar()) {
             playerProfile.getPlayer().ifPresent(player -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(this.toString())));
+        }
+    }
+
+    public void trigger(@NotNull TriggerType triggerType, @NotNull Location location, @Nullable Entity entity, @Nullable ItemStack item, @Nullable Block block, int amount) {
+        Optional<Player> player = playerProfile.getPlayer();
+        if (player.isEmpty()) {
+            return;
+        }
+
+        if (taskConfiguration.isValidFor(triggerType, player.get(), location, entity, item, block)) {
+            addProgress(amount);
+        }
+
+        if (triggerType == TriggerType.DEATH && taskConfiguration.resetOnDeath()) {
+            progress = 0;
         }
     }
 
