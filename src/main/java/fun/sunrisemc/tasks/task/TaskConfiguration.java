@@ -142,7 +142,9 @@ public class TaskConfiguration {
 
     private @NotNull HashSet<Material> blockMaterials = new HashSet<>();
 
-    TaskConfiguration(@NotNull YamlConfiguration config, @NotNull String id) {
+    // Constructor
+
+    protected TaskConfiguration(@NotNull YamlConfiguration config, @NotNull String id) {
         this.id = id;
 
         for (String setting : YAMLUtils.getKeys(config, id)) {
@@ -331,6 +333,8 @@ public class TaskConfiguration {
         }
     }
 
+    // Displaying
+
     @Override
     @NotNull
     public String toString() {
@@ -342,10 +346,14 @@ public class TaskConfiguration {
         }
     }
 
+    // Identifier
+
     @NotNull
     public String getId() {
         return id;
     }
+
+    // Behavior
 
     public int getAmount() {
         return amount;
@@ -372,40 +380,10 @@ public class TaskConfiguration {
         return progressDisplayType;
     }
 
+    // Requirements
+
     public boolean conflictsWith(@NotNull String otherTaskId) {
         return incompatibleTasks.contains(otherTaskId);
-    }
-
-    public double getRewardMoney() {
-        return rewardMoney * TasksPlugin.getMainConfig().TASK_MONEY_MULTIPLIER;
-    }
-
-    public int getRewardXp() {
-        return (int) (rewardXp * TasksPlugin.getMainConfig().TASK_XP_MULTIPLIER);
-    }
-
-    public int getRewardSkips() {
-        return rewardSkips;
-    }
-
-    @NotNull
-    public ArrayList<Unlock> getRewardUnlocks() {
-        return rewardUnlocks;
-    }
-
-    @NotNull
-    public ArrayList<String> getRewardConsoleCommands() {
-        return rewardConsoleCommands;
-    }
-
-    @NotNull
-    public ArrayList<String> getRewardPlayerCommands() {
-        return rewardPlayerCommands;
-    }
-
-    @NotNull
-    public ArrayList<String> getRewardMessages() {
-        return rewardMessages;
     }
 
     public boolean meetsRequirements(@NotNull PlayerProfile playerProfile) {
@@ -452,6 +430,42 @@ public class TaskConfiguration {
 
         return true;
     }
+
+    // Rewards
+
+    public double getRewardMoney() {
+        return rewardMoney * TasksPlugin.getMainConfig().TASK_MONEY_MULTIPLIER;
+    }
+
+    public int getRewardXp() {
+        return (int) (rewardXp * TasksPlugin.getMainConfig().TASK_XP_MULTIPLIER);
+    }
+
+    public int getRewardSkips() {
+        return rewardSkips;
+    }
+
+    @NotNull
+    public ArrayList<Unlock> getRewardUnlocks() {
+        return rewardUnlocks;
+    }
+
+    @NotNull
+    public ArrayList<String> getRewardConsoleCommands() {
+        return rewardConsoleCommands;
+    }
+
+    @NotNull
+    public ArrayList<String> getRewardPlayerCommands() {
+        return rewardPlayerCommands;
+    }
+
+    @NotNull
+    public ArrayList<String> getRewardMessages() {
+        return rewardMessages;
+    }
+
+    // Conditions
 
     public boolean isValidFor(@NotNull TriggerType trigger, @NotNull Player player, @NotNull Location location, @Nullable Entity entity, @Nullable ItemStack item, @Nullable Block block) {
         if (!triggers.contains(trigger)) {

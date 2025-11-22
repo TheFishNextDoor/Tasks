@@ -17,6 +17,8 @@ public class TaskConfigurationManager {
 
     private static @NotNull HashMap<String, TaskConfiguration> taskConfigurations = new HashMap<>();
 
+    // Getting
+
     public static Optional<TaskConfiguration> get(@NotNull String id) {
         return Optional.ofNullable(taskConfigurations.get(id));
     }
@@ -40,6 +42,8 @@ public class TaskConfigurationManager {
     public static List<String> getIds() {
         return new ArrayList<>(taskConfigurations.keySet());
     }
+
+    // Loading
 
     public static void loadConfig() {
         taskConfigurations.clear();
