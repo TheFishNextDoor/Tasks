@@ -92,6 +92,7 @@ public class TaskConfiguration {
     private @NotNull ProgressDisplayType progressDisplayType = ProgressDisplayType.STANDARD;
 
     // Requirements
+
     private boolean repeatable = true;
 
     private Optional<Integer> minLevel = Optional.empty();
@@ -103,6 +104,7 @@ public class TaskConfiguration {
     private @NotNull HashSet<String> incompatibleTasks = new HashSet<>();
 
     // Rewards
+
     private double rewardMoney;
     private int rewardXp;
     private int rewardSkips;
@@ -114,6 +116,7 @@ public class TaskConfiguration {
     private @NotNull ArrayList<String> rewardMessages = new ArrayList<>();
 
     // Conditions
+    
     private @NotNull HashSet<TriggerType> triggers = new HashSet<>();
 
     private @NotNull HashSet<String> worlds = new HashSet<>();
