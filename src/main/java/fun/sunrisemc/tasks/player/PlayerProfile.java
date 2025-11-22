@@ -104,43 +104,56 @@ public class PlayerProfile {
         this.level = PlayerLevel.getLevel(xp);
     }
 
-    public void save() {
-        YamlConfiguration playerData = PlayerDataFile.get(uuid);
+    // Player
 
-        playerData.set("xp", xp);
-
-        playerData.set("skips", skips);
-
-        playerData.set("completed-unlocks", new ArrayList<>(completedUnlocks));
-
-        playerData.set("tasks", null);
-        for (PlayerTask task : tasks) {
-            if (task.isCompleted()) {
-                continue;
-            }
-            String taskId = task.getTaskConfiguration().getId();
-            playerData.set("tasks." + taskId + ".progress", task.getProgress());
-            playerData.set("tasks." + taskId + ".expires", task.getExpires());
-        }
-
-        playerData.set("completed-tasks", new ArrayList<>(completedTasks));
-
-        playerData.set("color", color.getName());
-
-        PlayerDataFile.save(uuid, playerData);
-
-        if (!isOnline()) {
-            PlayerProfileManager.unload(uuid);
-        }
+    public Optional<Player> getPlayer() {
+        return Optional.ofNullable(Bukkit.getPlayer(uuid));
     }
 
     public boolean isOnline() {
         return getPlayer().isPresent();
     }
 
-    public Optional<Player> getPlayer() {
-        return Optional.ofNullable(Bukkit.getPlayer(uuid));
+    // Color
+
+    @NotNull
+    public String getColor() {
+        return color + "";
     }
+
+    public boolean setColor(@NotNull ChatColor color) {
+        if (color == ChatColor.STRIKETHROUGH || color == ChatColor.MAGIC || color == ChatColor.BOLD || color == ChatColor.ITALIC || color == ChatColor.UNDERLINE || color == ChatColor.RESET) {
+            return false;
+        }
+
+        this.color = color;
+
+        return true;
+    }
+
+    // Notifications
+
+    public void sendNotification(@NotNull String title) {
+        sendNotification(title, null);
+    }
+
+    public void sendNotification(@NotNull String title, @Nullable String info) {
+        Optional<Player> player = getPlayer();
+        if (player.isEmpty()) {
+            return;
+        }
+
+        if (info == null) {
+            player.get().sendMessage(getColor() + "" + ChatColor.BOLD + title);
+        }
+        else {
+            player.get().sendMessage(getColor() + "" + ChatColor.BOLD + title + ": " + ChatColor.WHITE + info);
+        }
+        
+        player.get().playSound(player.get().getLocation(), "block.sniffer_egg.plop", 1, 1);
+    }
+
+    // Money
 
     public void addMoney(double amount) {
         if (amount <= 0) {
@@ -155,6 +168,12 @@ public class PlayerProfile {
         economy.get().depositPlayer(getPlayer().get(), amount);
         
         getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GOLD + "+" + Money.format(amount)));
+    }
+
+    // Level
+
+    public int getLevel() {
+        return level;
     }
 
     public int getTotalXp() {
@@ -227,9 +246,118 @@ public class PlayerProfile {
         checkLevelUp();
     }
 
-    public int getLevel() {
-        return level;
+    private void checkLevelUp() {
+        int newLevel = PlayerLevel.getLevel(xp);
+
+        boolean levelUp = newLevel > level;
+        if (!levelUp) {
+            return;
+        }
+
+        for (int i = level + 1; i <= newLevel; i++) {
+            sendNotification("Level Up", String.valueOf(i));
+        }
+
+        this.level = newLevel;
+        
+        checkUnlocks();
     }
+
+    // Tasks
+
+    public boolean hasTask(@NotNull String id) {
+        return tasks.stream().anyMatch(task -> task.getTaskConfiguration().getId().equals(id));
+    }
+
+    public Optional<PlayerTask> getTask(@NotNull String id) {
+        return tasks.stream().filter(task -> task.getTaskConfiguration().getId().equals(id)).findFirst();
+    }
+
+    public List<PlayerTask> getTasks() {
+        return Collections.unmodifiableList(tasks);
+    }
+
+    public ArrayList<String> getTaskIds() {
+        ArrayList<String> taskIds = new ArrayList<>();
+        tasks.forEach(task -> taskIds.add(task.getTaskConfiguration().getId()));
+        return taskIds;
+    }
+
+    public boolean addTask(@NotNull PlayerTask task) {
+        if (hasTask(task.getTaskConfiguration().getId())) {
+            return false;
+        }
+
+        tasks.add(task);
+
+        sendNotification("New Task", task.toString());
+        
+        return true;
+    }
+
+    public boolean removeTask(@NotNull String id) {
+        Optional<PlayerTask> task = getTask(id);
+        if (!task.isPresent()) {
+            return false;
+        }
+
+        if (tasks.remove(task.get())) {
+            sendNotification("Task Removed", task.get().toString());
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void triggerTasks(@NotNull TriggerType triggerType, @NotNull Location location, @Nullable Entity entity, @Nullable ItemStack item, @Nullable Block block, int amount) {
+        tasks.forEach(task -> task.trigger(triggerType, location, entity, item, block, amount));
+    }
+
+    public boolean hasCompletedTask(@NotNull String id) {
+        return completedTasks.contains(id);
+    }
+
+    public boolean addCompletedTask(@NotNull String id) {
+        return completedTasks.add(id);
+    }
+
+    public void refreshTasks() {
+        checkExpiredTasks();
+        populateTasks();
+    }
+
+    private void checkExpiredTasks() {
+        Iterator<PlayerTask> taskIter = tasks.iterator();
+        while (taskIter.hasNext()) {
+            PlayerTask task = taskIter.next();
+            if (task.isCompleted()) {
+                taskIter.remove();
+            }
+            else if (task.isExpired()) {
+                taskIter.remove();
+                sendNotification("Task Expired", task.toString());
+            }
+        }
+    }
+
+    private void populateTasks() {
+        int maxTasks = TasksPlugin.getMainConfig().MAX_TASKS;
+        if (tasks.size() >= maxTasks) {
+            return;
+        }
+
+        while (tasks.size() < maxTasks) {
+            Optional<TaskConfiguration> newTaskConfiguration = TaskConfigurationManager.getNewTask(this);
+            if (newTaskConfiguration.isEmpty()) {
+                break;
+            }
+            
+            addTask(new PlayerTask(newTaskConfiguration.get(), this));
+        }
+    }
+
+    // Skips
 
     public int getSkips() {
         return skips;
@@ -291,126 +419,14 @@ public class PlayerProfile {
         return true;
     }
 
-    @NotNull
-    public String getColor() {
-        return color + "";
-    }
-
-    public boolean setColor(@NotNull ChatColor color) {
-        if (color == ChatColor.STRIKETHROUGH || color == ChatColor.MAGIC || color == ChatColor.BOLD || color == ChatColor.ITALIC || color == ChatColor.UNDERLINE || color == ChatColor.RESET) {
-            return false;
-        }
-
-        this.color = color;
-
-        return true;
-    }
-
-    public boolean addCompletedUnlock(@NotNull String id) {
-        return completedUnlocks.add(id);
-    }
+    // Unlocks
 
     public boolean hasCompletedUnlock(@NotNull String id) {
         return completedUnlocks.contains(id);
     }
 
-    public boolean addCompletedTask(@NotNull String id) {
-        return completedTasks.add(id);
-    }
-
-    public boolean hasCompletedTask(@NotNull String id) {
-        return completedTasks.contains(id);
-    }
-
-    public boolean addTask(@NotNull PlayerTask task) {
-        if (hasTask(task.getTaskConfiguration().getId())) {
-            return false;
-        }
-
-        tasks.add(task);
-
-        sendNotification("New Task", task.toString());
-        
-        return true;
-    }
-
-    public boolean removeTask(@NotNull String id) {
-        Optional<PlayerTask> task = getTask(id);
-        if (!task.isPresent()) {
-            return false;
-        }
-
-        if (tasks.remove(task.get())) {
-            sendNotification("Task Removed", task.get().toString());
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    public boolean hasTask(@NotNull String id) {
-        return tasks.stream().anyMatch(task -> task.getTaskConfiguration().getId().equals(id));
-    }
-
-    public Optional<PlayerTask> getTask(@NotNull String id) {
-        return tasks.stream().filter(task -> task.getTaskConfiguration().getId().equals(id)).findFirst();
-    }
-
-    public List<PlayerTask> getTasks() {
-        return Collections.unmodifiableList(tasks);
-    }
-
-    public ArrayList<String> getTaskIds() {
-        ArrayList<String> taskIds = new ArrayList<>();
-        tasks.forEach(task -> taskIds.add(task.getTaskConfiguration().getId()));
-        return taskIds;
-    }
-
-    public void triggerTasks(@NotNull TriggerType triggerType, @NotNull Location location, @Nullable Entity entity, @Nullable ItemStack item, @Nullable Block block, int amount) {
-        tasks.forEach(task -> task.trigger(triggerType, location, entity, item, block, amount));
-    }
-
-    public void refreshTasks() {
-        checkExpiredTasks();
-        populateTasks();
-    }
-
-    public void sendNotification(@NotNull String title) {
-        sendNotification(title, null);
-    }
-
-    public void sendNotification(@NotNull String title, @Nullable String info) {
-        Optional<Player> player = getPlayer();
-        if (player.isEmpty()) {
-            return;
-        }
-
-        if (info == null) {
-            player.get().sendMessage(getColor() + "" + ChatColor.BOLD + title);
-        }
-        else {
-            player.get().sendMessage(getColor() + "" + ChatColor.BOLD + title + ": " + ChatColor.WHITE + info);
-        }
-        
-        player.get().playSound(player.get().getLocation(), "block.sniffer_egg.plop", 1, 1);
-    }
-
-    private void checkLevelUp() {
-        int newLevel = PlayerLevel.getLevel(xp);
-
-        boolean levelUp = newLevel > level;
-        if (!levelUp) {
-            return;
-        }
-
-        for (int i = level + 1; i <= newLevel; i++) {
-            sendNotification("Level Up", String.valueOf(i));
-        }
-
-        this.level = newLevel;
-        
-        checkUnlocks();
+    public boolean addCompletedUnlock(@NotNull String id) {
+        return completedUnlocks.add(id);
     }
 
     private void checkUnlocks() {
@@ -421,33 +437,35 @@ public class PlayerProfile {
         }
     }
 
-    private void checkExpiredTasks() {
-        Iterator<PlayerTask> taskIter = tasks.iterator();
-        while (taskIter.hasNext()) {
-            PlayerTask task = taskIter.next();
+    // Saving
+
+    public void save() {
+        YamlConfiguration playerData = PlayerDataFile.get(uuid);
+
+        playerData.set("xp", xp);
+
+        playerData.set("skips", skips);
+
+        playerData.set("completed-unlocks", new ArrayList<>(completedUnlocks));
+
+        playerData.set("tasks", null);
+        for (PlayerTask task : tasks) {
             if (task.isCompleted()) {
-                taskIter.remove();
+                continue;
             }
-            else if (task.isExpired()) {
-                taskIter.remove();
-                sendNotification("Task Expired", task.toString());
-            }
-        }
-    }
-
-    private void populateTasks() {
-        int maxTasks = TasksPlugin.getMainConfig().MAX_TASKS;
-        if (tasks.size() >= maxTasks) {
-            return;
+            String taskId = task.getTaskConfiguration().getId();
+            playerData.set("tasks." + taskId + ".progress", task.getProgress());
+            playerData.set("tasks." + taskId + ".expires", task.getExpires());
         }
 
-        while (tasks.size() < maxTasks) {
-            Optional<TaskConfiguration> newTaskConfiguration = TaskConfigurationManager.getNewTask(this);
-            if (newTaskConfiguration.isEmpty()) {
-                break;
-            }
-            
-            addTask(new PlayerTask(newTaskConfiguration.get(), this));
+        playerData.set("completed-tasks", new ArrayList<>(completedTasks));
+
+        playerData.set("color", color.getName());
+
+        PlayerDataFile.save(uuid, playerData);
+
+        if (!isOnline()) {
+            PlayerProfileManager.unload(uuid);
         }
     }
 }
