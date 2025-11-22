@@ -1,8 +1,12 @@
 package fun.sunrisemc.tasks;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -47,6 +51,9 @@ import fun.sunrisemc.tasks.event.ShearEntity;
 import fun.sunrisemc.tasks.event.TakeLecternBook;
 import fun.sunrisemc.tasks.event.Teleport;
 import fun.sunrisemc.tasks.event.ThrowEgg;
+import fun.sunrisemc.tasks.file.ConfigFile;
+import fun.sunrisemc.tasks.file.DataFile;
+import fun.sunrisemc.tasks.file.PlayerDataFile;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.player.PlayerLevel;
 import fun.sunrisemc.tasks.player.PlayerProfileManager;
@@ -55,6 +62,7 @@ import fun.sunrisemc.tasks.scheduler.TaskRefreshTask;
 import fun.sunrisemc.tasks.scheduler.TimerTriggerTask;
 import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
+import fun.sunrisemc.tasks.utils.YAMLUtils;
 
 public class TasksPlugin extends JavaPlugin {
 
@@ -66,6 +74,8 @@ public class TasksPlugin extends JavaPlugin {
 
     public void onEnable() {
         instance = this;
+
+        applyUpdates();
 
         mainConfig = new MainConfig();
 
@@ -83,7 +93,7 @@ public class TasksPlugin extends JavaPlugin {
         PlayerProfileManager.reload();
         
         if (getMainConfig().ENABLE_LEVELLING && !PlayerLevel.verify()) {
-            TasksPlugin.logSevere("PlayerLevel verification failed.");
+            TasksPlugin.logSevere("Player level verification failed.");
         }
 
         registerCommand("tasksadmin", new TasksAdminCommand());
@@ -213,5 +223,49 @@ public class TasksPlugin extends JavaPlugin {
         }
 
         return true;
+    }
+
+    // Updates
+
+    private void applyUpdates() {
+        // 1.0.0 -> 1.1.0: Move "xp-curve" to "levels.xp-curve"
+        YamlConfiguration config = ConfigFile.get("config", true);
+
+        if (YAMLUtils.moveKey(config, "xp-curve", "levels.xp-curve")) {
+            ConfigFile.save("config", config);
+
+            logInfo("Config file updated to 1.1.0 format.");
+        }
+
+        // 1.1.0 -> 1.2.0: Player data files moved to new folder
+        ArrayList<String> playerDataFileNames = new ArrayList<>();
+        for (String name : DataFile.getNames()) {
+            // Check that it is a player uuid (correct length)
+            if (name.length() != 36) {
+                continue;
+            }
+
+            // Add to list
+            playerDataFileNames.add(name);
+        }
+
+        if (!playerDataFileNames.isEmpty()) {
+            logInfo("Updating player data files to new 1.2.0 format...");
+
+            for (String name : playerDataFileNames) {
+                // Get the old file
+                YamlConfiguration configuration = DataFile.get(name);
+
+                // Create the UUID
+                UUID uuid = UUID.fromString(name);
+
+                // Save the file and delete the old one
+                if (PlayerDataFile.save(uuid, configuration)) {
+                    DataFile.delete(name);
+                }
+            }
+
+            logInfo("Player data files updated to 1.2.0 format.");
+        }
     }
 }

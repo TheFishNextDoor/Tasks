@@ -25,8 +25,6 @@ public class MainConfig {
     public final double TASK_MONEY_MULTIPLIER;
 
     public MainConfig() {
-        updateConfig();
-        
         YamlConfiguration config = ConfigFile.get("config", true);
 
         // Levels settings
@@ -43,13 +41,5 @@ public class MainConfig {
         this.MAX_TASKS = YAMLUtils.getIntClamped(config, "tasks.max-tasks", 0, 20);
         this.TASK_XP_MULTIPLIER = YAMLUtils.getDoubleClamped(config, "tasks.reward-xp-multiplier", 0.0, 1_000_000.0);
         this.TASK_MONEY_MULTIPLIER = YAMLUtils.getDoubleClamped(config, "tasks.reward-money-multiplier", 0.0, 1_000_000.0);
-    }
-
-    private void updateConfig() {
-        YamlConfiguration config = ConfigFile.get("config", true);
-
-        if (YAMLUtils.moveKey(config, "xp-curve", "levels.xp-curve")) {
-            ConfigFile.save("config", config);
-        }
     }
 }
