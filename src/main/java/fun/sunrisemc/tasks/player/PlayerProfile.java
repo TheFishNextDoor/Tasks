@@ -25,7 +25,7 @@ import net.milkbowl.vault.economy.Economy;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.config.MainConfig;
-import fun.sunrisemc.tasks.file.DataFile;
+import fun.sunrisemc.tasks.file.PlayerDataFile;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.task.PlayerTask;
 import fun.sunrisemc.tasks.task.TaskConfiguration;
@@ -64,9 +64,7 @@ public class PlayerProfile {
     PlayerProfile(@NotNull UUID uuid) {
         this.uuid = uuid;
 
-        String id = uuid.toString();
-
-        YamlConfiguration playerData = DataFile.get(id);
+        YamlConfiguration playerData = PlayerDataFile.get(uuid);
 
         xp = playerData.getInt("xp", 0);
 
@@ -84,7 +82,7 @@ public class PlayerProfile {
             for (String taskKey : YAMLUtils.getKeys(playerData, "tasks")) {
                 Optional<TaskConfiguration> taskConfiguration = TaskConfigurationManager.get(taskKey);
                 if (!taskConfiguration.isPresent()) {
-                    TasksPlugin.logWarning("Removing invalid task " + taskKey + " for player " + id + ".");
+                    TasksPlugin.logWarning("Removing invalid task " + taskKey + " for player " + uuid.toString() + ".");
                     continue;
                 }
 
@@ -107,9 +105,7 @@ public class PlayerProfile {
     }
 
     public void save() {
-        String id = uuid.toString();
-
-        YamlConfiguration playerData = DataFile.get(id);
+        YamlConfiguration playerData = PlayerDataFile.get(uuid);
 
         playerData.set("xp", xp);
 
@@ -131,7 +127,7 @@ public class PlayerProfile {
 
         playerData.set("color", color.getName());
 
-        DataFile.save(id, playerData);
+        PlayerDataFile.save(uuid, playerData);
 
         if (!isOnline()) {
             PlayerProfileManager.unload(uuid);
