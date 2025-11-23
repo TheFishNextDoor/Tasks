@@ -49,9 +49,9 @@ public class StringUtils {
     }
 
     public static Optional<org.bukkit.Material> parseMaterial(@NotNull String name) {
-        String normalizedNameA = normalizeString(name);
+        String normalizedNameA = normalize(name);
         for (org.bukkit.Material material : org.bukkit.Material.values()) {
-            String normalizedNameB = normalizeString(material.name());
+            String normalizedNameB = normalize(material.name());
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(material);
             }
@@ -60,9 +60,9 @@ public class StringUtils {
     }
 
     public static Optional<SpawnCategory> parseSpawnCategory(@NotNull String name) {
-        String normalizedNameA = normalizeString(name);
+        String normalizedNameA = normalize(name);
         for (SpawnCategory spawnCategory : SpawnCategory.values()) {
-            String normalizedNameB = normalizeString(spawnCategory.name());
+            String normalizedNameB = normalize(spawnCategory.name());
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(spawnCategory);
             }
@@ -71,9 +71,9 @@ public class StringUtils {
     }
 
     public static Optional<EntityType> parseEntityType(@NotNull String name) {
-        String normalizedNameA = normalizeString(name);
+        String normalizedNameA = normalize(name);
         for (EntityType entityType : EntityType.values()) {
-            String normalizedNameB = normalizeString(entityType.name());
+            String normalizedNameB = normalize(entityType.name());
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(entityType);
             }
@@ -82,9 +82,9 @@ public class StringUtils {
     }
 
     public static Optional<Environment> parseEnvironment(@NotNull String name) {
-        String normalizedNameA = normalizeString(name);
+        String normalizedNameA = normalize(name);
         for (Environment environment : Environment.values()) {
-            String normalizedNameB = normalizeString(environment.name());
+            String normalizedNameB = normalize(environment.name());
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(environment);
             }
@@ -103,9 +103,9 @@ public class StringUtils {
     }
 
     public static Optional<ProgressDisplayType> parseProgressDisplayType(@NotNull String name) {
-        String normalizedNameA = normalizeString(name);
+        String normalizedNameA = normalize(name);
         for (ProgressDisplayType progressDisplayType : ProgressDisplayType.values()) {
-            String normalizedNameB = normalizeString(progressDisplayType.name());
+            String normalizedNameB = normalize(progressDisplayType.name());
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(progressDisplayType);
             }
@@ -114,9 +114,9 @@ public class StringUtils {
     }
 
     public static Optional<TriggerType> parseTriggerType(@NotNull String name) {
-        String normalizedNameA = normalizeString(name);
+        String normalizedNameA = normalize(name);
         for (TriggerType triggerType : TriggerType.values()) {
-            String normalizedNameB = normalizeString(triggerType.name());
+            String normalizedNameB = normalize(triggerType.name());
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(triggerType);
             }
@@ -176,7 +176,7 @@ public class StringUtils {
 
     // Normalization
 
-    public static String normalizeString(@NotNull String string) {
+    public static String normalize(@NotNull String string) {
         return string.trim().toLowerCase().replace(" ", "").replace("_", "").replace("-", "");
     }
 

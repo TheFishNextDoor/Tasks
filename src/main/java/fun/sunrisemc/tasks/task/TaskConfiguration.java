@@ -256,7 +256,7 @@ public class TaskConfiguration {
         }
 
         for (String biomeName : config.getStringList(id + ".biomes")) {
-            this.biomes.add(StringUtils.normalizeString(biomeName));
+            this.biomes.add(StringUtils.normalize(biomeName));
         }
 
         if (config.contains(id + ".min-x")) {
@@ -485,7 +485,7 @@ public class TaskConfiguration {
             return false;
         }
 
-        if (!biomes.isEmpty() && !biomes.contains(StringUtils.normalizeString(location.getBlock().getBiome().name()))) {
+        if (!biomes.isEmpty() && !biomes.contains(StringUtils.normalize(location.getBlock().getBiome().name()))) {
             return false;
         }
 
