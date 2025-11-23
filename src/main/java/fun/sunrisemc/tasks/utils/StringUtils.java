@@ -176,6 +176,7 @@ public class StringUtils {
 
     // Normalization
 
+    @NotNull
     public static String normalize(@NotNull String string) {
         return string.trim().toLowerCase().replace(" ", "").replace("_", "").replace("-", "");
     }
