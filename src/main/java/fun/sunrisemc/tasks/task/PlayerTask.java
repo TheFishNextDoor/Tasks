@@ -18,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.unlock.Unlock;
-import fun.sunrisemc.tasks.utils.Money;
 import fun.sunrisemc.tasks.utils.StringUtils;
 
 public class PlayerTask {
@@ -79,7 +78,7 @@ public class PlayerTask {
         String rewardMoneySection = "";
         double rewardMoney = taskConfiguration.getRewardMoney();
         if (rewardMoney > 0) {
-            rewardMoneySection = ChatColor.WHITE + " (" + Money.format(rewardMoney) + ChatColor.WHITE + ")";
+            rewardMoneySection = ChatColor.WHITE + " (" + StringUtils.formatMoneyAbbreviated(rewardMoney) + ChatColor.WHITE + ")";
         }
 
         String rewardSkipsSection = "";

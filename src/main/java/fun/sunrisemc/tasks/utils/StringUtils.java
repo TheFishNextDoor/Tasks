@@ -127,6 +127,11 @@ public class StringUtils {
     // Formatting
 
     @NotNull
+    public static String formatPercent(int seconds, int totalSeconds) {
+        return String.valueOf((int) (((double) seconds / totalSeconds) * 100)) + "%";
+    }
+
+    @NotNull
     public static String formatSecondsAbbreviated(int seconds) {
         if (seconds <= 0) {
             return "0s";
@@ -145,9 +150,28 @@ public class StringUtils {
         }
     }
 
-    @NotNull
-    public static String formatPercent(int seconds, int totalSeconds) {
-        return String.valueOf((int) (((double) seconds / totalSeconds) * 100)) + "%";
+    public static String formatMoneyAbbreviated(double money) {
+        String prefix = money < 0 ? ChatColor.RED + "-$" : ChatColor.GOLD + "$";
+        money = Math.abs(money);
+        if (money >= 1000000000) {
+            double billion = money / 1000000000;
+            String moneyFormatted = billion % 1 == 0 ? String.format("%.0f", billion) : String.format("%.1f", billion);
+            return prefix + moneyFormatted + "b";
+        }
+        else if (money >= 1000000) {
+            double million = money / 1000000;
+            String moneyFormatted = million % 1 == 0 ? String.format("%.0f", million) : String.format("%.1f", million);
+            return prefix + moneyFormatted + "m";
+        }
+        else if (money >= 1000) {
+            double thousand = money / 1000;
+            String moneyFormatted = thousand % 1 == 0 ? String.format("%.0f", thousand) : String.format("%.1f", thousand);
+            return prefix + moneyFormatted + "k";
+        }
+        else {
+            String moneyFormatted = money % 1 == 0 ? String.format("%.0f", money) : String.format("%.2f", money);
+            return prefix + moneyFormatted;
+        }
     }
 
     // Normalization

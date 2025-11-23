@@ -33,7 +33,6 @@ import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
-import fun.sunrisemc.tasks.utils.Money;
 import fun.sunrisemc.tasks.utils.StringUtils;
 import fun.sunrisemc.tasks.utils.YAMLUtils;
 
@@ -167,7 +166,7 @@ public class PlayerProfile {
 
         economy.get().depositPlayer(getPlayer().get(), amount);
         
-        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GOLD + "+" + Money.format(amount)));
+        getPlayer().ifPresent(player -> player.sendMessage(ChatColor.GOLD + "+" + StringUtils.formatMoneyAbbreviated(amount)));
     }
 
     // Level
