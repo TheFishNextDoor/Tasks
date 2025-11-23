@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -23,25 +22,6 @@ public class PlayerUtils {
             playerNames.add(player.getName());
         }
         return playerNames;
-    }
-
-    public static Optional<Material> getMaterialInHand(@NotNull Player player) {
-        PlayerInventory inventory = player.getInventory();
-
-        // Check main hand
-        Material mainHandMaterial = inventory.getItemInMainHand().getType();
-        if (!mainHandMaterial.isAir()) {
-            return Optional.of(mainHandMaterial);
-        }
-
-        // Check off hand
-        Material offHandMaterial = inventory.getItemInOffHand().getType();
-        if (!offHandMaterial.isAir()) {
-            return Optional.of(offHandMaterial);
-        }
-
-        // No material in either hand
-        return Optional.empty();
     }
 
     public static Optional<ItemStack> getItemInHand(@NotNull Player player) {
