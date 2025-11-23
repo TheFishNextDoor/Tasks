@@ -60,7 +60,7 @@ public class PlayerProfile {
 
     // Constructor
 
-    PlayerProfile(@NotNull UUID uuid) {
+    protected PlayerProfile(@NotNull UUID uuid) {
         this.uuid = uuid;
 
         YamlConfiguration playerData = PlayerDataFile.get(uuid);
