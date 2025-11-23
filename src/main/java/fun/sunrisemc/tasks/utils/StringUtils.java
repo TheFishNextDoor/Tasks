@@ -48,8 +48,8 @@ public class StringUtils {
         }
     }
 
-    public static Optional<org.bukkit.Material> parseMaterial(@NotNull String name) {
-        String normalizedNameA = normalize(name);
+    public static Optional<org.bukkit.Material> parseMaterial(@NotNull String materialName) {
+        String normalizedNameA = normalize(materialName);
         for (org.bukkit.Material material : org.bukkit.Material.values()) {
             String normalizedNameB = normalize(material.name());
             if (normalizedNameA.equals(normalizedNameB)) {
@@ -59,8 +59,8 @@ public class StringUtils {
         return Optional.empty();
     }
 
-    public static Optional<SpawnCategory> parseSpawnCategory(@NotNull String name) {
-        String normalizedNameA = normalize(name);
+    public static Optional<SpawnCategory> parseSpawnCategory(@NotNull String spawnCategoryName) {
+        String normalizedNameA = normalize(spawnCategoryName);
         for (SpawnCategory spawnCategory : SpawnCategory.values()) {
             String normalizedNameB = normalize(spawnCategory.name());
             if (normalizedNameA.equals(normalizedNameB)) {
@@ -70,8 +70,8 @@ public class StringUtils {
         return Optional.empty();
     }
 
-    public static Optional<EntityType> parseEntityType(@NotNull String name) {
-        String normalizedNameA = normalize(name);
+    public static Optional<EntityType> parseEntityType(@NotNull String entityTypeName) {
+        String normalizedNameA = normalize(entityTypeName);
         for (EntityType entityType : EntityType.values()) {
             String normalizedNameB = normalize(entityType.name());
             if (normalizedNameA.equals(normalizedNameB)) {
@@ -81,8 +81,8 @@ public class StringUtils {
         return Optional.empty();
     }
 
-    public static Optional<Environment> parseEnvironment(@NotNull String name) {
-        String normalizedNameA = normalize(name);
+    public static Optional<Environment> parseEnvironment(@NotNull String environmentName) {
+        String normalizedNameA = normalize(environmentName);
         for (Environment environment : Environment.values()) {
             String normalizedNameB = normalize(environment.name());
             if (normalizedNameA.equals(normalizedNameB)) {
@@ -102,8 +102,8 @@ public class StringUtils {
         }
     }
 
-    public static Optional<ProgressDisplayType> parseProgressDisplayType(@NotNull String name) {
-        String normalizedNameA = normalize(name);
+    public static Optional<ProgressDisplayType> parseProgressDisplayType(@NotNull String progressDisplayTypeName) {
+        String normalizedNameA = normalize(progressDisplayTypeName);
         for (ProgressDisplayType progressDisplayType : ProgressDisplayType.values()) {
             String normalizedNameB = normalize(progressDisplayType.name());
             if (normalizedNameA.equals(normalizedNameB)) {
@@ -113,8 +113,8 @@ public class StringUtils {
         return Optional.empty();
     }
 
-    public static Optional<TriggerType> parseTriggerType(@NotNull String name) {
-        String normalizedNameA = normalize(name);
+    public static Optional<TriggerType> parseTriggerType(@NotNull String triggerTypeName) {
+        String normalizedNameA = normalize(triggerTypeName);
         for (TriggerType triggerType : TriggerType.values()) {
             String normalizedNameB = normalize(triggerType.name());
             if (normalizedNameA.equals(normalizedNameB)) {
@@ -127,8 +127,8 @@ public class StringUtils {
     // Formatting
 
     @NotNull
-    public static String formatPercent(int seconds, int totalSeconds) {
-        return String.valueOf((int) (((double) seconds / totalSeconds) * 100)) + "%";
+    public static String formatPercent(int numerator, int denominator) {
+        return String.valueOf((int) (((double) numerator / denominator) * 100)) + "%";
     }
 
     @NotNull
@@ -177,8 +177,8 @@ public class StringUtils {
     // Normalization
 
     @NotNull
-    public static String normalize(@NotNull String string) {
-        return string.trim().toLowerCase().replace(" ", "").replace("_", "").replace("-", "");
+    public static String normalize(@NotNull String str) {
+        return str.trim().toLowerCase().replace(" ", "").replace("_", "").replace("-", "");
     }
 
     // Lists
