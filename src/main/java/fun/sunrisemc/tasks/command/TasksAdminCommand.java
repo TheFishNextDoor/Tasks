@@ -523,10 +523,8 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
     }
 
     public static void sendHelpMessage(CommandSender sender) {
-        // Get plugin config
         MainConfig mainConfig = TasksPlugin.getMainConfig();
         
-        // Send help message
         sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "Tasks Admin Help");
         sender.sendMessage(ChatColor.BLUE + "/tasksadmin help " + ChatColor.WHITE + "Show this help message");
         if (sender.hasPermission(Permissions.RELOAD_PERMISSION)) {

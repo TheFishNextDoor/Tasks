@@ -245,7 +245,6 @@ public class TasksPlugin extends JavaPlugin {
                 continue;
             }
 
-            // Add to list
             playerDataFileNames.add(name);
         }
 
@@ -253,13 +252,10 @@ public class TasksPlugin extends JavaPlugin {
             logInfo("Updating player data files to new 1.2.0 format...");
 
             for (String name : playerDataFileNames) {
-                // Get the old file
                 YamlConfiguration playerData = DataFile.get(name);
 
-                // Create the UUID
                 UUID uuid = UUID.fromString(name);
 
-                // Save the file and delete the old one
                 if (PlayerDataFile.save(uuid, playerData)) {
                     DataFile.delete(name);
                 }
