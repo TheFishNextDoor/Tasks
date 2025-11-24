@@ -251,13 +251,14 @@ public class TasksPlugin extends JavaPlugin {
         if (!playerDataFileNames.isEmpty()) {
             logInfo("Updating player data files to new 1.2.0 format...");
 
-            for (String name : playerDataFileNames) {
-                YamlConfiguration playerData = DataFile.get(name);
+            for (String playerDataFileName : playerDataFileNames) {
+                YamlConfiguration playerData = DataFile.get(playerDataFileName);
 
-                UUID uuid = UUID.fromString(name);
+                UUID uuid = UUID.fromString(playerDataFileName);
 
+                // Save as a player data file rather than a generic data file
                 if (PlayerDataFile.save(uuid, playerData)) {
-                    DataFile.delete(name);
+                    DataFile.delete(playerDataFileName);
                 }
             }
 
