@@ -159,7 +159,7 @@ public class TaskConfiguration {
 
         this.message = YAMLUtils.getString(config, id + ".message");
 
-        this.timeLimitMS = Math.max(YAMLUtils.getInt(config, id + ".time-limit-minutes").orElse(0) * 60000, 0);
+        this.timeLimitMS = YAMLUtils.getInt(config, id + ".time-limit-minutes").orElse(0) * 60000;
 
         this.resetOnDeath = YAMLUtils.getBoolean(config, id + ".reset-on-death").orElse(false);
 
