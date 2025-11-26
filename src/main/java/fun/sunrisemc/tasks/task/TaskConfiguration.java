@@ -117,9 +117,11 @@ public class TaskConfiguration {
     private @NotNull ArrayList<String> rewardPlayerCommands = new ArrayList<>();
     private @NotNull ArrayList<String> rewardMessages = new ArrayList<>();
 
-    // Conditions
+    // Conditions (Triggers)
     
     private @NotNull HashSet<TriggerType> triggers = new HashSet<>();
+
+    // Conditions (Location)
 
     private @NotNull HashSet<String> worlds = new HashSet<>();
     private @NotNull HashSet<Environment> environments = new HashSet<>();
@@ -132,6 +134,8 @@ public class TaskConfiguration {
     private Optional<Integer> minZ;
     private Optional<Integer> maxZ;
 
+    // Conditions (Entity)
+
     private Optional<Boolean> entityIsInWater;
     private Optional<Boolean> entityIsOnGround;
 
@@ -139,8 +143,12 @@ public class TaskConfiguration {
     private @NotNull HashSet<EntityType> entityTypes = new HashSet<>();
     private @NotNull HashSet<SpawnCategory> entityCategories = new HashSet<>();
 
+    // Conditions (Item)
+
     private @NotNull HashSet<String> itemNames = new HashSet<>();
     private @NotNull HashSet<Material> itemMaterials = new HashSet<>();
+
+    // Conditions (Block)
 
     private @NotNull HashSet<Material> blockMaterials = new HashSet<>();
 
