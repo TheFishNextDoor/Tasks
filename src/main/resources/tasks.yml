@@ -2189,16 +2189,6 @@ visitlushcave:
   reward-xp: 30
   reward-money: 30
   time-limit-minutes: 1440
-visitcherrygrove:
-  triggers:
-  - timer
-  biomes:
-  - cherry_grove
-  amount: 1
-  message: Visit a cherry grove
-  reward-xp: 30
-  reward-money: 30
-  time-limit-minutes: 1440
 visitsnowyslopes:
   triggers:
   - timer
@@ -2292,17 +2282,6 @@ visitcrimsonforest:
   reward-xp: 30
   reward-money: 30
   min-level: 50
-  time-limit-minutes: 1440
-visitdeepdark:
-  triggers:
-  - timer
-  biomes:
-  - deep_dark
-  amount: 1
-  message: Visit the deep dark
-  reward-xp: 60
-  reward-money: 60
-  min-level: 80
   time-limit-minutes: 1440
 #########
 # Other #
