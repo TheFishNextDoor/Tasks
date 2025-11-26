@@ -155,11 +155,11 @@ public class TaskConfiguration {
             }
         }
 
-        this.amount = Math.max(config.getInt(id + ".amount"), 1);
+        this.amount = YAMLUtils.getIntClamped(config, id + ".amount", 1, Integer.MAX_VALUE).orElse(1);
 
         this.message = YAMLUtils.getString(config, id + ".message");
 
-        this.timeLimitMS = Math.max(config.getInt(id + ".time-limit-minutes") * 60000, 0);
+        this.timeLimitMS = Math.max(YAMLUtils.getInt(config, id + ".time-limit-minutes").orElse(0) * 60000, 0);
 
         this.resetOnDeath = YAMLUtils.getBoolean(config, id + ".reset-on-death").orElse(false);
 
