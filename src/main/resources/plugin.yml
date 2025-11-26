@@ -6,11 +6,6 @@ author: TheFishNextDoor
 description: A simple task plugin
 softdepend: [Vault]
 commands:
-  tasksadmin:
-    description: Admin commands for tasks plugin
-    usage: /tasksadmin
-    permission: tasks.admin
-    aliases: [ta]
   tasks:
     description: List your current tasks
     usage: /tasks
@@ -21,6 +16,11 @@ commands:
   unlocks:
     description: List your unlocks
     usage: /unlocks
+  tasksadmin:
+    description: Admin commands for tasks plugin
+    usage: /tasksadmin
+    permission: tasks.admin
+    aliases: [ta]
 permissions:
   tasks.color:
     description: Allows the player to change the color of their tasks

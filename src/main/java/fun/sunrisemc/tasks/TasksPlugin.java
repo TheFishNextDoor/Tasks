@@ -100,10 +100,10 @@ public class TasksPlugin extends JavaPlugin {
             TasksPlugin.logSevere("Player level verification failed.");
         }
 
-        registerCommand("tasksadmin", new TasksAdminCommand());
         registerCommand("tasks", new TasksCommand());
         registerCommand("level", new LevelCommand());
         registerCommand("unlocks", new UnlocksCommand());
+        registerCommand("tasksadmin", new TasksAdminCommand());
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerJoin(), this);
