@@ -187,25 +187,19 @@ public class TaskConfiguration {
             }
         }
 
-        if (config.contains(id + ".repeatable")) {
-            this.repeatable = config.getBoolean(id + ".repeatable");
-        }
+        this.repeatable = YAMLUtils.getBoolean(config, id + ".repeatable").orElse(repeatable);
 
-        if (config.contains(id + ".min-level")) {
-            this.minLevel = Optional.of(config.getInt(id + ".min-level"));
-        }
-        if (config.contains(id + ".max-level")) {
-            this.maxLevel = Optional.of(config.getInt(id + ".max-level"));
-        }
+        this.minLevel = YAMLUtils.getInt(config, id + ".min-level");
+        this.maxLevel = YAMLUtils.getInt(config, id + ".max-level");
 
-        this.permission = Optional.ofNullable(config.getString(id + ".permission"));
+        this.permission = YAMLUtils.getString(config, id + ".permission");
 
         this.prerequisiteTasks.addAll(config.getStringList(id + ".prerequisite-tasks"));
         this.incompatibleTasks.addAll(config.getStringList(id + ".incompatible-tasks"));
         
-        this.rewardMoney = config.getDouble(id + ".reward-money");
-        this.rewardXp = config.getInt(id + ".reward-xp");
-        this.rewardSkips = config.getInt(id + ".reward-skips");
+        this.rewardMoney = YAMLUtils.getDoubleClamped(config, id + ".reward-money", 0.0, Double.MAX_VALUE).orElse(0.0);
+        this.rewardXp = YAMLUtils.getInt(config, id + ".reward-xp").orElse(0);
+        this.rewardSkips = YAMLUtils.getInt(config, id + ".reward-skips").orElse(0);
 
         for (String unlockName : config.getStringList(id + ".reward-unlocks")) {
             Optional<Unlock> unlock = UnlockManager.get(unlockName);
