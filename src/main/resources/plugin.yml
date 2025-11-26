@@ -1,6 +1,6 @@
 name: Tasks
 main: fun.sunrisemc.tasks.TasksPlugin
-version: 1.2.0
+version: ${project.version}
 api-version: 1.18
 author: TheFishNextDoor
 description: A simple task plugin
