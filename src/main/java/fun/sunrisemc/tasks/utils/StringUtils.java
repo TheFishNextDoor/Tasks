@@ -1,9 +1,9 @@
 package fun.sunrisemc.tasks.utils;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 import org.bukkit.World.Environment;
+import org.bukkit.block.Biome;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.SpawnCategory;
 
@@ -59,39 +59,6 @@ public class StringUtils {
         return Optional.empty();
     }
 
-    public static Optional<SpawnCategory> parseSpawnCategory(@NotNull String spawnCategoryName) {
-        String normalizedNameA = normalize(spawnCategoryName);
-        for (SpawnCategory spawnCategory : SpawnCategory.values()) {
-            String normalizedNameB = normalize(spawnCategory.name());
-            if (normalizedNameA.equals(normalizedNameB)) {
-                return Optional.of(spawnCategory);
-            }
-        }
-        return Optional.empty();
-    }
-
-    public static Optional<EntityType> parseEntityType(@NotNull String entityTypeName) {
-        String normalizedNameA = normalize(entityTypeName);
-        for (EntityType entityType : EntityType.values()) {
-            String normalizedNameB = normalize(entityType.name());
-            if (normalizedNameA.equals(normalizedNameB)) {
-                return Optional.of(entityType);
-            }
-        }
-        return Optional.empty();
-    }
-
-    public static Optional<Environment> parseEnvironment(@NotNull String environmentName) {
-        String normalizedNameA = normalize(environmentName);
-        for (Environment environment : Environment.values()) {
-            String normalizedNameB = normalize(environment.name());
-            if (normalizedNameA.equals(normalizedNameB)) {
-                return Optional.of(environment);
-            }
-        }
-        return Optional.empty();
-    }
-
     public static Optional<ChatColor> parseChatColor(@NotNull String color) {
         try {
             ChatColor chatColor = ChatColor.of(color);
@@ -119,6 +86,50 @@ public class StringUtils {
             String normalizedNameB = normalize(triggerType.name());
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(triggerType);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public static Optional<Environment> parseEnvironment(@NotNull String environmentName) {
+        String normalizedNameA = normalize(environmentName);
+        for (Environment environment : Environment.values()) {
+            String normalizedNameB = normalize(environment.name());
+            if (normalizedNameA.equals(normalizedNameB)) {
+                return Optional.of(environment);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public static Optional<Biome> parseBiome(@NotNull String biomeName) {
+        String normalizedNameA = normalize(biomeName);
+        for (Biome biome : Biome.values()) {
+            String normalizedNameB = normalize(biome.name());
+            if (normalizedNameA.equals(normalizedNameB)) {
+                return Optional.of(biome);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public static Optional<EntityType> parseEntityType(@NotNull String entityTypeName) {
+        String normalizedNameA = normalize(entityTypeName);
+        for (EntityType entityType : EntityType.values()) {
+            String normalizedNameB = normalize(entityType.name());
+            if (normalizedNameA.equals(normalizedNameB)) {
+                return Optional.of(entityType);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public static Optional<SpawnCategory> parseSpawnCategory(@NotNull String spawnCategoryName) {
+        String normalizedNameA = normalize(spawnCategoryName);
+        for (SpawnCategory spawnCategory : SpawnCategory.values()) {
+            String normalizedNameB = normalize(spawnCategory.name());
+            if (normalizedNameA.equals(normalizedNameB)) {
+                return Optional.of(spawnCategory);
             }
         }
         return Optional.empty();
@@ -174,21 +185,26 @@ public class StringUtils {
         }
     }
 
+    @NotNull
+    public static String formatName(@NotNull String name) {
+        return name.toLowerCase()
+                   .replace("minecraft:", "")
+                   .replace(" ", "-")
+                   .replace("_", "-")
+                   .replace(":", "-")
+                   .trim();
+    }
+
     // Normalization
 
     @NotNull
     public static String normalize(@NotNull String str) {
-        return str.trim().toLowerCase().replace(" ", "").replace("_", "").replace("-", "");
-    }
-
-    // Lists
-
-    @NotNull
-    public static String commaSeparatedList(@NotNull Object[] items) {
-        ArrayList<String> itemsStringList = new ArrayList<>();
-        for (Object item : items) {
-            itemsStringList.add(item.toString());
-        }
-        return String.join(", ", itemsStringList);
+        return str.toLowerCase()
+                  .replace("minecraft:", "")
+                  .replace(" ", "")
+                  .replace("_", "")
+                  .replace("-", "")
+                  .replace(":", "")
+                  .trim();
     }
 }

@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
@@ -27,6 +28,7 @@ import fun.sunrisemc.tasks.TasksPlugin;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
+import fun.sunrisemc.tasks.utils.Names;
 import fun.sunrisemc.tasks.utils.StringUtils;
 import fun.sunrisemc.tasks.utils.YAMLUtils;
 
@@ -121,7 +123,7 @@ public class TaskConfiguration {
 
     private @NotNull HashSet<String> worlds = new HashSet<>();
     private @NotNull HashSet<Environment> environments = new HashSet<>();
-    private @NotNull HashSet<String> biomes = new HashSet<>();
+    private @NotNull HashSet<Biome> biomes = new HashSet<>();
 
     private Optional<Integer> minX;
     private Optional<Integer> maxX;
@@ -173,7 +175,7 @@ public class TaskConfiguration {
                 Optional<ProgressDisplayType> progressDisplayType = StringUtils.parseProgressDisplayType(progressDisplayName);
                 if (progressDisplayType.isEmpty()) {
                     TasksPlugin.logWarning("Invalid progress display for task " + id + ": " + progressDisplayName + ".");
-                    TasksPlugin.logWarning("Valid progress displays are: " + StringUtils.commaSeparatedList(ProgressDisplayType.values()) + ".");
+                    TasksPlugin.logWarning("Valid progress displays are: " + String.join(", ", Names.getProgressDisplayTypeNames()) + ".");
                 }
                 else {
                     this.progressDisplayType = progressDisplayType.get();
@@ -220,7 +222,7 @@ public class TaskConfiguration {
             Optional<TriggerType> triggerType = StringUtils.parseTriggerType(triggerName);
             if (triggerType.isEmpty()) {
                 TasksPlugin.logWarning("Invalid trigger for task " + id + ": " + triggerName + ".");
-                TasksPlugin.logWarning("Valid triggers are: " + StringUtils.commaSeparatedList(TriggerType.values()) + ".");
+                TasksPlugin.logWarning("Valid triggers are: " + String.join(", ", Names.getTriggerTypeNames()) + ".");
                 continue;
             }
             this.triggers.add(triggerType.get());
@@ -237,14 +239,20 @@ public class TaskConfiguration {
             Optional<Environment> environment = StringUtils.parseEnvironment(environmentName);
             if (environment.isEmpty()) {
                 TasksPlugin.logWarning("Invalid environment for task " + id + ": " + environmentName + ".");
-                TasksPlugin.logWarning("Valid environments are: " + StringUtils.commaSeparatedList(Environment.values()) + ".");
+                TasksPlugin.logWarning("Valid environments are: " + String.join(", ", Names.getEnvironmentNames()) + ".");
                 continue;
             }
             this.environments.add(environment.get());
         }
 
         for (String biomeName : config.getStringList(id + ".biomes")) {
-            this.biomes.add(StringUtils.normalize(biomeName));
+            Optional<Biome> biome = StringUtils.parseBiome(biomeName);
+            if (biome.isEmpty()) {
+                TasksPlugin.logWarning("Invalid biome for task " + id + ": " + biomeName + ".");
+                TasksPlugin.logWarning("Valid biomes are: " + String.join(", ", Names.getBiomeNames()) + ".");
+                continue;
+            }
+            this.biomes.add(biome.get());
         }
 
         this.minX = YAMLUtils.getInt(config, id + ".min-x");
@@ -266,7 +274,7 @@ public class TaskConfiguration {
             Optional<EntityType> entityType = StringUtils.parseEntityType(entityTypeName);
             if (entityType.isEmpty()) {
                 TasksPlugin.logWarning("Invalid entity type for task " + id + ": " + entityTypeName + ".");
-                TasksPlugin.logWarning("Valid entity types are: " + StringUtils.commaSeparatedList(EntityType.values()) + ".");
+                TasksPlugin.logWarning("Valid entity types are: " + String.join(", ", Names.getEntityTypeNames()) + ".");
                 continue;
             }
             this.entityTypes.add(entityType.get());
@@ -276,7 +284,7 @@ public class TaskConfiguration {
             Optional<SpawnCategory> entityCategory = StringUtils.parseSpawnCategory(categoryName);
             if (entityCategory.isEmpty()) {
                 TasksPlugin.logWarning("Invalid entity category for task " + id + ": " + categoryName + ".");
-                TasksPlugin.logWarning("Valid entity categories are: " + StringUtils.commaSeparatedList(SpawnCategory.values()) + ".");
+                TasksPlugin.logWarning("Valid entity categories are: " + String.join(", ", Names.getSpawnCategoryNames()) + ".");
                 continue;
             }
             this.entityCategories.add(entityCategory.get());
@@ -457,7 +465,7 @@ public class TaskConfiguration {
             return false;
         }
 
-        if (!biomes.isEmpty() && !biomes.contains(StringUtils.normalize(location.getBlock().getBiome().name()))) {
+        if (!biomes.isEmpty() && !biomes.contains(location.getBlock().getBiome())) {
             return false;
         }
 
