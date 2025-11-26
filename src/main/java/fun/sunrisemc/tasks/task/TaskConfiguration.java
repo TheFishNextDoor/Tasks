@@ -83,11 +83,11 @@ public class TaskConfiguration {
 
     private long timeLimitMS = 0;
 
-    private boolean resetOnDeath = false;
+    private boolean resetOnDeath;
 
-    private boolean skippable = true;
+    private boolean skippable;
 
-    private boolean actionbar = true;
+    private boolean actionbar;
 
     private @NotNull ProgressDisplayType progressDisplayType = ProgressDisplayType.STANDARD;
 
@@ -157,21 +157,15 @@ public class TaskConfiguration {
 
         this.amount = Math.max(config.getInt(id + ".amount"), 1);
 
-        this.message = Optional.ofNullable(config.getString(id + ".message"));
+        this.message = YAMLUtils.getString(config, id + ".message");
 
         this.timeLimitMS = Math.max(config.getInt(id + ".time-limit-minutes") * 60000, 0);
 
-        if (config.contains(id + ".reset-on-death")) {
-            this.resetOnDeath = config.getBoolean(id + ".reset-on-death");
-        }
+        this.resetOnDeath = YAMLUtils.getBoolean(config, id + ".reset-on-death").orElse(false);
 
-        if (config.contains(id + ".skippable")) {
-            this.skippable = config.getBoolean(id + ".skippable");
-        }
+        this.skippable = YAMLUtils.getBoolean(config, id + ".skippable").orElse(true);
 
-        if (config.contains(id + ".actionbar")) {
-            this.actionbar = config.getBoolean(id + ".actionbar");
-        }
+        this.actionbar = YAMLUtils.getBoolean(config, id + ".actionbar").orElse(true);
 
         if (config.contains(id + ".progress-display")) {
             String progressDisplayName = config.getString(id + ".progress-display");
@@ -260,13 +254,9 @@ public class TaskConfiguration {
         this.minZ = YAMLUtils.getInt(config, id + ".min-z");
         this.maxZ = YAMLUtils.getInt(config, id + ".max-z");
 
-        if (config.contains(id + ".entity-in-water")) {
-            this.entityIsInWater = Optional.of(config.getBoolean(id + ".entity-in-water"));
-        }
+        this.entityIsInWater = YAMLUtils.getBoolean(config, id + ".entity-in-water");
 
-        if (config.contains(id + ".entity-on-ground")) {
-            this.entityIsOnGround = Optional.of(config.getBoolean(id + ".entity-on-ground"));
-        }
+        this.entityIsOnGround = YAMLUtils.getBoolean(config, id + ".entity-on-ground");
 
         for (String entityName : config.getStringList(id + ".entity-names")) {
             this.entityNames.add(entityName);
