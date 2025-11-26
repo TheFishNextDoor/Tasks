@@ -81,7 +81,7 @@ public class TaskConfiguration {
 
     private Optional<String> message = Optional.empty();
 
-    private long timeLimitMS = 0;
+    private long timeLimitMS;
 
     private boolean resetOnDeath;
 
@@ -93,12 +93,12 @@ public class TaskConfiguration {
 
     // Requirements
 
-    private boolean repeatable = true;
+    private boolean repeatable;
 
-    private Optional<Integer> minLevel = Optional.empty();
-    private Optional<Integer> maxLevel = Optional.empty();
+    private Optional<Integer> minLevel;
+    private Optional<Integer> maxLevel;
 
-    private Optional<String> permission = Optional.empty();
+    private Optional<String> permission;
 
     private @NotNull ArrayList<String> prerequisiteTasks = new ArrayList<>();
     private @NotNull HashSet<String> incompatibleTasks = new HashSet<>();
@@ -123,15 +123,15 @@ public class TaskConfiguration {
     private @NotNull HashSet<Environment> environments = new HashSet<>();
     private @NotNull HashSet<String> biomes = new HashSet<>();
 
-    private Optional<Integer> minX = Optional.empty();
-    private Optional<Integer> maxX = Optional.empty();
-    private Optional<Integer> minY = Optional.empty();
-    private Optional<Integer> maxY = Optional.empty();
-    private Optional<Integer> minZ = Optional.empty();
-    private Optional<Integer> maxZ = Optional.empty();
+    private Optional<Integer> minX;
+    private Optional<Integer> maxX;
+    private Optional<Integer> minY;
+    private Optional<Integer> maxY;
+    private Optional<Integer> minZ;
+    private Optional<Integer> maxZ;
 
-    private Optional<Boolean> entityIsInWater = Optional.empty();
-    private Optional<Boolean> entityIsOnGround = Optional.empty();
+    private Optional<Boolean> entityIsInWater;
+    private Optional<Boolean> entityIsOnGround;
 
     private @NotNull HashSet<String> entityNames = new HashSet<>();
     private @NotNull HashSet<EntityType> entityTypes = new HashSet<>();
@@ -181,7 +181,7 @@ public class TaskConfiguration {
             }
         }
 
-        this.repeatable = YAMLUtils.getBoolean(config, id + ".repeatable").orElse(repeatable);
+        this.repeatable = YAMLUtils.getBoolean(config, id + ".repeatable").orElse(true);
 
         this.minLevel = YAMLUtils.getInt(config, id + ".min-level");
         this.maxLevel = YAMLUtils.getInt(config, id + ".max-level");
