@@ -53,9 +53,9 @@ public class Unlock implements Comparable<Unlock> {
             }
         }
 
-        level = config.getInt(id + ".level");
+        level = YAMLUtils.getInt(config, id + ".level").orElse(0);
 
-        name = Optional.ofNullable(config.getString(id + ".name"));
+        name = YAMLUtils.getString(config, id + ".name");
         
         for (String permission : config.getStringList(id + ".permissions")) {
             permissions.add(permission);
