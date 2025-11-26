@@ -45,18 +45,17 @@ Use the /tasksadmin (/ta) command for admin things.
 ## Config
 ```yaml
 levels:
-  enable: true # Enable or disable the leveling system
-  show-level: true # Show the player's level in chat
-  chat-prefix-format: '&f[{color}{level}&f] ' # The format for chat messages
+  enable: true # Enable or disable the leveling system.
+  display-level-in-chat: true # Display the player's level in chat messages. You may need to set paper-chat-events: false in essentials config.yml for this to work if you are using EssentialsXChat.
+  chat-prefix-format: '&f[{color}{level}&f] ' # The format for chat messages.
   xp-curve:
-    base: 10 # The base amount of XP required to level up
-    multiplier: 1.02 # The xp increase each level (exponential)
-
+    base: 10 # The base amount of XP required to level up.
+    multiplier: 1.02 # The xp increase each level (exponential).
 tasks:
-  allow-skipping: true # Allow players to skip tasks
-  max-tasks: 8 # Maximum number of tasks to give a player at one time
-  reward-xp-multiplier: 1.0 # Multiplier for task XP rewards, use this to rebalance xp without changing every task
-  reward-money-multiplier: 500.0 # Multiplier for task money rewards, use this to rebalance money without changing every task. Set to 0 to disable money rewards
+  allow-skipping: true # Allow players to skip tasks.
+  max-tasks: 8 # Maximum number of tasks to give a player at one time.
+  reward-xp-multiplier: 1.0 # Multiplier for task XP rewards, use this to rebalance xp without changing every task.
+  reward-money-multiplier: 1.0 # Multiplier for task money rewards, use this to rebalance money without changing every task. Set to 0 to disable money rewards.
 ```
 
 ## Task Parameters
