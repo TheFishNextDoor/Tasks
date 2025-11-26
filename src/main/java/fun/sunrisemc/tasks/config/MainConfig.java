@@ -31,15 +31,15 @@ public class MainConfig {
 
         this.ENABLE_LEVELLING = config.getBoolean("levels.enable", true);
         this.SHOW_LEVEL = config.getBoolean("levels.show-level", true);
-        this.CHAT_PREFIX_FORMAT = YAMLUtils.getStringOrDefault(config, "levels.chat-prefix-format", "&f[{color}{level}&f] ");
-        this.LEVEL_BASE = YAMLUtils.getDoubleClamped(config, "levels.xp-curve.base", 1.0, 1_000_000.0);
-        this.LEVEL_MULTIPLIER = YAMLUtils.getDoubleClamped(config, "levels.xp-curve.multiplier", 1.0, 10.0);
+        this.CHAT_PREFIX_FORMAT = YAMLUtils.getString(config, "levels.chat-prefix-format").orElse("&f[{color}{level}&f] ");
+        this.LEVEL_BASE = YAMLUtils.getDoubleClamped(config, "levels.xp-curve.base", 1.0, 1_000_000.0).orElse(10.0);
+        this.LEVEL_MULTIPLIER = YAMLUtils.getDoubleClamped(config, "levels.xp-curve.multiplier", 1.0, 10.0).orElse(1.02);
 
         // Tasks settings
 
         this.ALLOW_TASK_SKIPPING = config.getBoolean("tasks.allow-skipping", true);
-        this.MAX_TASKS = YAMLUtils.getIntClamped(config, "tasks.max-tasks", 0, 20);
-        this.TASK_XP_MULTIPLIER = YAMLUtils.getDoubleClamped(config, "tasks.reward-xp-multiplier", 0.0, 1_000_000.0);
-        this.TASK_MONEY_MULTIPLIER = YAMLUtils.getDoubleClamped(config, "tasks.reward-money-multiplier", 0.0, 1_000_000.0);
+        this.MAX_TASKS = YAMLUtils.getIntClamped(config, "tasks.max-tasks", 0, 20).orElse(8);
+        this.TASK_XP_MULTIPLIER = YAMLUtils.getDoubleClamped(config, "tasks.reward-xp-multiplier", 0.0, 1_000_000.0).orElse(1.0);
+        this.TASK_MONEY_MULTIPLIER = YAMLUtils.getDoubleClamped(config, "tasks.reward-money-multiplier", 0.0, 1_000_000.0).orElse(1.0);
     }
 }
