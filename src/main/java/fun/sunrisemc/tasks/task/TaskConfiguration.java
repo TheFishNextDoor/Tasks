@@ -253,24 +253,12 @@ public class TaskConfiguration {
             this.biomes.add(StringUtils.normalize(biomeName));
         }
 
-        if (config.contains(id + ".min-x")) {
-            this.minX = Optional.of(config.getInt(id + ".min-x"));
-        }
-        if (config.contains(id + ".max-x")) {
-            this.maxX = Optional.of(config.getInt(id + ".max-x"));
-        }
-        if (config.contains(id + ".min-y")) {
-            this.minY = Optional.of(config.getInt(id + ".min-y"));
-        }
-        if (config.contains(id + ".max-y")) {
-            this.maxY = Optional.of(config.getInt(id + ".max-y"));
-        }
-        if (config.contains(id + ".min-z")) {
-            this.minZ = Optional.of(config.getInt(id + ".min-z"));
-        }
-        if (config.contains(id + ".max-z")) {
-            this.maxZ = Optional.of(config.getInt(id + ".max-z"));
-        }
+        this.minX = YAMLUtils.getInt(config, id + ".min-x");
+        this.maxX = YAMLUtils.getInt(config, id + ".max-x");
+        this.minY = YAMLUtils.getInt(config, id + ".min-y");
+        this.maxY = YAMLUtils.getInt(config, id + ".max-y");
+        this.minZ = YAMLUtils.getInt(config, id + ".min-z");
+        this.maxZ = YAMLUtils.getInt(config, id + ".max-z");
 
         if (config.contains(id + ".entity-in-water")) {
             this.entityIsInWater = Optional.of(config.getBoolean(id + ".entity-in-water"));
