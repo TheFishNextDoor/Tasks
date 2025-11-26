@@ -6,35 +6,35 @@ import fun.sunrisemc.tasks.config.MainConfig;
 public class PlayerLevel {
 
     public static int getXpFor(int level) {
-        MainConfig settings = TasksPlugin.getMainConfig();
-        if (!settings.ENABLE_LEVELLING) {
+        MainConfig mainConfig = TasksPlugin.getMainConfig();
+        if (!mainConfig.ENABLE_LEVELLING) {
             return 0;
         }
 
         level -= 1;
 
-        double b = settings.LEVEL_BASE;
+        double b = mainConfig.LEVEL_BASE;
         int total = 0;
         for (int i = 1; i <= level; i++) {
             total += (int) (b);
-            b *= settings.LEVEL_MULTIPLIER;
+            b *= mainConfig.LEVEL_MULTIPLIER;
         }
         return total;
     }
 
     public static int getLevel(int totalXp) {
-        MainConfig settings = TasksPlugin.getMainConfig();
-        if (!settings.ENABLE_LEVELLING) {
+        MainConfig mainConfig = TasksPlugin.getMainConfig();
+        if (!mainConfig.ENABLE_LEVELLING) {
             return 1;
         }
         
-        double b = settings.LEVEL_BASE;
+        double b = mainConfig.LEVEL_BASE;
         int currentXp = 0;
         int level = 0;
         while (currentXp <= totalXp) {
             level++;
             currentXp += (int) b;
-            b *= settings.LEVEL_MULTIPLIER;
+            b *= mainConfig.LEVEL_MULTIPLIER;
             if (currentXp > totalXp) {
                 break;
             }
