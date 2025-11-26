@@ -65,9 +65,9 @@ public class PlayerProfile {
 
         YamlConfiguration playerData = PlayerDataFile.get(uuid);
 
-        xp = playerData.getInt("xp", 0);
+        xp = YAMLUtils.getInt(playerData, "xp").orElse(0);
 
-        skips = playerData.getInt("skips", 0);
+        skips = YAMLUtils.getInt(playerData, "skips").orElse(0);
 
         for (String unlockId : playerData.getStringList("completed-unlocks")) {
             completedUnlocks.add(unlockId);
@@ -77,28 +77,29 @@ public class PlayerProfile {
             completedTasks.add(taskId);
         }
 
-        if (playerData.contains("tasks")) {
-            for (String taskKey : YAMLUtils.getKeys(playerData, "tasks")) {
-                Optional<TaskConfiguration> taskConfiguration = TaskConfigurationManager.get(taskKey);
-                if (!taskConfiguration.isPresent()) {
-                    TasksPlugin.logWarning("Removing invalid task " + taskKey + " for player " + uuid.toString() + ".");
-                    continue;
-                }
+        for (String taskKey : YAMLUtils.getKeys(playerData, "tasks")) {
+            Optional<TaskConfiguration> taskConfiguration = TaskConfigurationManager.get(taskKey);
+            if (!taskConfiguration.isPresent()) {
+                TasksPlugin.logWarning("Removing invalid task " + taskKey + " for player " + uuid.toString() + ".");
+                continue;
+            }
 
-                int progress = playerData.getInt("tasks." + taskKey + ".progress");
-                long expires = playerData.getLong("tasks." + taskKey + ".expires");
-                PlayerTask task = new PlayerTask(taskConfiguration.get(), this, progress, expires);
-                if (!task.isExpired()) {
-                    tasks.add(task);
-                }
+            int progress = playerData.getInt("tasks." + taskKey + ".progress");
+            long expires = playerData.getLong("tasks." + taskKey + ".expires");
+            PlayerTask task = new PlayerTask(taskConfiguration.get(), this, progress, expires);
+            if (!task.isExpired()) {
+                tasks.add(task);
             }
         }
 
-        String colorString = playerData.getString("color");
-        if (colorString == null) {
-            colorString = "BLUE";
+        Optional<String> colorString = YAMLUtils.getString(playerData, "color");
+        if (colorString.isPresent()) {
+            this.color = StringUtils.parseChatColor(colorString.get()).orElse(ChatColor.BLUE);
         }
-        this.color = StringUtils.parseChatColor(colorString).orElse(ChatColor.BLUE);
+        else {
+            this.color = ChatColor.BLUE;
+        }
+        
 
         this.level = PlayerLevel.getLevel(xp);
     }
