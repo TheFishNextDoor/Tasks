@@ -38,10 +38,13 @@ public class UnlockManager {
     }
 
     public static void loadConfig() {
-        unlocksLookup = new HashMap<>();
-        ArrayList<Unlock> tempUnlocksSorted = new ArrayList<>();
+        TasksPlugin.logInfo("Loading unlocks...");
 
         YamlConfiguration config = ConfigFile.get("unlocks", false);
+
+        unlocksLookup = new HashMap<>();
+        ArrayList<Unlock> tempUnlocksSorted = new ArrayList<>();
+        
         for (String id : config.getKeys(false)) {
             Unlock unlock = new Unlock(config, id);
             unlocksLookup.put(id, unlock);

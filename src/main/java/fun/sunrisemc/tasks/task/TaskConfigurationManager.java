@@ -46,11 +46,16 @@ public class TaskConfigurationManager {
     // Loading
 
     public static void loadConfig() {
-        taskConfigurations.clear();
+        TasksPlugin.logInfo("Loading tasks...");
+
         YamlConfiguration config = ConfigFile.get("tasks", false);
+
+        taskConfigurations.clear();
+
         for (String id : config.getKeys(false)) {
             taskConfigurations.put(id, new TaskConfiguration(config, id));
         }
+
         TasksPlugin.logInfo("Loaded " + taskConfigurations.size() + " tasks.");
     }
 }
