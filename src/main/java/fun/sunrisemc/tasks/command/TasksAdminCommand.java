@@ -40,19 +40,19 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             ArrayList<String> subcommands = new ArrayList<String>();
             subcommands.add("help");
-            if (sender.hasPermission(Permissions.RELOAD_PERMISSION)) {
+            if (sender.hasPermission(Permissions.ADMIN_RELOAD_PERMISSION)) {
                 subcommands.add("reload");
             }
-            if (sender.hasPermission(Permissions.TASK_PERMISSION)) {
+            if (sender.hasPermission(Permissions.ADMIN_TASK_PERMISSION)) {
                 subcommands.add("task");
             }
-            if (config.ENABLE_LEVELLING && sender.hasPermission(Permissions.XP_PERMISSION)) {
+            if (config.ENABLE_LEVELLING && sender.hasPermission(Permissions.ADMIN_XP_PERMISSION)) {
                 subcommands.add("xp");
             }
-            if (sender.hasPermission(Permissions.UNLOCK_PERMISSION)) {
+            if (sender.hasPermission(Permissions.ADMIN_UNLOCK_PERMISSION)) {
                 subcommands.add("unlock");
             }
-            if (config.ALLOW_TASK_SKIPPING && sender.hasPermission(Permissions.SKIPS_PERMISSION)) {
+            if (config.ALLOW_TASK_SKIPPING && sender.hasPermission(Permissions.ADMIN_SKIPS_PERMISSION)) {
                 subcommands.add("skips");
             }
             return subcommands;
@@ -61,19 +61,19 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             String subcommand1 = args[0];
 
             // /tasksadmin task <subcommand2>
-            if (subcommand1.equalsIgnoreCase("task") && sender.hasPermission(Permissions.TASK_PERMISSION)) {
+            if (subcommand1.equalsIgnoreCase("task") && sender.hasPermission(Permissions.ADMIN_TASK_PERMISSION)) {
                 return List.of("list", "give", "remove", "addprogress");
             }
             // /tasksadmin xp <subcommand2>
-            else if (subcommand1.equalsIgnoreCase("xp") && config.ENABLE_LEVELLING && sender.hasPermission(Permissions.XP_PERMISSION)) {
+            else if (subcommand1.equalsIgnoreCase("xp") && config.ENABLE_LEVELLING && sender.hasPermission(Permissions.ADMIN_XP_PERMISSION)) {
                 return List.of("give", "take", "set");
             }
             // /tasksadmin unlock <subcommand2>
-            else if (subcommand1.equalsIgnoreCase("unlock") && sender.hasPermission(Permissions.UNLOCK_PERMISSION)) {
+            else if (subcommand1.equalsIgnoreCase("unlock") && sender.hasPermission(Permissions.ADMIN_UNLOCK_PERMISSION)) {
                 return List.of("list", "give");
             }
             // /tasksadmin skips <subcommand2>
-            else if (subcommand1.equalsIgnoreCase("skips") && config.ALLOW_TASK_SKIPPING && sender.hasPermission(Permissions.SKIPS_PERMISSION)) {
+            else if (subcommand1.equalsIgnoreCase("skips") && config.ALLOW_TASK_SKIPPING && sender.hasPermission(Permissions.ADMIN_SKIPS_PERMISSION)) {
                 return List.of("give", "take", "set");
             }
         }
@@ -95,7 +95,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             String subcommand1 = args[0];
             String subcommand2 = args[1];
 
-            if (subcommand1.equalsIgnoreCase("task") && sender.hasPermission(Permissions.TASK_PERMISSION)) {
+            if (subcommand1.equalsIgnoreCase("task") && sender.hasPermission(Permissions.ADMIN_TASK_PERMISSION)) {
                 // /tasksadmin task give <player> <task>
                 if (subcommand2.equalsIgnoreCase("give")) {
                     return TaskConfigurationManager.getIds();
@@ -109,19 +109,19 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
                     return playerProfile.getTaskIds();
                 }
             }
-            else if (subcommand1.equalsIgnoreCase("xp") && config.ENABLE_LEVELLING && sender.hasPermission(Permissions.XP_PERMISSION)) {
+            else if (subcommand1.equalsIgnoreCase("xp") && config.ENABLE_LEVELLING && sender.hasPermission(Permissions.ADMIN_XP_PERMISSION)) {
                 // /tasksadmin xp set <player> <amount>
                 if (subcommand2.equalsIgnoreCase("set")) {
                     return List.of(playerProfile.getTotalXp() + "");
                 }
             }
-            else if (subcommand1.equalsIgnoreCase("unlock") && sender.hasPermission(Permissions.UNLOCK_PERMISSION)) {
+            else if (subcommand1.equalsIgnoreCase("unlock") && sender.hasPermission(Permissions.ADMIN_UNLOCK_PERMISSION)) {
                 // /tasksadmin unlock give <player> <unlock>
                 if (subcommand2.equalsIgnoreCase("give")) {
                     return UnlockManager.getIds();
                 }
             }
-            else if (subcommand1.equalsIgnoreCase("skips") && config.ALLOW_TASK_SKIPPING && sender.hasPermission(Permissions.SKIPS_PERMISSION)) {
+            else if (subcommand1.equalsIgnoreCase("skips") && config.ALLOW_TASK_SKIPPING && sender.hasPermission(Permissions.ADMIN_SKIPS_PERMISSION)) {
                 // /tasksadmin skips set <player> <amount>
                 if (subcommand2.equalsIgnoreCase("set")) {
                     return List.of(playerProfile.getSkips() + "");
@@ -141,7 +141,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
         String subcommand1 = args.length > 0 ? args[0] : "help";
         
         // Reload //
-        if (subcommand1.equalsIgnoreCase("reload") && sender.hasPermission(Permissions.RELOAD_PERMISSION)) {
+        if (subcommand1.equalsIgnoreCase("reload") && sender.hasPermission(Permissions.ADMIN_RELOAD_PERMISSION)) {
             // Reload the plugin configuration
             TasksPlugin.reload();
 
@@ -151,7 +151,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         // Task //
-        else if (subcommand1.equalsIgnoreCase("task") && sender.hasPermission(Permissions.TASK_PERMISSION)) {
+        else if (subcommand1.equalsIgnoreCase("task") && sender.hasPermission(Permissions.ADMIN_TASK_PERMISSION)) {
             // Ensure sender provided enough arguments
             if (args.length < 3) {
                 sender.sendMessage(ChatColor.BLUE + "Usage: " + ChatColor.WHITE + "/tasksadmin task <subcommand> <player>");
@@ -274,7 +274,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             }
         }
         // XP //
-        else if (subcommand1.equalsIgnoreCase("xp") && config.ENABLE_LEVELLING && sender.hasPermission(Permissions.XP_PERMISSION)) {
+        else if (subcommand1.equalsIgnoreCase("xp") && config.ENABLE_LEVELLING && sender.hasPermission(Permissions.ADMIN_XP_PERMISSION)) {
             // Ensure sender provided enough arguments
             if (args.length < 3) {
                 sender.sendMessage(ChatColor.BLUE + "Usage: " + ChatColor.WHITE + "/tasksadmin xp <subcommand> <player>");
@@ -365,7 +365,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             }
         }
         // Unlock //
-        else if (subcommand1.equalsIgnoreCase("unlock") && sender.hasPermission(Permissions.UNLOCK_PERMISSION)) {
+        else if (subcommand1.equalsIgnoreCase("unlock") && sender.hasPermission(Permissions.ADMIN_UNLOCK_PERMISSION)) {
             // Ensure sender provided enough arguments
             if (args.length < 3) {
                 sender.sendMessage(ChatColor.BLUE + "Usage: " + ChatColor.WHITE + "/tasksadmin unlock <subcommand> <player>");
@@ -427,7 +427,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             }
         }
         // Skips //
-        else if (subcommand1.equalsIgnoreCase("skips") && config.ALLOW_TASK_SKIPPING && sender.hasPermission(Permissions.SKIPS_PERMISSION)) {
+        else if (subcommand1.equalsIgnoreCase("skips") && config.ALLOW_TASK_SKIPPING && sender.hasPermission(Permissions.ADMIN_SKIPS_PERMISSION)) {
             // Ensure sender provided enough arguments
             if (args.length < 3) {
                 sender.sendMessage(ChatColor.BLUE + "Usage: " + ChatColor.WHITE + "/tasksadmin skips <subcommand> <player>");
@@ -527,25 +527,25 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
         
         sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "Tasks Admin Help");
         sender.sendMessage(ChatColor.BLUE + "/tasksadmin help " + ChatColor.WHITE + "Show this help message");
-        if (sender.hasPermission(Permissions.RELOAD_PERMISSION)) {
+        if (sender.hasPermission(Permissions.ADMIN_RELOAD_PERMISSION)) {
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin reload " + ChatColor.WHITE + "Reload the plugin");
         }
-        if (sender.hasPermission(Permissions.TASK_PERMISSION)) {
+        if (sender.hasPermission(Permissions.ADMIN_TASK_PERMISSION)) {
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin task list <player> " + ChatColor.WHITE + "List a player's tasks");
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin task give <player> <task> " + ChatColor.WHITE + "Give a player a task");
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin task remove <player> <task> " + ChatColor.WHITE + "Remove a task from a player");
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin task addprogress <player> <task> <amount> " + ChatColor.WHITE + "Add progress to a task");
         }
-        if (mainConfig.ENABLE_LEVELLING &&sender.hasPermission(Permissions.XP_PERMISSION)) {
+        if (mainConfig.ENABLE_LEVELLING &&sender.hasPermission(Permissions.ADMIN_XP_PERMISSION)) {
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin xp give <player> <amount> " + ChatColor.WHITE + "Give a player XP");
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin xp take <player> <amount> " + ChatColor.WHITE + "Take XP from a player");
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin xp set <player> <amount> " + ChatColor.WHITE + "Set a player's XP");
         }
-        if (sender.hasPermission(Permissions.UNLOCK_PERMISSION)) {
+        if (sender.hasPermission(Permissions.ADMIN_UNLOCK_PERMISSION)) {
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin unlock list <player> " + ChatColor.WHITE + "List a player's unlocks");
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin unlock give <player> <unlock> " + ChatColor.WHITE + "Give a player an unlock");
         }
-        if (mainConfig.ALLOW_TASK_SKIPPING && sender.hasPermission(Permissions.SKIPS_PERMISSION)) {
+        if (mainConfig.ALLOW_TASK_SKIPPING && sender.hasPermission(Permissions.ADMIN_SKIPS_PERMISSION)) {
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin skips give <player> <amount> " + ChatColor.WHITE + "Give a player skips");
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin skips take <player> <amount> " + ChatColor.WHITE + "Take skips from a player");
             sender.sendMessage(ChatColor.BLUE + "/tasksadmin skips set <player> <amount> " + ChatColor.WHITE + "Set a player's skips");

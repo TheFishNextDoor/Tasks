@@ -22,6 +22,9 @@ commands:
     description: List your unlocks
     usage: /unlocks
 permissions:
+  tasks.color:
+    description: Allows the player to change the color of their tasks
+    default: true
   tasks.admin:
     description: Allows the player to use admin commands
   tasks.admin.reload:
@@ -34,6 +37,3 @@ permissions:
     description: Allows the player to alter players unlocks
   tasks.admin.skips:
     description: Allows the player to alter players skips
-  tasks.color:
-    description: Allows the player to change the color of their tasks
-    default: true

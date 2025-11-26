@@ -4,11 +4,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class Permissions {
 
-    public static final @NotNull String RELOAD_PERMISSION = "tasks.admin.reload";
-    public static final @NotNull String TASK_PERMISSION = "tasks.admin.task";
-    public static final @NotNull String XP_PERMISSION = "tasks.admin.xp";
-    public static final @NotNull String UNLOCK_PERMISSION = "tasks.admin.unlock";
-    public static final @NotNull String SKIPS_PERMISSION = "tasks.admin.skips";
-    public static final @NotNull String COLOR_PERMISSION = "tasks.color";
+    // Standard Permissions
+
+    public static final @NotNull String COLOR_PERMISSION = "tasks.color"; // Allows the player to change the color of their tasks
+
+    // Admin Permissions
+
+    public static final @NotNull String ADMIN_RELOAD_PERMISSION = "tasks.admin.reload"; // Allows the player to reload the plugin
+    public static final @NotNull String ADMIN_TASK_PERMISSION = "tasks.admin.task"; // Allows the player to alter players tasks
+    public static final @NotNull String ADMIN_XP_PERMISSION = "tasks.admin.xp"; // Allows the player to alter players xp
+    public static final @NotNull String ADMIN_UNLOCK_PERMISSION = "tasks.admin.unlock"; // Allows the player to alter players unlocks
+    public static final @NotNull String ADMIN_SKIPS_PERMISSION = "tasks.admin.skips"; // Allows the player to alter players skips
     
 }
