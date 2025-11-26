@@ -66,7 +66,11 @@ import fun.sunrisemc.tasks.utils.YAMLUtils;
 
 public class TasksPlugin extends JavaPlugin {
 
+    // Plugin Instance
+
     private static @Nullable TasksPlugin instance;
+
+    // Configs
 
     private static @Nullable MainConfig mainConfig;
 
