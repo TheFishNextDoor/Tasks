@@ -2125,17 +2125,6 @@ visitplains:
   reward-xp: 10
   reward-money: 10
   time-limit-minutes: 1440
-visitswamp:
-  triggers:
-  - timer
-  biomes:
-  - swamp
-  - mangrove_swamp
-  amount: 1
-  message: Visit a swamp
-  reward-xp: 20
-  reward-money: 20
-  time-limit-minutes: 1440
 visitdarkforest:
   triggers:
   - timer
