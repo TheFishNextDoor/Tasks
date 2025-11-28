@@ -26,7 +26,6 @@ import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
 import fun.sunrisemc.tasks.utils.Names;
-import fun.sunrisemc.tasks.utils.PlayerUtils;
 import fun.sunrisemc.tasks.utils.StringUtils;
 
 public class TasksAdminCommand implements CommandExecutor, TabCompleter {
@@ -84,7 +83,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
         }
         else if (args.length == 4) {
             // Get player
-            Optional<Player> player = PlayerUtils.getPlayerByName(args[2]);
+            Optional<Player> player = StringUtils.parseOnlinePlayer(args[2]);
             if (player.isEmpty()) {
                 return null;
             }
@@ -163,7 +162,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             String subcommand2 = args[1];
 
             // Get player
-            Optional<Player> player = PlayerUtils.getPlayerByName(args[2]);
+            Optional<Player> player = StringUtils.parseOnlinePlayer(args[2]);
             if (player.isEmpty()) {
                 sender.sendMessage(ChatColor.RED + "Player not found.");
                 return true;
@@ -286,7 +285,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             String subcommand2 = args[1];
 
             // Get player
-            Optional<Player> player = PlayerUtils.getPlayerByName(args[2]);
+            Optional<Player> player = StringUtils.parseOnlinePlayer(args[2]);
             if (player.isEmpty()) {
                 sender.sendMessage(ChatColor.RED + "Player not found.");
                 return true;
@@ -377,7 +376,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             String subcommand2 = args[1];
 
             // Get player
-            Optional<Player> player = PlayerUtils.getPlayerByName(args[2]);
+            Optional<Player> player = StringUtils.parseOnlinePlayer(args[2]);
             if (player.isEmpty()) {
                 sender.sendMessage(ChatColor.RED + "Player not found.");
                 return true;
@@ -439,7 +438,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
             String subcommand2 = args[1];
 
             // Get player
-            Optional<Player> player = PlayerUtils.getPlayerByName(args[2]);
+            Optional<Player> player = StringUtils.parseOnlinePlayer(args[2]);
             if (player.isEmpty()) {
                 sender.sendMessage(ChatColor.RED + "Player not found.");
                 return true;

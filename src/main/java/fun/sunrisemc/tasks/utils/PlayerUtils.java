@@ -28,9 +28,4 @@ public class PlayerUtils {
         // No item in either hand
         return Optional.empty();
     }
-
-    public static Optional<Player> getPlayerByName(@NotNull String name) {
-        Player player = org.bukkit.Bukkit.getPlayerExact(name);
-        return Optional.ofNullable(player);
-    }
 }

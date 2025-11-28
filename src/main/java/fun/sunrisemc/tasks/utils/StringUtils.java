@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.SpawnCategory;
 
 import net.md_5.bungee.api.ChatColor;
@@ -46,6 +47,11 @@ public class StringUtils {
         catch (NumberFormatException e) {
             return Optional.empty();
         }
+    }
+
+    public static Optional<Player> parseOnlinePlayer(@NotNull String name) {
+        Player player = org.bukkit.Bukkit.getPlayerExact(name);
+        return Optional.ofNullable(player);
     }
 
     public static Optional<org.bukkit.Material> parseMaterial(@NotNull String materialName) {
