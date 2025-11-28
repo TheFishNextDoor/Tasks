@@ -2,6 +2,7 @@ package fun.sunrisemc.tasks.utils;
 
 import java.util.Optional;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.EntityType;
@@ -21,7 +22,7 @@ public class StringUtils {
 
     public static Optional<Integer> parseInteger(@NotNull String str) {
         try {
-            int value = Integer.parseInt(str);
+            int value = Integer.parseInt(str.trim());
             return Optional.of(value);
         } 
         catch (NumberFormatException e) {
@@ -31,7 +32,7 @@ public class StringUtils {
 
     public static Optional<Double> parseDouble(@NotNull String str) {
         try {
-            double value = Double.parseDouble(str);
+            double value = Double.parseDouble(str.trim());
             return Optional.of(value);
         } 
         catch (NumberFormatException e) {
@@ -41,7 +42,7 @@ public class StringUtils {
 
     public static Optional<Long> parseLong(@NotNull String str) {
         try {
-            long value = Long.parseLong(str);
+            long value = Long.parseLong(str.trim());
             return Optional.of(value);
         } 
         catch (NumberFormatException e) {
@@ -50,7 +51,7 @@ public class StringUtils {
     }
 
     public static Optional<Player> parseOnlinePlayer(@NotNull String name) {
-        Player player = org.bukkit.Bukkit.getPlayerExact(name);
+        Player player = Bukkit.getPlayer(name.trim());
         return Optional.ofNullable(player);
     }
 
@@ -67,7 +68,7 @@ public class StringUtils {
 
     public static Optional<ChatColor> parseChatColor(@NotNull String color) {
         try {
-            ChatColor chatColor = ChatColor.of(color);
+            ChatColor chatColor = ChatColor.of(color.trim());
             return Optional.of(chatColor);
         } 
         catch (IllegalArgumentException e) {
