@@ -2,15 +2,29 @@ package fun.sunrisemc.tasks.utils;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.task.ProgressDisplayType;
 import fun.sunrisemc.tasks.task.TriggerType;
 
 public class Names {
+
+    @NotNull
+    public static ArrayList<String> getOnlinePlayerNames() {
+        ArrayList<String> playerNames = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player == null) {
+                continue;
+            }
+            playerNames.add(player.getName());
+        }
+        return playerNames;
+    }
 
     @NotNull
     public static ArrayList<String> getProgressDisplayTypeNames() {
