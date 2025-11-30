@@ -184,6 +184,8 @@ public class TasksPlugin extends JavaPlugin {
     // Reloading
 
     public static void reload() {
+        logInfo("Reloading plugin...");
+
         mainConfig = new MainConfig();
 
         UnlockManager.loadConfig();
@@ -195,6 +197,8 @@ public class TasksPlugin extends JavaPlugin {
         if (getMainConfig().ENABLE_LEVELLING && !PlayerLevel.verify()) {
             TasksPlugin.logSevere("PlayerLevel verification failed.");
         }
+
+        logInfo("Plugin reloaded.");
     }
 
     // Logging
