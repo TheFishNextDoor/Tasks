@@ -56,19 +56,19 @@ public class Unlock implements Comparable<Unlock> {
 
         name = config.getString(id + ".name");
         
-        for (String permission : config.getStringList(id + ".permissions")) {
+        for (String permission : config.getStringListOrEmpty(id + ".permissions")) {
             permissions.add(permission);
         }
 
-        for (String command : config.getStringList(id + ".console-commands")) {
+        for (String command : config.getStringListOrEmpty(id + ".console-commands")) {
             consoleCommands.add(command);
         }
 
-        for (String command : config.getStringList(id + ".player-commands")) {
+        for (String command : config.getStringListOrEmpty(id + ".player-commands")) {
             playerCommands.add(command);
         }
 
-        for (String message : config.getStringList(id + ".messages")) {
+        for (String message : config.getStringListOrEmpty(id + ".messages")) {
             String messageFormatted = ChatColor.translateAlternateColorCodes('&', message);
             messages.add(messageFormatted);
         }

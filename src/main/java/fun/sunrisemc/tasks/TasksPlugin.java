@@ -259,7 +259,7 @@ public class TasksPlugin extends JavaPlugin {
                 DataFile oldPlayerData = DataFile.get(playerDataFileName);
 
                 // Create new player data file
-                PlayerDataFile newPlayerData = new PlayerDataFile(playerDataFileName, oldPlayerData.getConfig());
+                PlayerDataFile newPlayerData = new PlayerDataFile(playerDataFileName, oldPlayerData.getYAML());
 
                 // Save and delete old file
                 if (newPlayerData.save()) {

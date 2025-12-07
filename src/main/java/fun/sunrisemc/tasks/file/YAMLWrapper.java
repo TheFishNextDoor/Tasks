@@ -25,7 +25,7 @@ public abstract class YAMLWrapper {
     // Config
 
     @NotNull
-    public YamlConfiguration getConfig() {
+    public YamlConfiguration getYAML() {
         return this.config;
     }
 
@@ -163,7 +163,7 @@ public abstract class YAMLWrapper {
     }
 
     @NotNull
-    public List<String> getStringList(@NotNull String path) {
+    public List<String> getStringListOrEmpty(@NotNull String path) {
         if (!this.config.contains(path)) {
             return new ArrayList<String>();
         }
@@ -180,7 +180,7 @@ public abstract class YAMLWrapper {
         return StringList;
     }
 
-    public Optional<List<String>> getStringListIfPresent(@NotNull String path) {
+    public Optional<List<String>> getStringList(@NotNull String path) {
         if (!this.config.contains(path)) {
             return Optional.empty();
         }
@@ -189,9 +189,11 @@ public abstract class YAMLWrapper {
 
         if (StringList.isEmpty()) {
             String singleString = this.config.getString(path);
-            if (singleString != null) {
-                StringList = List.of(singleString);
+            if (singleString == null) {
+                return Optional.empty();
             }
+
+            StringList = List.of(singleString);
         }
 
         return Optional.of(StringList);
