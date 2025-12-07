@@ -163,7 +163,7 @@ public abstract class YAMLWrapper {
     }
 
     @NotNull
-    public List<String> getStringListOrEmpty(@NotNull String path) {
+    public List<String> getStringList(@NotNull String path) {
         if (!this.config.contains(path)) {
             return new ArrayList<String>();
         }
@@ -178,25 +178,6 @@ public abstract class YAMLWrapper {
         }
 
         return StringList;
-    }
-
-    public Optional<List<String>> getStringList(@NotNull String path) {
-        if (!this.config.contains(path)) {
-            return Optional.empty();
-        }
-
-        List<String> StringList = this.config.getStringList(path);
-
-        if (StringList.isEmpty()) {
-            String singleString = this.config.getString(path);
-            if (singleString == null) {
-                return Optional.empty();
-            }
-
-            StringList = List.of(singleString);
-        }
-
-        return Optional.of(StringList);
     }
 
     // Writing Values
