@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import org.bukkit.configuration.file.YamlConfiguration;
-
 import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
@@ -40,12 +38,12 @@ public class UnlockManager {
     public static void loadConfig() {
         TasksPlugin.logInfo("Loading unlocks...");
 
-        YamlConfiguration config = ConfigFile.get("unlocks", false);
+        ConfigFile config = ConfigFile.get("unlocks", false);
 
         unlocksLookup = new HashMap<>();
         ArrayList<Unlock> tempUnlocksSorted = new ArrayList<>();
         
-        for (String id : config.getKeys(false)) {
+        for (String id : config.getKeys()) {
             Unlock unlock = new Unlock(config, id);
             unlocksLookup.put(id, unlock);
             tempUnlocksSorted.add(unlock);

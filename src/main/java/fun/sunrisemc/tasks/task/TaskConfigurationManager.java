@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import org.bukkit.configuration.file.YamlConfiguration;
-
 import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
@@ -48,11 +46,11 @@ public class TaskConfigurationManager {
     public static void loadConfig() {
         TasksPlugin.logInfo("Loading tasks...");
 
-        YamlConfiguration config = ConfigFile.get("tasks", false);
+        ConfigFile config = ConfigFile.get("tasks", false);
 
         taskConfigurations.clear();
 
-        for (String id : config.getKeys(false)) {
+        for (String id : config.getKeys()) {
             taskConfigurations.put(id, new TaskConfiguration(config, id));
         }
 

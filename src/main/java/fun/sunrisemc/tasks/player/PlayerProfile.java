@@ -11,7 +11,6 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -34,7 +33,6 @@ import fun.sunrisemc.tasks.task.TriggerType;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
 import fun.sunrisemc.tasks.utils.StringUtils;
-import fun.sunrisemc.tasks.utils.YAMLUtils;
 
 public class PlayerProfile {
 
@@ -63,11 +61,11 @@ public class PlayerProfile {
     protected PlayerProfile(@NotNull UUID uuid) {
         this.uuid = uuid;
 
-        YamlConfiguration playerData = PlayerDataFile.get(uuid);
+        PlayerDataFile playerData = PlayerDataFile.get(uuid);
 
-        xp = YAMLUtils.getInt(playerData, "xp").orElse(0);
+        xp = playerData.getInt("xp").orElse(0);
 
-        skips = YAMLUtils.getInt(playerData, "skips").orElse(0);
+        skips = playerData.getInt("skips").orElse(0);
 
         for (String unlockId : playerData.getStringList("completed-unlocks")) {
             completedUnlocks.add(unlockId);
@@ -77,22 +75,22 @@ public class PlayerProfile {
             completedTasks.add(taskId);
         }
 
-        for (String taskKey : YAMLUtils.getKeys(playerData, "tasks")) {
+        for (String taskKey : playerData.getKeys("tasks")) {
             Optional<TaskConfiguration> taskConfiguration = TaskConfigurationManager.get(taskKey);
             if (!taskConfiguration.isPresent()) {
                 TasksPlugin.logWarning("Removing invalid task " + taskKey + " for player " + uuid.toString() + ".");
                 continue;
             }
 
-            int progress = playerData.getInt("tasks." + taskKey + ".progress");
-            long expires = playerData.getLong("tasks." + taskKey + ".expires");
+            int progress = playerData.getInt("tasks." + taskKey + ".progress").orElse(0);
+            long expires = playerData.getLong("tasks." + taskKey + ".expires").orElse(0L);
             PlayerTask task = new PlayerTask(taskConfiguration.get(), this, progress, expires);
             if (!task.isExpired()) {
                 tasks.add(task);
             }
         }
 
-        Optional<String> colorString = YAMLUtils.getString(playerData, "color");
+        Optional<String> colorString = playerData.getString("color");
         if (colorString.isPresent()) {
             this.color = StringUtils.parseChatColor(colorString.get()).orElse(ChatColor.BLUE);
         }
@@ -440,7 +438,7 @@ public class PlayerProfile {
     // Saving
 
     public void save() {
-        YamlConfiguration playerData = PlayerDataFile.get(uuid);
+        PlayerDataFile playerData = PlayerDataFile.get(uuid);
 
         playerData.set("xp", xp);
 
@@ -448,11 +446,12 @@ public class PlayerProfile {
 
         playerData.set("completed-unlocks", new ArrayList<>(completedUnlocks));
 
-        playerData.set("tasks", null);
+        playerData.clear("tasks");
         for (PlayerTask task : tasks) {
             if (task.isCompleted()) {
                 continue;
             }
+
             String taskId = task.getTaskConfiguration().getId();
             playerData.set("tasks." + taskId + ".progress", task.getProgress());
             playerData.set("tasks." + taskId + ".expires", task.getExpires());
@@ -462,7 +461,7 @@ public class PlayerProfile {
 
         playerData.set("color", color.getName());
 
-        PlayerDataFile.save(uuid, playerData);
+        playerData.save();
 
         if (!isOnline()) {
             PlayerProfileManager.unload(uuid);

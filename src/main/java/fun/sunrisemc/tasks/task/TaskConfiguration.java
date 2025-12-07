@@ -11,7 +11,6 @@ import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -25,12 +24,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import fun.sunrisemc.tasks.TasksPlugin;
+import fun.sunrisemc.tasks.file.ConfigFile;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
 import fun.sunrisemc.tasks.utils.Names;
 import fun.sunrisemc.tasks.utils.StringUtils;
-import fun.sunrisemc.tasks.utils.YAMLUtils;
 
 public class TaskConfiguration {
 
@@ -154,10 +153,10 @@ public class TaskConfiguration {
 
     // Constructor
 
-    protected TaskConfiguration(@NotNull YamlConfiguration config, @NotNull String id) {
+    protected TaskConfiguration(@NotNull ConfigFile config, @NotNull String id) {
         this.id = id;
 
-        for (String setting : YAMLUtils.getKeys(config, id)) {
+        for (String setting : config.getKeys(id)) {
             if (!SETTINGS.contains(setting)) {
                 TasksPlugin.logWarning("Invalid setting for task " + id + ": " + setting + ".");
                 String possibleSettings = String.join(", ", SETTINGS);
@@ -165,22 +164,22 @@ public class TaskConfiguration {
             }
         }
 
-        this.amount = YAMLUtils.getIntClamped(config, id + ".amount", 1, Integer.MAX_VALUE).orElse(1);
+        this.amount = config.getIntClamped(id + ".amount", 1, Integer.MAX_VALUE).orElse(1);
 
-        this.message = YAMLUtils.getString(config, id + ".message");
+        this.message = config.getString(id + ".message");
 
-        this.timeLimitMS = YAMLUtils.getInt(config, id + ".time-limit-minutes").orElse(0) * 60000;
+        this.timeLimitMS = config.getInt(id + ".time-limit-minutes").orElse(0) * 60000;
 
-        this.resetOnDeath = YAMLUtils.getBoolean(config, id + ".reset-on-death").orElse(false);
+        this.resetOnDeath = config.getBoolean(id + ".reset-on-death").orElse(false);
 
-        this.skippable = YAMLUtils.getBoolean(config, id + ".skippable").orElse(true);
+        this.skippable = config.getBoolean(id + ".skippable").orElse(true);
 
-        this.actionbar = YAMLUtils.getBoolean(config, id + ".actionbar").orElse(true);
+        this.actionbar = config.getBoolean( id + ".actionbar").orElse(true);
 
-        if (config.contains(id + ".progress-display")) {
-            String progressDisplayName = config.getString(id + ".progress-display");
-            if (progressDisplayName != null) {
-                Optional<ProgressDisplayType> progressDisplayType = StringUtils.parseProgressDisplayType(progressDisplayName);
+        if (config.hasKey(id + ".progress-display")) {
+            Optional<String> progressDisplayName = config.getString(id + ".progress-display");
+            if (progressDisplayName.isPresent()) {
+                Optional<ProgressDisplayType> progressDisplayType = StringUtils.parseProgressDisplayType(progressDisplayName.get());
                 if (progressDisplayType.isEmpty()) {
                     TasksPlugin.logWarning("Invalid progress display for task " + id + ": " + progressDisplayName + ".");
                     TasksPlugin.logWarning("Valid progress displays are: " + String.join(", ", Names.getProgressDisplayTypeNames()) + ".");
@@ -191,19 +190,19 @@ public class TaskConfiguration {
             }
         }
 
-        this.repeatable = YAMLUtils.getBoolean(config, id + ".repeatable").orElse(true);
+        this.repeatable = config.getBoolean(id + ".repeatable").orElse(true);
 
-        this.minLevel = YAMLUtils.getInt(config, id + ".min-level");
-        this.maxLevel = YAMLUtils.getInt(config, id + ".max-level");
+        this.minLevel = config.getInt(id + ".min-level");
+        this.maxLevel = config.getInt(id + ".max-level");
 
-        this.permission = YAMLUtils.getString(config, id + ".permission");
+        this.permission = config.getString(id + ".permission");
 
         this.prerequisiteTasks.addAll(config.getStringList(id + ".prerequisite-tasks"));
         this.incompatibleTasks.addAll(config.getStringList(id + ".incompatible-tasks"));
         
-        this.rewardMoney = YAMLUtils.getDoubleClamped(config, id + ".reward-money", 0.0, Double.MAX_VALUE).orElse(0.0);
-        this.rewardXp = YAMLUtils.getInt(config, id + ".reward-xp").orElse(0);
-        this.rewardSkips = YAMLUtils.getInt(config, id + ".reward-skips").orElse(0);
+        this.rewardMoney = config.getDoubleClamped(id + ".reward-money", 0.0, Double.MAX_VALUE).orElse(0.0);
+        this.rewardXp = config.getInt(id + ".reward-xp").orElse(0);
+        this.rewardSkips = config.getInt( id + ".reward-skips").orElse(0);
 
         for (String unlockName : config.getStringList(id + ".reward-unlocks")) {
             Optional<Unlock> unlock = UnlockManager.get(unlockName);
@@ -263,16 +262,16 @@ public class TaskConfiguration {
             this.biomes.add(biome.get());
         }
 
-        this.minX = YAMLUtils.getInt(config, id + ".min-x");
-        this.maxX = YAMLUtils.getInt(config, id + ".max-x");
-        this.minY = YAMLUtils.getInt(config, id + ".min-y");
-        this.maxY = YAMLUtils.getInt(config, id + ".max-y");
-        this.minZ = YAMLUtils.getInt(config, id + ".min-z");
-        this.maxZ = YAMLUtils.getInt(config, id + ".max-z");
+        this.minX = config.getInt(id + ".min-x");
+        this.maxX = config.getInt(id + ".max-x");
+        this.minY = config.getInt(id + ".min-y");
+        this.maxY = config.getInt(id + ".max-y");
+        this.minZ = config.getInt(id + ".min-z");
+        this.maxZ = config.getInt(id + ".max-z");
 
-        this.entityIsInWater = YAMLUtils.getBoolean(config, id + ".entity-in-water");
+        this.entityIsInWater = config.getBoolean(id + ".entity-in-water");
 
-        this.entityIsOnGround = YAMLUtils.getBoolean(config, id + ".entity-on-ground");
+        this.entityIsOnGround = config.getBoolean(id + ".entity-on-ground");
 
         for (String entityName : config.getStringList(id + ".entity-names")) {
             this.entityNames.add(entityName);

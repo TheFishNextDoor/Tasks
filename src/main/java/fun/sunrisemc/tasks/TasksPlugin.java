@@ -1,12 +1,9 @@
 package fun.sunrisemc.tasks;
 
 import java.util.ArrayList;
-import java.util.UUID;
-
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -62,7 +59,6 @@ import fun.sunrisemc.tasks.scheduler.TaskRefreshTask;
 import fun.sunrisemc.tasks.scheduler.TimerTriggerTask;
 import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
-import fun.sunrisemc.tasks.utils.YAMLUtils;
 
 public class TasksPlugin extends JavaPlugin {
 
@@ -237,11 +233,10 @@ public class TasksPlugin extends JavaPlugin {
 
     private void applyUpdates() {
         // 1.0.0 -> 1.1.0: Move "xp-curve" to "levels.xp-curve"
-        YamlConfiguration config = ConfigFile.get("config", true);
+        ConfigFile config = ConfigFile.get("config", true);
 
-        if (YAMLUtils.moveKey(config, "xp-curve", "levels.xp-curve")) {
-            ConfigFile.save("config", config);
-
+        if (config.moveKey("xp-curve", "levels.xp-curve")) {
+            config.save();
             logInfo("Config file updated to 1.1.0 format.");
         }
 
@@ -260,13 +255,15 @@ public class TasksPlugin extends JavaPlugin {
             logInfo("Updating player data files to new 1.2.0 format...");
 
             for (String playerDataFileName : playerDataFileNames) {
-                YamlConfiguration playerData = DataFile.get(playerDataFileName);
+                // Get old data file
+                DataFile oldPlayerData = DataFile.get(playerDataFileName);
 
-                UUID uuid = UUID.fromString(playerDataFileName);
+                // Create new player data file
+                PlayerDataFile newPlayerData = new PlayerDataFile(playerDataFileName, oldPlayerData.getConfig());
 
-                // Save as a player data file rather than a generic data file
-                if (PlayerDataFile.save(uuid, playerData)) {
-                    DataFile.delete(playerDataFileName);
+                // Save and delete old file
+                if (newPlayerData.save()) {
+                    oldPlayerData.delete();
                 }
             }
 

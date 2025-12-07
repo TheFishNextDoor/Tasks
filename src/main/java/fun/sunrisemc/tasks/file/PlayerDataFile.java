@@ -10,10 +10,58 @@ import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 
-public class PlayerDataFile {
+public class PlayerDataFile extends YAMLWrapper {
+
+    // Instance //
+
+    protected final @NotNull String name;
+
+    public PlayerDataFile(@NotNull String name, @NotNull YamlConfiguration config) {
+        super(config);
+        this.name = name;
+    }
+
+    public boolean save() {
+        // Get the file
+        File file = new File(getFolder(), this.name + ".yml");
+
+        // Save the configuration
+        try {
+            this.config.save(file);
+            return true;
+        }
+        catch (Exception e) {
+            TasksPlugin.logSevere("Failed to save player data file for " + name + ".yml.");
+            return false;
+        }
+    }
+
+    public boolean delete() {
+        // Get the player data folder
+        File playerDataFolder = getFolder();
+        
+        // Get the file
+        File file = new File(playerDataFolder, this.name + ".yml");
+
+        // Check if the file exists
+        if (!file.exists()) {
+            return true;
+        }
+
+        // Attempt to delete the file
+        try {
+            return file.delete();
+        }
+        catch (Exception e) {
+            TasksPlugin.logSevere("Failed to delete player data file for " + this.name + ".yml.");
+            return false;
+        }
+    }
+
+    // Static Methods //
 
     @NotNull
-    public static YamlConfiguration get(@NotNull UUID uuid) {
+    public static PlayerDataFile get(@NotNull UUID uuid) {
         // Get the name
         String name = uuid.toString();
 
@@ -27,70 +75,14 @@ public class PlayerDataFile {
             }
             catch (Exception e) {
                 TasksPlugin.logSevere("Failed to create player data file for " + name + ".yml.");
-                return new YamlConfiguration();
+                return new PlayerDataFile(name, new YamlConfiguration());
             }
         }
 
         // Load the configuration
         YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(playerDataFile);
         
-        return yamlConfiguration;
-    }
-
-    public static boolean save(@NotNull UUID uuid, @NotNull YamlConfiguration data) {
-        // Get the name
-        String name = uuid.toString();
-
-        // Get the file
-        File playerDataFile = new File(getFolder(), name + ".yml");
-
-        // Save the configuration
-        try {
-            data.save(playerDataFile);
-            return true;
-        }
-        catch (Exception e) {
-            TasksPlugin.logSevere("Failed to save player data file for " + name + ".yml.");
-            return false;
-        }
-    }
-
-    public static boolean delete(@NotNull String name) {
-        // Get the player data folder
-        File playerDataFolder = getFolder();
-        
-        // Get the file
-        File playerDataFile = new File(playerDataFolder, name + ".yml");
-
-        // Check if the file exists
-        if (!playerDataFile.exists()) {
-            return true;
-        }
-
-        // Attempt to delete the file
-        try {
-            return playerDataFile.delete();
-        }
-        catch (Exception e) {
-            TasksPlugin.logSevere("Failed to delete player data file for " + name + ".yml.");
-            return false;
-        }
-    }
-
-    @NotNull
-    public static File getFolder() {
-        // Get data folder
-        File dataFolder = DataFile.getFolder();
-
-        // Get player data folder
-        File playerDataFolder = new File(dataFolder, "players");
-
-        // Create the player data folder if it does not exist
-        if (!playerDataFolder.exists()) {
-            playerDataFolder.mkdirs();
-        }
-        
-        return playerDataFolder;
+        return new PlayerDataFile(name, yamlConfiguration);
     }
 
     @NotNull
@@ -118,5 +110,21 @@ public class PlayerDataFile {
         }
 
         return names;
+    }
+
+    @NotNull
+    protected static File getFolder() {
+        // Get data folder
+        File dataFolder = DataFile.getFolder();
+
+        // Get player data folder
+        File playerDataFolder = new File(dataFolder, "players");
+
+        // Create the player data folder if it does not exist
+        if (!playerDataFolder.exists()) {
+            playerDataFolder.mkdirs();
+        }
+        
+        return playerDataFolder;
     }
 }

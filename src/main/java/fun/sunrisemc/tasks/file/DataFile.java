@@ -9,60 +9,47 @@ import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 
-public class DataFile {
+public class DataFile extends YAMLWrapper {
 
-    @NotNull
-    public static YamlConfiguration get(@NotNull String name) {
-        // Get the file
-        File dataFile = new File(getFolder(), name + ".yml");
+    // Instance //
 
-        // Create the file if it does not exist
-        if (!dataFile.exists()) {
-            try {
-                dataFile.createNewFile();
-            }
-            catch (Exception e) {
-                TasksPlugin.logSevere("Failed to create data file for " + name + ".yml.");
-                return new YamlConfiguration();
-            }
-        }
-        
-        // Load the configuration
-        YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(dataFile);
+    protected final String name;
 
-        return yamlConfiguration;
+    public DataFile(@NotNull String name, YamlConfiguration configuration) {
+        super(configuration);
+        this.name = name;
     }
 
-    public static boolean save(@NotNull String name, @NotNull YamlConfiguration data) {
+    public boolean save() {
         // Get the file
-        File dataFile = new File(getFolder(), name + ".yml");
+        File file = new File(getFolder(), this.name + ".yml");
 
         // Save the configuration
         try {
-            data.save(dataFile);
+            this.config.save(file);
             return true;
         }
         catch (Exception e) {
-            TasksPlugin.logSevere("Failed to save data file for " + name + ".yml.");
+            TasksPlugin.logSevere("Failed to save data file for " + this.name + ".yml.");
             return false;
         }
     }
 
-    public static boolean delete(@NotNull String name) {
+    public boolean delete() {
         // Get the player data folder
         File dataFile = getFolder();
         
         // Get the file
-        File playerDataFile = new File(dataFile, name + ".yml");
+        File file = new File(dataFile, this.name + ".yml");
 
         // Check if the file exists
-        if (!playerDataFile.exists()) {
+        if (!file.exists()) {
             return true;
         }
 
         // Attempt to delete the file
         try {
-            return playerDataFile.delete();
+            return file.delete();
         }
         catch (Exception e) {
             TasksPlugin.logSevere("Failed to delete data file for " + name + ".yml.");
@@ -70,20 +57,28 @@ public class DataFile {
         }
     }
 
+    // Static Methods //
+
     @NotNull
-    public static File getFolder() {
-        // Get plugin folder
-        File pluginFolder = ConfigFile.getFolder();
+    public static DataFile get(@NotNull String name) {
+        // Get the file
+        File file = new File(getFolder(), name + ".yml");
 
-        // Get the data folder
-        File dataFolder = new File(pluginFolder, "data");
-
-        // Create the data folder if it does not exist
-        if (!dataFolder.exists()) {
-            dataFolder.mkdirs();
+        // Create the file if it does not exist
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            }
+            catch (Exception e) {
+                TasksPlugin.logSevere("Failed to create data file for " + name + ".yml.");
+                return new DataFile(name, new YamlConfiguration());
+            }
         }
+        
+        // Load the configuration
+        YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(file);
 
-        return dataFolder;
+        return new DataFile(name, yamlConfiguration);
     }
     
     @NotNull
@@ -111,5 +106,21 @@ public class DataFile {
         }
 
         return names;
-    } 
+    }
+
+    @NotNull
+    protected static File getFolder() {
+        // Get plugin folder
+        File pluginFolder = ConfigFile.getFolder();
+
+        // Get the data folder
+        File dataFolder = new File(pluginFolder, "data");
+
+        // Create the data folder if it does not exist
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
+        }
+
+        return dataFolder;
+    }
 }

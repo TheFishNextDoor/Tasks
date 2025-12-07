@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
@@ -16,9 +15,9 @@ import org.jetbrains.annotations.NotNull;
 import net.milkbowl.vault.permission.Permission;
 
 import fun.sunrisemc.tasks.TasksPlugin;
+import fun.sunrisemc.tasks.file.ConfigFile;
 import fun.sunrisemc.tasks.hook.Vault;
 import fun.sunrisemc.tasks.player.PlayerProfile;
-import fun.sunrisemc.tasks.utils.YAMLUtils;
 
 public class Unlock implements Comparable<Unlock> {
 
@@ -42,10 +41,10 @@ public class Unlock implements Comparable<Unlock> {
     private @NotNull ArrayList<String> playerCommands = new ArrayList<String>();
     private @NotNull ArrayList<String> messages = new ArrayList<String>();
 
-    Unlock(@NotNull YamlConfiguration config, @NotNull String id) {
+    Unlock(@NotNull ConfigFile config, @NotNull String id) {
         this.id = id;
 
-        for (String setting : YAMLUtils.getKeys(config, id)) {
+        for (String setting : config.getKeys(id)) {
             if (!SETTINGS.contains(setting)) {
                 TasksPlugin.logWarning("Invalid setting for unlock " + id + ": " + setting + ".");
                 String possibleSettings = String.join(", ", SETTINGS);
@@ -53,9 +52,9 @@ public class Unlock implements Comparable<Unlock> {
             }
         }
 
-        level = YAMLUtils.getInt(config, id + ".level").orElse(0);
+        level = config.getInt(id + ".level").orElse(0);
 
-        name = YAMLUtils.getString(config, id + ".name");
+        name = config.getString(id + ".name");
         
         for (String permission : config.getStringList(id + ".permissions")) {
             permissions.add(permission);
