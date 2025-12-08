@@ -15,6 +15,7 @@ public class AutoSaveTask {
         if (id != -1) {
             return;
         }
+        
         id = Bukkit.getScheduler().runTaskTimerAsynchronously(TasksPlugin.getInstance(), () -> {
             PlayerProfileManager.saveAll();
         }, INTERVAL, INTERVAL).getTaskId();
@@ -24,6 +25,7 @@ public class AutoSaveTask {
         if (id == -1) {
             return;
         }
+
         Bukkit.getScheduler().cancelTask(id);
         id = -1;
     }

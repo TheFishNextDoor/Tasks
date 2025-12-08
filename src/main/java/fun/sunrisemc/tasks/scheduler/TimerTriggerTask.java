@@ -19,6 +19,7 @@ public class TimerTriggerTask {
         if (id != -1) {
             return;
         }
+        
         id = Bukkit.getScheduler().scheduleSyncRepeatingTask(TasksPlugin.getInstance(), () -> {
             Bukkit.getOnlinePlayers().forEach(player -> {
                 if (player == null) {
@@ -38,6 +39,7 @@ public class TimerTriggerTask {
         if (id == -1) {
             return;
         }
+
         Bukkit.getScheduler().cancelTask(id);
         id = -1;
     }
