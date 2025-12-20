@@ -28,7 +28,6 @@ import fun.sunrisemc.tasks.file.ConfigFile;
 import fun.sunrisemc.tasks.player.PlayerProfile;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
-import fun.sunrisemc.tasks.utils.Names;
 import fun.sunrisemc.tasks.utils.StringUtils;
 
 public class TaskConfiguration {
@@ -182,7 +181,7 @@ public class TaskConfiguration {
                 Optional<ProgressDisplayType> progressDisplayType = StringUtils.parseProgressDisplayType(progressDisplayName.get());
                 if (progressDisplayType.isEmpty()) {
                     TasksPlugin.logWarning("Invalid progress display for task " + id + ": " + progressDisplayName + ".");
-                    TasksPlugin.logWarning("Valid progress displays are: " + String.join(", ", Names.getProgressDisplayTypeNames()) + ".");
+                    TasksPlugin.logWarning("Valid progress displays are: " + String.join(", ", StringUtils.getProgressDisplayTypeNames()) + ".");
                 }
                 else {
                     this.progressDisplayType = progressDisplayType.get();
@@ -229,7 +228,7 @@ public class TaskConfiguration {
             Optional<TriggerType> triggerType = StringUtils.parseTriggerType(triggerName);
             if (triggerType.isEmpty()) {
                 TasksPlugin.logWarning("Invalid trigger for task " + id + ": " + triggerName + ".");
-                TasksPlugin.logWarning("Valid triggers are: " + String.join(", ", Names.getTriggerTypeNames()) + ".");
+                TasksPlugin.logWarning("Valid triggers are: " + String.join(", ", StringUtils.getTriggerTypeNames()) + ".");
                 continue;
             }
             this.triggers.add(triggerType.get());
@@ -246,7 +245,7 @@ public class TaskConfiguration {
             Optional<Environment> environment = StringUtils.parseEnvironment(environmentName);
             if (environment.isEmpty()) {
                 TasksPlugin.logWarning("Invalid environment for task " + id + ": " + environmentName + ".");
-                TasksPlugin.logWarning("Valid environments are: " + String.join(", ", Names.getEnvironmentNames()) + ".");
+                TasksPlugin.logWarning("Valid environments are: " + String.join(", ", StringUtils.getEnvironmentNames()) + ".");
                 continue;
             }
             this.environments.add(environment.get());
@@ -256,7 +255,7 @@ public class TaskConfiguration {
             Optional<Biome> biome = StringUtils.parseBiome(biomeName);
             if (biome.isEmpty()) {
                 TasksPlugin.logWarning("Invalid biome for task " + id + ": " + biomeName + ".");
-                TasksPlugin.logWarning("Valid biomes are: " + String.join(", ", Names.getBiomeNames()) + ".");
+                TasksPlugin.logWarning("Valid biomes are: " + String.join(", ", StringUtils.getBiomeNames()) + ".");
                 continue;
             }
             this.biomes.add(biome.get());
@@ -281,7 +280,7 @@ public class TaskConfiguration {
             Optional<EntityType> entityType = StringUtils.parseEntityType(entityTypeName);
             if (entityType.isEmpty()) {
                 TasksPlugin.logWarning("Invalid entity type for task " + id + ": " + entityTypeName + ".");
-                TasksPlugin.logWarning("Valid entity types are: " + String.join(", ", Names.getEntityTypeNames()) + ".");
+                TasksPlugin.logWarning("Valid entity types are: " + String.join(", ", StringUtils.getEntityTypeNames()) + ".");
                 continue;
             }
             this.entityTypes.add(entityType.get());
@@ -291,7 +290,7 @@ public class TaskConfiguration {
             Optional<SpawnCategory> entityCategory = StringUtils.parseSpawnCategory(categoryName);
             if (entityCategory.isEmpty()) {
                 TasksPlugin.logWarning("Invalid entity category for task " + id + ": " + categoryName + ".");
-                TasksPlugin.logWarning("Valid entity categories are: " + String.join(", ", Names.getSpawnCategoryNames()) + ".");
+                TasksPlugin.logWarning("Valid entity categories are: " + String.join(", ", StringUtils.getSpawnCategoryNames()) + ".");
                 continue;
             }
             this.entityCategories.add(entityCategory.get());

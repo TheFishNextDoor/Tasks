@@ -25,7 +25,6 @@ import fun.sunrisemc.tasks.task.TaskConfiguration;
 import fun.sunrisemc.tasks.task.TaskConfigurationManager;
 import fun.sunrisemc.tasks.unlock.Unlock;
 import fun.sunrisemc.tasks.unlock.UnlockManager;
-import fun.sunrisemc.tasks.utils.Names;
 import fun.sunrisemc.tasks.utils.StringUtils;
 
 public class TasksAdminCommand implements CommandExecutor, TabCompleter {
@@ -79,7 +78,7 @@ public class TasksAdminCommand implements CommandExecutor, TabCompleter {
         }
         else if (args.length == 3) {
             // /tasksadmin <subcommand1> <subcommand2> <player>
-            return Names.getOnlinePlayerNames();
+            return StringUtils.getOnlinePlayerNames();
         }
         else if (args.length == 4) {
             // Get player
