@@ -68,7 +68,7 @@ public class StringUtils {
     public static ArrayList<String> getProgressDisplayTypeNames() {
         ArrayList<String> names = new ArrayList<>();
         for (ProgressDisplayType commandType : ProgressDisplayType.values()) {
-            String formattedName = StringUtils.formatName(commandType.name());
+            String formattedName = kebabCase(commandType.name());
             names.add(formattedName);
         }
         return names;
@@ -91,7 +91,7 @@ public class StringUtils {
     public static ArrayList<String> getTriggerTypeNames() {
         ArrayList<String> names = new ArrayList<>();
         for (TriggerType triggerType : TriggerType.values()) {
-            String formattedName = StringUtils.formatName(triggerType.name());
+            String formattedName = kebabCase(triggerType.name());
             names.add(formattedName);
         }
         return names;
@@ -119,9 +119,9 @@ public class StringUtils {
     // Material
 
     public static Optional<org.bukkit.Material> parseMaterial(@NotNull String materialName) {
-        String normalizedNameA = normalize(materialName);
+        String normalizedNameA = normalize(stripMinecraftTag(materialName));
         for (org.bukkit.Material material : org.bukkit.Material.values()) {
-            String normalizedNameB = normalize(material.name());
+            String normalizedNameB = normalize(stripMinecraftTag(material.name()));
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(material);
             }
@@ -144,9 +144,9 @@ public class StringUtils {
     // Environment
 
     public static Optional<Environment> parseEnvironment(@NotNull String environmentName) {
-        String normalizedNameA = normalize(environmentName);
+        String normalizedNameA = normalize(stripMinecraftTag(environmentName));
         for (Environment environment : Environment.values()) {
-            String normalizedNameB = normalize(environment.name());
+            String normalizedNameB = normalize(stripMinecraftTag(environment.name()));
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(environment);
             }
@@ -158,7 +158,7 @@ public class StringUtils {
     public static ArrayList<String> getEnvironmentNames() {
         ArrayList<String> names = new ArrayList<>();
         for (Environment environment : Environment.values()) {
-            String formattedName = StringUtils.formatName(environment.name());
+            String formattedName = kebabCase(stripMinecraftTag(environment.name()));
             names.add(formattedName);
         }
         return names;
@@ -167,9 +167,9 @@ public class StringUtils {
     // Biome
 
     public static Optional<Biome> parseBiome(@NotNull String biomeName) {
-        String normalizedNameA = normalize(biomeName);
+        String normalizedNameA = normalize(stripMinecraftTag(biomeName));
         for (Biome biome : Biome.values()) {
-            String normalizedNameB = normalize(biome.name());
+            String normalizedNameB = normalize(stripMinecraftTag(biome.name()));
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(biome);
             }
@@ -181,7 +181,7 @@ public class StringUtils {
     public static ArrayList<String> getBiomeNames() {
         ArrayList<String> names = new ArrayList<>();
         for (Biome biome : Biome.values()) {
-            String formattedName = StringUtils.formatName(biome.name());
+            String formattedName = kebabCase(stripMinecraftTag(biome.name()));
             names.add(formattedName);
         }
         return names;
@@ -190,9 +190,9 @@ public class StringUtils {
     // Entity Type
 
     public static Optional<EntityType> parseEntityType(@NotNull String entityTypeName) {
-        String normalizedNameA = normalize(entityTypeName);
+        String normalizedNameA = normalize(stripMinecraftTag(entityTypeName));
         for (EntityType entityType : EntityType.values()) {
-            String normalizedNameB = normalize(entityType.name());
+            String normalizedNameB = normalize(stripMinecraftTag(entityType.name()));
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(entityType);
             }
@@ -204,7 +204,7 @@ public class StringUtils {
     public static ArrayList<String> getEntityTypeNames() {
         ArrayList<String> names = new ArrayList<>();
         for (EntityType entityType : EntityType.values()) {
-            String formattedName = StringUtils.formatName(entityType.name());
+            String formattedName = kebabCase(stripMinecraftTag(entityType.name()));
             names.add(formattedName);
         }
         return names;
@@ -213,9 +213,9 @@ public class StringUtils {
     // Spawn Category
 
     public static Optional<SpawnCategory> parseSpawnCategory(@NotNull String spawnCategoryName) {
-        String normalizedNameA = normalize(spawnCategoryName);
+        String normalizedNameA = normalize(stripMinecraftTag(spawnCategoryName));
         for (SpawnCategory spawnCategory : SpawnCategory.values()) {
-            String normalizedNameB = normalize(spawnCategory.name());
+            String normalizedNameB = normalize(stripMinecraftTag(spawnCategory.name()));
             if (normalizedNameA.equals(normalizedNameB)) {
                 return Optional.of(spawnCategory);
             }
@@ -227,7 +227,7 @@ public class StringUtils {
     public static ArrayList<String> getSpawnCategoryNames() {
         ArrayList<String> names = new ArrayList<>();
         for (org.bukkit.entity.SpawnCategory spawnCategory : org.bukkit.entity.SpawnCategory.values()) {
-            String formattedName = StringUtils.formatName(spawnCategory.name());
+            String formattedName = kebabCase(stripMinecraftTag(spawnCategory.name()));
             names.add(formattedName);
         }
         return names;
@@ -281,16 +281,6 @@ public class StringUtils {
             String moneyFormatted = money % 1 == 0 ? String.format("%.0f", money) : String.format("%.2f", money);
             return prefix + moneyFormatted;
         }
-    }
-
-    @NotNull
-    public static String formatName(@NotNull String name) {
-        return name.toLowerCase()
-                   .replace("minecraft:", "")
-                   .replace(" ", "-")
-                   .replace("_", "-")
-                   .replace(":", "-")
-                   .trim();
     }
 
     // Casing
