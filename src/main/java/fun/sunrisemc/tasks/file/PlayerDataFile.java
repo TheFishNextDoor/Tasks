@@ -10,6 +10,9 @@ import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 
+/**
+ * File Package Version 1.0.0
+ */
 public class PlayerDataFile extends YAMLWrapper {
 
     // Instance //

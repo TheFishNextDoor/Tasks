@@ -9,6 +9,9 @@ import org.jetbrains.annotations.NotNull;
 
 import fun.sunrisemc.tasks.TasksPlugin;
 
+/**
+ * File Package Version 1.0.0
+ */
 public class DataFile extends YAMLWrapper {
 
     // Instance //
@@ -113,7 +116,7 @@ public class DataFile extends YAMLWrapper {
         // Get plugin folder
         File pluginFolder = ConfigFile.getFolder();
 
-        // Get the data folder
+        // Get the data folder 
         File dataFolder = new File(pluginFolder, "data");
 
         // Create the data folder if it does not exist

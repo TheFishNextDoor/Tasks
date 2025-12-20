@@ -1,8 +1,9 @@
 package fun.sunrisemc.tasks.file;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.bukkit.configuration.ConfigurationSection;
@@ -10,6 +11,11 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import org.jetbrains.annotations.NotNull;
 
+import fun.sunrisemc.tasks.TasksPlugin;
+
+/**
+ * File Package Version 1.0.0
+ */
 public abstract class YAMLWrapper {
 
     // Fields
@@ -22,7 +28,7 @@ public abstract class YAMLWrapper {
         this.config = config;
     }
 
-    // Config
+    // YAML
 
     @NotNull
     public YamlConfiguration getYAML() {
@@ -109,27 +115,12 @@ public abstract class YAMLWrapper {
 
         int value = this.config.getInt(path);
 
-        return Optional.of(Math.clamp(value, min, max));
-    }
-
-    public Optional<Double> getDouble(@NotNull String path) {
-        if (!this.config.contains(path)) {
-            return Optional.empty();
+        int clampedValue = Math.clamp(value, min, max);
+        if (clampedValue != value) {
+            TasksPlugin.logWarning("Value of '" + path + "' was clamped from " + value + " to " + clampedValue + ".");
         }
 
-        double value = this.config.getDouble(path);
-
-        return Optional.of(value);
-    }
-
-    public Optional<Double> getDoubleClamped(@NotNull String path, double min, double max) {
-        if (!this.config.contains(path)) {
-            return Optional.empty();
-        }
-
-        double value = this.config.getDouble(path);
-
-        return Optional.of(Math.clamp(value, min, max));
+        return Optional.of(clampedValue);
     }
 
     public Optional<Long> getLong(@NotNull String path) {
@@ -149,7 +140,37 @@ public abstract class YAMLWrapper {
 
         long value = this.config.getLong(path);
 
-        return Optional.of(Math.clamp(value, min, max));
+        long clampedValue = Math.clamp(value, min, max);
+        if (clampedValue != value) {
+            TasksPlugin.logWarning("Value of '" + path + "' was clamped from " + value + " to " + clampedValue + ".");
+        }
+
+        return Optional.of(clampedValue);
+    }
+
+    public Optional<Double> getDouble(@NotNull String path) {
+        if (!this.config.contains(path)) {
+            return Optional.empty();
+        }
+
+        double value = this.config.getDouble(path);
+
+        return Optional.of(value);
+    }
+
+    public Optional<Double> getDoubleClamped(@NotNull String path, double min, double max) {
+        if (!this.config.contains(path)) {
+            return Optional.empty();
+        }
+
+        double value = this.config.getDouble(path);
+
+        double clampedValue = Math.clamp(value, min, max);
+        if (clampedValue != value) {
+            TasksPlugin.logWarning("Value of '" + path + "' was clamped from " + value + " to " + clampedValue + ".");
+        }
+
+        return Optional.of(clampedValue);
     }
 
     public Optional<String> getString(@NotNull String path) {
@@ -163,9 +184,9 @@ public abstract class YAMLWrapper {
     }
 
     @NotNull
-    public List<String> getStringList(@NotNull String path) {
+    public Optional<List<String>> getStringList(@NotNull String path) {
         if (!this.config.contains(path)) {
-            return new ArrayList<String>();
+            return Optional.empty();
         }
 
         List<String> StringList = this.config.getStringList(path);
@@ -175,15 +196,126 @@ public abstract class YAMLWrapper {
             if (singleString != null) {
                 StringList = List.of(singleString);
             }
+            else {
+                return Optional.empty();
+            }
         }
 
-        return StringList;
+        return Optional.of(StringList);
+    }
+
+    public Optional<HashMap<String, Boolean>> getBooleanMap(@NotNull String path) {
+        if (!this.config.contains(path)) {
+            return Optional.empty();
+        }
+
+        HashMap<String, Boolean> map = new HashMap<>();
+
+        ConfigurationSection section = this.config.getConfigurationSection(path);
+        if (section == null) {
+            return Optional.empty();
+        }
+
+        for (String key : section.getKeys(false)) {
+            boolean value = section.getBoolean(key);
+            map.put(key, value);
+        }
+
+        return Optional.of(map);
+    }
+
+    public Optional<HashMap<String, Integer>> getIntegerMap(@NotNull String path) {
+        if (!this.config.contains(path)) {
+            return Optional.empty();
+        }
+
+        HashMap<String, Integer> map = new HashMap<>();
+
+        ConfigurationSection section = this.config.getConfigurationSection(path);
+        if (section == null) {
+            return Optional.empty();
+        }
+
+        for (String key : section.getKeys(false)) {
+            int value = section.getInt(key);
+            map.put(key, value);
+        }
+
+        return Optional.of(map);
+    }
+
+    public Optional<HashMap<String, Long>> getLongMap(@NotNull String path) {
+        if (!this.config.contains(path)) {
+            return Optional.empty();
+        }
+
+        HashMap<String, Long> map = new HashMap<>();
+
+        ConfigurationSection section = this.config.getConfigurationSection(path);
+        if (section == null) {
+            return Optional.empty();
+        }
+
+        for (String key : section.getKeys(false)) {
+            long value = section.getLong(key);
+            map.put(key, value);
+        }
+
+        return Optional.of(map);
+    }
+
+    public Optional<HashMap<String, Double>> getDoubleMap(@NotNull String path) {
+        if (!this.config.contains(path)) {
+            return Optional.empty();
+        }
+
+        HashMap<String, Double> map = new HashMap<>();
+
+        ConfigurationSection section = this.config.getConfigurationSection(path);
+        if (section == null) {
+            return Optional.empty();
+        }
+
+        for (String key : section.getKeys(false)) {
+            double value = section.getDouble(key);
+            map.put(key, value);
+        }
+
+        return Optional.of(map);
+    }
+
+    public Optional<HashMap<String, String>> getStringMap(@NotNull String path) {
+        if (!this.config.contains(path)) {
+            return Optional.empty();
+        }
+
+        HashMap<String, String> map = new HashMap<>();
+
+        ConfigurationSection section = this.config.getConfigurationSection(path);
+        if (section == null) {
+            return Optional.empty();
+        }
+
+        for (String key : section.getKeys(false)) {
+            String value = section.getString(key);
+            if (value != null) {
+                map.put(key, value);
+            }
+        }
+
+        return Optional.of(map);
     }
 
     // Writing Values
 
     public void set(@NotNull String path, @NotNull Object value) {
         this.config.set(path, value);
+    }
+
+    public void setAll(@NotNull String path, @NotNull Map<String, ?> values) {
+        for (String key : values.keySet()) {
+            this.config.set(path + "." + key, values.get(key));
+        }
     }
 
     public void clear(@NotNull String path) {

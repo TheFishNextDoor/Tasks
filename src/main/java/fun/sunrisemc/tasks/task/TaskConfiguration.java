@@ -197,14 +197,14 @@ public class TaskConfiguration {
 
         this.permission = config.getString(id + ".permission");
 
-        this.prerequisiteTasks.addAll(config.getStringList(id + ".prerequisite-tasks"));
-        this.incompatibleTasks.addAll(config.getStringList(id + ".incompatible-tasks"));
+        this.prerequisiteTasks.addAll(config.getStringList(id + ".prerequisite-tasks").orElse(new ArrayList<>()));
+        this.incompatibleTasks.addAll(config.getStringList(id + ".incompatible-tasks").orElse(new ArrayList<>()));
         
         this.rewardMoney = config.getDoubleClamped(id + ".reward-money", 0.0, Double.MAX_VALUE).orElse(0.0);
         this.rewardXp = config.getInt(id + ".reward-xp").orElse(0);
         this.rewardSkips = config.getInt( id + ".reward-skips").orElse(0);
 
-        for (String unlockName : config.getStringList(id + ".reward-unlocks")) {
+        for (String unlockName : config.getStringList(id + ".reward-unlocks").orElse(new ArrayList<>())) {
             Optional<Unlock> unlock = UnlockManager.get(unlockName);
             if (!unlock.isPresent()) {
                 TasksPlugin.logWarning("Invalid reward unlock for task " + id + ": " + unlockName + ".");
@@ -213,19 +213,19 @@ public class TaskConfiguration {
             this.rewardUnlocks.add(unlock.get());
         }
 
-        for (String consoleCommand : config.getStringList(id + ".reward-console-commands")) {
+        for (String consoleCommand : config.getStringList(id + ".reward-console-commands").orElse(new ArrayList<>())) {
             this.rewardConsoleCommands.add(consoleCommand);
         }
 
-        for (String playerCommand : config.getStringList(id + ".reward-player-commands")) {
+        for (String playerCommand : config.getStringList(id + ".reward-player-commands").orElse(new ArrayList<>())) {
             this.rewardPlayerCommands.add(playerCommand);
         }
 
-        for (String rewardMessage : config.getStringList(id + ".reward-messages")) {
+        for (String rewardMessage : config.getStringList(id + ".reward-messages").orElse(new ArrayList<>())) {
             this.rewardMessages.add(ChatColor.translateAlternateColorCodes('&', rewardMessage));
         }
 
-        for (String triggerName : config.getStringList(id + ".triggers")) {
+        for (String triggerName : config.getStringList(id + ".triggers").orElse(new ArrayList<>())) {
             Optional<TriggerType> triggerType = StringUtils.parseTriggerType(triggerName);
             if (triggerType.isEmpty()) {
                 TasksPlugin.logWarning("Invalid trigger for task " + id + ": " + triggerName + ".");
@@ -238,11 +238,11 @@ public class TaskConfiguration {
             TasksPlugin.logWarning("No triggers for task " + id);
         }
 
-        for (String worldName : config.getStringList(id + ".worlds")) {
+        for (String worldName : config.getStringList(id + ".worlds").orElse(new ArrayList<>())) {
             this.worlds.add(worldName);
         }
 
-        for (String environmentName : config.getStringList(id + ".environments")) {
+        for (String environmentName : config.getStringList(id + ".environments").orElse(new ArrayList<>())) {
             Optional<Environment> environment = StringUtils.parseEnvironment(environmentName);
             if (environment.isEmpty()) {
                 TasksPlugin.logWarning("Invalid environment for task " + id + ": " + environmentName + ".");
@@ -252,7 +252,7 @@ public class TaskConfiguration {
             this.environments.add(environment.get());
         }
 
-        for (String biomeName : config.getStringList(id + ".biomes")) {
+        for (String biomeName : config.getStringList(id + ".biomes").orElse(new ArrayList<>())) {
             Optional<Biome> biome = StringUtils.parseBiome(biomeName);
             if (biome.isEmpty()) {
                 TasksPlugin.logWarning("Invalid biome for task " + id + ": " + biomeName + ".");
@@ -273,11 +273,11 @@ public class TaskConfiguration {
 
         this.entityIsOnGround = config.getBoolean(id + ".entity-on-ground");
 
-        for (String entityName : config.getStringList(id + ".entity-names")) {
+        for (String entityName : config.getStringList(id + ".entity-names").orElse(new ArrayList<>())) {
             this.entityNames.add(entityName);
         }
 
-        for (String entityTypeName : config.getStringList(id + ".entity-types")) {
+        for (String entityTypeName : config.getStringList(id + ".entity-types").orElse(new ArrayList<>())) {
             Optional<EntityType> entityType = StringUtils.parseEntityType(entityTypeName);
             if (entityType.isEmpty()) {
                 TasksPlugin.logWarning("Invalid entity type for task " + id + ": " + entityTypeName + ".");
@@ -287,7 +287,7 @@ public class TaskConfiguration {
             this.entityTypes.add(entityType.get());
         }
 
-        for (String categoryName : config.getStringList(id + ".entity-categories")) {
+        for (String categoryName : config.getStringList(id + ".entity-categories").orElse(new ArrayList<>())) {
             Optional<SpawnCategory> entityCategory = StringUtils.parseSpawnCategory(categoryName);
             if (entityCategory.isEmpty()) {
                 TasksPlugin.logWarning("Invalid entity category for task " + id + ": " + categoryName + ".");
@@ -297,11 +297,11 @@ public class TaskConfiguration {
             this.entityCategories.add(entityCategory.get());
         }
 
-        for (String itemName : config.getStringList(id + ".item-names")) {
+        for (String itemName : config.getStringList(id + ".item-names").orElse(new ArrayList<>())) {
             this.itemNames.add(itemName);
         }
 
-        for (String itemMaterialName : config.getStringList(id + ".item-materials")) {
+        for (String itemMaterialName : config.getStringList(id + ".item-materials").orElse(new ArrayList<>())) {
             Optional<Material> itemMaterial = StringUtils.parseMaterial(itemMaterialName);
             if (itemMaterial.isEmpty()) {
                 TasksPlugin.logWarning("Invalid item material for task " + id + ": " + itemMaterialName + ".");
@@ -310,7 +310,7 @@ public class TaskConfiguration {
             this.itemMaterials.add(itemMaterial.get());
         }
 
-        for (String blockMaterialName : config.getStringList(id + ".block-materials")) {
+        for (String blockMaterialName : config.getStringList(id + ".block-materials").orElse(new ArrayList<>())) {
             Optional<Material> blockMaterial = StringUtils.parseMaterial(blockMaterialName);
             if (blockMaterial.isEmpty()) {
                 TasksPlugin.logWarning("Invalid block material for task " + id + ": " + blockMaterialName + ".");

@@ -67,11 +67,11 @@ public class PlayerProfile {
 
         skips = playerData.getInt("skips").orElse(0);
 
-        for (String unlockId : playerData.getStringList("completed-unlocks")) {
+        for (String unlockId : playerData.getStringList("completed-unlocks").orElse(new ArrayList<>())) {
             completedUnlocks.add(unlockId);
         }
 
-        for (String taskId : playerData.getStringList("completed-tasks")) {
+        for (String taskId : playerData.getStringList("completed-tasks").orElse(new ArrayList<>())) {
             completedTasks.add(taskId);
         }
 
