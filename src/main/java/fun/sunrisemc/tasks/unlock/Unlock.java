@@ -147,8 +147,12 @@ public class Unlock implements Comparable<Unlock> {
         }
 
         for (String permission : permissions) {
+            if (permission == null || permission.isEmpty()) {
+                continue;
+            }
+
             if (!player.hasPermission(permission)) {
-                permissionsProvider.get().playerAdd(player, permission);
+                permissionsProvider.get().playerAdd(null, player, permission);
             }
         }
     }
